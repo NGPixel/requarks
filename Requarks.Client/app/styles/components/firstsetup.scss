@@ -1,0 +1,38 @@
+#firstsetup {
+  padding-top:100px;
+  position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+  background: radial-gradient(ellipse at center, darken(#B71C1C, 10%), darken(#B71C1C, 35%));
+  border:1px solid darken(#B71C1C, 40%);
+  box-sizing: border-box;
+  z-index: 2147483647;
+  text-align: center;
+
+  .fs-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+
+  .middle {
+    width: 500px;
+    margin:0 auto;
+    text-align: left;
+  }
+
+  i.splash {
+    font-size: 80px;
+    color:#FFF;
+  }
+
+  h1 {
+      color:#FFF;
+      font-size:26px;
+      text-align:center;
+      font-weight:300;
+  }
+
+}

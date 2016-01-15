@@ -1,0 +1,63 @@
+<html>
+<head>
+  <title>Requests</title>
+  <style type="text/css">
+
+    body {
+    	margin: 0;
+    	padding:60px 0 0 0;
+    	font-family: 'Roboto Condensed', sans-serif;
+  		background: radial-gradient(ellipse at center, #8b1515, #1c0404);
+  		text-align: center;
+    }
+    body:before {
+    	display: none;
+    }
+
+  </style>
+  <script src="https://cdn.auth0.com/js/lock-8.1.min.js"></script>
+</head>
+<body onload="init();">
+
+  <script type="text/javascript">
+
+    var lock = new Auth0Lock('kZIFqjAZOql2yVZKXDnQle8BXsItAKqI', 'requests.auth0.com');
+
+    function init() {
+
+      var ipcRenderer = require('electron').ipcRenderer;
+
+      var tokAccess = getParameterByName('access_token');
+      var tokId = getParameterByName('id_token');
+      if(tokAccess.length > 2 && tokId.length > 2) {
+        ipcRenderer.send('auth-callback', tokAccess, tokId);
+      } else {
+        signin();
+      }
+    }
+
+    function signin() {
+
+      lock.show({
+        icon: '/images/requests-50x50.png',
+        callbackURL: 'http://localhost:3000/',
+        responseType: 'token',
+        popup: false,
+        closable: false,
+        socialBigButtons: true,
+        disableSignupAction: true,
+        rememberLastLogin: false
+      });
+    }
+
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[#&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.hash);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+  </script>
+
+</body>
+</html>

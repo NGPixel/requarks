@@ -1,0 +1,237 @@
+﻿
+// =======================================================
+// COLORS
+// =======================================================
+
+// -> UX COLORS
+
+$ux-color-darkpurple: #303050;
+$ux-color-orange: #E08D4F;
+$ux-color-red: #f44336;
+$ux-color-pink: #ff4081;
+$ux-color-darkgrey: #2D3740;
+
+// -> COLORS
+
+$color-blue: #3498db;
+$color-darkblue: #007ec0;
+$color-green:#72c02c;
+$color-red:#f44336;
+$color-grey:#95a5a6;
+$color-orange:#E08D4F;
+$color-pink:#ff4081;
+$color-purple:#9b6bcc;
+$color-yellow:#f1c40f;
+$color-sea:#1abc9c;
+$color-aqua:#27d7e7;
+$color-brown:#9c8061;
+$color-dark:#666;
+
+$colors: (  ('blue',$color-blue),
+            ('green',$color-green),
+            ('red',$color-red),
+            ('grey',$color-grey),
+            ('orange',$color-orange),
+            ('pink',$color-pink),
+            ('purple',$color-purple),
+            ('yellow', $color-yellow),
+            ('sea', $color-sea),
+            ('aqua', $color-aqua),
+            ('brown',$color-brown),
+            ('dark',$color-dark)
+        );
+
+@each $colorname, $colorval in $colors {
+    .color-#{$colorname} {
+        color: #{$colorval} !important;
+    }
+}
+
+// =======================================================
+// FONTS
+// =======================================================
+
+// -> ROBOTO CONDENSED
+
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: local('Roboto Condensed'), local('RobotoCondensed-Regular'), url(../fonts/Roboto_Condensed-normal-400.woff) format('woff');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: local('Roboto Condensed Bold'), local('RobotoCondensed-Bold'), url(../fonts/Roboto_Condensed-normal-700.woff) format('woff');
+    font-weight: 700;
+}
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: local('Roboto Condensed Light'), local('RobotoCondensed-Light'), url(../fonts/Roboto_Condensed-normal-300.woff) format('woff');
+    font-weight: 300;
+}
+$font-roboto: 'Roboto Condensed', sans-serif;
+
+// -> MATERIAL DESIGN ICONS
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url(../fonts/MaterialIcons-Regular.woff2) format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+}
+
+// =======================================================
+// BASE
+// =======================================================
+
+body {
+
+    background: linear-gradient(245deg , #244b66, #2d3740);
+    background-size: 200% 200%;
+    background-position: 0% 80%;
+
+    font-family: $font-roboto;
+    text-align:left;
+    padding:0;
+    margin:0;
+
+  &:before {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    display: block;
+    background: linear-gradient(80deg , #004D40, #01579B, #33691E, #BF360C, #B71C1C, #311B92);
+    background-size: 1200% 1200%;
+    background-position: 0% 80%;
+    transition: background-position 5s ease;
+
+    border-bottom: 2px solid rgba(255,255,255,0.4);
+    width: 100%;
+    height: 110px;
+  }
+
+  &.bg-state-direct:before {
+    transition: all 0s ease;
+  }
+
+  &.bg-state-a:before {
+    background-position: 0% 80%;
+  }
+  &.bg-state-b:before {
+    background-position: 20% 70%;
+  }
+  &.bg-state-c:before {
+    background-position: 35% 60%;
+  }
+  &.bg-state-d:before {
+    background-position: 59% 50%;
+  }
+  &.bg-state-e:before {
+    background-position: 80% 40%;
+  }
+  &.bg-state-f:before {
+    background-position: 100% 30%;
+  }
+
+}
+
+.main-content {
+
+}
+
+.error-page {
+  font-size: 28px;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding-top: 150px;
+}
+
+//-> Flex
+
+.react-flex {
+  margin-left:-15px;
+
+  > .react-flex-item {
+    padding-left:15px;
+  }
+
+}
+
+.flex-vmargin {
+  margin-bottom:10px;
+}
+
+//-> Hidden
+
+.hidden {
+  display: none;
+}
+
+// =======================================================
+// COMPONENTS
+// =======================================================
+
+@import 'components/firstsetup';
+@import 'components/header';
+@import 'components/sidebar';
+@import 'components/forms';
+@import 'components/dashboard';
+@import 'components/new-request';
+@import 'components/logo-anim';
+
+.medium-editor {
+  outline: none;
+  min-height: 250px;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 15px 0;
+  margin-bottom: 8px;
+  color:rgba(0, 0, 0, 0.87);
+
+  a {
+    color:$color-darkblue;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  &:focus {
+    outline:none;
+  }
+
+  &.medium-editor-placeholder {
+    color: rgba(0,0,0,0.3);
+
+    &:after {
+      font-style: normal;
+    }
+
+  }
+
+}
