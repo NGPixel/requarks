@@ -51,7 +51,7 @@ export = {
         let df = Q.defer();
         ipcRenderer.on('get-systempath-desktop', function(event, arg) {
           AppConfig.static.path_desktop = arg
-          AppConfig.static.path = path.join(arg, 'Requests');
+          AppConfig.static.path = path.join(arg, 'Requarks');
           df.resolve();
         });
         ipcRenderer.send('get-systempath', 'get-systempath-desktop', 'desktop');

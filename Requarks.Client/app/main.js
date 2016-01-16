@@ -55,7 +55,7 @@ app.on('ready', function () {
 	// Main Window
 
 	windows.mainWindow = new BrowserWindow({
-		icon: __dirname + '/images/requests-logo.png',
+		icon: __dirname + '/images/requarks-logo.png',
 		width: 1280,
 		height: 768,
 		minWidth: 1280,
@@ -127,8 +127,10 @@ app.on('ready', function () {
 	});
 	windows.splashWindow.loadUrl('file://' + __dirname + '/splash.html');
 
-	var fsetup = require('./core/firstsetup')(app, ipcMain, dialog, windows, mainStore);
-	fsetup.start();
+	windows.splashWindow.show();
+
+	//var fsetup = require('./core/firstsetup')(app, ipcMain, dialog, windows, mainStore);
+	//fsetup.start();
 
 	// Tray
 

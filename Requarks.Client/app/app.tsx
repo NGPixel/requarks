@@ -78,7 +78,7 @@ const Colors = require('material-ui/lib/styles/colors');
 const classNames = require('classnames');
 const { Flex, Item } = require('react-flex');
 
-const RQRawTheme = require('./js/requests-raw-theme');
+const RQRawTheme = require('./js/requarks-raw-theme');
 const ThemeManager = require('material-ui/lib/styles/theme-manager');
 const ThemeDecorator = require('material-ui/lib/styles/theme-decorator');
 

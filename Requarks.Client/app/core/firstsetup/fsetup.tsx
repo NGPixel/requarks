@@ -38,7 +38,7 @@ const Colors = require('material-ui/lib/styles/colors');
 const classNames = require('classnames');
 const { Flex, Item } = require('react-flex');
 
-const RQRawTheme = require('../../js/requests-raw-theme');
+const RQRawTheme = require('../../js/requarks-raw-theme');
 const ThemeManager = require('material-ui/lib/styles/theme-manager');
 const ThemeDecorator = require('material-ui/lib/styles/theme-decorator');
 
@@ -112,7 +112,7 @@ class FirstSetup extends React.Component<IFirstSetupProps, any> {
       case 'lang':
         stepElement = <div>
           <Common.LogoAnim />
-          <h1>Welcome to Requests!</h1>
+          <h1>Welcome to Requarks!</h1>
           <div className="middle">
             <Mui.List>
               <Mui.ListItem primaryText="English" leftIcon={<MuiIcons.NavigationChevronRight />} onClick={() => this.onChooseLanguage('en')} />

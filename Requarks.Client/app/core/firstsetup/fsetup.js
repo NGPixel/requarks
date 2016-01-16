@@ -25,7 +25,7 @@ var MuiIcons = require('material-ui/lib/svg-icons');
 var Colors = require('material-ui/lib/styles/colors');
 var classNames = require('classnames');
 var _b = require('react-flex'), Flex = _b.Flex, Item = _b.Item;
-var RQRawTheme = require('../../js/requests-raw-theme');
+var RQRawTheme = require('../../js/requarks-raw-theme');
 var ThemeManager = require('material-ui/lib/styles/theme-manager');
 var ThemeDecorator = require('material-ui/lib/styles/theme-decorator');
 var Validator = require('validator');
@@ -74,7 +74,7 @@ var FirstSetup = (function (_super) {
         var stepElement = null;
         switch (this.state.step) {
             case 'lang':
-                stepElement = React.createElement("div", null, React.createElement(Common.LogoAnim, null), React.createElement("h1", null, "Welcome to Requests!"), React.createElement("div", {className: "middle"}, React.createElement(Mui.List, null, React.createElement(Mui.ListItem, {primaryText: "English", leftIcon: React.createElement(MuiIcons.NavigationChevronRight, null), onClick: function () { return _this.onChooseLanguage('en'); }}), React.createElement(Mui.ListItem, {primaryText: "Francais", leftIcon: React.createElement(MuiIcons.NavigationChevronRight, null), onClick: function () { return _this.onChooseLanguage('fr'); }}))));
+                stepElement = React.createElement("div", null, React.createElement(Common.LogoAnim, null), React.createElement("h1", null, "Welcome to Requarks!"), React.createElement("div", {className: "middle"}, React.createElement(Mui.List, null, React.createElement(Mui.ListItem, {primaryText: "English", leftIcon: React.createElement(MuiIcons.NavigationChevronRight, null), onClick: function () { return _this.onChooseLanguage('en'); }}), React.createElement(Mui.ListItem, {primaryText: "Francais", leftIcon: React.createElement(MuiIcons.NavigationChevronRight, null), onClick: function () { return _this.onChooseLanguage('fr'); }}))));
                 break;
             case 'servicedomain':
                 stepElement = React.createElement("div", null, React.createElement("i", {className: "splash material-icons"}, "vpn_lock"), React.createElement("h1", null, "Enter the service domain:"), React.createElement("div", {className: "middle"}, React.createElement(Mui.Card, null, React.createElement("div", {className: "content-box"}, React.createElement("section", null, React.createElement(Mui.TextField, {hintText: React.createElement(FormattedMessage, {id: "settings.fields.service.hint"}), fullWidth: true, onChange: this.onChangeServiceDomain}), React.createElement(Common.FormFieldNote, {reqtype: "info", message: "settings.fields.service.info"}))), React.createElement(Mui.CardActions, {style: { textAlign: 'right' }}, React.createElement(Mui.RaisedButton, {label: "Connect", disabled: !this.state.service_domain_valid, onClick: this.onSaveServiceDomain, primary: true, backgroundColor: Colors.green600})))));

@@ -10,11 +10,11 @@ var appDir;
 function init() {
 	// Project directory is the root of the application
 	projectDir = jetpack;
-	// Build directory is our destination where the final build will be placed 
+	// Build directory is our destination where the final build will be placed
 	buildDir = projectDir.dir('./dist', { empty: true });
-	// angular application directory 
+	// angular application directory
 	appDir = projectDir.dir('./app');
-	// angular application's package.json file 
+	// angular application's package.json file
 	manifest = appDir.read('./package.json', 'json');
 	return Q();
 }
@@ -37,10 +37,10 @@ function createAsar() {
 
 function updateResources() {
 	var deferred = Q.defer();
-	
+
 	// Copy your icon from resource folder into build folder.
-	projectDir.copy('requests-icon.ico', buildDir.path('icon.ico'));
-	
+	projectDir.copy('requarks-icon.ico', buildDir.path('icon.ico'));
+
 	// Replace Electron icon for your own.
 	var rcedit = require('rcedit');
 	rcedit(buildDir.path('electron.exe'), {
@@ -56,7 +56,7 @@ function updateResources() {
 	});
 	return deferred.promise;
 }
-//Rename the electron exe 
+//Rename the electron exe
 function rename() {
 	return buildDir.renameAsync('electron.exe', manifest.name + '.exe');
 }

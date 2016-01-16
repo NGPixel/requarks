@@ -37,7 +37,7 @@ var MuiIcons = require('material-ui/lib/svg-icons');
 var Colors = require('material-ui/lib/styles/colors');
 var classNames = require('classnames');
 var _c = require('react-flex'), Flex = _c.Flex, Item = _c.Item;
-var RQRawTheme = require('./js/requests-raw-theme');
+var RQRawTheme = require('./js/requarks-raw-theme');
 var ThemeManager = require('material-ui/lib/styles/theme-manager');
 var ThemeDecorator = require('material-ui/lib/styles/theme-decorator');
 var MediumEditor = require('react-medium-editor');

@@ -10,7 +10,7 @@ module.exports = function (app, ipcMain, dialog, windows, mainStore) {
         },
         start: function () {
             windows.firstsetupWindow = new BrowserWindow({
-                icon: app.getAppPath() + '/images/requests-logo.png',
+                icon: app.getAppPath() + '/images/requarks-logo.png',
                 center: true,
                 width: 1280,
                 height: 768,

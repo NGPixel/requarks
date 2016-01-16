@@ -2,7 +2,6 @@
   "name": "Requarks.Client",
   "version": "0.0.0",
   "description": "Requarks.Client",
-  "main": "server.js",
   "author": {
     "name": "Nicolas Giard"
   },
