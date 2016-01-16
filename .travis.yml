@@ -2,5 +2,8 @@ language: node_js
 node_js:
   - "stable"
 before_script:
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  - sudo apt-get update -q
+  - sudo apt-get install gcc-4.8 -y
   - npm install -g gulp
 script: cd Requarks.Client && npm install && npm test
