@@ -5,7 +5,7 @@ module.exports = {
     init: function () {
     },
     _formatUrl: function (suffix) {
-        return 'https://' + AppConfig.data.service_domain + '/api/' + suffix;
+        return 'https://' + AppConfig.user.domain + '/api/' + suffix;
     },
     getStore: function (sQuery) {
         var self = this;

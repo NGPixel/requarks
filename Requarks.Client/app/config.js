@@ -53,11 +53,11 @@ module.exports = {
             })(),
             (function () {
                 var df = Q.defer();
-                ipcRenderer.on('get-usrinfo-cback', function (event, arg) {
+                ipcRenderer.on('get-usrdata-cback', function (event, arg) {
                     AppConfig.user = arg;
                     df.resolve();
                 });
-                ipcRenderer.send('get-usrinfo', 'get-usrinfo-cback');
+                ipcRenderer.send('get-usrdata', 'get-usrdata-cback');
                 return df.promise;
             })()
         ]).spread(function () {

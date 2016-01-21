@@ -78,8 +78,6 @@ module.exports = function (app, ipcMain, dialog, windows, mainStore) {
                 }
             }
             catch (ex) {
-                dialog.showErrorBox("Cred Store Access Denied", ex);
-                app.quit();
             }
         },
         saveCredStore: function () {
@@ -106,7 +104,7 @@ module.exports = function (app, ipcMain, dialog, windows, mainStore) {
                         try {
                             if (body != null && body.user_id != null && body.user_id.length > 2) {
                                 if (body.email != null && body.email.length > 3) {
-                                    mainStore.usrData = body;
+                                    mainStore.user.data = body;
                                     deferred.resolve();
                                 }
                                 else {

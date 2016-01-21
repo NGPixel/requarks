@@ -124,19 +124,13 @@ function global_init() {
     Hist.replace('/loading');
     AppConfig.init().then(function () {
         var localeMessages = require('./intl/flattened/' + AppConfig.data.locale);
-        ReactDOM.render(React.createElement(IntlProvider, {locale: "en", messages: localeMessages}, React.createElement(Router, {history: Hist}, React.createElement(Route, {path: "/", component: App}, React.createElement(IndexRoute, {component: ComDashboard}), React.createElement(Route, {path: "loading", component: ComLoader}), React.createElement(Route, {path: "error", component: ErrorPage}), React.createElement(Route, {path: "firstsetup", component: ComFirstSetup}), React.createElement(Route, {path: "new", component: ComNewRequest}), React.createElement(Route, {path: "review", component: ComReview}), React.createElement(Route, {path: "projects", component: ComProjects}), React.createElement(Route, {path: "team", component: ComTeam}), React.createElement(Route, {path: "settings", component: ComSettings})))), document.getElementById('container'));
+        ReactDOM.render(React.createElement(IntlProvider, {locale: "en", messages: localeMessages}, React.createElement(Router, {history: Hist}, React.createElement(Route, {path: "/", component: App}, React.createElement(IndexRoute, {component: ComDashboard}), React.createElement(Route, {path: "loading", component: ComLoader}), React.createElement(Route, {path: "error", component: ErrorPage}), React.createElement(Route, {path: "new", component: ComNewRequest}), React.createElement(Route, {path: "review", component: ComReview}), React.createElement(Route, {path: "projects", component: ComProjects}), React.createElement(Route, {path: "team", component: ComTeam}), React.createElement(Route, {path: "settings", component: ComSettings})))), document.getElementById('container'));
         AppStore.init();
         AppStore.prepare_local().then(function () {
             Winston.add(Winston.transports.File, { maxsize: 500000, maxFiles: 10, filename: path.join(AppConfig.static.path, 'logs/debug.log') });
             Winston.remove(Winston.transports.Console);
-            if (Validator.isFQDN(AppConfig.data.service_domain)) {
-                AppRemote.init();
-                appStartupDeferred.resolve();
-            }
-            else {
-                Hist.replace('/firstsetup');
-                ipcRenderer.send('app-main-loaded');
-            }
+            AppRemote.init();
+            appStartupDeferred.resolve();
         });
     });
     document.body.ondragover = function (ev) {

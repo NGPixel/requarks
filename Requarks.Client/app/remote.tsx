@@ -16,7 +16,7 @@ export = {
   },
 
   _formatUrl(suffix:string) {
-    return 'https://' + AppConfig.data.service_domain + '/api/' + suffix;
+    return 'https://' + AppConfig.user.domain + '/api/' + suffix;
   },
 
   getStore(sQuery: Array<string>) {

@@ -103,8 +103,7 @@ export = function(app, ipcMain, dialog, windows, mainStore) {
     			this.credStore = JSON.parse(credStoreContent);
     		}
     	} catch(ex) {
-        dialog.showErrorBox("Cred Store Access Denied", ex);
-        app.quit();
+        // first time user, continue
     	}
     },
 
@@ -137,7 +136,7 @@ export = function(app, ipcMain, dialog, windows, mainStore) {
     				try {
     					if(body != null && body.user_id != null && body.user_id.length > 2) {
     						if(body.email != null && body.email.length > 3) {
-    							mainStore.usrData = body;
+    							mainStore.user.data = body;
     							deferred.resolve();
     						} else {
     							deferred.reject('Authentication Provider not properly configured. Missing email permission.');

@@ -1,11 +1,14 @@
 "use strict";
 var path = require('path'), fs = require('fs'), Q = require('Q');
 var BrowserWindow = require('browser-window');
-module.exports = function (app, ipcMain, dialog, windows, mainStore) {
+module.exports = function (app, ipcMain, dialog, windows, mainStore, fsetup_completed) {
     return {
         init: function () {
             var self = this;
             ipcMain.on('firstsetup-finish', function (event) {
+                windows.firstsetupWindow.close();
+                windows.splashWindow.show();
+                fsetup_completed.resolve();
             });
         },
         start: function () {

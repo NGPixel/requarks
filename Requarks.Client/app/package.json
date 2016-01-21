@@ -1,8 +1,8 @@
 {
-  "name": "requests",
-  "productName": "Requests",
+  "name": "requarks",
+  "productName": "Requarks",
   "main": "main.js",
-  "description": "Requests Client",
+  "description": "Requarks Client",
   "version": "1.0.0",
   "author": {
     "name": "Nicolas Giard"

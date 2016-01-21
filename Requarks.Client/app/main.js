@@ -33,7 +33,8 @@ var windows = {
 	}
 };
 var mainStore = {
-	usrData: {}
+	user: {},
+	instance: null
 };
 
 // Quit when all windows are closed.
@@ -94,43 +95,66 @@ app.on('ready', function () {
 	windows.splashWindow.webContents.on('did-finish-load', function() {
 
 		require('./core/listeners')(app, ipcMain, dialog, windows, mainStore);
-		var auth = require('./core/auth')(app, ipcMain, dialog, windows, mainStore);
-		auth.init();
 
-		let tokVal = auth.validateToken();
-		windows.setLoadingText('Authenticating');
+		mainStore.instance = require('./core/store')(app, ipcMain, dialog, windows, mainStore);
+		mainStore.instance.init();
+		mainStore.instance.loadStore();
+		let fsetup_completed = Q.defer();
 
-		setTimeout(function() {
+		// FIRST SETUP?
 
-			tokVal.then(function() {
+		if(mainStore.user.domain == null || mainStore.user.domain.length < 5) {
+			var fsetup = require('./core/firstsetup')(app, ipcMain, dialog, windows, mainStore, fsetup_completed);
+			fsetup.init();
+			fsetup.start();
+			windows.splashWindow.hide();
+		} else {
+			fsetup_completed.resolve();
+		}
 
-				windows.setLoadingText('Fetching Server Data');
-				windows.showMainWindow();
+		fsetup_completed.promise.then(function() {
 
-			}, function() {
+			// AUTHENTICATE
 
-				windows.setLoadingText('Preparing Login Modal');
-				auth.startAuthServer();
-				windows.authWindow.webContents.on('did-finish-load', function() {
-					if(!windows.loadState.auth) {
-						windows.splashWindow.hide();
-						windows.authWindow.show();
-						windows.loadState.auth = true;
-					}
+			var auth = require('./core/auth')(app, ipcMain, dialog, windows, mainStore);
+			auth.init();
+
+			let tokVal = auth.validateToken();
+			windows.setLoadingText('Authenticating');
+
+			setTimeout(function() {
+
+				tokVal.then(function() {
+
+					// LOAD MAIN WINDOW
+
+					windows.setLoadingText('Fetching Server Data');
+					windows.showMainWindow();
+
+				}, function() {
+
+					// LOGIN
+
+					windows.setLoadingText('Preparing Login Modal');
+					auth.startAuthServer();
+					windows.authWindow.webContents.on('did-finish-load', function() {
+						if(!windows.loadState.auth) {
+							windows.splashWindow.hide();
+							windows.authWindow.show();
+							windows.loadState.auth = true;
+						}
+					});
+					windows.authWindow.loadUrl('http://localhost:3000/');
+
 				});
-				windows.authWindow.loadUrl('http://localhost:3000/');
 
-			});
+			}, 1000);
 
-		}, 1000);
+		});
 
 	});
 	windows.splashWindow.loadUrl('file://' + __dirname + '/splash.html');
-
 	windows.splashWindow.show();
-
-	//var fsetup = require('./core/firstsetup')(app, ipcMain, dialog, windows, mainStore);
-	//fsetup.start();
 
 	// Tray
 

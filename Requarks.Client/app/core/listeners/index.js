@@ -1,4 +1,5 @@
 "use strict";
+var _ = require('lodash-modern');
 module.exports = function (app, ipcMain, dialog, windows, mainStore) {
     ipcMain.on('app-main-loaded', function (event) {
         if (!windows.loadState.main) {
@@ -17,8 +18,15 @@ module.exports = function (app, ipcMain, dialog, windows, mainStore) {
     ipcMain.on('get-systempath', function (event, cback, arg) {
         event.sender.send(cback, app.getPath(arg));
     });
-    ipcMain.on('get-usrinfo', function (event, cback) {
-        event.sender.send(cback, mainStore.usrData);
+    ipcMain.on('get-usrdata', function (event, cback) {
+        event.sender.send(cback, mainStore.user);
+    });
+    ipcMain.on('save-usrdata', function (event, ndata, cback) {
+        mainStore.user = _.defaultsDeep(ndata, mainStore.user);
+        mainStore.instance.saveStore();
+        if (cback != null) {
+            event.sender.send(cback);
+        }
     });
     ipcMain.on('open-browsefiles', function (event, cback, arg) {
         dialog.showOpenDialog(arg, function (res) {

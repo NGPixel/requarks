@@ -260,7 +260,6 @@ function global_init() {
             <IndexRoute component={ComDashboard} />
             <Route path="loading" component={ComLoader} />
             <Route path="error" component={ErrorPage} />
-            <Route path="firstsetup" component={ComFirstSetup} />
             <Route path="new" component={ComNewRequest} />
             <Route path="review" component={ComReview} />
             <Route path="projects" component={ComProjects} />
@@ -282,21 +281,10 @@ function global_init() {
       Winston.add(Winston.transports.File, { maxsize: 500000, maxFiles: 10, filename: path.join(AppConfig.static.path,'logs/debug.log') });
       Winston.remove(Winston.transports.Console);
 
-      if(Validator.isFQDN(AppConfig.data.service_domain)) {
+      // Start app
 
-        // Start app
-
-        AppRemote.init();
-        appStartupDeferred.resolve();
-
-      } else {
-
-        // First-time Setup
-
-        Hist.replace('/firstsetup');
-        ipcRenderer.send('app-main-loaded');
-
-      }
+      AppRemote.init();
+      appStartupDeferred.resolve();
 
     });
 

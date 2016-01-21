@@ -51,10 +51,13 @@ var FirstSetup = (function (_super) {
             });
         };
         this.onSaveServiceDomain = function () {
-            AppConfig.data.locale = _this.state.locale;
-            AppConfig.data.service_domain = _this.state.service_domain;
-            AppConfig.save();
-            ipcRenderer.send('reload-app');
+            ipcRenderer.on('fsetup-savedata-cback', function (event) {
+                ipcRenderer.send('firstsetup-finish');
+            });
+            ipcRenderer.send('save-usrdata', {
+                locale: _this.state.locale,
+                domain: _this.state.service_domain
+            }, 'fsetup-savedata-cback');
         };
         this.state = {
             step: 'lang',

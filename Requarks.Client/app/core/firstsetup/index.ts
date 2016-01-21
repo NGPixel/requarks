@@ -3,7 +3,7 @@ var path = require('path'),
     Q = require('Q');
 var BrowserWindow = require('browser-window');
 
-export = function(app, ipcMain, dialog, windows, mainStore) {
+export = function(app, ipcMain, dialog, windows, mainStore, fsetup_completed) {
 
   return {
 
@@ -12,7 +12,9 @@ export = function(app, ipcMain, dialog, windows, mainStore) {
       let self = this;
 
       ipcMain.on('firstsetup-finish', function(event) {
-
+        windows.firstsetupWindow.close();
+        windows.splashWindow.show();
+        fsetup_completed.resolve();
       });
 
     },

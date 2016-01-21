@@ -25,6 +25,7 @@
         "app/core/auth/index.ts",
         "app/core/firstsetup/index.ts",
         "app/core/listeners/index.ts",
+        "app/core/store/index.ts",
         "typings/history/history.d.ts",
         "typings/jquery/jquery.d.ts",
         "typings/moment/moment-node.d.ts",

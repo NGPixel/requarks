@@ -10,13 +10,13 @@ class Settings extends React.Component<ISettingsProps, any> {
   constructor(props: ISettingsProps) {
       super(props);
       this.state = {
-        form_locale: AppConfig.data.locale,
+        form_locale: AppConfig.user.locale,
         form_app_autostart: AppConfig.data.app_autostart,
         form_app_usenotifications: AppConfig.data.app_usenotifications,
         form_app_useemails: AppConfig.data.app_useemails,
         form_app_useadvanimations: AppConfig.data.app_useadvanimations,
         form_default_category: AppConfig.data.default_category,
-        form_service_domain: AppConfig.data.service_domain,
+        form_service_domain: AppConfig.user.domain,
         modalLocaleWarn: false,
         snackSuccessOpen: false
       };
@@ -95,7 +95,7 @@ class Settings extends React.Component<ISettingsProps, any> {
       });
       EE.emit('setHeaderLoading', true, 'error_outline');
     }
-    AppConfig.data.locale = this.state.form_locale;
+    AppConfig.user.locale = this.state.form_locale;
     AppConfig.data.default_category = this.state.form_default_category;
 
     // App Settings
@@ -114,7 +114,7 @@ class Settings extends React.Component<ISettingsProps, any> {
   onSaveService = () => {
 
     // Service Domain
-    AppConfig.data.service_domain = this.state.form_service_domain;
+    AppConfig.user.domain = this.state.form_service_domain;
 
     // Save
     AppConfig.save();
@@ -143,10 +143,10 @@ class Settings extends React.Component<ISettingsProps, any> {
       }
     ];
 
-    let firstNameLetter = AppConfig.user.name.substr(0,1).toUpperCase();
+    let firstNameLetter = AppConfig.user.data.name.substr(0,1).toUpperCase();
 
-    let UsrAvatar = (AppConfig.user.picture != null && AppConfig.user.picture.length > 10) ?
-      <Mui.Avatar src={AppConfig.user.picture} size={120} />:
+    let UsrAvatar = (AppConfig.user.data.picture != null && AppConfig.user.data.picture.length > 10) ?
+      <Mui.Avatar src={AppConfig.user.data.picture} size={120} />:
       <Mui.Avatar color={Colors.lightBlue50} backgroundColor={Colors.lightBlue900} size={120}>{firstNameLetter}</Mui.Avatar>;
 
     return(
@@ -178,7 +178,7 @@ class Settings extends React.Component<ISettingsProps, any> {
               <Mui.Card>
                 <Mui.CardHeader
                   title={<FormattedMessage id="settings.title_account" />}
-                  subtitle={AppConfig.user.email}
+                  subtitle={AppConfig.user.data.email}
                   avatar={<Mui.Avatar icon={<MuiIcons.ActionAccountCircle />} backgroundColor={Colors.red500} />}>
                 </Mui.CardHeader>
                 <div className="content-box">
@@ -188,7 +188,7 @@ class Settings extends React.Component<ISettingsProps, any> {
                   </div>
 
                   <section>
-                    <strong>{AppConfig.user.name}</strong><br />
+                    <strong>{AppConfig.user.data.name}</strong><br />
                     <em>Web Developer</em>
                   </section>
 
