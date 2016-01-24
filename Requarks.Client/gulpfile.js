@@ -28,7 +28,7 @@ gulp.task('css-libs', function () {
 		'./node_modules/font-awesome/css/font-awesome.min.css',
 		'./app/node_modules/medium-editor/dist/css/medium-editor.min.css',
 		'./app/node_modules/medium-editor/dist/css/themes/beagle.min.css',
-		'./app/node_modules/react-datagrid/index.css'
+		'./app/node_modules/react-virtualized/styles.css'
 	]).pipe(concat('libs.min.css')).pipe(gulp.dest('./app/styles'));
 });
 

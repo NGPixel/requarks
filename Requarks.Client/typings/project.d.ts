@@ -12,7 +12,7 @@ declare var IntlProvider, FormattedMessage, FormattedNumber, FormattedPlural, Fo
 declare var IntlUtil, EllipsisText: any;
 declare var Router, Route, Link, IndexRoute: any;
 declare var MediumEditor: any;
-declare var DataGrid: any;
+declare var VirtualScroll, FlexTable, FlexColumn: any;
 declare var Auth0Lock: any;
 
 declare var Common;

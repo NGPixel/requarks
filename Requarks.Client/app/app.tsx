@@ -89,10 +89,10 @@ const ThemeDecorator = require('material-ui/lib/styles/theme-decorator');
 const MediumEditor = require('react-medium-editor');
 
 // ----------------------------------------
-// DATAGRID
+// VIRTUALSCROLL
 // ----------------------------------------
 
-const DataGrid = require('react-datagrid')
+const { VirtualScroll, FlexTable, FlexColumn } = require('react-virtualized');
 
 // ----------------------------------------
 // VALIDATOR

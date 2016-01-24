@@ -235,3 +235,23 @@ body {
   }
 
 }
+
+.FlexTable__headerColumn:first-of-type, .FlexTable__rowColumn:first-of-type {
+    margin-left: 0;
+}
+
+.list-container {
+  border-bottom: 1px solid #CCC;
+}
+
+.list-row {
+  border-bottom: 1px dotted #CCC;
+}
+
+.list-cell-id {
+  color:#FFF;
+  font-size:12px;
+  font-weight: 400;
+  background-color: $color-darkblue;
+  text-align: center;
+}

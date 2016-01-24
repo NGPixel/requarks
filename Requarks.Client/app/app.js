@@ -41,7 +41,7 @@ var RQRawTheme = require('./js/requarks-raw-theme');
 var ThemeManager = require('material-ui/lib/styles/theme-manager');
 var ThemeDecorator = require('material-ui/lib/styles/theme-decorator');
 var MediumEditor = require('react-medium-editor');
-var DataGrid = require('react-datagrid');
+var _d = require('react-virtualized'), VirtualScroll = _d.VirtualScroll, FlexTable = _d.FlexTable, FlexColumn = _d.FlexColumn;
 var Validator = require('validator');
 var ComLoader = require("./components/loader");
 var ComFirstSetup = require("./components/firstsetup");
