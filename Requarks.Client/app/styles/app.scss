@@ -239,13 +239,47 @@ body {
 .FlexTable__headerColumn:first-of-type, .FlexTable__rowColumn:first-of-type {
     margin-left: 0;
 }
+.FlexTable__rowColumn:last-of-type {
+  margin-right: 0;
+}
+
+.list-filters {
+  color:#FFF;
+  padding: 5px 10px;
+
+}
 
 .list-container {
-  border-bottom: 1px solid #CCC;
+  border-bottom: 1px solid #FFF;
+  background-color: #FFF;
+}
+
+.list-header {
+  background-color: darken(#0288d1, 5%);
+  color:#FFF;
+  font-size: 12px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #FFF;
+
+  .list-header-id {
+    text-align: center;
+  }
+
 }
 
 .list-row {
-  border-bottom: 1px dotted #CCC;
+  //border-bottom: 1px solid #EEE;
+  box-sizing: border-box;
+
+  &:hover, &.odd:hover {
+    background-color: #b3e5fc;
+    cursor: pointer;
+  }
+
+  &.odd {
+    background-color: #FAFAFA;
+  }
+
 }
 
 .list-cell-id {
@@ -254,4 +288,22 @@ body {
   font-weight: 400;
   background-color: $color-darkblue;
   text-align: center;
+}
+
+.list-cell-type {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.list-cell-priority {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.list-cell-avatar {
+
+  img {
+    width:40px;
+  }
+
 }

@@ -58,7 +58,7 @@
         "app/components/review/index.tsx",
         "app/components/settings/index.tsx",
         "app/components/sidebar/index.tsx",
-        "app/components/team/index.tsx",
+        "app/components/teams/index.tsx",
         "app/config.tsx",
         "app/core/firstsetup/fsetup.tsx",
         "app/remote.tsx",

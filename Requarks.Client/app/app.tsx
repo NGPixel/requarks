@@ -114,7 +114,7 @@ const ComDashboard = require("./components/dashboard");
 const ComNewRequest = require("./components/new-request");
 const ComReview = require("./components/review");
 const ComProjects = require("./components/projects");
-const ComTeam = require("./components/team");
+const ComTeams = require("./components/teams");
 const ComSettings = require("./components/settings");
 
 const Logo = nativeImage.createFromPath(__dirname + '/images/requests-logo.png');
@@ -263,7 +263,7 @@ function global_init() {
             <Route path="new" component={ComNewRequest} />
             <Route path="review" component={ComReview} />
             <Route path="projects" component={ComProjects} />
-            <Route path="team" component={ComTeam} />
+            <Route path="teams" component={ComTeams} />
             <Route path="settings" component={ComSettings} />
           </Route>
         </Router>

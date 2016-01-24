@@ -25,8 +25,8 @@ const menuTree =
     bg: 'c'
   },
   {
-    id: 'team',
-    route: '/team',
+    id: 'teams',
+    route: '/teams',
     icon: 'people',
     bg: 'd'
   },

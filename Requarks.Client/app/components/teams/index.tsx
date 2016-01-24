@@ -12,7 +12,7 @@ class Team extends React.Component<ITeamProps, any> {
   }
 
   componentDidMount() {
-    EE.emit('setHeaderNav', 'team');
+    EE.emit('setHeaderNav', 'teams');
   };
 
   componentWillUnmount() {
