@@ -16,7 +16,7 @@ class Review extends React.Component<IReviewProps, any> {
       open: false,
       data: (() => {
         let tmpData = [];
-        for(let i = 0; i < 10000; i++) {
+        for(let i = 0; i < 100; i++) {
           tmpData.push({
             RequestId: faker.random.number(),
             RequestTitle: faker.hacker.phrase(),
@@ -54,7 +54,7 @@ class Review extends React.Component<IReviewProps, any> {
 
       <div className="content-container">
 
-        <Mui.Card style={{backgroundColor: Colors.lightBlue700}}>
+        <Mui.Card style={{backgroundColor: Colors.grey100}}>
           <Flex className="list-filters">
             <Item flex={4}>
 
@@ -80,66 +80,80 @@ class Review extends React.Component<IReviewProps, any> {
 
             </Item>
           </Flex>
-          <div className="content-datagrid">
+          <div className="content-datagrid" style={{borderBottom:'1px solid ' + Colors.grey300}}>
 
-          <FlexTable
-            className='list-container'
-            height={800}
-            headerHeight={30}
-            rowHeight={40}
-            rowsCount={this.state.data.length}
-            rowGetter={index => this.state.data[index]}
-            rowClassName={(index) => {
-              if(index < 0) {
-                return 'list-header';
-              }
-              return 'list-row' + ((index % 2 == 0) ? ' odd' : '');
-            }}
-            >
-            <FlexColumn
-              label=''
-              dataKey='RequestId'
-              width={50}
-              cellClassName='list-cell-id'
-              headerClassName='list-header-id'
-            />
-            <FlexColumn
-              flexGrow={1}
-              flexShrink={0}
-              label='Summary'
-              dataKey='RequestTitle'
-              cellRenderer={(cellData: any, cellDataKey: string, rowData: any, rowIndex: number, columnData: any) => {
-                return <Mui.Ripples.TouchRipple color={Colors.lightBlue800}>{cellData}</Mui.Ripples.TouchRipple>
+            <FlexTable
+              className='list-container'
+              height={800}
+              headerHeight={30}
+              rowHeight={40}
+              rowsCount={this.state.data.length}
+              rowGetter={index => this.state.data[index]}
+              rowClassName={(index) => {
+                if(index < 0) {
+                  return 'list-header';
+                }
+                return 'list-row' + ((index % 2 == 0) ? ' odd' : '');
               }}
-            />
-            <FlexColumn
-              width={125}
-              label='Status'
-              dataKey='RequestStatus'
-              cellClassName='list-cell-status'
-            />
-            <FlexColumn
-              width={125}
-              label='Type'
-              dataKey='RequestType'
-              cellClassName='list-cell-type'
-            />
-            <FlexColumn
-              width={80}
-              label='Priority'
-              dataKey='RequestPriority'
-              cellClassName='list-cell-priority'
-            />
-            <FlexColumn
-              width={40}
-              label=''
-              dataKey='RequestImageUrl'
-              cellClassName='list-cell-avatar'
-              cellRenderer={(cellData: any, cellDataKey: string, rowData: any, rowIndex: number, columnData: any) => {
-                return <img src={cellData} alt="" />
-              }}
-            />
-          </FlexTable>
+              >
+              <FlexColumn
+                label=''
+                dataKey='RequestId'
+                width={50}
+                cellClassName='list-cell-id'
+                headerClassName='list-header-id'
+              />
+              <FlexColumn
+                flexGrow={1}
+                flexShrink={0}
+                label='Summary'
+                dataKey='RequestTitle'
+                cellRenderer={(cellData: any, cellDataKey: string, rowData: any, rowIndex: number, columnData: any) => {
+                  return <Mui.Ripples.TouchRipple color={Colors.lightBlue800}>{cellData}</Mui.Ripples.TouchRipple>
+                }}
+              />
+              <FlexColumn
+                width={125}
+                label='Status'
+                dataKey='RequestStatus'
+                cellClassName='list-cell-status'
+                cellRenderer={(cellData: any, cellDataKey: string, rowData: any, rowIndex: number, columnData: any) => {
+                  return <div className={'status-' + faker.helpers.randomize(['blue', 'red', 'purple', 'brown', 'green'])}>{cellData}</div>
+                }}
+              />
+              <FlexColumn
+                width={125}
+                label='Type'
+                dataKey='RequestType'
+                cellClassName='list-cell-type'
+                cellRenderer={(cellData: any, cellDataKey: string, rowData: any, rowIndex: number, columnData: any) => {
+                  return <div>{cellData}</div>
+                }}
+              />
+              <FlexColumn
+                width={80}
+                label='Priority'
+                dataKey='RequestPriority'
+                cellClassName='list-cell-priority'
+                cellRenderer={(cellData: any, cellDataKey: string, rowData: any, rowIndex: number, columnData: any) => {
+                  return <span className={classNames({
+                    'list-badge': true,
+                    'list-badge-red': cellData == 'High',
+                    'list-badge-orange': cellData == 'Normal',
+                    'list-badge-brown': cellData == 'Low'
+                  })}>{cellData}</span>
+                }}
+              />
+              <FlexColumn
+                width={40}
+                label=''
+                dataKey='RequestImageUrl'
+                cellClassName='list-cell-avatar'
+                cellRenderer={(cellData: any, cellDataKey: string, rowData: any, rowIndex: number, columnData: any) => {
+                  return <img src={cellData} alt="" />
+                }}
+              />
+            </FlexTable>
 
           </div>
           <Mui.CardActions style={{textAlign:'right'}}>

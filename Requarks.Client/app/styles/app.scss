@@ -255,7 +255,7 @@ body {
 }
 
 .list-header {
-  background-color: darken(#0288d1, 5%);
+  background-color: darken(#666, 5%);
   color:#FFF;
   font-size: 12px;
   text-transform: uppercase;
@@ -290,14 +290,62 @@ body {
   text-align: center;
 }
 
+.list-cell-status {
+  display: flex;
+  flex-direction: column;
+
+  > div {
+    background-color: rgba(0,0,0, 0.05);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: #444;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+
+    @each $colorname, $colorval in $colors {
+      .status-#{$colorname} {
+        color: #{$colorval};
+      }
+    }
+
+  }
+
+}
+
 .list-cell-type {
   font-size: 12px;
   text-transform: uppercase;
+
+  > div {
+    border-left: 5px solid $color-red;
+    padding-left: 5px;
+  }
+
 }
 
 .list-cell-priority {
+  text-align: center;
+}
+
+.list-badge {
+  display: inline-block;
+  background-color: $color-darkblue;
+  color: #FFF;
   font-size: 12px;
   text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 10px;
+
+  @each $colorname, $colorval in $colors {
+    &.list-badge-#{$colorname} {
+      background-color: #{$colorval};
+    }
+  }
+
 }
 
 .list-cell-avatar {
