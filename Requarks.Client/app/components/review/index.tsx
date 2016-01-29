@@ -26,7 +26,7 @@ class Review extends React.Component<IReviewProps, any> {
             RequestImageUrl: faker.image.avatar()
           });
         };
-        tmpData = _.sortByOrder(tmpData, ['RequestStatus', 'RequestPriority'], ['asc', 'asc']);
+        tmpData = _.orderBy(tmpData, ['RequestStatus', 'RequestPriority'], ['asc', 'asc']);
         return tmpData;
       })()
     };
@@ -86,7 +86,7 @@ class Review extends React.Component<IReviewProps, any> {
               className='list-container'
               height={800}
               headerHeight={30}
-              rowHeight={40}
+              rowHeight={30}
               rowsCount={this.state.data.length}
               rowGetter={index => this.state.data[index]}
               rowClassName={(index) => {
@@ -104,48 +104,73 @@ class Review extends React.Component<IReviewProps, any> {
                 headerClassName='list-header-id'
               />
               <FlexColumn
+                width={30}
+                label=''
+                dataKey='RequestStatus'
+                cellClassName='list-cell-status'
+                cellRenderer={(cellData: any, cellDataKey: string, rowData: any, rowIndex: number, columnData: any) => {
+                  return <div className={'status-blue'}><i className="material-icons">label</i></div>
+                }}
+              />
+              <FlexColumn
                 flexGrow={1}
                 flexShrink={0}
                 label='Summary'
                 dataKey='RequestTitle'
+                cellClassName='list-cell-title'
                 cellRenderer={(cellData: any, cellDataKey: string, rowData: any, rowIndex: number, columnData: any) => {
-                  return <Mui.Ripples.TouchRipple color={Colors.lightBlue800}>{cellData}</Mui.Ripples.TouchRipple>
+                  return <div>
+                    <ul className="list-tags">
+                      <li>{rowData.RequestPriority}</li>
+                      <li>{rowData.RequestType}</li>
+                    </ul>
+                    <ul className="list-meta">
+                      {(_.random(5) == 1) ? <li><i className="li_star"></i></li> : ''}
+                      {(_.random(3) == 1) ? <li><i className="li_clip"></i></li> : ''}
+                      {(_.random(5) > 1) ? <li><i className="li_bubble"></i> {_.random(25)}</li> : ''}
+                    </ul>
+                    <span>{cellData}</span>
+                  </div>
                 }}
               />
               <FlexColumn
-                width={125}
-                label='Status'
-                dataKey='RequestStatus'
-                cellClassName='list-cell-status'
-                cellRenderer={(cellData: any, cellDataKey: string, rowData: any, rowIndex: number, columnData: any) => {
-                  return <div className={'status-' + faker.helpers.randomize(['blue', 'red', 'purple', 'brown', 'green'])}>{cellData}</div>
-                }}
-              />
-              <FlexColumn
-                width={125}
-                label='Type'
-                dataKey='RequestType'
-                cellClassName='list-cell-type'
-                cellRenderer={(cellData: any, cellDataKey: string, rowData: any, rowIndex: number, columnData: any) => {
-                  return <div>{cellData}</div>
-                }}
-              />
-              <FlexColumn
-                width={80}
+                width={70}
                 label='Priority'
                 dataKey='RequestPriority'
                 cellClassName='list-cell-priority'
                 cellRenderer={(cellData: any, cellDataKey: string, rowData: any, rowIndex: number, columnData: any) => {
-                  return <span className={classNames({
-                    'list-badge': true,
-                    'list-badge-red': cellData == 'High',
-                    'list-badge-orange': cellData == 'Normal',
-                    'list-badge-brown': cellData == 'Low'
-                  })}>{cellData}</span>
+
+                  let prColor = 'grey';
+                  let prIntensity = 0;
+
+                  switch(cellData) {
+                    case 'High':
+                      prColor = 'red';
+                      prIntensity = 3;
+                    break;
+                    case 'Normal':
+                      prColor = 'orange';
+                      prIntensity = 2;
+                    break;
+                    case 'Low':
+                      prColor = 'brown';
+                      prIntensity = 1;
+                    break;
+                  }
+
+                  return <span className={'list-badge list-badge-' + prColor}>
+                    {_.times(prIntensity, () => {
+                      return <i className="fa fa-circle"></i>
+                    })}
+                    {_.times(3 - prIntensity, () => {
+                      return <i className="fa fa-circle-o"></i>
+                    })}
+
+                  </span>
                 }}
               />
               <FlexColumn
-                width={40}
+                width={30}
                 label=''
                 dataKey='RequestImageUrl'
                 cellClassName='list-cell-avatar'

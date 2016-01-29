@@ -29,7 +29,7 @@ var Review = (function (_super) {
                     });
                 }
                 ;
-                tmpData = _.sortByOrder(tmpData, ['RequestStatus', 'RequestPriority'], ['asc', 'asc']);
+                tmpData = _.orderBy(tmpData, ['RequestStatus', 'RequestPriority'], ['asc', 'asc']);
                 return tmpData;
             })()
         };
@@ -48,25 +48,38 @@ var Review = (function (_super) {
         var _this = this;
         return (React.createElement("div", {className: "content-container"}, React.createElement(Mui.Card, {style: { backgroundColor: Colors.grey100 }}, React.createElement(Flex, {className: "list-filters"}, React.createElement(Item, {flex: 4}, React.createElement(Mui.FlatButton, {label: "Technical", labelPosition: "after", onClick: this.changeCategory}, React.createElement(Mui.FontIcon, {className: "material-icons"}, "memory")), React.createElement(Mui.LeftNav, {docked: false, open: this.state.open, onRequestChange: function (open) { return _this.setState({ open: open }); }}, React.createElement(Mui.MenuItem, {primaryText: "Categories", disabled: true}), AppStore.data.categories.map(function (c) {
             return (React.createElement(Mui.MenuItem, {value: c.CategoryId, key: c.CategoryId, primaryText: c.CategoryName, leftIcon: React.createElement(Mui.FontIcon, {className: "material-icons", color: Colors[c.CategoryColor]}, c.CategoryIcon)}));
-        }))), React.createElement(Item, {flex: 8})), React.createElement("div", {className: "content-datagrid", style: { borderBottom: '1px solid ' + Colors.grey300 }}, React.createElement(FlexTable, {className: 'list-container', height: 800, headerHeight: 30, rowHeight: 40, rowsCount: this.state.data.length, rowGetter: function (index) { return _this.state.data[index]; }, rowClassName: function (index) {
+        }))), React.createElement(Item, {flex: 8})), React.createElement("div", {className: "content-datagrid", style: { borderBottom: '1px solid ' + Colors.grey300 }}, React.createElement(FlexTable, {className: 'list-container', height: 800, headerHeight: 30, rowHeight: 30, rowsCount: this.state.data.length, rowGetter: function (index) { return _this.state.data[index]; }, rowClassName: function (index) {
             if (index < 0) {
                 return 'list-header';
             }
             return 'list-row' + ((index % 2 == 0) ? ' odd' : '');
-        }}, React.createElement(FlexColumn, {label: '', dataKey: 'RequestId', width: 50, cellClassName: 'list-cell-id', headerClassName: 'list-header-id'}), React.createElement(FlexColumn, {flexGrow: 1, flexShrink: 0, label: 'Summary', dataKey: 'RequestTitle', cellRenderer: function (cellData, cellDataKey, rowData, rowIndex, columnData) {
-            return React.createElement(Mui.Ripples.TouchRipple, {color: Colors.lightBlue800}, cellData);
-        }}), React.createElement(FlexColumn, {width: 125, label: 'Status', dataKey: 'RequestStatus', cellClassName: 'list-cell-status', cellRenderer: function (cellData, cellDataKey, rowData, rowIndex, columnData) {
-            return React.createElement("div", {className: 'status-' + faker.helpers.randomize(['blue', 'red', 'purple', 'brown', 'green'])}, cellData);
-        }}), React.createElement(FlexColumn, {width: 125, label: 'Type', dataKey: 'RequestType', cellClassName: 'list-cell-type', cellRenderer: function (cellData, cellDataKey, rowData, rowIndex, columnData) {
-            return React.createElement("div", null, cellData);
-        }}), React.createElement(FlexColumn, {width: 80, label: 'Priority', dataKey: 'RequestPriority', cellClassName: 'list-cell-priority', cellRenderer: function (cellData, cellDataKey, rowData, rowIndex, columnData) {
-            return React.createElement("span", {className: classNames({
-                'list-badge': true,
-                'list-badge-red': cellData == 'High',
-                'list-badge-orange': cellData == 'Normal',
-                'list-badge-brown': cellData == 'Low'
-            })}, cellData);
-        }}), React.createElement(FlexColumn, {width: 40, label: '', dataKey: 'RequestImageUrl', cellClassName: 'list-cell-avatar', cellRenderer: function (cellData, cellDataKey, rowData, rowIndex, columnData) {
+        }}, React.createElement(FlexColumn, {label: '', dataKey: 'RequestId', width: 50, cellClassName: 'list-cell-id', headerClassName: 'list-header-id'}), React.createElement(FlexColumn, {width: 30, label: '', dataKey: 'RequestStatus', cellClassName: 'list-cell-status', cellRenderer: function (cellData, cellDataKey, rowData, rowIndex, columnData) {
+            return React.createElement("div", {className: 'status-blue'}, React.createElement("i", {className: "material-icons"}, "label"));
+        }}), React.createElement(FlexColumn, {flexGrow: 1, flexShrink: 0, label: 'Summary', dataKey: 'RequestTitle', cellClassName: 'list-cell-title', cellRenderer: function (cellData, cellDataKey, rowData, rowIndex, columnData) {
+            return React.createElement("div", null, React.createElement("ul", {className: "list-tags"}, React.createElement("li", null, rowData.RequestPriority), React.createElement("li", null, rowData.RequestType)), React.createElement("ul", {className: "list-meta"}, (_.random(5) == 1) ? React.createElement("li", null, React.createElement("i", {className: "li_star"})) : '', (_.random(3) == 1) ? React.createElement("li", null, React.createElement("i", {className: "li_clip"})) : '', (_.random(5) > 1) ? React.createElement("li", null, React.createElement("i", {className: "li_bubble"}), " ", _.random(25)) : ''), React.createElement("span", null, cellData));
+        }}), React.createElement(FlexColumn, {width: 70, label: 'Priority', dataKey: 'RequestPriority', cellClassName: 'list-cell-priority', cellRenderer: function (cellData, cellDataKey, rowData, rowIndex, columnData) {
+            var prColor = 'grey';
+            var prIntensity = 0;
+            switch (cellData) {
+                case 'High':
+                    prColor = 'red';
+                    prIntensity = 3;
+                    break;
+                case 'Normal':
+                    prColor = 'orange';
+                    prIntensity = 2;
+                    break;
+                case 'Low':
+                    prColor = 'brown';
+                    prIntensity = 1;
+                    break;
+            }
+            return React.createElement("span", {className: 'list-badge list-badge-' + prColor}, _.times(prIntensity, function () {
+                return React.createElement("i", {className: "fa fa-circle"});
+            }), _.times(3 - prIntensity, function () {
+                return React.createElement("i", {className: "fa fa-circle-o"});
+            }));
+        }}), React.createElement(FlexColumn, {width: 30, label: '', dataKey: 'RequestImageUrl', cellClassName: 'list-cell-avatar', cellRenderer: function (cellData, cellDataKey, rowData, rowIndex, columnData) {
             return React.createElement("img", {src: cellData, alt: ""});
         }}))), React.createElement(Mui.CardActions, {style: { textAlign: 'right' }}, React.createElement(Mui.FlatButton, {label: React.createElement(FormattedMessage, {id: "review.actions.refresh", defaultMessage: "Refresh"})})))));
     };

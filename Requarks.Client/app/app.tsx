@@ -1,6 +1,6 @@
 ﻿/// <reference path="../typings/tsd.d.ts" />
 
-var _ = require('lodash-modern'),
+var _ = require('lodash'),
     Q = require('q'),
     path = require('path'),
     fs = require('fs'),

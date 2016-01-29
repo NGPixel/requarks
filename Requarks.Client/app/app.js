@@ -13,7 +13,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _ = require('lodash-modern'), Q = require('q'), path = require('path'), fs = require('fs'), filesize = require('filesize'), sizeOf = require('image-size');
+var _ = require('lodash'), Q = require('q'), path = require('path'), fs = require('fs'), filesize = require('filesize'), sizeOf = require('image-size');
 var ipcRenderer = require('electron').ipcRenderer;
 var nativeImage = require('electron').nativeImage;
 var Winston = require('winston');

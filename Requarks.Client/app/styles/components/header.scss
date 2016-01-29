@@ -7,26 +7,9 @@
     -webkit-user-select: none;
     z-index: 99999;
 
-    > div:first-child {
-        width:250px;
-        height:58px;
-        position:relative;
-        float:left;
-
-        > img {
-            position:absolute;
-            top:15px;
-            bottom:0;
-            left: 0;
-            right: 0;
-            margin:auto;
-        }
-
-    }
-
     > ul {
         padding:15px 0 0;
-        margin:0 0 0 250px;
+        margin:0 0 0 10px;
         list-style-type:none;
 
         > li {

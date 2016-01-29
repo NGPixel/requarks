@@ -103,15 +103,17 @@ $font-roboto: 'Roboto Condensed', sans-serif;
 
 }
 
+// -> LINE ICONS
+
+@import '../fonts/linecons';
+
 // =======================================================
 // BASE
 // =======================================================
 
 body {
 
-    background: linear-gradient(245deg , #244b66, #2d3740);
-    background-size: 200% 200%;
-    background-position: 0% 80%;
+    background: radial-gradient(ellipse at 50% 30%, darken(#2d3740, 10%) 0%, #2d3740 100%);
 
     font-family: $font-roboto;
     text-align:left;
@@ -238,6 +240,7 @@ body {
 
 .FlexTable__headerColumn:first-of-type, .FlexTable__rowColumn:first-of-type {
     margin-left: 0;
+    margin-right: 0;
 }
 .FlexTable__rowColumn:last-of-type {
   margin-right: 0;
@@ -270,6 +273,8 @@ body {
 .list-row {
   //border-bottom: 1px solid #EEE;
   box-sizing: border-box;
+  font-weight: 400;
+  font-size: 14px;
 
   &:hover, &.odd:hover {
     background-color: #b3e5fc;
@@ -277,7 +282,7 @@ body {
   }
 
   &.odd {
-    background-color: #FAFAFA;
+    background-color: #F8F8F8;
   }
 
 }
@@ -316,33 +321,69 @@ body {
 
 }
 
-.list-cell-type {
-  font-size: 12px;
-  text-transform: uppercase;
+.list-cell-title {
 
-  > div {
-    border-left: 5px solid $color-red;
-    padding-left: 5px;
+  .list-meta {
+    margin: 0 10px 0 0;
+    padding: 0;
+    list-style-type: none;
+    float:right;
+
+    > li {
+      display: inline-block;
+      margin-left: 5px;
+      font-size: 13px;
+      color:#666;
+      border-left: 1px dotted #CCC;
+      padding-left: 5px;
+
+      &:first-of-type {
+        border-left:none;
+      }
+
+    }
+
+  }
+
+  .list-tags {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    float:right;
+
+    > li {
+      display: inline-block;
+      margin-left: 5px;
+      font-size: 13px;
+      background-color: $color-darkblue;
+      color:#FFF;
+      padding: 2px 8px;
+      border-radius: 5px;
+    }
+
   }
 
 }
 
 .list-cell-priority {
   text-align: center;
+
+  .list-badge {
+    display: block;
+  }
+
 }
 
 .list-badge {
-  display: inline-block;
-  background-color: $color-darkblue;
-  color: #FFF;
   font-size: 12px;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: 10px;
+
+  > i.fa {
+    margin:0 2px;
+  }
 
   @each $colorname, $colorval in $colors {
     &.list-badge-#{$colorname} {
-      background-color: #{$colorval};
+      color: #{$colorval};
     }
   }
 
@@ -351,7 +392,7 @@ body {
 .list-cell-avatar {
 
   img {
-    width:40px;
+    width:30px;
   }
 
 }

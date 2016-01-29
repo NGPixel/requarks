@@ -68,7 +68,7 @@ class Header extends Component<IHeaderProps, any> {
     setHeaderNav = (nActiveMenu: string) => {
       this.setState({ activemenu: nActiveMenu });
       document.body.className = 'bg-state-' +
-        (_.result(_.find(this.state.menu, 'id', nActiveMenu), 'bg') || 'e') +
+        (_.result(_.find(this.state.menu, ['id', nActiveMenu]), 'bg') || 'e') +
         ((!AppConfig.data.app_useadvanimations) ? ' bg-state-direct' : '');
     }
     setLoading = (nState: boolean, nFabIcon: string = 'import_export') => {
@@ -113,7 +113,6 @@ class Header extends Component<IHeaderProps, any> {
 
         return (
             <div id="header">
-                <div><img src="https://requests.wspgroup.com/assets/img/rootmenu-logo-tr.png" alt="" /></div>
                 <ul>{headermenu}</ul>
                 <div className="header-search">
                 <Mui.AutoComplete
