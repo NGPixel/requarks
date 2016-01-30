@@ -7,9 +7,20 @@
     -webkit-user-select: none;
     z-index: 99999;
 
+    > div.header-logo {
+      position:absolute;
+      left: 15px;
+      top: 17px;
+
+      > img {
+        width: 40px;
+      }
+
+    }
+
     > ul {
         padding:15px 0 0;
-        margin:0 0 0 10px;
+        margin:0 0 0 60px;
         list-style-type:none;
 
         > li {

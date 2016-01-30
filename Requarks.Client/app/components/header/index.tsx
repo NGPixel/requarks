@@ -113,19 +113,20 @@ class Header extends Component<IHeaderProps, any> {
 
         return (
             <div id="header">
+                <div className="header-logo"><img src="./images/requarks-logo-white.png" alt="" /></div>
                 <ul>{headermenu}</ul>
                 <div className="header-search">
-                <Mui.AutoComplete
-                    inputStyle={{color: '#FFF'}}
-                    floatingLabelText={<FormattedMessage id="header.search.title" defaultMessage="Search requests..." />}
-                    floatingLabelStyle={{color: 'rgba(255,255,255,0.8)'}}
-                    underlineStyle={{borderColor: 'rgba(255,255,255,0.8)'}}
-                    underlineFocusStyle={{borderColor: 'rgba(255,255,255,0.9)'}}
-                    hintText={<FormattedMessage id="header.search.hint_text" defaultMessage="ID or Title" />}
-                    hintStyle={{color: 'rgba(255,255,255,0.4)'}}
-                    dataSource={this.state.input2}
-                    onUpdateInput={(t) => { console.log(t); this.setState({input2: [t, t + t, t + t + t]}); }}
-                    onNewRequest={(t) => { console.log('request:' + t); }} />
+                  <Mui.AutoComplete
+                      inputStyle={{color: '#FFF'}}
+                      floatingLabelText={<FormattedMessage id="header.search.title" defaultMessage="Search requests..." />}
+                      floatingLabelStyle={{color: 'rgba(255,255,255,0.8)'}}
+                      underlineStyle={{borderColor: 'rgba(255,255,255,0.8)'}}
+                      underlineFocusStyle={{borderColor: 'rgba(255,255,255,0.9)'}}
+                      hintText={<FormattedMessage id="header.search.hint_text" defaultMessage="ID or Title" />}
+                      hintStyle={{color: 'rgba(255,255,255,0.4)'}}
+                      dataSource={this.state.input2}
+                      onUpdateInput={(t) => { console.log(t); this.setState({input2: [t, t + t, t + t + t]}); }}
+                      onNewRequest={(t) => { console.log('request:' + t); }} />
                 </div>
                 {headerLoadingElement}
                 <div className="header-add">
