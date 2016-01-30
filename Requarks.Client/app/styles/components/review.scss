@@ -1,0 +1,158 @@
+.FlexTable__headerColumn:first-of-type, .FlexTable__rowColumn:first-of-type {
+    margin-left: 0;
+    margin-right: 0;
+}
+.FlexTable__rowColumn:last-of-type {
+  margin-right: 0;
+}
+
+.list-filters {
+  color:#FFF;
+  padding: 5px 10px;
+
+}
+
+.list-container {
+  border-bottom: 1px solid #FFF;
+  background-color: #FFF;
+}
+
+.list-header {
+  background-color: darken(#666, 5%);
+  color:#FFF;
+  font-size: 12px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #FFF;
+
+  .list-header-id {
+    text-align: center;
+  }
+
+}
+
+.list-row {
+  //border-bottom: 1px solid #EEE;
+  box-sizing: border-box;
+  font-weight: 400;
+  font-size: 14px;
+
+  &:hover, &.odd:hover {
+    background-color: #b3e5fc;
+    cursor: pointer;
+  }
+
+  &.odd {
+    background-color: #F8F8F8;
+  }
+
+}
+
+.list-cell-id {
+  color:#FFF;
+  font-size:12px;
+  font-weight: 400;
+  background-color: $color-darkblue;
+  text-align: center;
+}
+
+.list-cell-status {
+  display: flex;
+  flex-direction: column;
+
+  > div {
+    background-color: rgba(0,0,0, 0.05);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: #444;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+
+    @each $colorname, $colorval in $colors {
+      .status-#{$colorname} {
+        color: #{$colorval};
+      }
+    }
+
+  }
+
+}
+
+.list-cell-title {
+
+  .list-meta {
+    margin: 0 10px 0 0;
+    padding: 0;
+    list-style-type: none;
+    float:right;
+
+    > li {
+      display: inline-block;
+      margin-left: 5px;
+      font-size: 13px;
+      color:#666;
+      border-left: 1px dotted #CCC;
+      padding-left: 5px;
+
+      &:first-of-type {
+        border-left:none;
+      }
+
+    }
+
+  }
+
+  .list-tags {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    float:right;
+
+    > li {
+      display: inline-block;
+      margin-left: 5px;
+      font-size: 13px;
+      background-color: $color-darkblue;
+      color:#FFF;
+      padding: 2px 8px;
+      border-radius: 5px;
+    }
+
+  }
+
+}
+
+.list-cell-priority {
+  text-align: center;
+
+  .list-badge {
+    display: block;
+  }
+
+}
+
+.list-badge {
+  font-size: 12px;
+
+  > i.fa {
+    margin:0 2px;
+  }
+
+  @each $colorname, $colorval in $colors {
+    &.list-badge-#{$colorname} {
+      color: #{$colorval};
+    }
+  }
+
+}
+
+.list-cell-avatar {
+
+  img {
+    width:30px;
+  }
+
+}
