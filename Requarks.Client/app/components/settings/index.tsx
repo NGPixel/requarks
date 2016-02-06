@@ -23,7 +23,10 @@ class Settings extends React.Component<ISettingsProps, any> {
   }
 
   componentDidMount() {
-    EE.emit('setHeaderNav', 'settings');
+    EE.emit('setHeaderUI', {
+      navigation: 'settings',
+      loading: false
+    });
   }
 
   componentWillUnmount() {
@@ -83,7 +86,9 @@ class Settings extends React.Component<ISettingsProps, any> {
     this.setState({
       modalLocaleWarn: false
     });
-    EE.emit('setHeaderLoading', false);
+    EE.emit('setHeaderUI', {
+      loading: false
+    });
   }
 
   onSaveSettings = () => {
@@ -93,7 +98,10 @@ class Settings extends React.Component<ISettingsProps, any> {
       this.setState({
         modalLocaleWarn: true
       });
-      EE.emit('setHeaderLoading', true, 'error_outline');
+      EE.emit('setHeaderUI', {
+        loading: false,
+        fabIcon: 'error_outline'
+      });
     }
     AppConfig.user.locale = this.state.form_locale;
     AppConfig.data.default_category = this.state.form_default_category;
@@ -106,7 +114,9 @@ class Settings extends React.Component<ISettingsProps, any> {
 
     // Save
     AppConfig.save();
-    EE.emit('setHeaderNav', 'settings');
+    EE.emit('setHeaderUI', {
+      navigation: 'settings',
+    });
 
     this.setState({snackSuccessOpen: true});
   }

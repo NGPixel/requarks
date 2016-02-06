@@ -11,13 +11,15 @@ var menuTree = [{
         id: 'dashboard',
         route: '/',
         icon: 'dashboard',
-        bg: 'a'
+        bg: 'b',
+        height: 'b'
     },
     {
         id: 'review',
         route: '/review',
         icon: 'line_weight',
-        bg: 'b'
+        bg: 'b',
+        height: 'a'
     },
     {
         id: 'projects',
@@ -42,18 +44,18 @@ var Header = (function (_super) {
     function Header(props, context) {
         var _this = this;
         _super.call(this, props);
-        this.setHeaderNav = function (nActiveMenu) {
-            _this.setState({ activemenu: nActiveMenu });
+        this.setHeaderUI = function (nState) {
+            var nHeaderState = {
+                activemenu: nState.navigation || _this.state.activemenu,
+                loading: nState.loading || _this.state.loading,
+                fabIcon: nState.fabIcon || 'import_export'
+            };
+            _this.setState(nHeaderState);
+            var curNavItem = _.find(_this.state.menu, ['id', nHeaderState.activemenu]);
             document.body.className = 'bg-state-' +
-                (_.result(_.find(_this.state.menu, ['id', nActiveMenu]), 'bg') || 'e') +
-                ((!AppConfig.data.app_useadvanimations) ? ' bg-state-direct' : '');
-        };
-        this.setLoading = function (nState, nFabIcon) {
-            if (nFabIcon === void 0) { nFabIcon = 'import_export'; }
-            _this.setState({
-                loading: nState,
-                fabIcon: nFabIcon || 'import_export'
-            });
+                (_.result(curNavItem, 'bg') || 'e') +
+                ((!AppConfig.data.app_useadvanimations) ? ' bg-state-direct' : '') +
+                ' bg-height-' + (_.result(curNavItem, 'height') || 'a');
         };
         this.navigateTo = function (e, target) {
             if (!_this.state.loading) {
@@ -71,7 +73,8 @@ var Header = (function (_super) {
             });
         };
         this.state = {
-            activemenu: '',
+            activemenu: 'e',
+            activeheight: 'a',
             menu: menuTree,
             fabIcon: 'add',
             loading: false,
@@ -80,12 +83,10 @@ var Header = (function (_super) {
         };
     }
     Header.prototype.componentDidMount = function () {
-        EE.on('setHeaderNav', this.setHeaderNav);
-        EE.on('setHeaderLoading', this.setLoading);
+        EE.on('setHeaderUI', this.setHeaderUI);
     };
     Header.prototype.componentWillUnmount = function () {
-        EE.removeListener('setHeaderNav', this.setHeaderNav);
-        EE.removeListener('setHeaderLoading', this.setLoading);
+        EE.removeListener('setHeaderUI', this.setHeaderUI);
     };
     Header.prototype.render = function () {
         var _this = this;

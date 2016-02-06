@@ -33,7 +33,10 @@ class Review extends React.Component<IReviewProps, any> {
   }
 
   componentDidMount() {
-    EE.emit('setHeaderNav', 'review');
+    EE.emit('setHeaderUI', {
+      navigation: 'review',
+      loading: false
+    });
   };
 
   componentWillUnmount() {

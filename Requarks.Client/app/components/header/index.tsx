@@ -10,13 +10,15 @@ const menuTree =
     id: 'dashboard',
     route: '/',
     icon: 'dashboard',
-    bg: 'a'
+    bg: 'b',
+    height: 'b'
   },
   {
     id: 'review',
     route: '/review',
     icon: 'line_weight',
-    bg: 'b'
+    bg: 'b',
+    height: 'a'
   },
   {
     id: 'projects',
@@ -45,7 +47,8 @@ class Header extends Component<IHeaderProps, any> {
         super(props);
 
         this.state = {
-            activemenu: '',
+            activemenu: 'e',
+            activeheight: 'a',
             menu: menuTree,
             fabIcon: 'add',
             loading: false,
@@ -56,26 +59,29 @@ class Header extends Component<IHeaderProps, any> {
     }
 
     componentDidMount() {
-      EE.on('setHeaderNav', this.setHeaderNav);
-      EE.on('setHeaderLoading', this.setLoading);
+      EE.on('setHeaderUI', this.setHeaderUI);
     }
 
     componentWillUnmount() {
-      EE.removeListener('setHeaderNav', this.setHeaderNav);
-      EE.removeListener('setHeaderLoading', this.setLoading);
+      EE.removeListener('setHeaderUI', this.setHeaderUI);
     }
 
-    setHeaderNav = (nActiveMenu: string) => {
-      this.setState({ activemenu: nActiveMenu });
+    setHeaderUI = (nState: any) => {
+
+      let nHeaderState = {
+        activemenu: nState.navigation || this.state.activemenu,
+        loading: nState.loading || this.state.loading,
+        fabIcon: nState.fabIcon || 'import_export'
+      };
+      this.setState(nHeaderState);
+
+      let curNavItem = _.find(this.state.menu, ['id', nHeaderState.activemenu]);
+
       document.body.className = 'bg-state-' +
-        (_.result(_.find(this.state.menu, ['id', nActiveMenu]), 'bg') || 'e') +
-        ((!AppConfig.data.app_useadvanimations) ? ' bg-state-direct' : '');
-    }
-    setLoading = (nState: boolean, nFabIcon: string = 'import_export') => {
-      this.setState({
-        loading: nState,
-        fabIcon: nFabIcon || 'import_export'
-      });
+        (_.result(curNavItem, 'bg') || 'e') +
+        ((!AppConfig.data.app_useadvanimations) ? ' bg-state-direct' : '') +
+        ' bg-height-' + (_.result(curNavItem, 'height') || 'a');
+
     }
 
     render() {

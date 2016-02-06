@@ -35,7 +35,10 @@ var Review = (function (_super) {
         };
     }
     Review.prototype.componentDidMount = function () {
-        EE.emit('setHeaderNav', 'review');
+        EE.emit('setHeaderUI', {
+            navigation: 'review',
+            loading: false
+        });
     };
     ;
     Review.prototype.componentWillUnmount = function () {

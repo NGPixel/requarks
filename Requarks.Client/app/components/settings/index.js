@@ -52,14 +52,19 @@ var Settings = (function (_super) {
             _this.setState({
                 modalLocaleWarn: false
             });
-            EE.emit('setHeaderLoading', false);
+            EE.emit('setHeaderUI', {
+                loading: false
+            });
         };
         this.onSaveSettings = function () {
             if (AppConfig.data.locale != _this.state.form_locale) {
                 _this.setState({
                     modalLocaleWarn: true
                 });
-                EE.emit('setHeaderLoading', true, 'error_outline');
+                EE.emit('setHeaderUI', {
+                    loading: false,
+                    fabIcon: 'error_outline'
+                });
             }
             AppConfig.user.locale = _this.state.form_locale;
             AppConfig.data.default_category = _this.state.form_default_category;
@@ -68,7 +73,9 @@ var Settings = (function (_super) {
             AppConfig.data.app_useemails = _this.state.form_app_useemails;
             AppConfig.data.app_useadvanimations = _this.state.form_app_useadvanimations;
             AppConfig.save();
-            EE.emit('setHeaderNav', 'settings');
+            EE.emit('setHeaderUI', {
+                navigation: 'settings',
+            });
             _this.setState({ snackSuccessOpen: true });
         };
         this.onSaveService = function () {
@@ -92,7 +99,10 @@ var Settings = (function (_super) {
         };
     }
     Settings.prototype.componentDidMount = function () {
-        EE.emit('setHeaderNav', 'settings');
+        EE.emit('setHeaderUI', {
+            navigation: 'settings',
+            loading: false
+        });
     };
     Settings.prototype.componentWillUnmount = function () {
     };
