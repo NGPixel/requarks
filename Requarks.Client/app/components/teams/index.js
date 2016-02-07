@@ -11,7 +11,10 @@ var Team = (function (_super) {
         _super.call(this, props);
     }
     Team.prototype.componentDidMount = function () {
-        EE.emit('setHeaderNav', 'teams');
+        EE.emit('setHeaderUI', {
+            navigation: 'teams',
+            loading: false
+        });
     };
     ;
     Team.prototype.componentWillUnmount = function () {

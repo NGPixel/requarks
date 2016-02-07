@@ -257,6 +257,7 @@ body {
     display: block;
     padding: 5px 10px 0 10px;
     height: 55px;
+    text-align: center;
 
     .item-title-id {
       display: inline-block;
@@ -266,9 +267,20 @@ body {
       color: lighten($color-blue, 15%);
     }
 
+    .item-title-text {
+
+    }
+
+    .item-title-subtext {
+      display:block;
+      color: rgba(#FFF, 0.7);
+      font-size: 12px;
+      padding: 5px 0 0 0;
+    }
+
   }
 
-  .item-tabs {
+  .item-tabs > div:first-child {
     text-transform:uppercase;
 
     i.fa {
@@ -282,14 +294,40 @@ body {
     padding-top: 15px;
   }
 
-  .item-box {
-    margin-bottom: 15px;
-  }
-
 }
 
+.item-box {
+  background-color:#FFF;
+  border-radius: 3px;
+  margin-bottom: 15px;
 
+  .item-box-header {
+    border-radius: 3px 3px 0 0;
+    color:#FFF;
+    padding: 16px;
+    position:relative;
 
-.item-content {
-  padding: 0px;
+    > i.material-icons {
+      position:absolute;
+      right: 15px;
+      top: 13px;
+    }
+
+    .item-box-title {
+      text-transform: uppercase;
+    }
+
+  }
+
+  .item-box-actions {
+    background-color: #EEE;
+    padding: 8px;
+    border-radius: 0 0 3px 3px;
+
+    > div > div {
+      margin-right: 5px;
+    }
+
+  }
+
 }

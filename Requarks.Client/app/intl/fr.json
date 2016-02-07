@@ -12,7 +12,7 @@
       "review": "Révision",
       "projects": "Projets",
       "teams": "Équipes",
-      "settings": "Param."
+      "settings": "Paramètres"
     },
     "search": {
       "title": "Rechercher une requête...",
@@ -21,6 +21,16 @@
     "messages": {
       "loading_busy": "Opération en cours... Veuillez patienter."
     }
+  },
+
+  "itempage": {
+    "general": "Général",
+    "files": "Fichiers",
+    "planning": "Planification",
+    "dev": "Dev",
+    "tests": "Tests",
+    "history": "Historique",
+    "submitted_on": "Soumis le {submitDate, date, long} à {submitDate, time, short}"
   },
 
   "new_request": {

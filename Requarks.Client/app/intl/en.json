@@ -23,6 +23,16 @@
     }
   },
 
+  "itempage": {
+    "general": "General",
+    "files": "Files",
+    "planning": "Planning",
+    "dev": "Dev",
+    "tests": "Tests",
+    "history": "History",
+    "submitted_on": "Submitted on {submitDate, date, long} at {submitDate, time, short}"
+  },
+
   "new_request": {
 
     "title": "File New Request",

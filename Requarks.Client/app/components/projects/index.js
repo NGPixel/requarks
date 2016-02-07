@@ -11,7 +11,10 @@ var Projects = (function (_super) {
         _super.call(this, props);
     }
     Projects.prototype.componentDidMount = function () {
-        EE.emit('setHeaderNav', 'projects');
+        EE.emit('setHeaderUI', {
+            navigation: 'projects',
+            loading: false
+        });
     };
     ;
     Projects.prototype.componentWillUnmount = function () {

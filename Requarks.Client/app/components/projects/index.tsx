@@ -12,7 +12,10 @@ class Projects extends React.Component<IProjectsProps, any> {
   }
 
   componentDidMount() {
-    EE.emit('setHeaderNav', 'projects');
+    EE.emit('setHeaderUI', {
+      navigation: 'projects',
+      loading: false
+    });
   };
 
   componentWillUnmount() {

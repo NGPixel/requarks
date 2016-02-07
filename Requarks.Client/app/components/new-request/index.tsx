@@ -26,7 +26,10 @@ class NewRequest extends React.Component<INewRequestProps, any> {
 
   componentDidMount() {
 
-    EE.emit('setHeaderNav', 'new');
+    EE.emit('setHeaderUI', {
+      navigation: 'new',
+      loading: false
+    });
 
     // Define custom properties
 

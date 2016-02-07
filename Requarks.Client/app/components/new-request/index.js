@@ -145,7 +145,10 @@ var NewRequest = (function (_super) {
         };
     }
     NewRequest.prototype.componentDidMount = function () {
-        EE.emit('setHeaderNav', 'new');
+        EE.emit('setHeaderUI', {
+            navigation: 'new',
+            loading: false
+        });
         var tempState = {};
         AppStore.data.properties.map(function (p) {
             var fieldValue = "";

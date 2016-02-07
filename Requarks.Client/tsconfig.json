@@ -48,6 +48,7 @@
         "app/app.tsx",
         "app/components/common/formfieldnote/index.tsx",
         "app/components/common/index.tsx",
+        "app/components/common/itembox/index.tsx",
         "app/components/common/logo-anim/index.tsx",
         "app/components/dashboard/index.tsx",
         "app/components/firstsetup/index.tsx",
