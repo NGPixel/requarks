@@ -57,14 +57,12 @@ var Settings = (function (_super) {
             });
         };
         this.onSaveSettings = function () {
+            var isLoadingState = false;
             if (AppConfig.data.locale != _this.state.form_locale) {
                 _this.setState({
                     modalLocaleWarn: true
                 });
-                EE.emit('setHeaderUI', {
-                    loading: false,
-                    fabIcon: 'error_outline'
-                });
+                isLoadingState = true;
             }
             AppConfig.user.locale = _this.state.form_locale;
             AppConfig.data.default_category = _this.state.form_default_category;
@@ -74,7 +72,8 @@ var Settings = (function (_super) {
             AppConfig.data.app_useadvanimations = _this.state.form_app_useadvanimations;
             AppConfig.save();
             EE.emit('setHeaderUI', {
-                navigation: 'settings',
+                loading: isLoadingState,
+                navigation: 'settings'
             });
             _this.setState({ snackSuccessOpen: true });
         };

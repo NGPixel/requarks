@@ -30,7 +30,7 @@ class Dashboard extends React.Component<IDashboardProps, any> {
 
       return (
 
-        <div id="itempage" className="content-container">
+        <div id="itempage">
 
           <div className="item-header">
             <h1 className="item-title">
@@ -38,14 +38,23 @@ class Dashboard extends React.Component<IDashboardProps, any> {
               <span className="item-title-text">Grouped services on left-hand side do not appear anywhere on mobile version of the site</span>
               <span className="item-title-subtext"><FormattedMessage id="itempage.submitted_on" values={{submitDate: d}} /></span>
             </h1>
-            <Mui.Tabs className="item-tabs" tabItemContainerStyle={{backgroundColor: 'transparent'}} inkBarStyle={{backgroundColor: Colors.white}}>
-              <Mui.Tab label={<span><i className="fa fa-th-large" /> <FormattedMessage id="itempage.general" /></span>}>
+            <Mui.Tabs className="item-tabs" tabItemContainerStyle={{backgroundColor: 'rgba(0,0,0,0.2)'}} inkBarStyle={{backgroundColor: Colors.white}}>
+              <Mui.Tab style={{color: Colors.white}} label={<span><i className="fa fa-th-large" /> <FormattedMessage id="itempage.general" /></span>}>
                 <div className="item-tab">
 
                 <Flex alignItems="start">
                   <Item flex={9}>
 
-                    <Mui.Paper zDepth={2} style={{backgroundColor: Colors.grey100, padding: 15}} className="item-content">
+                    <Mui.Paper zDepth={2} style={{backgroundColor: Colors.blueGrey600}} className="item-statusbar">
+                      <span>Status</span>
+                      <Mui.FlatButton label="Unconfirmed" icon={<MuiIcons.ActionLabel />} labelPosition="after" style={{color:Colors.white}} hoverColor={Colors.blueGrey700} rippleColor={Colors.blueGrey900} />
+                      <span>Priority</span>
+                      <Mui.FlatButton label="Normal" icon={<MuiIcons.ImageAdjust />} labelPosition="after" style={{color:Colors.white}} hoverColor={Colors.blueGrey700} rippleColor={Colors.blueGrey900} />
+                      <span>Type</span>
+                      <Mui.FlatButton label="Bug - Minor" icon={<MuiIcons.ActionBookmark />} labelPosition="after" style={{color:Colors.white}} hoverColor={Colors.blueGrey700} rippleColor={Colors.blueGrey900} />
+                    </Mui.Paper>
+
+                    <Mui.Paper zDepth={2} style={{backgroundColor: Colors.grey100}} className="item-description">
                       [description here]
                     </Mui.Paper>
 
@@ -130,27 +139,27 @@ class Dashboard extends React.Component<IDashboardProps, any> {
 
                 </div>
               </Mui.Tab>
-              <Mui.Tab label={<span><i className="fa fa-files-o" />  <FormattedMessage id="itempage.files" /></span>}>
+              <Mui.Tab style={{color: Colors.white}} label={<span><i className="fa fa-files-o" />  <FormattedMessage id="itempage.files" /></span>}>
                 <div>
                   ---
                 </div>
               </Mui.Tab>
-              <Mui.Tab label={<span><i className="fa fa-calendar" />  <FormattedMessage id="itempage.planning" /></span>}>
+              <Mui.Tab style={{color: Colors.white}} label={<span><i className="fa fa-calendar" />  <FormattedMessage id="itempage.planning" /></span>}>
                 <div>
                   ---
                 </div>
               </Mui.Tab>
-              <Mui.Tab label={<span><i className="fa fa-code" />  <FormattedMessage id="itempage.dev" /></span>}>
+              <Mui.Tab style={{color: Colors.white}} label={<span><i className="fa fa-code" />  <FormattedMessage id="itempage.dev" /></span>}>
                 <div>
                   ---
                 </div>
               </Mui.Tab>
-              <Mui.Tab label={<span><i className="fa fa-hand-pointer-o" />  <FormattedMessage id="itempage.tests" /></span>}>
+              <Mui.Tab style={{color: Colors.white}} label={<span><i className="fa fa-hand-pointer-o" />  <FormattedMessage id="itempage.tests" /></span>}>
                 <div>
                   ---
                 </div>
               </Mui.Tab>
-              <Mui.Tab label={<span><i className="fa fa-archive" />  <FormattedMessage id="itempage.history" /></span>}>
+              <Mui.Tab style={{color: Colors.white}} label={<span><i className="fa fa-archive" />  <FormattedMessage id="itempage.history" /></span>}>
                 <div>
                   ---
                 </div>

@@ -11,7 +11,7 @@ var menuTree = [{
         id: 'dashboard',
         route: '/',
         icon: 'dashboard',
-        bg: 'b',
+        bg: 'e',
         height: 'b'
     },
     {
@@ -47,13 +47,14 @@ var Header = (function (_super) {
         this.setHeaderUI = function (nState) {
             var nHeaderState = {
                 activemenu: nState.navigation || _this.state.activemenu,
-                loading: nState.loading || _this.state.loading,
+                loading: (_.isBoolean(nState.loading)) ? nState.loading : _this.state.loading,
                 fabIcon: nState.fabIcon || 'import_export'
             };
             _this.setState(nHeaderState);
+            console.log(nHeaderState);
             var curNavItem = _.find(_this.state.menu, ['id', nHeaderState.activemenu]);
             document.body.className = 'bg-state-' +
-                (_.result(curNavItem, 'bg') || 'e') +
+                (_.result(curNavItem, 'bg') || 'a') +
                 ((!AppConfig.data.app_useadvanimations) ? ' bg-state-direct' : '') +
                 ' bg-height-' + (_.result(curNavItem, 'height') || 'a');
         };

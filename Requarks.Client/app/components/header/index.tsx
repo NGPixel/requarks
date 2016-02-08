@@ -10,7 +10,7 @@ const menuTree =
     id: 'dashboard',
     route: '/',
     icon: 'dashboard',
-    bg: 'b',
+    bg: 'e',
     height: 'b'
   },
   {
@@ -70,15 +70,17 @@ class Header extends Component<IHeaderProps, any> {
 
       let nHeaderState = {
         activemenu: nState.navigation || this.state.activemenu,
-        loading: nState.loading || this.state.loading,
+        loading: (_.isBoolean(nState.loading)) ? nState.loading : this.state.loading,
         fabIcon: nState.fabIcon || 'import_export'
       };
       this.setState(nHeaderState);
 
+      console.log(nHeaderState);
+
       let curNavItem = _.find(this.state.menu, ['id', nHeaderState.activemenu]);
 
       document.body.className = 'bg-state-' +
-        (_.result(curNavItem, 'bg') || 'e') +
+        (_.result(curNavItem, 'bg') || 'a') +
         ((!AppConfig.data.app_useadvanimations) ? ' bg-state-direct' : '') +
         ' bg-height-' + (_.result(curNavItem, 'height') || 'a');
 

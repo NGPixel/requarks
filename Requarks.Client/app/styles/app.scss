@@ -128,37 +128,31 @@ body {
     z-index: -1;
 
     display: block;
-    background: linear-gradient(80deg , #004D40, #01579B, #33691E, #BF360C, #B71C1C, #311B92);
-    background-size: 1200% 1200%;
-    background-position: 0% 80%;
-    transition: background-position 5s ease, height 0.6s ease;
+    background-color:#222;
+    transition: background-color 1s ease, height 0.6s ease;
 
     border-bottom: 2px solid rgba(255,255,255,0.4);
     width: 100%;
     height: 110px;
   }
 
-  &.bg-state-direct:before {
-    transition: all 0s ease, height 0.6s ease;
-  }
-
   &.bg-state-a:before {
-    background-position: 0% 80%;
+    background-color: #009688;
   }
   &.bg-state-b:before {
-    background-position: 20% 70%;
+    background-color: #0288d1;
   }
   &.bg-state-c:before {
-    background-position: 35% 60%;
+    background-color: #689f38;
   }
   &.bg-state-d:before {
-    background-position: 59% 50%;
+    background-color: #f57c00;
   }
   &.bg-state-e:before {
-    background-position: 80% 40%;
+    background-color: #B71C1C;
   }
   &.bg-state-f:before {
-    background-position: 100% 30%;
+    background-color: #673ab7;
   }
 
   &.bg-height-a:before {
@@ -247,6 +241,7 @@ body {
 }
 
 #itempage {
+  padding: 15px 0 0 0;
 
   .item-title {
     font-size: 18px;
@@ -261,10 +256,10 @@ body {
 
     .item-title-id {
       display: inline-block;
-      border-right: 1px dotted lighten($color-blue, 10%);
+      border-right: 1px dotted rgba(255,255,255,0.5);
       margin-right: 10px;
       padding-right: 10px;
-      color: lighten($color-blue, 15%);
+      color: rgba(255,255,255,0.7);
     }
 
     .item-title-text {
@@ -291,7 +286,37 @@ body {
   }
 
   .item-tab {
-    padding-top: 15px;
+    padding: 15px;
+  }
+
+  .item-statusbar {
+    padding: 6px 15px;
+    color:#FFF;
+    margin-bottom: 15px;
+    border:1px solid rgba(255,255,255,0.2);
+    text-align: center;
+
+    > span {
+      color: rgba(255,255,255,0.7);
+      text-transform:uppercase;
+      font-size: 12px;
+      display:inline-block;
+      padding: 0 10px 0 15px;
+      margin-left: 15px;
+      border-left: 1px dotted #CCC;
+
+      &:first-of-type {
+        border-left:none;
+        padding-left: 0;
+        margin-left: 0;
+      }
+
+    }
+
+  }
+
+  .item-description {
+    padding: 15px;
   }
 
 }
