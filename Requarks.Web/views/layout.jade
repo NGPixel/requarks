@@ -1,0 +1,25 @@
+doctype html
+html
+	head
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		meta(charset='UTF-8')
+		title= title
+
+		// Favicon
+		each favsize in [32, 96, 16]
+			link(rel='icon', type='image/png', sizes=favsize + 'x' + favsize href='/images/favicon-' + favsize + 'x' + favsize + '.png')
+
+		// CSS
+		for name in bundles.emit('css/bundle.css')
+			link(rel='stylesheet', href='/#{name}')
+
+		// JS
+		for name in bundles.emit('js/bundle.js')
+			script(src='/#{name}')
+
+	body
+		header
+			nav.navbar
+				| Bob
+			nav.userbar
+		block content

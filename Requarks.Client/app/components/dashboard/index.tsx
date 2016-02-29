@@ -54,9 +54,20 @@ class Dashboard extends React.Component<IDashboardProps, any> {
                       <Mui.FlatButton label="Bug - Minor" icon={<MuiIcons.ActionBookmark />} labelPosition="after" style={{color:Colors.white}} hoverColor={Colors.blueGrey700} rippleColor={Colors.blueGrey900} />
                     </Mui.Paper>
 
-                    <Mui.Paper zDepth={2} style={{backgroundColor: Colors.grey100}} className="item-description">
+                    <div>
+                      <div className="item-description">
+                        Mavericks reality distortion gradients attenuation. Thought through and through notifications transparency game center multitasking aluminum advanced desktop operating system genius bar. This changes everything designed by Apple in California passbook. Control center photos all-new design SDK technology clock. Simplicity is actually quite complicated. Functional layers 9:41am partly cloudy minimalism. Dock airdrop slide to answer music. Video multitouch iTunes compass. Harmonious finder grid system retina animation compressor experience keynote.<br /><br />
+                        Redesign services API notes system preferences. Features siri flat buttons airplane mode calculator. Missed call cover flow compare models. Wi-Fi apple care volume reminder controls. My stations folders mac power ultimate upgrade. Shop online quicktime trackpad server aperture rumors education safari one to one. Remote desktop motion business. Backlit keyboard chess phone airport extreme support iPad. Accessories magsafe terminal final cut pro. Featured TV shows downloads digital color meter. Glossy tech specs bluetooth manuals. OpenGL products FaceTime free shipping recycling mission control applications.
+                      </div>
+                    </div>
+
+                    <Common.ItemBox
+                      accentColor={Colors.lightBlue700}
+                      title="Discussion"
+                      icon="chat"
+                    >
                       [description here]
-                    </Mui.Paper>
+                    </Common.ItemBox>
 
                   </Item>
                   <Item flex={3}>
@@ -64,7 +75,7 @@ class Dashboard extends React.Component<IDashboardProps, any> {
                     {/* ASSIGNEE */}
 
                     <Common.ItemBox
-                      accentColor={Colors.lightBlue700}
+                      accentColor={Colors.cyan700}
                       title="Assignee"
                       icon="face"
                       actions={
