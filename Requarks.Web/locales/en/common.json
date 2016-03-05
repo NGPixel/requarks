@@ -1,0 +1,11 @@
+{
+	"nav": {
+		"dashboard": "Dashboard",
+		"create": "Create",
+		"review": "Review",
+		"projects": "Projects",
+		"teams": "Teams",
+		"settings": "Settings"
+	},
+	"copyright": "Powered by Requarks, an open-source initiative."
+}

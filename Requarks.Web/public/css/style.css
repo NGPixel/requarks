@@ -1,1 +1,1 @@
-body{padding:0;margin:0}a{color:#00b7ff}header{background-color:#263238}
+body{padding:0;margin:0;font-family:'Open Sans', sans-serif}a{color:#00b7ff}header{background-color:#263238}header nav.navbar>ul{margin:0;padding:0 0 0 12px}header nav.navbar>ul>li{display:inline-block;padding:12px 12px;color:#FFF;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;cursor:pointer}header nav.navbar>ul>li.active{background-color:#f44336}nav.actionbar{background-color:#f44336}footer{background-color:#263238}footer>div{text-align:center;font-size:11px;padding:10px;color:#cfd8dc}

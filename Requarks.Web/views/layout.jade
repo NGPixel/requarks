@@ -10,6 +10,7 @@ html
 			link(rel='icon', type='image/png', sizes=favsize + 'x' + favsize href='/images/favicon-' + favsize + 'x' + favsize + '.png')
 
 		// CSS
+		link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700|Inconsolata|Material+Icons', rel='stylesheet', type='text/css')
 		for name in bundles.emit('css/bundle.css')
 			link(rel='stylesheet', href='/#{name}')
 
@@ -20,6 +21,13 @@ html
 	body
 		header
 			nav.navbar
-				| Bob
+				ul
+					each menuitem in ['dashboard', 'create', 'review', 'projects', 'teams', 'settings']
+						- var menuitem_active = menuitem == 'create'
+						li(data-key=menuitem, class=menuitem_active ? 'active' : '')= t('nav.' + menuitem)
 			nav.userbar
+		nav.actionbar
+			block actionbar
 		block content
+		footer
+			div= t('copyright')

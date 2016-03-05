@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 var sass = require('node-sass-middleware');
 var expressBundles = require('express-bundles');
 var compression = require('compression');
+var i18next = require('i18next');
+var i18next_backend = require('i18next-node-fs-backend');
+var i18next_mw = require('i18next-express-middleware');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -15,11 +18,26 @@ var app = express();
 
 app.use(compression());
 
+// localization engine setup
+i18next
+  .use(i18next_backend)
+  .use(i18next_mw.LanguageDetector)
+  .init({
+    ns: 'common',
+    defaultNS: 'common',
+    saveMissing: false,
+    debug: true,
+    fallbackLng : 'en',
+    backend: {
+      loadPath: './locales/{{lng}}/{{ns}}.json'
+    }
+  });
+
 // view engine setup
+app.use(i18next_mw.handle(i18next));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -48,6 +66,15 @@ app.use(expressBundles.middleware({
   }
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Disable IE compatibility mode
+
+app.use(function(req, res, next) {
+  res.setHeader('X-UA-Compatible','IE=edge');
+  return next();
+});
+
+// Routes
 
 app.use('/', routes);
 app.use('/users', users);
@@ -82,6 +109,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

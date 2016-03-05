@@ -1,6 +1,9 @@
+@import './material-colors/_sass-material-colors';
+
 body {
   padding: 0;
   margin: 0;
+  font-family: 'Open Sans', sans-serif;
 }
 
 a {
@@ -8,5 +11,45 @@ a {
 }
 
 header {
-	background-color:#263238;
+	background-color: material-color('blue-grey', '900');
+
+	nav.navbar {
+		> ul {
+			margin: 0;
+			padding: 0 0 0 12px;
+
+			> li {
+				display: inline-block;
+				padding: 12px 12px;
+				color: #FFF;
+				font-size: 13px;
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+				cursor: pointer;
+
+				&.active {
+					background-color: material-color('red', '500')
+				}
+
+			}
+
+		}
+	}
+
+}
+
+nav.actionbar {
+	background-color: material-color('red', '500');
+}
+
+footer {
+	background-color: material-color('blue-grey', '900');
+
+	> div {
+		text-align: center;
+		font-size: 11px;
+		padding: 10px;
+		color: material-color('blue-grey', '100');
+	}
+
 }

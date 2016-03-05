@@ -11,7 +11,7 @@
     "url": "https://github.com/Requarks/requarks.git"
   },
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -20,10 +20,16 @@
     "debug": "~2.2.0",
     "express": "~4.13.1",
     "express-bundles": "0.0.1",
+    "i18next": "^2.2.0",
+    "i18next-express-middleware": "^0.3.2",
+    "i18next-node-fs-backend": "0.0.6",
     "jade": "~1.11.0",
     "morgan": "~1.6.1",
     "node-sass": "^3.4.2",
     "node-sass-middleware": "0.8.0",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    
   }
 }
