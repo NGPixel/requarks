@@ -1,0 +1,11 @@
+body.mi-create {
+
+	header > nav.navbar > ul > li.active {
+		background-color: material-color('red', '500');
+	}
+
+	nav.actionbar {
+		background-color: material-color('red', '500');
+	}
+
+}

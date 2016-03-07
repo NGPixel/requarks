@@ -32,3 +32,6 @@ npm-debug.log
 # SublimeText Project Files
 *.sublime-project
 *.sublime-workspace
+
+# Private config files
+./config.json

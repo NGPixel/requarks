@@ -1,0 +1,28 @@
+{
+	"navbar": {
+		"dashboard": {
+			"target": "/",
+			"icon": "dashboard"
+		},
+		"create": {
+			"target": "/create",
+			"icon": "note_add"
+		},
+		"review": {
+			"target": "/review",
+			"icon": "line_weight"
+		},
+		"projects": {
+			"target": "/projects",
+			"icon": "work"
+		},
+		"teams": {
+			"target": "/teams",
+			"icon": "people"
+		},
+		"settings": {
+			"target": "/settings",
+			"icon": "settings"
+		}
+	}
+}

@@ -15,20 +15,20 @@ html
 			link(rel='stylesheet', href='/#{name}')
 
 		// JS
-		for name in bundles.emit('js/bundle.js')
-			script(src='/#{name}')
+		script(src='https://cdn.auth0.com/js/lock-8.2.min.js')
+		script(type='text/javascript').
+			function signin() {
+				var lock = new Auth0Lock('#{appconfig.auth0.clientID}', '#{appconfig.auth0.domain}');
+				lock.show({
+					callbackURL: '#{appconfig.host}/auth_callback',
+					responseType: 'code',
+					authParams: {
+						scope: 'openid profile'
+					}
+				});
+			};
 
-	body(class='mi-' + navbar_active)
-		header
-			nav.navbar
-				ul
-					each menuitem, menukey in appdata.navbar
-						li(data-key=menukey, class=(navbar_active == menukey ? 'active' : ''), data-link=menuitem.target)
-							<i class="material-icons">#{menuitem.icon}</i> #{t('nav.' + menukey)}
-			nav.userbar
-		nav.actionbar
-			block actionbar
-		main
-			block content
+	body(class='login', onload='signin()')
+		div Test
 		footer
 			div= t('copyright')

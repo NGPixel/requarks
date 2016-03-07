@@ -1,0 +1,30 @@
+body.mi-dashboard {
+
+	header > nav.navbar > ul > li.active {
+		background-color: material-color('indigo', '500');
+	}
+
+	nav.actionbar {
+		background-color: material-color('indigo', '500');
+	}
+	
+}
+
+.dashboard {
+	background-color: material-color('blue-grey','800');
+	background-image: url('/images/walls/3.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	min-height: 80vh;
+
+	> h1 {
+		background-color: rgba(0,0,0,0.6);
+		color:#FFF;
+		display: block;
+		font-weight: normal;
+		margin:0;
+		padding: 25px 0;
+		text-align: center;
+	}
+
+}

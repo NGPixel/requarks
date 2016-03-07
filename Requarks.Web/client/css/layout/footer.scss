@@ -1,0 +1,12 @@
+footer {
+	background-color: material-color('blue-grey', '900');
+	border-top: 1px solid #FFF;
+
+	> div {
+		color: material-color('blue-grey', '100');
+		font-size: 11px;
+		padding: 10px;
+		text-align: center;
+	}
+
+}
