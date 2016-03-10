@@ -20,6 +20,9 @@ html
 			function signin() {
 				var lock = new Auth0Lock('#{appconfig.auth0.clientID}', '#{appconfig.auth0.domain}');
 				lock.show({
+					icon: '/images/logo_50x50.png',
+					closable: false,
+					socialBigButtons: true,
 					callbackURL: '#{appconfig.host}/auth_callback',
 					responseType: 'code',
 					authParams: {
@@ -29,6 +32,3 @@ html
 			};
 
 	body(class='login', onload='signin()')
-		div Test
-		footer
-			div= t('copyright')

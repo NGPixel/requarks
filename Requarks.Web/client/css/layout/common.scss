@@ -7,4 +7,43 @@ body {
 
 main {
 	background-color: #FFF;
+
+	> .container {
+		box-sizing: border-box;
+		margin: 0 auto;
+		max-width: 1170px;
+		padding-top: 20px;
+	}
+
+}
+
+.box {
+	background: #FFF;
+	border: solid 1px #EEE;
+	border-top: solid 1px material-color('red', '500');
+	margin-bottom: 20px;
+	padding: 15px 0 0 0;
+	border-radius: 0 0 3px 3px;
+
+	> h4 {
+		color: #687074;
+		font-size: 18px;
+		font-weight: normal;
+		margin: 0 0 15px 0;
+		padding: 0 15px;
+	}
+
+	.box-base {
+		background-color: #f7f7f7;
+		border-top: 1px solid #EEE;
+		padding: 8px;
+
+		.box-chrome {
+			background-color: #FFF;
+			border: 1px solid #EEE;
+			box-shadow: 0 0 5px 0 rgba(0,0,0,.05);
+		}
+
+	}
+
 }

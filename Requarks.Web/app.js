@@ -27,6 +27,10 @@ var i18next_mw = require('i18next-express-middleware');
 var ctrlLogin = require('./controllers/login');
 var ctrlDashboard = require('./controllers/dashboard');
 var ctrlCreate = require('./controllers/create');
+var ctrlReview = require('./controllers/review');
+var ctrlProjects = require('./controllers/projects');
+var ctrlTeams = require('./controllers/teams');
+var ctrlSettings = require('./controllers/settings');
 
 var app = express();
 var _isDebug = (app.get('env') === 'development');
@@ -131,6 +135,10 @@ app.use(auth);
 
 app.use('/', ctrlDashboard);
 app.use('/create', ctrlCreate);
+app.use('/review', ctrlReview);
+app.use('/projects', ctrlProjects);
+app.use('/teams', ctrlTeams);
+app.use('/settings', ctrlSettings);
 
 // ----------------------------------------
 // Error handling

@@ -24,8 +24,12 @@ html
 				ul
 					each menuitem, menukey in appdata.navbar
 						li(data-key=menukey, class=(navbar_active == menukey ? 'active' : ''), data-link=menuitem.target)
-							<i class="material-icons">#{menuitem.icon}</i> #{t('nav.' + menukey)}
+							i.material-icons= menuitem.icon
+							= t('nav.' + menukey)
 			nav.userbar
+				i#notifbtn.material-icons notifications
+				input#searchbox(type='text', placeholder='Search')
+				#usravatar(style={'background-image':'url(https://s3.amazonaws.com/uifaces/faces/twitter/mlane/73.jpg)'},alt='User')
 		nav.actionbar
 			block actionbar
 		main
