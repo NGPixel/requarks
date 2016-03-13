@@ -15,8 +15,5 @@ ratings:
   paths:
   - "**.css"
   - "**.js"
-  - "**.jsx"
-  - "**.module"
 exclude_paths:
-  - Requarks.Web/assets/js/libs/**/*
-  - Requarks.Web/assets/css/libs/**/*
+  - Requarks.Web/assets/**/*
