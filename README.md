@@ -4,3 +4,15 @@
 
 ###### Requests and Bugs Tracking Management System
 *Under development*
+
+##### Milestones
+- [x] Base Layout
+- [ ] Dashboard
+- [ ] Create
+- [ ] Review
+- [ ] Item
+- [ ] Projects
+- [ ] Project
+- [ ] Teams
+- [ ] Team
+- [ ] Settings
