@@ -1,7 +1,0 @@
-node_modules/
-bin/
-dist/
-debug/
-*.njsproj
-*.ntvs_analysis.dat
-*.vspscc
