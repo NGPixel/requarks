@@ -47,6 +47,25 @@ header {
 		justify-content: flex-end;
 		align-items: stretch;
 
+		#notifload {
+			width: 42px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			opacity: 0;
+			transition: opacity 0.5s ease;
+
+			&::before {
+				content: " ";
+				@include spinner(material-color('blue-grey', '300'),0.5s,20px);
+			}
+
+			&.active {
+				opacity: 1;
+			}
+
+		}
+
 		#notifbtn {
 			display:block;
 			width: 42px;
@@ -99,4 +118,5 @@ header {
 nav.actionbar {
 	background-color: material-color('blue-grey', '500');
 	min-height: 5px;
+	color: #FFF;
 }

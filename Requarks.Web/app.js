@@ -101,10 +101,10 @@ app.use(expressBundles.middleware({
       'css/style.css'
     ],
     'js/bundle.js': [
-      'js/modernizr-custom.min.js',
-      'js/jquery.min.js',
-      _isDebug ? 'js/vue.js' : 'js/vue.min.js',
-      'js/main.min.js'
+      'js/libs/modernizr-custom.min.js',
+      'js/libs/jquery.min.js',
+      _isDebug ? 'js/libs/vue.js' : 'js/libs/vue.min.js',
+      'js/app.js'
     ]
   }
 }));

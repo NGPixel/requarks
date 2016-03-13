@@ -1,15 +1,16 @@
 var gulp = require("gulp");
 var babel = require("gulp-babel");
 var concat = require("gulp-concat");
+var uglify = require('gulp-uglify');
 
 var paths = {
   scripts: ['./client/js/**/*.js']
 };
 
 gulp.task("scripts", function () {
-  return gulp.src(paths.scripts)
+  gulp.src(paths.scripts)
     .pipe(babel())
-    .pipe(concat("main.min.js"))
+    .pipe(uglify())
     .pipe(gulp.dest("./assets/js"));
 });
 

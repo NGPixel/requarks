@@ -2,19 +2,22 @@ extends layout
 
 block content
 	.container.row
-		.col-xs-9
-			.box
-				h4
-					i.material-icons.color-red-500 note_add
-					| File New Request
-				.box-base
-					.box-chrome
-						| test
-		.col-xs-3
-			.box
-				h4
-					i.material-icons info_outline
-					| Help
-				.box-base
-					.box-chrome
-						| test
+		.col-xs-12
+			h4.create-title Which category should this request be filed in?
+			ul#create-categories.tiles
+				li.bg-color-light-blue-700(data-link='/create/content')
+					i.material-icons wrap_text
+					strong Content
+					span Request banners, graphics, images or other graphic design elements.
+				li.bg-color-grey-800(data-link='/create/technical')
+					i.material-icons memory
+					strong Technical
+					span Report bugs, request new technical features, enhancements or support.
+				li.bg-color-light-green-700(data-link='/create/graphic-design')
+					i.material-icons palette
+					strong Graphic Design
+					span Request banners, graphics, images or other graphic design elements.
+				li.bg-color-deep-purple-700(data-link='/create/templates')
+					i.material-icons border_outer
+					strong Templates
+					span Request banners, graphics, images or other graphic design elements.

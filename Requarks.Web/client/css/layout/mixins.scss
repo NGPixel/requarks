@@ -4,3 +4,42 @@
 	&:-ms-input-placeholder {@content}
 	&:placeholder-shown {@content}
 }
+
+@mixin spinner($color,$dur,$width,$height:$width) {
+	width: $width;
+	height: $height;
+	border-radius: 50%;
+	box-shadow:0px 0px 0px 1px rgba(0,0,0,0.1), 2px 1px 0px $color;
+	@include prefix(animation, spin $dur linear infinite);
+	@include keyframes(spin) {
+		100%{
+		 @include prefix(transform, rotate(360deg));
+		}
+	};
+}
+
+@mixin keyframes($animation-name) {
+    @-webkit-keyframes #{$animation-name} {
+        @content;
+    }
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }  
+    @-ms-keyframes #{$animation-name} {
+        @content;
+    }
+    @-o-keyframes #{$animation-name} {
+        @content;
+    }  
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+
+@mixin prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+     -moz-#{$property}: #{$value};
+      -ms-#{$property}: #{$value};
+       -o-#{$property}: #{$value};
+          #{$property}: #{$value};
+}

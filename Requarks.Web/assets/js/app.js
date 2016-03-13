@@ -1,0 +1,1 @@
+"use strict";$(function(){$("nav.navbar > ul > li").on("click",function(n){window.location.assign(n.currentTarget.dataset.link)})});

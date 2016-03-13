@@ -7,6 +7,8 @@ body {
 
 main {
 	background-color: #FFF;
+	background-image: linear-gradient(to bottom, material-color('blue-grey', '50'), #FFF);
+	min-height: 60vh;
 
 	> .container {
 		box-sizing: border-box;
@@ -19,11 +21,11 @@ main {
 
 .box {
 	background: #FFF;
-	border: solid 1px #EEE;
-	border-top: solid 1px material-color('red', '500');
+	border: solid 1px material-color('blue-grey', '100');
 	margin-bottom: 20px;
 	padding: 15px 0 0 0;
 	border-radius: 0 0 3px 3px;
+	@include prefix(box-shadow, 0px 0px 0px 1px rgba(255,255,255,0.5));
 
 	> h4 {
 		color: #687074;

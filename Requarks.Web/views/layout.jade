@@ -17,6 +17,8 @@ html
 		// JS
 		for name in bundles.emit('js/bundle.js')
 			script(src='/#{name}')
+		if(page_script)
+			script(src='/js/#{page_script}.js')
 
 	body(class='mi-' + navbar_active)
 		header
@@ -27,6 +29,7 @@ html
 							i.material-icons= menuitem.icon
 							= t('nav.' + menukey)
 			nav.userbar
+				i#notifload
 				i#notifbtn.material-icons notifications
 				input#searchbox(type='text', placeholder='Search')
 				#usravatar(style={'background-image':'url(https://s3.amazonaws.com/uifaces/faces/twitter/mlane/73.jpg)'},alt='User')
