@@ -1,11 +1,5 @@
 body.mi-settings {
 
-	header > nav.navbar > ul > li.active {
-		background-color: material-color('indigo', '500');
-	}
-
-	nav.actionbar {
-		background-color: material-color('indigo', '500');
-	}
+	@include section-common('indigo');
 
 }

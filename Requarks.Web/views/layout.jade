@@ -31,10 +31,22 @@ html
 			nav.userbar
 				i#notifload
 				i#notifbtn.material-icons notifications
-				input#searchbox(type='text', placeholder='Search')
+				#searchbox
+					input(type='text', placeholder='Search')
 				#usravatar(style={'background-image':'url(https://s3.amazonaws.com/uifaces/faces/twitter/mlane/73.jpg)'},alt='User')
 		nav.actionbar
-			block actionbar
+			h4
+				i.material-icons face
+				| #{authusr.name.givenName} #{authusr.name.familyName}
+			ul
+				li Settings
+				li Logout
+			h4
+				i.material-icons pin_drop
+				| Pinned
+			h4
+				i.material-icons schedule
+				| Recent
 		main
 			block content
 		footer

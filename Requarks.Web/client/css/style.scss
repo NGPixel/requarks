@@ -1,4 +1,5 @@
 @import './layout/mixins';
+@import './layout/variables';
 @import './material/_sass-material-colors';
 @import './material/_sass-material-colors-classes';
 
@@ -6,10 +7,11 @@
 @import './layout/header';
 @import './layout/footer';
 
+@import './components/box';
+
 @import './sections/dashboard';
 @import './sections/create';
 @import './sections/review';
 @import './sections/projects';
 @import './sections/teams';
 @import './sections/settings';
-

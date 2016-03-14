@@ -103,6 +103,7 @@ app.use(expressBundles.middleware({
     'js/bundle.js': [
       'js/libs/modernizr-custom.min.js',
       'js/libs/jquery.min.js',
+      'js/libs/typeahead.bundle.min.js',
       _isDebug ? 'js/libs/vue.js' : 'js/libs/vue.min.js',
       'js/app.js'
     ]

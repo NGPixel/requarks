@@ -1,0 +1,148 @@
+
+// ========================================
+// Standard Box
+// ========================================
+
+.box {
+	background: #FFF;
+	border: solid 1px material-color('blue-grey', '100');
+	margin-bottom: 20px;
+	padding: 15px 0 0 0;
+	border-radius: 3px;
+	@include prefix(box-shadow, 0px 0px 0px 1px rgba(255,255,255,0.5));
+
+	> h4 {
+		font-size: 18px;
+		font-weight: normal;
+		margin: 0 0 15px 0;
+		padding: 0 15px;
+		display: flex;
+		align-items: center;
+
+		> i:first-child {
+			margin-right: 5px;
+		}
+
+	}
+
+	.box-base {
+		background-color: #f7f7f7;
+		border-radius: 0 0 3px 3px;
+		border-top: 1px solid #EEE;
+		padding: 8px;
+
+		.box-chrome {
+			background-color: #FFF;
+			border: 1px solid lighten(material-color('blue-grey', '100'), 7%);
+			box-shadow: 0 0 5px 0 rgba(0,0,0,.05);
+		}
+
+		.box-list {
+			list-style-type: none;
+			margin: 0;
+			padding: 1px;
+
+			> li {
+				padding: 5px;
+				margin: 0;
+				border-top:1px dotted #DDD;
+				display: flex;
+				align-items: center;
+				font-size: 14px;
+				cursor: pointer;
+				transition: background-color 0.4s ease;
+				color: material-color('blue-grey', '800');
+
+				> i:first-child {
+					margin-right: 5px;
+					font-size: 24px;
+					align-self: stretch;
+				}
+
+				&:hover {
+					border-top: 1px solid material-color('blue-grey', '50');
+					background-color: material-color('blue-grey', '50');
+
+					& + li {
+						border-top: 1px solid material-color('blue-grey', '50');
+					}
+
+				}
+
+				&:first-child {
+					border-top: none;
+				}
+
+				&.active {
+					border-top: 1px solid material-color('blue-grey', '500');
+					background-color: material-color('blue-grey', '500');
+					color: #FFF;
+
+					& + li {
+						border-top: 1px solid material-color('blue-grey', '500');
+					}
+				}
+
+			}
+
+		}
+
+	}
+
+}
+
+// ========================================
+// Selection Tiles
+// ========================================
+
+ul.tiles {
+	padding: 10px 0;
+	margin: 0;
+	list-style-type: none;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	color: #FFF;
+
+	> li {
+		flex: 1;
+		flex-basis: 20%;
+		display: block;
+		padding: 0;
+		border-radius: 3px;
+		margin: 5px;
+		transition: all 0.6s ease;
+		cursor: pointer;
+
+		&:hover {
+			opacity: 0.7;
+		}
+
+		> i {
+			display: block;
+			text-align: center;
+			font-size: 48px;
+			margin-top: 15px;
+		}
+
+		> strong {
+			display: block;
+			text-align: center;
+			font-size: 14px;
+			font-weight: 400;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			margin: 15px 0;
+		}
+
+		span {
+			display: block;
+			text-align: center;
+			padding: 20px 12px;
+			background-color: rgba(255,255,255,0.2);
+			font-size: 11px;
+		}
+
+	}
+
+}

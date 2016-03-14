@@ -1,6 +1,11 @@
 header {
 	background-color: material-color('blue-grey', '900');
 	display: flex;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	border-bottom: 5px solid  material-color('blue-grey', '500');
+	box-sizing: border-box;
 
 	nav.navbar {
 		flex: 1;
@@ -86,21 +91,84 @@ header {
 		#searchbox {
 			background-color: darken(material-color('blue-grey', '900'), 4%);
 			width: 15vw;
-			margin: 0;
-			padding: 0;
-			border: none;
-			color: material-color('blue-grey', '200');
-			box-sizing: border-box;
-			padding: 0 10px;
+			display: flex;
+			align-items: center;
 
-			&:focus {
-				outline: none;
+			> span {
+				width: 100%;
 			}
 
-			@include placeholder {
+			.tt-hint {
+				background-color: transparent !important;
+				width: 100%;
+				height: 42px;
+				margin: 0;
+				padding: 0 10px;
+				border: none;
+				box-sizing: border-box;
 				color: material-color('blue-grey', '400');
-				font-style: italic;
 			}
+
+			.tt-input {
+				background-color: transparent;
+				width: 100%;
+				height: 42px;
+				margin: 0;
+				padding: 0 10px;
+				border: none;
+				color: material-color('blue-grey', '100');
+				box-sizing: border-box;
+
+				&:focus {
+					outline: none;
+				}
+
+				&:hover {
+					@include placeholder {
+						color: material-color('blue-grey', '200');
+					}
+				}
+
+				@include placeholder {
+					color: material-color('blue-grey', '400');
+					font-style: italic;
+					transition: color 0.5s ease;
+				}
+			}
+
+			.tt-menu {
+				background-color: material-color('blue-grey', '500');
+				color: material-color('blue-grey', '100');
+				width: 100%;
+
+				.tt-suggestion {
+					padding: 6px 10px;
+					border-top: 1px dotted material-color('blue-grey', '300');
+
+					&:first-child {
+						border-top: none !important;
+					}
+
+					&.tt-cursor {
+						background-color: material-color('indigo', '900');
+						color: material-color('indigo', '50');
+						border-top: 1px solid material-color('blue-grey', '900');
+
+						& + .tt-suggestion {
+							border-top: 1px solid material-color('blue-grey', '400');
+						}
+
+					}
+
+					.tt-highlight {
+						color: material-color('indigo', '50');
+						font-weight: 400;
+					}
+
+				}
+
+			}
+			
 
 		}
 
@@ -109,6 +177,13 @@ header {
 			background-repeat: no-repeat;
 			width: 42px;
 			display: block;
+			cursor: pointer;
+			transition: all 0.5s ease;
+
+			&:hover {
+				opacity:0.6;
+			}
+
 		}
 
 	}
@@ -116,7 +191,54 @@ header {
 }
 
 nav.actionbar {
-	background-color: material-color('blue-grey', '500');
-	min-height: 5px;
+	background-color: transparentize(material-color('blue-grey', '900'), 0.1);
+	position: fixed;
+	top: 47px;
+	right: -300px;
+	width: 250px;
 	color: #FFF;
+	height: 100vh;
+	transition: right 1s ease;
+
+	&.active {
+		right: 0;
+	}
+
+	> h4 {
+		background-color: material-color('blue-grey', '500');
+		border-bottom: 2px solid material-color('blue-grey', '300');
+		padding: 8px;
+		display: block;
+		margin: 0;
+		display: flex;
+		align-items: center;
+		font-size: 14px;
+		font-weight: 600;
+
+		> i:first-child {
+			margin-right: 5px;
+			font-size: 24px;
+			align-self: stretch;
+		}
+	}
+
+	> ul {
+		list-style-type: none;
+		margin:0;
+		padding: 0 0 0 15px;
+
+		> li {
+			display: block;
+			border-top: 1px dotted rgba(255,255,255,0.6);
+			padding: 8px 8px 8px 0;
+			font-size: 13px;
+
+			&:first-child {
+				border-top: none;
+			}
+
+		}
+
+	}
+
 }

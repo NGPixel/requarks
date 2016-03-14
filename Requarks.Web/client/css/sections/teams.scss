@@ -1,11 +1,5 @@
 body.mi-teams {
 
-	header > nav.navbar > ul > li.active {
-		background-color: material-color('green', '500');
-	}
-
-	nav.actionbar {
-		background-color: material-color('green', '500');
-	}
+	@include section-common('green');
 
 }

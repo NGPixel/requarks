@@ -1,12 +1,6 @@
 body.mi-dashboard {
 
-	header > nav.navbar > ul > li.active {
-		background-color: material-color('teal', '500');
-	}
-
-	nav.actionbar {
-		background-color: material-color('teal', '500');
-	}
+	@include section-common('teal');
 	
 }
 

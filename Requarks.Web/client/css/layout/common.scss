@@ -2,7 +2,7 @@ body {
   background-color: material-color('blue-grey', '900');
   font-family: 'Open Sans', sans-serif;
   margin: 0;
-  padding: 0;
+  padding: 47px 0 0 0;
 }
 
 main {
@@ -15,37 +15,6 @@ main {
 		margin: 0 auto;
 		max-width: 1170px;
 		padding-top: 20px;
-	}
-
-}
-
-.box {
-	background: #FFF;
-	border: solid 1px material-color('blue-grey', '100');
-	margin-bottom: 20px;
-	padding: 15px 0 0 0;
-	border-radius: 0 0 3px 3px;
-	@include prefix(box-shadow, 0px 0px 0px 1px rgba(255,255,255,0.5));
-
-	> h4 {
-		color: #687074;
-		font-size: 18px;
-		font-weight: normal;
-		margin: 0 0 15px 0;
-		padding: 0 15px;
-	}
-
-	.box-base {
-		background-color: #f7f7f7;
-		border-top: 1px solid #EEE;
-		padding: 8px;
-
-		.box-chrome {
-			background-color: #FFF;
-			border: 1px solid #EEE;
-			box-shadow: 0 0 5px 0 rgba(0,0,0,.05);
-		}
-
 	}
 
 }

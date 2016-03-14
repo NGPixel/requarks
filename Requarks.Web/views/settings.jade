@@ -2,19 +2,31 @@ extends layout
 
 block content
 	.container.row
-		.col-xs-9
-			.box
-				h4
-					i.material-icons.color-red-500 note_add
-					| File New Request
-				.box-base
-					.box-chrome
-						| test
 		.col-xs-3
 			.box
-				h4
-					i.material-icons info_outline
-					| Help
+				h4.color-indigo-500
+					i.material-icons settings
+					| Settings
+				.box-base
+					.box-chrome
+						ul.box-list
+							li.active
+								i.material-icons account_box
+								| Profile
+							li
+								i.material-icons settings_applications
+								| Preferences
+							li
+								i.material-icons notifications
+								| Notifications
+							li
+								i.material-icons perm_data_setting
+								| Administration
+		.col-xs-9
+			.box
+				h4.color-indigo-500
+					i.material-icons account_box
+					| Profile
 				.box-base
 					.box-chrome
 						| test
