@@ -4,7 +4,11 @@
 // Licensed under GPLv3
 // ===========================================
 
-var appconfig = require('./config.json');
+var Configuration = require('./modules/configurationjs');
+var appconfig = new Configuration({
+  'setup': true
+});
+appconfig.load( Configuration.fromFiles( __dirname ) );
 
 var express = require('express');
 var path = require('path');
@@ -17,6 +21,7 @@ var sass = require('node-sass-middleware');
 var expressBundles = require('express-bundles');
 var compression = require('compression');
 var passport = require('passport');
+var autoload = require('auto-load');
 
 var auth = require('./middlewares/auth');
 
@@ -24,27 +29,34 @@ var i18next = require('i18next');
 var i18next_backend = require('i18next-node-fs-backend');
 var i18next_mw = require('i18next-express-middleware');
 
-var ctrlLogin = require('./controllers/login');
-var ctrlDashboard = require('./controllers/dashboard');
-var ctrlCreate = require('./controllers/create');
-var ctrlReview = require('./controllers/review');
-var ctrlProjects = require('./controllers/projects');
-var ctrlTeams = require('./controllers/teams');
-var ctrlSettings = require('./controllers/settings');
+var ctrl = autoload(__dirname + '/controllers');
 
 var app = express();
 var _isDebug = (app.get('env') === 'development');
+var _isSetup = false;
+
+// ----------------------------------------
+// First-time Setup?
+// ----------------------------------------
+
+if(appconfig.get('setup')) {
+  _isSetup = true;
+}
 
 // ----------------------------------------
 // Passport Authentication
 // ----------------------------------------
 
-var strategy = require('./passport-auth0');
+if(!_isSetup) {
 
-app.use(cookieParser());
-app.use(session({ secret: appconfig.session_secret, resave: false,  saveUninitialized: false }));
-app.use(passport.initialize());
-app.use(passport.session());
+  var strategy = require('./passport-auth0');
+
+  app.use(cookieParser());
+  app.use(session({ secret: appconfig.session_secret, resave: false,  saveUninitialized: false }));
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+}
 
 // ----------------------------------------
 // Localization Engine Setup
@@ -131,15 +143,23 @@ app.locals.appdata = require('./data.json');
 // Controllers
 // ----------------------------------------
 
-app.use('/', ctrlLogin)
-app.use(auth);
+if(!_isSetup) {
 
-app.use('/', ctrlDashboard);
-app.use('/create', ctrlCreate);
-app.use('/review', ctrlReview);
-app.use('/projects', ctrlProjects);
-app.use('/teams', ctrlTeams);
-app.use('/settings', ctrlSettings);
+  app.use('/', ctrl.login);
+  app.use(auth);
+
+  app.use('/', ctrl.dashboard);
+  app.use('/create', ctrl.create);
+  app.use('/review', ctrl.review);
+  app.use('/projects', ctrl.projects);
+  app.use('/teams', ctrl.teams);
+  app.use('/settings', ctrl.settings);
+
+} else {
+
+  app.use('/', ctrl.setup);
+
+}
 
 // ----------------------------------------
 // Error handling

@@ -35,6 +35,91 @@
 			background-color: #FFF;
 			border: 1px solid lighten(material-color('blue-grey', '100'), 7%);
 			box-shadow: 0 0 5px 0 rgba(0,0,0,.05);
+
+			& + .box-chrome {
+				margin-top: 8px;
+			}
+
+			> section {
+				padding: 15px;
+				border-top: 1px solid lighten(material-color('blue-grey', '100'), 7%);
+
+				&:first-child {
+					border-top: none;
+				}
+
+				label {
+					display: block;
+					text-transform: uppercase;
+					font-weight: 700;
+					font-size: 11px;
+					color: material-color('blue-grey', '600');
+					margin-bottom: 5px;
+				}
+
+				input[type=text] {
+					display: block;
+					width: 100%;
+					padding: 5px 10px;
+					margin: 0;
+					background-color: #FFF;
+					color: material-color('blue-grey', '600');
+					font-size: 13px;
+					font-weight: 400;
+					font-family: 'Open Sans', sans-serif;
+					border: 1px solid material-color('blue-grey', '100');
+					border-radius: 2px;
+					box-sizing: border-box;
+					transition: all 0.5s ease;
+					outline: none;
+					@include prefix(box-shadow, inset 0 0 5px 0 rgba(0,0,0,0.05));
+
+					&:focus {
+						outline: none;
+						box-shadow: inset 0 0 5px 0 material-color('light-blue', '100');
+						border-color: material-color('light-blue', '200');
+					}
+
+				}
+
+				select {
+					display: block;
+					width: 100%;
+					padding: 5px 10px;
+					margin: 0;
+					background-color: #FFF;
+					color: material-color('blue-grey', '600');
+					font-size: 13px;
+					font-weight: 400;
+					font-family: "Open Sans",sans-serif;
+					border: 1px solid material-color('blue-grey', '100');
+					border-radius: 2px;
+					box-sizing: border-box;
+					outline: none;
+					@include prefix(box-shadow, inset 0 0 5px 0 rgba(0,0,0,0.05));
+					transition: all 0.5s ease;
+				}
+
+				.note {
+					margin-top: 5px;
+					font-size: 11px;
+					color: material-color('blue-grey', '300');
+
+					> strong {
+						font-weight: 700;
+						text-transform: uppercase;
+						letter-spacing: .5px;
+						font-size: 10px;
+						display: inline-block;
+						border-right: 1px solid material-color('blue-grey', '100');
+						padding-right: 5px;
+						margin-right: 5px;
+					}
+
+				}
+
+			}
+
 		}
 
 		.box-list {

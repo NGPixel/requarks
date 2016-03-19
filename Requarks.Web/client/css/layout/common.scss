@@ -14,7 +14,16 @@ main {
 		box-sizing: border-box;
 		margin: 0 auto;
 		max-width: 1170px;
-		padding-top: 20px;
+		padding: 20px 0 0 0;
+		@include clearfix;
 	}
 
+}
+
+// ========================================
+// Utilities
+// ========================================
+
+.hidden {
+	display: none !important;
 }

@@ -1,0 +1,166 @@
+doctype html
+html
+	head
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
+		meta(charset='UTF-8')
+		title Requarks
+
+		// Favicon
+		each favsize in [32, 96, 16]
+			link(rel='icon', type='image/png', sizes=favsize + 'x' + favsize href='/images/favicon-' + favsize + 'x' + favsize + '.png')
+
+		// CSS
+		link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700|Inconsolata|Material+Icons', rel='stylesheet', type='text/css')
+		for name in bundles.emit('css/bundle.css')
+			link(rel='stylesheet', href='/#{name}')
+
+		// JS
+		for name in bundles.emit('js/bundle.js')
+			script(src='/#{name}')
+		script(src='/js/setup.js')
+
+	body(class='mi-setup')
+		header
+			nav.navbar
+				ul
+					li.active
+						i.material-icons developer_board
+						| Requarks Setup
+		main
+			.container
+
+				// Site Info
+
+				.box
+					h4.color-red-600
+						i.material-icons select_all
+						| Site Info
+					.box-base
+						.box-chrome
+							section
+								label Site Name
+								input(type='text', placeholder='My Requarks Site')
+								span.note
+									strong.color-red-600 Required
+									| The name of your site
+							section
+								label Site Host
+								input(type='text', placeholder='http://')
+								.note
+									strong.color-red-600 Required
+									| The base URL to access this site, without the trailing slash
+
+				// Database
+
+				.box
+					h4.color-indigo-600
+						i.material-icons data_usage
+						| Database
+					.box-base
+						.box-chrome
+							section.row
+								.col-xs-6
+									label Database Engine
+									select(v-model='engine')
+										each dbname, dbkey in appdata.dbengines
+											option(value=dbkey)= dbname
+									span.note
+										strong.color-red-600 Required
+										| Database engine to use
+								.col-xs-6(v-bind:class="{'hidden' : engine=='sqlite'}")
+									label Database Host
+									input(type='text', placeholder='e.g. localhost')
+									.note
+										strong.color-red-600 Required
+										| Host where the database is located. Port can be added at the end if not default.
+								.col-xs-6(v-bind:class="{'hidden' : engine!='sqlite'}")
+									label Database File Path
+									input(type='text', placeholder='e.g. C:\\sqlite.db')
+									.note
+										strong.color-red-600 Required
+										| Path to the SQLite database file
+
+							section.row(v-bind:class="{'hidden' : engine=='sqlite'}")
+								.col-xs-6
+									label Database Username
+									input(type='text')
+									.note
+										strong.color-red-600 Required
+										| Username to use for the database connection
+								.col-xs-6
+									label Database Password
+									input(type='text')
+									.note
+										strong.color-red-600 Required
+										| Password to use for the database connection
+
+				// Storage
+
+				.box
+					h4.color-light-blue-600
+						i.material-icons storage
+						| Storage
+					.box-base
+
+						.box-chrome
+							section.row
+								.col-xs-6
+									label Storage Solution
+									select(v-model='storage')
+										each stname, stkey in appdata.storagesolutions
+											option(value=stkey)= stname
+									span.note
+										strong.color-red-600 Required
+										| Where uploads are stored
+
+							section(v-bind:class="{'hidden' : storage!='local'}")
+								label Folder Path
+								input(type='text', placeholder='e.g. C:\\uploads')
+								.note
+									strong.color-red-600 Required
+									| Path to the folder where uploads are stored, without the trailing slash
+
+							section.row(v-bind:class="{'hidden' : storage!='azure'}")
+								.col-xs-6
+									label Account Name
+									input(type='text')
+									.note
+										strong.color-red-600 Required
+										| The Azure storage account name
+								.col-xs-6
+									label Access Key
+									input(type='text')
+									.note
+										strong.color-red-600 Required
+										| The access key (primary or secondary) for the Azure storage account
+
+							section.row(v-bind:class="{'hidden' : storage!='s3'}")
+								.col-xs-6
+									label Bucket
+									input(type='text')
+									.note
+										strong.color-red-600 Required
+										| The S3 Bucket Name
+								.col-xs-6
+									label Region
+									input(type='text', placeholder='e.g. us-west-2')
+									.note
+										strong.color-red-600 Required
+										| The region to send service requests to
+							section.row(v-bind:class="{'hidden' : storage!='s3'}")
+								.col-xs-6
+									label Access Key Id
+									input(type='text')
+									.note
+										strong.color-red-600 Required
+										| The credentials Access Key Id
+								.col-xs-6
+									label Secret Access Key
+									input(type='text')
+									.note
+										strong.color-red-600 Required
+										| The credentials Secret Access Key
+
+
+		footer
+			div= t('copyright')
