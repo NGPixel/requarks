@@ -32,7 +32,7 @@ html
 				// Site Info
 
 				.box
-					h4.color-red-600
+					h4.color-green-600
 						i.material-icons select_all
 						| Site Info
 					.box-base
@@ -161,6 +161,71 @@ html
 										strong.color-red-600 Required
 										| The credentials Secret Access Key
 
+				// Redis
+
+				.box
+					h4.color-red-600
+						i.material-icons widgets
+						| Redis Cache
+					.box-base
+						.box-chrome
+							section.row
+								.col-xs-6
+									label Redis Configuration
+									select(v-model='redis')
+										each rdname, rdkey in appdata.redisconfigs
+											option(value=rdkey)= rdname
+									span.note
+										strong.color-red-600 Required
+										| How to connect to Redis
+								.col-xs-6
+									label Redis Host
+									input(type='text', placeholder='e.g. localhost')
+									.note
+										strong.color-red-600 Required
+										| Host where Redis is located
+							section(v-bind:class="{'hidden' : redis!='pwd' && redis!='pwdtls'}")
+								label Redis Password
+								input(type='text')
+								.note
+									strong.color-red-600 Required
+									| Password for Redis authentication
+							section(v-bind:class="{'hidden' : redis!='keytls'}")
+								label Redis Access Key
+								input(type='text')
+								.note
+									strong.color-red-600 Required
+									| Access key for Redis authentication
+
+				// Auth0
+
+				.box
+					h4.color-orange-600
+						i.material-icons security
+						| Auth0
+					.box-base
+						.box-chrome
+							section.row
+								.col-xs-6
+									label Domain
+									input(type='text')
+									.note
+										strong.color-red-600 Required
+										| Auth0 Application Domain
+								.col-xs-6
+									label Client ID
+									input(type='text')
+									.note
+										strong.color-red-600 Required
+										| Auth0 Application Client ID
+							section
+								label Client Secret
+								input(type='text')
+								.note
+									strong.color-red-600 Required
+									| Auth0 Application Client Secret
+
+				button(type="button", class="btn btn-green btn-block margin-bottom-20") Save &amp; Install
 
 		footer
 			div= t('copyright')

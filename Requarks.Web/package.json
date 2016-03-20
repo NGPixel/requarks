@@ -11,7 +11,8 @@
     "url": "https://github.com/Requarks/requarks.git"
   },
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "gulp"
   },
   "dependencies": {
     "auto-load": "^2.1.0",
@@ -29,11 +30,11 @@
     "i18next-node-fs-backend": "0.0.6",
     "ioredis": "^1.15.1",
     "jade": "~1.11.0",
+    "lodash": "^4.6.1",
     "morgan": "~1.6.1",
     "mysql": "^2.10.2",
     "node-sass": "^3.4.2",
     "node-sass-middleware": "0.8.0",
-    "nodemon": "^1.9.1",
     "passport": "^0.3.2",
     "passport-auth0": "^0.5.1",
     "pg": "^4.5.1",
@@ -49,6 +50,8 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.0",
-    "gulp-uglify": "^1.5.3"
+    "gulp-nodemon": "^2.0.6",
+    "gulp-uglify": "^1.5.3",
+    "nodemon": "^1.9.1"
   }
 }

@@ -4,7 +4,8 @@ $(() => {
 		el: 'main',
 		data: {
 			engine: 'mssql',
-			storage: 'azure'
+			storage: 'azure',
+			redis: 'keytls'
 		}
 	});
 

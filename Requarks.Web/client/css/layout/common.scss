@@ -27,3 +27,12 @@ main {
 .hidden {
 	display: none !important;
 }
+
+@for $i from 1 through 4 {
+	.margin-bottom-#{$i * 5} {
+		margin-bottom: #{$i * 5}px !important;
+	}
+	.margin-top-#{$i * 5} {
+		margin-top: #{$i * 5}px !important;
+	}
+}

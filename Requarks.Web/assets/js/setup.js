@@ -1,1 +1,1 @@
-"use strict";$(function(){new Vue({el:"main",data:{engine:"mssql",storage:"azure"}})});
+"use strict";$(function(){new Vue({el:"main",data:{engine:"mssql",storage:"azure",redis:"keytls"}})});

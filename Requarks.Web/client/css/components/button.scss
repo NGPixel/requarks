@@ -1,0 +1,35 @@
+
+.btn {
+	@include prefix(box-shadow, 0 0 5px 0 rgba(0,0,0,0.1));
+	@include prefix(user-select, none);
+	background-image: none;
+	background-color: material-color('blue-grey', '200');
+	border-radius: 4px;
+	border: 1px solid transparent;
+	box-sizing: border-box;
+	cursor: pointer;
+	display: inline-block;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	margin: 0;
+	padding: 6px 12px;
+	text-align: center;
+	text-transform: uppercase;
+	transition: all 0.4s ease;
+	vertical-align: middle;
+	white-space: nowrap;
+
+	&.btn-green {
+		background-color: material-color('green', '500');
+		@include prefix(text-shadow, 1px 1px 0 material-color('green', '700'));
+		color: #FFF;
+	}
+
+	&.btn-block {
+		display: block;
+		width: 100%;
+	}
+
+}

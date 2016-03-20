@@ -8,9 +8,14 @@
 	"storagesolutions": {
 		"local": "Local Filesystem",
 		"azure": "Azure Blob Storage",
-		"s3": "Amazon S3",
-		"google": "Google Cloud Storage",
-		"softlayer": "IBM SoftLayer Object Storage"
+		"s3": "Amazon S3"
+	},
+	"redisconfigs": {
+		"noauth": "No Authentication, via TCP 6379",
+		"pwd": "Password Authentication, via TCP 6379",
+		"pwdtls": "Password Authentication, via TCP 6380",
+		"keytls": "TLS / Azure Redis Cache, via TCP 6380",
+		"socket": "Internal, via socket (Linux)"
 	},
 	"navbar": {
 		"dashboard": {
