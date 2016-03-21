@@ -1,82 +1,25 @@
 // ===========================================
-// REQUARKS
+// REQUARKS - SETUP
 // 1.0.0
 // Licensed under GPLv3
 // ===========================================
 
-var Configuration = require('./modules/configurationjs');
-var appconfig = new Configuration({
-  'setup': true
-});
-appconfig.load( Configuration.fromFiles( __dirname ) );
+var appconfig = require('./config.json');
 
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sass = require('node-sass-middleware');
 var expressBundles = require('express-bundles');
 var compression = require('compression');
-var passport = require('passport');
-var autoload = require('auto-load');
 
-var auth = require('./middlewares/auth');
+var ctrlSetup = require('./controllers/setup');
 
-var i18next = require('i18next');
-var i18next_backend = require('i18next-node-fs-backend');
-var i18next_mw = require('i18next-express-middleware');
+app = express();
 
-var ctrl = autoload(__dirname + '/controllers');
-
-var app = express();
 var _isDebug = (app.get('env') === 'development');
-var _isSetup = false;
-
-// ----------------------------------------
-// First-time Setup?
-// ----------------------------------------
-
-if(appconfig.get('setup')) {
-  _isSetup = true;
-}
-
-// ----------------------------------------
-// Passport Authentication
-// ----------------------------------------
-
-if(!_isSetup) {
-
-  var strategy = require('./passport-auth0');
-
-  app.use(cookieParser());
-  app.use(session({ secret: appconfig.session_secret, resave: false,  saveUninitialized: false }));
-  app.use(passport.initialize());
-  app.use(passport.session());
-
-}
-
-// ----------------------------------------
-// Localization Engine Setup
-// ----------------------------------------
-
-i18next
-  .use(i18next_backend)
-  .use(i18next_mw.LanguageDetector)
-  .init({
-    load: 'languageOnly',
-    ns: 'common',
-    defaultNS: 'common',
-    saveMissing: false,
-    debug: _isDebug,
-    supportedLngs: ['en', 'fr'],
-    fallbackLng : 'en',
-    backend: {
-      loadPath: './locales/{{lng}}/{{ns}}.json'
-    }
-  });
 
 // ----------------------------------------
 // View Engine Setup
@@ -84,13 +27,11 @@ i18next
 
 app.use(compression());
 
-app.use(i18next_mw.handle(i18next));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
+if(_isDebug) { app.use(logger('dev')); }
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // ----------------------------------------
@@ -143,23 +84,7 @@ app.locals.appdata = require('./data.json');
 // Controllers
 // ----------------------------------------
 
-if(!_isSetup) {
-
-  app.use('/', ctrl.login);
-  app.use(auth);
-
-  app.use('/', ctrl.dashboard);
-  app.use('/create', ctrl.create);
-  app.use('/review', ctrl.review);
-  app.use('/projects', ctrl.projects);
-  app.use('/teams', ctrl.teams);
-  app.use('/settings', ctrl.settings);
-
-} else {
-
-  app.use('/', ctrl.setup);
-
-}
+app.use('/', ctrlSetup);
 
 // ----------------------------------------
 // Error handling

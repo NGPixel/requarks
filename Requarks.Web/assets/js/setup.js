@@ -1,1 +1,1 @@
-"use strict";$(function(){new Vue({el:"main",data:{engine:"mssql",storage:"azure",redis:"keytls"}})});
+"use strict";$(function(){new Vue({el:"main",data:{engine:"mssql",storage:"azure",redis:"keytls"}}),$("#setup-submit").on("click",function(e){e.preventDefault(),$(e.target).html("Working...").toggleClass("btn-green btn-indigo").prop("disabled",!0),$("form").submit()})});

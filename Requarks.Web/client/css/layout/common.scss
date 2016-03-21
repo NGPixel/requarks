@@ -35,4 +35,7 @@ main {
 	.margin-top-#{$i * 5} {
 		margin-top: #{$i * 5}px !important;
 	}
+	.padding-#{$i * 5} {
+		padding: #{$i * 5}px !important;
+	}
 }

@@ -9,4 +9,10 @@ $(() => {
 		}
 	});
 
+	$('#setup-submit').on('click', (e) => {
+		e.preventDefault();
+		$(e.target).html('Working...').toggleClass('btn-green btn-indigo').prop('disabled', true);
+		$('form').submit();
+	});
+
 });

@@ -17,6 +17,15 @@ gulp.task('server', function() {
 	});
 });
 
+gulp.task('server-setup', function() {
+	nodemon({
+		script: './bin/setup',
+		ignore: ['assets/', 'client/'],
+		ext: 'js',
+		env: { 'NODE_ENV': 'development' }
+	});
+});
+
 gulp.task("scripts", function () {
   gulp.src(paths.scripts)
     .pipe(babel())
@@ -29,3 +38,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['server', 'watch', 'scripts']);
+gulp.task('setup', ['server-setup', 'watch', 'scripts']);
