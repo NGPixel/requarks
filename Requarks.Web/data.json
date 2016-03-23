@@ -1,11 +1,12 @@
 {
 	"dbengines": {
 		"mssql": "MS SQL Server / Azure SQL Database",
-		"mysql": "MySQL / MariaDB",
-		"postgresql": "PostgreSQL",
+		"mariadb": "MariaDB",
+		"mysql": "MySQL",
+		"postgres": "PostgreSQL",
 		"sqlite": "SQLite3"
 	},
-	"storagesolutions": {
+	"storageproviders": {
 		"local": "Local Filesystem",
 		"azure": "Azure Blob Storage",
 		"s3": "Amazon S3"

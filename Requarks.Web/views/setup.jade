@@ -46,10 +46,24 @@ html
 			
 			if showform
 				.container
+
 					form(method='post', action='/')
 
 						if showresults
 							+installresults
+
+						if formerrors.length > 0
+							.box
+								h4.color-red-600
+									i.material-icons warning
+									| Errors
+								.box-base
+									.box-chrome
+										ul.box-checklist
+											each errItem in formerrors
+												li
+													i.material-icons.color-red-500 error_outline
+													= errItem.msg
 
 						// Site Info
 
@@ -61,13 +75,13 @@ html
 								.box-chrome
 									section
 										label Site Name
-										input(type='text', placeholder='My Requarks Site', value=appconfig.title)
+										input(name='site_title', type='text', placeholder='My Requarks Site', value=appconfig.title)
 										span.note
 											strong.color-red-600 Required
 											| The name of your site
 									section
 										label Site Host
-										input(type='text', placeholder='http://', value=appconfig.host)
+										input(name='site_host', type='text', placeholder='http://', value=appconfig.host)
 										.note
 											strong.color-red-600 Required
 											| The base URL to access this site, without the trailing slash
@@ -83,7 +97,7 @@ html
 									section.row
 										.col-xs-6
 											label Database Engine
-											select(v-model='engine')
+											select(name='db_engine', v-model='engine')
 												each dbname, dbkey in appdata.dbengines
 													option(value=dbkey)= dbname
 											span.note
@@ -91,27 +105,33 @@ html
 												| Database engine to use
 										.col-xs-6(v-bind:class="{'hidden' : engine=='sqlite'}")
 											label Database Host
-											input(type='text', placeholder='e.g. localhost')
+											input(name='db_host', type='text', value=appconfig.db.host, placeholder='e.g. localhost, domain.com:3306')
 											.note
 												strong.color-red-600 Required
 												| Host where the database is located. Port can be added at the end if not default.
 										.col-xs-6(v-bind:class="{'hidden' : engine!='sqlite'}")
 											label Database File Path
-											input(type='text', placeholder='e.g. C:\\sqlite.db')
+											input(name='db_path', type='text', value=appconfig.db.path, placeholder='e.g. C:\\sqlite.db')
 											.note
 												strong.color-red-600 Required
 												| Path to the SQLite database file
 
 									section.row(v-bind:class="{'hidden' : engine=='sqlite'}")
-										.col-xs-6
+										.col-xs-4
+											label Database Name
+											input(name='db_name', type='text', value=appconfig.db.name)
+											.note
+												strong.color-red-600 Required
+												| Name of the database to connect to
+										.col-xs-4
 											label Database Username
-											input(type='text')
+											input(name='db_user', type='text', value=appconfig.db.user)
 											.note
 												strong.color-red-600 Required
 												| Username to use for the database connection
-										.col-xs-6
+										.col-xs-4
 											label Database Password
-											input(type='text')
+											input(name='db_pass', type='text', value=appconfig.db.pass)
 											.note
 												strong.color-red-600 Required
 												| Password to use for the database connection
@@ -127,9 +147,9 @@ html
 								.box-chrome
 									section.row
 										.col-xs-6
-											label Storage Solution
-											select(v-model='storage')
-												each stname, stkey in appdata.storagesolutions
+											label Storage Provider
+											select(name='storage_provider', v-model='storage')
+												each stname, stkey in appdata.storageproviders
 													option(value=stkey)= stname
 											span.note
 												strong.color-red-600 Required
@@ -137,7 +157,7 @@ html
 
 									section(v-bind:class="{'hidden' : storage!='local'}")
 										label Folder Path
-										input(type='text', placeholder='e.g. C:\\uploads')
+										input(name='storage_path', type='text', placeholder='e.g. C:\\uploads', value=appconfig.storage.path)
 										.note
 											strong.color-red-600 Required
 											| Path to the folder where uploads are stored, without the trailing slash
@@ -145,13 +165,13 @@ html
 									section.row(v-bind:class="{'hidden' : storage!='azure'}")
 										.col-xs-6
 											label Account Name
-											input(type='text')
+											input(name='storage_az_name', type='text', value=appconfig.storage.name)
 											.note
 												strong.color-red-600 Required
 												| The Azure storage account name
 										.col-xs-6
 											label Access Key
-											input(type='text')
+											input(name='storage_az_key', type='text', value=appconfig.storage.key)
 											.note
 												strong.color-red-600 Required
 												| The access key (primary or secondary) for the Azure storage account
@@ -159,26 +179,26 @@ html
 									section.row(v-bind:class="{'hidden' : storage!='s3'}")
 										.col-xs-6
 											label Bucket
-											input(type='text')
+											input(name='storage_s3_name', type='text', value=appconfig.storage.name)
 											.note
 												strong.color-red-600 Required
 												| The S3 Bucket Name
 										.col-xs-6
 											label Region
-											input(type='text', placeholder='e.g. us-west-2')
+											input(name='storage_s3_region', type='text', placeholder='e.g. us-west-2', value=appconfig.storage.region)
 											.note
 												strong.color-red-600 Required
 												| The region to send service requests to
 									section.row(v-bind:class="{'hidden' : storage!='s3'}")
 										.col-xs-6
 											label Access Key Id
-											input(type='text')
+											input(name='storage_s3_id', type='text', value=appconfig.storage.id)
 											.note
 												strong.color-red-600 Required
 												| The credentials Access Key Id
 										.col-xs-6
 											label Secret Access Key
-											input(type='text')
+											input(name='storage_s3_key', type='text', value=appconfig.storage.key)
 											.note
 												strong.color-red-600 Required
 												| The credentials Secret Access Key
@@ -230,19 +250,19 @@ html
 									section.row
 										.col-xs-6
 											label Domain
-											input(type='text', value=appconfig.auth0.domain)
+											input(name='auth0_domain', type='text', value=appconfig.auth0.domain)
 											.note
 												strong.color-red-600 Required
 												| Auth0 Application Domain
 										.col-xs-6
 											label Client ID
-											input(type='text', value=appconfig.auth0.clientID)
+											input(name='auth0_id', type='text', value=appconfig.auth0.clientID)
 											.note
 												strong.color-red-600 Required
 												| Auth0 Application Client ID
 									section
 										label Client Secret
-										input(type='text', value=appconfig.auth0.clientSecret)
+										input(name='auth0_secret', type='text', value=appconfig.auth0.clientSecret)
 										.note
 											strong.color-red-600 Required
 											| Auth0 Application Client Secret

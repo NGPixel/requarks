@@ -14,6 +14,7 @@ var bodyParser = require('body-parser');
 var sass = require('node-sass-middleware');
 var expressBundles = require('express-bundles');
 var compression = require('compression');
+var _ = require('lodash');
 
 var ctrlSetup = require('./controllers/setup');
 
@@ -77,7 +78,7 @@ app.use(function(req, res, next) {
 // Expose Application Configs
 // ----------------------------------------
 
-app.locals.appconfig = appconfig;
+app.locals.appconfig = _.defaultsDeep(appconfig, { db: {}, storage: {}, auth0: {} });
 app.locals.appdata = require('./data.json');
 
 // ----------------------------------------
