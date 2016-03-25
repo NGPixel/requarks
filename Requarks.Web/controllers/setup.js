@@ -7,7 +7,7 @@ var express = require('express'),
 	 _ = require('lodash'),
 	 randomstring = require("randomstring"),
 	 validator = require('validator'),
-	 Promise = require("bluebird");
+	 Promise = require('bluebird');
 
 var router = express.Router();
 
@@ -19,11 +19,10 @@ router.post('/', function(req, res, next) {
 
 	let results = [];
 	let formerrors = [];
-	let tmpState = false;
 
-	// ---------------------------------------------
+	// =============================================
 	// Validate data
-	// ---------------------------------------------
+	// =============================================
 
 	let rawData = {
 		site_title: _.toString(req.body.site_title),
@@ -267,92 +266,134 @@ router.post('/', function(req, res, next) {
 
 	}
 
+	// =============================================
+	// Setup everything
+	// =============================================
+
+	var tasks = [];
+
 	// ---------------------------------------------
 	// Check for config.json write access
 	// ---------------------------------------------
 
-	try {
-		fs.accessSync('./config.json', fs.R_OK | fs.W_OK);
-		tmpState = true;
-	} catch(e) {
-		tmpState = false;
-	}
+	tasks.push(new Promise(function (resolve, reject) {
+		fs.access('./config.json', fs.R_OK | fs.W_OK, (err) => {
+			results.push({
+				title: 'Can write to config.json?... ' + ((err) ? 'Failed' : ' OK'),
+				success: !(err)
+			});
 
-	results.push({
-		title: 'Can write to ./config.json?',
-		success: tmpState
-	})	;
+			if(!err) {
+
+				app.locals.appconfig.setup = true;
+				app.locals.appconfig.sessionSecret = randomstring.generate(32);
+
+				let configJSON = JSON.stringify(app.locals.appconfig, null, 3);
+				fs.writeFile('./config.json', configJSON, (err) => {
+					results.push({
+						title: 'Write configuration to disk...' + ((err) ? 'Failed' : ' OK'),
+						success: !(err)
+					});
+					resolve();
+				});
+
+			} else {
+				resolve();
+			}
+
+		});
+	}));
 
 	// ---------------------------------------------
 	// Check for TEMP write access
 	// ---------------------------------------------
 
-	try {
-		fs.accessSync(os.tmpdir(), fs.R_OK | fs.W_OK);
-		tmpState = true;
-	} catch(e) {
-		tmpState = false;
-	}
-
-	results.push({
-		title: 'Can write to OS directory for temporary files?',
-		success: tmpState
-	});
+	tasks.push(new Promise(function (resolve, reject) {
+		fs.access(os.tmpdir(), fs.R_OK | fs.W_OK, (err) => {
+			results.push({
+				title: 'Can write to OS directory for temporary files?... ' + ((err) ? 'Failed' : ' OK'),
+				success: !(err)
+			});
+			resolve();
+		});
+	}));
 
 	// ---------------------------------------------
 	// Setup Database
 	// ---------------------------------------------
 
-	results.push({
-		title: 'Can connect to database engine?',
-		success: tmpState
-	});
+	var db = require("../models")(app.locals.appconfig);
 
-	/*var sql = new Sequelize(app.locals.appconfig.db.name, app.locals.appconfig.db.user, app.locals.appconfig.db.pass, {
-		host: app.locals.appconfig.db.host,
-		port: app.locals.appconfig.db.port,
-		dialect: app.locals.appconfig.db.engine,
+	tasks.push(new Promise(function (resolve, reject) {
 
-		pool: {
-			max: 5,
-			min: 0,
-			idle: 10000
-		},
+		// Try to authenticate
 
-		// SQLite only
-		storage: (app.locals.appconfig.db.engine == 'sqlite') ? app.locals.appconfig.db.path : null
-	});*/
+		return db.sequelize.authenticate().then(function() {
 
-	results.push({
-		title: '-- Create database schema with default values...',
-		success: tmpState
-	});
+			results.push({
+				title: 'Can connect to database engine?... OK',
+				success: true
+			});
 
-	var models = require("../models");
-	models.sequelize.sync({force: true}).then(function () {
-    return models.User.create({
-	    firstName: 'John',
-	    lastName: 'Hancock'
-	  });
-  })
- .catch(console.log);
-	
-	/*.then(function () {
-		console.log('TEST!!!!!!!!!!!!!!!!!');
-	  return models.User.create({
-	    firstName: 'John',
-	    lastName: 'Hancock'
-	  });
-	}).catch(function(reason) {
-		console.log('TEST!!!!!');
-	  console.log(reason);
-	});*/
+			// Create database structure
+		
+			return db.sequelize.sync({force: true}).then(function () {
+
+				results.push({
+					title: '-- Create database structure... OK',
+					success: true
+				});
+
+				// Enter default data
+
+				return db.User.create({
+					username:   'admin',
+					firstName:  'Administrator',
+					lastName:   'Admin',
+					email:      'admin@requarks.io',
+					jobTitle:   'Site Administrator'
+				}).then(function(row) {
+
+					results.push({
+						title: '-- Insert default data... OK',
+						success: true
+					});
+					resolve();
+
+				})
+				.catch(function(err) {
+			 		results.push({
+						title: '-- Insert default data... Failed',
+						success: false
+					});
+					resolve();
+			 	});
+
+		  	})
+		 	.catch(function(err) {
+		 		results.push({
+					title: '-- Create database structure... Failed',
+					success: false
+				});
+				resolve();
+		 	});
+
+		})
+		.catch(function(err) {
+			results.push({
+				title: 'Can connect to database engine?... Failed',
+				success: false
+			});
+			resolve();
+		});
+
+	}));
 
 	// ---------------------------------------------
 	// Setup Storage solution
 	// ---------------------------------------------
 
-	results.push({
+	/*results.push({
 		title: 'Can access storage solution?',
 		success: tmpState
 	});
@@ -372,7 +413,7 @@ router.post('/', function(req, res, next) {
 	});
 
 	// ---------------------------------------------
-	// Setup Redis
+	// Setup Auth0
 	// ---------------------------------------------
 
 	results.push({
@@ -383,29 +424,22 @@ router.post('/', function(req, res, next) {
 	results.push({
 		title: '-- Create administrator account...',
 		success: tmpState
-	});
+	});*/
 
 	// ---------------------------------------------
-	// Save configuration file
+	// Return results
 	// ---------------------------------------------
-	
-	//app.locals.appconfig.setup = true;
-	app.locals.appconfig.sessionSecret = randomstring.generate(32);
 
-	let configJSON = JSON.stringify(app.locals.appconfig, null, 3);
-	fs.writeFile('./config.json', configJSON);
-
-	results.push({
-		title: 'Write configuration to disk...',
-		success: tmpState
+	Promise.all(tasks).then(function() {
+		res.render('setup', {
+			showform: (_.filter(results, ['success', false]).length > 0),
+			showresults: true,
+			formerrors: formerrors,
+			installresults: results,
+			appconfig: app.locals.appconfig
+		});
 	});
 
-	res.render('setup', {
-		showform: (_.filter(results, ['success', false]).length > 0),
-		showresults: true,
-		installresults: results,
-		appconfig: app.locals.appconfig
-	});
 });
 
 module.exports = router;
