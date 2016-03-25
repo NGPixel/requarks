@@ -5,7 +5,7 @@ $(() => {
 		data: {
 			engine: 'mssql',
 			storage: 'azure',
-			redis: 'keytls'
+			redis: 'tls'
 		}
 	});
 

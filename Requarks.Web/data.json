@@ -12,11 +12,10 @@
 		"s3": "Amazon S3"
 	},
 	"redisconfigs": {
-		"noauth": "No Authentication, via TCP 6379",
-		"pwd": "Password Authentication, via TCP 6379",
-		"pwdtls": "Password Authentication, via TCP 6380",
-		"keytls": "TLS / Azure Redis Cache, via TCP 6380",
-		"socket": "Internal, via socket (Linux)"
+		"noauth": "No Authentication",
+		"pwd": "Password Authentication",
+		"tls": "TLS / Azure Redis Cache",
+		"socket": "Unix Socket"
 	},
 	"navbar": {
 		"dashboard": {

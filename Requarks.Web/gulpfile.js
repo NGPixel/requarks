@@ -37,5 +37,5 @@ gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
 });
 
-gulp.task('default', ['server', 'watch', 'scripts']);
-gulp.task('setup', ['server-setup', 'watch', 'scripts']);
+gulp.task('default', ['watch', 'scripts', 'server']);
+gulp.task('setup', ['watch', 'scripts','server-setup']);

@@ -6,7 +6,8 @@ var express = require('express'),
 	 path = require('path'),
 	 _ = require('lodash'),
 	 randomstring = require("randomstring"),
-	 validator = require('validator');
+	 validator = require('validator'),
+	 Promise = require("bluebird");
 
 var router = express.Router();
 
@@ -41,6 +42,11 @@ router.post('/', function(req, res, next) {
 		storage_s3_region: _.toString(req.body.storage_s3_region),
 		storage_s3_id: _.toString(req.body.storage_s3_id),
 		storage_s3_key: _.toString(req.body.storage_s3_key),
+		redis_config: _.toString(req.body.redis_config),
+		redis_host: _.toString(req.body.redis_host),
+		redis_path: _.toString(req.body.redis_path),
+		redis_pass: _.toString(req.body.redis_pass),
+		redis_port: _.toString(req.body.redis_port),
 		auth0_domain: _.toString(req.body.auth0_domain),
 		auth0_id: _.toString(req.body.auth0_id),
 		auth0_secret: _.toString(req.body.auth0_secret)
@@ -103,7 +109,7 @@ router.post('/', function(req, res, next) {
 
 		//-> Database Username
 
-		if(validator.matches(rawData.db_user, /^[a-zA-Z0-9_]{2,128}$/)) {
+		if(validator.matches(rawData.db_user, /^[a-zA-Z0-9\-_@]{2,128}$/)) {
 			app.locals.appconfig.db.user = rawData.db_user;
 		} else {
 			formerrors.push({ field: 'db_user', msg: 'Database Username is invalid.' });
@@ -181,6 +187,48 @@ router.post('/', function(req, res, next) {
 		break;
 	}
 
+	//-> Redis Configuration
+
+	if(validator.isIn(rawData.redis_config, _.keys(app.locals.appdata.redisconfigs))) {
+		app.locals.appconfig.redis.config = rawData.redis_config;
+	} else {
+		formerrors.push({ field: 'redis_config', msg: 'Invalid Redis configuration.' });
+	}
+
+	if(rawData.redis_config == 'socket') {
+
+			if(path.isAbsolute(rawData.redis_path)) {
+				app.locals.appconfig.redis.path = rawData.redis_path;
+			} else {
+				formerrors.push({ field: 'redis_path', msg: 'Invalid Redis socket path.' });
+			}
+
+	} else {
+
+		if(validator.matches(rawData.redis_host, /^[a-zA-Z0-9\-\.]{3,}$/)) {
+			app.locals.appconfig.redis.host = rawData.redis_host;
+		} else {
+			formerrors.push({ field: 'redis_host', msg: 'Invalid Redis host.' });
+		}
+
+		if(validator.matches(rawData.redis_port, /^[0-9]{2,5}$/)) {
+			app.locals.appconfig.redis.port = rawData.redis_port;
+		} else {
+			formerrors.push({ field: 'redis_port', msg: 'Invalid Redis port.' });
+		}
+
+		if(rawData.redis_config != 'noauth') {
+
+			if(validator.isLength(rawData.redis_pass, {min:8})) {
+				app.locals.appconfig.redis.pass = rawData.redis_pass;
+			} else {
+				formerrors.push({ field: 'redis_pass', msg: 'Invalid Redis password / access key or too short.' });
+			}
+
+		}
+
+	}
+
 	//-> Auth0
 
 	if(validator.isFQDN(rawData.auth0_domain)) {
@@ -240,7 +288,6 @@ router.post('/', function(req, res, next) {
 	// ---------------------------------------------
 
 	try {
-		console.log(os.tmpdir());
 		fs.accessSync(os.tmpdir(), fs.R_OK | fs.W_OK);
 		tmpState = true;
 	} catch(e) {
@@ -280,6 +327,26 @@ router.post('/', function(req, res, next) {
 		title: '-- Create database schema with default values...',
 		success: tmpState
 	});
+
+	var models = require("../models");
+	models.sequelize.sync({force: true}).then(function () {
+    return models.User.create({
+	    firstName: 'John',
+	    lastName: 'Hancock'
+	  });
+  })
+ .catch(console.log);
+	
+	/*.then(function () {
+		console.log('TEST!!!!!!!!!!!!!!!!!');
+	  return models.User.create({
+	    firstName: 'John',
+	    lastName: 'Hancock'
+	  });
+	}).catch(function(reason) {
+		console.log('TEST!!!!!');
+	  console.log(reason);
+	});*/
 
 	// ---------------------------------------------
 	// Setup Storage solution

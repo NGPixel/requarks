@@ -214,30 +214,37 @@ html
 									section.row
 										.col-xs-6
 											label Redis Configuration
-											select(v-model='redis')
+											select(name='redis_config', v-model='redis')
 												each rdname, rdkey in appdata.redisconfigs
 													option(value=rdkey)= rdname
 											span.note
 												strong.color-red-600 Required
 												| How to connect to Redis
-										.col-xs-6
+										.col-xs-6(v-bind:class="{'hidden' : redis=='socket'}")
 											label Redis Host
-											input(type='text', placeholder='e.g. localhost')
+											input(name='redis_host', type='text', placeholder='e.g. localhost', value=appconfig.redis.host)
 											.note
 												strong.color-red-600 Required
 												| Host where Redis is located
-									section(v-bind:class="{'hidden' : redis!='pwd' && redis!='pwdtls'}")
-										label Redis Password
-										input(type='text')
-										.note
-											strong.color-red-600 Required
-											| Password for Redis authentication
-									section(v-bind:class="{'hidden' : redis!='keytls'}")
-										label Redis Access Key
-										input(type='text')
-										.note
-											strong.color-red-600 Required
-											| Access key for Redis authentication
+										.col-xs-6(v-bind:class="{'hidden' : redis!='socket'}")
+											label Redis Path
+											input(name='redis_path', type='text', placeholder='e.g. /tmp/redis.sock', value=appconfig.redis.path)
+											.note
+												strong.color-red-600 Required
+												| Unix socket path to connect to
+									section.row(v-bind:class="{'hidden' : redis=='socket'}")
+										.col-xs-6(v-bind:class="{'hidden' : redis!='pwd' && redis!='tls'}")
+											label Redis Password / Key
+											input(name='redis_pass', type='text', value=appconfig.redis.pass)
+											.note
+												strong.color-red-600 Required
+												| Password / Access Key for Redis authentication
+										.col-xs-6(v-bind:class="{'hidden' : redis=='socket'}")
+											label Redis Port
+											input(name='redis_port', type='text', placeholder='e.g. 6379', value=appconfig.redis.port)
+											.note
+												strong.color-red-600 Required
+												| Port to connect to
 
 						// Auth0
 
