@@ -21,15 +21,7 @@ var passport = require('passport');
 var autoload = require('auto-load');
 var _ = require('lodash');
 var util = require('util');
-var Redis = require('ioredis');
-var red = new Redis({
-  port: appconfig.redis.port,
-  host: appconfig.redis.host,
-  password: appconfig.redis.pass,
-  tls: {
-    servername: appconfig.redis.host
-  }
-});
+
 
 var auth = require('./middlewares/auth');
 
@@ -41,6 +33,7 @@ var ctrl = autoload(__dirname + '/controllers');
 
 app = express();
 db = require("./models")(appconfig);
+red = require('./modules/redis')(appconfig);
 
 var _isDebug = (app.get('env') === 'development');
 

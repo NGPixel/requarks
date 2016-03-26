@@ -1,13 +1,13 @@
 "use strict";
 
 var express = require('express'),
-	 fs = require('fs'),
 	 os = require('os'),
 	 path = require('path'),
 	 _ = require('lodash'),
 	 randomstring = require("randomstring"),
 	 validator = require('validator'),
 	 Promise = require('bluebird'),
+	 fs = Promise.promisifyAll(require('fs')),
 	 jwt = require('jsonwebtoken'),
 	 rest = require('restling');
 
@@ -332,51 +332,59 @@ router.post('/', function(req, res, next) {
 	// Check for config.json write access
 	// ---------------------------------------------
 
-	tasks.push(new Promise(function (resolve, reject) {
-		fs.access('./config.json', fs.R_OK | fs.W_OK, (err) => {
+	tasks.push(
+		fs.accessAsync('./config.json', fs.R_OK | fs.W_OK).then(() => {
+
 			results.push({
-				title: 'File System: Verify write access to config.json... ' + ((err) ? 'Failed' : ' OK'),
-				success: !(err)
+				title: 'File System: Verify write access to config.json... OK',
+				success: true
 			});
 
-			if(!err) {
+			//-> Generate Session Secret
 
-				//-> Generate Session Secret
+			app.locals.appconfig.setup = true;
+			app.locals.appconfig.sessionSecret = randomstring.generate(32);
 
-				app.locals.appconfig.setup = true;
-				app.locals.appconfig.sessionSecret = randomstring.generate(32);
+			//-> Write configuration to disk
 
-				//-> Write configuration to disk
-
-				let configJSON = JSON.stringify(app.locals.appconfig, null, 3);
-				fs.writeFile('./config.json', configJSON, (err) => {
-					results.push({
-						title: 'File System: Write configuration to disk...' + ((err) ? 'Failed' : ' OK'),
-						success: !(err)
-					});
-					resolve();
+			let configJSON = JSON.stringify(app.locals.appconfig, null, 3);
+			return fs.writeFileAsync('./config.json', configJSON).then(() => {
+				results.push({
+					title: 'File System: Write configuration to disk... OK',
+					success: true
 				});
+			}).catch((e) => {
+				results.push({
+					title: 'File System: Write configuration to disk... Failed',
+					success: false
+				});
+			});
 
-			} else {
-				resolve();
-			}
-
-		});
-	}));
+		}).catch((e) => {
+			results.push({
+				title: 'File System: Verify write access to config.json... Failed',
+				success: false
+			});
+		})
+	);
 
 	// ---------------------------------------------
 	// Check for TEMP write access
 	// ---------------------------------------------
 
-	tasks.push(new Promise(function (resolve, reject) {
-		fs.access(os.tmpdir(), fs.R_OK | fs.W_OK, (err) => {
+	tasks.push(
+		fs.accessAsync(os.tmpdir(), fs.R_OK | fs.W_OK).then(() => {
 			results.push({
-				title: 'File System: Verify write access to OS directory for temporary files... ' + ((err) ? 'Failed' : ' OK'),
-				success: !(err)
+				title: 'File System: Verify write access to OS directory for temporary files... OK',
+				success: true
 			});
-			resolve();
-		});
-	}));
+		}).catch((e) => {
+			results.push({
+				title: 'File System: Verify write access to OS directory for temporary files... Failed',
+				success: false
+			});
+		})
+	);
 
 	// ---------------------------------------------
 	// Setup Database
@@ -384,11 +392,11 @@ router.post('/', function(req, res, next) {
 
 	var db = require("../models")(app.locals.appconfig);
 
-	tasks.push(new Promise(function (resolve, reject) {
+	tasks.push(
 
 		// Try to authenticate
 
-		return db.sequelize.authenticate().then(function() {
+		db.sequelize.authenticate().then(() => {
 
 			results.push({
 				title: 'Database: Verify connection... OK',
@@ -428,8 +436,6 @@ router.post('/', function(req, res, next) {
 						success: success
 					});
 
-					resolve();
-
 				});
 
 		  	})
@@ -447,10 +453,9 @@ router.post('/', function(req, res, next) {
 				title: 'Database: Verify connection... Failed',
 				success: false
 			});
-			resolve();
 		});
 
-	}));
+	);
 
 	// ---------------------------------------------
 	// Setup Storage solution

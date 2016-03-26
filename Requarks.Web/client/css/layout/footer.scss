@@ -7,6 +7,16 @@ footer {
 		font-size: 11px;
 		padding: 10px;
 		text-align: center;
+
+		> a {
+			color: material-color('blue-grey', '100');
+
+			&:hover {
+				color: material-color('blue-grey', '200');
+			}
+
+		}
+
 	}
 
 }
