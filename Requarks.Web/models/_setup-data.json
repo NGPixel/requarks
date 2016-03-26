@@ -1,0 +1,25 @@
+{
+	"Category": [
+		{
+			"name": "Technical",
+			"shortName": "technical",
+			"description": "Report bugs, request new technical features, enhancements or support.",
+			"color": "grey-800",
+			"icon": "memory"
+		},
+		{
+			"name": "Content",
+			"shortName": "content",
+			"description": "Request new digital content such as website news, intranet articles, social media posts, or changes to existing intranet or website pages.",
+			"color": "light-blue-600",
+			"icon": "wrap_text"
+		},
+		{
+			"name": "Graphic Design",
+			"shortName": "graphicdesign",
+			"description": "Request banners, graphics, images or other graphic design elements.",
+			"color": "green-700",
+			"icon": "palette"
+		}
+	]
+}

@@ -7,7 +7,9 @@ var express = require('express'),
 	 _ = require('lodash'),
 	 randomstring = require("randomstring"),
 	 validator = require('validator'),
-	 Promise = require('bluebird');
+	 Promise = require('bluebird'),
+	 jwt = require('jsonwebtoken'),
+	 rest = require('restling');
 
 var router = express.Router();
 
@@ -48,7 +50,9 @@ router.post('/', function(req, res, next) {
 		redis_port: _.toString(req.body.redis_port),
 		auth0_domain: _.toString(req.body.auth0_domain),
 		auth0_id: _.toString(req.body.auth0_id),
-		auth0_secret: _.toString(req.body.auth0_secret)
+		auth0_secret: _.toString(req.body.auth0_secret),
+		auth0_apikey: _.toString(req.body.auth0_apikey),
+		auth0_apisecret: _.toString(req.body.auth0_apisecret)
 	};
 
 
@@ -68,7 +72,9 @@ router.post('/', function(req, res, next) {
 		formerrors.push({ field: 'site_host', msg: 'Invalid site host.' });
 	}
 
-	//-> Database Engine
+	// ---------------------------------------------
+	// Validate: Database
+	// ---------------------------------------------
 
 	if(validator.isIn(rawData.db_engine, _.keys(app.locals.appdata.dbengines))) {
 		app.locals.appconfig.db.engine = rawData.db_engine;
@@ -124,7 +130,9 @@ router.post('/', function(req, res, next) {
 
 	}
 
-	//-> Storage Solution
+	// ---------------------------------------------
+	// Validate: Storage
+	// ---------------------------------------------
 
 	if(validator.isIn(rawData.storage_provider, _.keys(app.locals.appdata.storageproviders))) {
 		app.locals.appconfig.storage.provider = rawData.storage_provider;
@@ -135,6 +143,8 @@ router.post('/', function(req, res, next) {
 	switch(rawData.storage_provider) {
 		case 'local':
 
+			//-> Local Storage Path
+
 			if(path.isAbsolute(rawData.storage_path)) {
 				app.locals.appconfig.storage.path = rawData.storage_path;
 			} else {
@@ -144,11 +154,15 @@ router.post('/', function(req, res, next) {
 		break;
 		case 'azure':
 
+			//-> Azure Storage Account Name
+
 			if(validator.isLength(rawData.storage_az_name, {min:3, max: 24}) && validator.isAlphanumeric(rawData.storage_az_name) && validator.isLowercase(rawData.storage_az_name)) {
 				app.locals.appconfig.storage.name = rawData.storage_az_name;
 			} else {
 				formerrors.push({ field: 'storage_az_name', msg: 'Invalid Storage Azure Account Name.' });
 			}
+
+			//-> Azure Storage Access Key
 
 			if(validator.isLength(rawData.storage_az_key, {min:10}) && validator.isBase64(rawData.storage_az_key)) {
 				app.locals.appconfig.storage.key = rawData.storage_az_key;
@@ -159,11 +173,15 @@ router.post('/', function(req, res, next) {
 		break;
 		case 's3':
 
+			//-> Amazon S3 Bucket Name
+
 			if(validator.isLength(rawData.storage_s3_name, {min:3, max: 63}) && validator.isLowercase(rawData.storage_s3_name)) {
 				app.locals.appconfig.storage.name = rawData.storage_s3_name;
 			} else {
 				formerrors.push({ field: 'storage_s3_name', msg: 'Invalid Storage S3 Bucket Name.' });
 			}
+
+			//-> Amazon S3 Region
 
 			if(validator.isLength(rawData.storage_s3_region, {min:3, max: 32}) && validator.isLowercase(rawData.storage_s3_region)) {
 				app.locals.appconfig.storage.region = rawData.storage_s3_region;
@@ -171,11 +189,15 @@ router.post('/', function(req, res, next) {
 				formerrors.push({ field: 'storage_s3_region', msg: 'Invalid Storage S3 Region.' });
 			}
 
+			//-> Amazon S3 Access Key ID
+
 			if(validator.isLength(rawData.storage_s3_id, {min:16, max: 32}) && validator.isAlphanumeric(rawData.storage_s3_id)) {
 				app.locals.appconfig.storage.id = rawData.storage_s3_id;
 			} else {
 				formerrors.push({ field: 'storage_s3_id', msg: 'Invalid Storage S3 Access Key ID.' });
 			}
+
+			//-> Amazon S3 Secret Access Key
 
 			if(validator.isLength(rawData.storage_s3_key, {min:8})) {
 				app.locals.appconfig.storage.key = rawData.storage_s3_key;
@@ -186,7 +208,9 @@ router.post('/', function(req, res, next) {
 		break;
 	}
 
-	//-> Redis Configuration
+	// ---------------------------------------------
+	// Validate: Redis
+	// ---------------------------------------------
 
 	if(validator.isIn(rawData.redis_config, _.keys(app.locals.appdata.redisconfigs))) {
 		app.locals.appconfig.redis.config = rawData.redis_config;
@@ -196,19 +220,25 @@ router.post('/', function(req, res, next) {
 
 	if(rawData.redis_config == 'socket') {
 
-			if(path.isAbsolute(rawData.redis_path)) {
-				app.locals.appconfig.redis.path = rawData.redis_path;
-			} else {
-				formerrors.push({ field: 'redis_path', msg: 'Invalid Redis socket path.' });
-			}
+		//-> Redis Unix Socket
+
+		if(path.isAbsolute(rawData.redis_path)) {
+			app.locals.appconfig.redis.path = rawData.redis_path;
+		} else {
+			formerrors.push({ field: 'redis_path', msg: 'Invalid Redis socket path.' });
+		}
 
 	} else {
+
+		//-> Redis Host
 
 		if(validator.matches(rawData.redis_host, /^[a-zA-Z0-9\-\.]{3,}$/)) {
 			app.locals.appconfig.redis.host = rawData.redis_host;
 		} else {
 			formerrors.push({ field: 'redis_host', msg: 'Invalid Redis host.' });
 		}
+
+		//-> Redis Port
 
 		if(validator.matches(rawData.redis_port, /^[0-9]{2,5}$/)) {
 			app.locals.appconfig.redis.port = rawData.redis_port;
@@ -217,6 +247,8 @@ router.post('/', function(req, res, next) {
 		}
 
 		if(rawData.redis_config != 'noauth') {
+
+			//-> Redis Authentication Pass / Key
 
 			if(validator.isLength(rawData.redis_pass, {min:8})) {
 				app.locals.appconfig.redis.pass = rawData.redis_pass;
@@ -228,7 +260,11 @@ router.post('/', function(req, res, next) {
 
 	}
 
-	//-> Auth0
+	// ---------------------------------------------
+	// Validate: Auth0
+	// ---------------------------------------------
+
+	//-> Auth0 Domain
 
 	if(validator.isFQDN(rawData.auth0_domain)) {
 		app.locals.appconfig.auth0.domain = rawData.auth0_domain;
@@ -236,16 +272,36 @@ router.post('/', function(req, res, next) {
 		formerrors.push({ field: 'auth0_domain', msg: 'Invalid Auth0 domain.' });
 	}
 
+	//-> Auth0 Client ID
+
 	if(validator.isLength(rawData.auth0_id, {min:10})) {
 		app.locals.appconfig.auth0.clientID = rawData.auth0_id;
 	} else {
 		formerrors.push({ field: 'auth0_id', msg: 'Invalid Auth0 Client ID.' });
 	}
 
+	//-> Auth0 Client Secret
+
 	if(validator.isLength(rawData.auth0_secret, {min:10})) {
 		app.locals.appconfig.auth0.clientSecret = rawData.auth0_secret;
 	} else {
 		formerrors.push({ field: 'auth0_secret', msg: 'Invalid Auth0 Client Secret.' });
+	}
+
+	//-> Auth0 Client Secret
+
+	if(validator.isLength(rawData.auth0_apikey, {min:10})) {
+		app.locals.appconfig.auth0.apiKey = rawData.auth0_apikey;
+	} else {
+		formerrors.push({ field: 'auth0_apikey', msg: 'Invalid Auth0 API Key.' });
+	}
+
+	//-> Auth0 Client Secret
+
+	if(validator.isLength(rawData.auth0_apisecret, {min:10})) {
+		app.locals.appconfig.auth0.apiSecret = rawData.auth0_apisecret;
+	} else {
+		formerrors.push({ field: 'auth0_apisecret', msg: 'Invalid Auth0 API Secret.' });
 	}
 
 	// ---------------------------------------------
@@ -279,19 +335,23 @@ router.post('/', function(req, res, next) {
 	tasks.push(new Promise(function (resolve, reject) {
 		fs.access('./config.json', fs.R_OK | fs.W_OK, (err) => {
 			results.push({
-				title: 'Can write to config.json?... ' + ((err) ? 'Failed' : ' OK'),
+				title: 'File System: Verify write access to config.json... ' + ((err) ? 'Failed' : ' OK'),
 				success: !(err)
 			});
 
 			if(!err) {
 
+				//-> Generate Session Secret
+
 				app.locals.appconfig.setup = true;
 				app.locals.appconfig.sessionSecret = randomstring.generate(32);
+
+				//-> Write configuration to disk
 
 				let configJSON = JSON.stringify(app.locals.appconfig, null, 3);
 				fs.writeFile('./config.json', configJSON, (err) => {
 					results.push({
-						title: 'Write configuration to disk...' + ((err) ? 'Failed' : ' OK'),
+						title: 'File System: Write configuration to disk...' + ((err) ? 'Failed' : ' OK'),
 						success: !(err)
 					});
 					resolve();
@@ -311,7 +371,7 @@ router.post('/', function(req, res, next) {
 	tasks.push(new Promise(function (resolve, reject) {
 		fs.access(os.tmpdir(), fs.R_OK | fs.W_OK, (err) => {
 			results.push({
-				title: 'Can write to OS directory for temporary files?... ' + ((err) ? 'Failed' : ' OK'),
+				title: 'File System: Verify write access to OS directory for temporary files... ' + ((err) ? 'Failed' : ' OK'),
 				success: !(err)
 			});
 			resolve();
@@ -331,7 +391,7 @@ router.post('/', function(req, res, next) {
 		return db.sequelize.authenticate().then(function() {
 
 			results.push({
-				title: 'Can connect to database engine?... OK',
+				title: 'Database: Verify connection... OK',
 				success: true
 			});
 
@@ -340,39 +400,42 @@ router.post('/', function(req, res, next) {
 			return db.sequelize.sync({force: true}).then(function () {
 
 				results.push({
-					title: '-- Create database structure... OK',
+					title: 'Database: Create structure... OK',
 					success: true
 				});
 
-				// Enter default data
+				// Insert default database data
 
-				return db.User.create({
-					username:   'admin',
-					firstName:  'Administrator',
-					lastName:   'Admin',
-					email:      'admin@requarks.io',
-					jobTitle:   'Site Administrator'
-				}).then(function(row) {
+				let defaultData = require(path.join(__dirname, '../models/_setup-data.json'));
+				var defaultDataTasks = [];
+
+				Object.keys(defaultData).forEach(function(modelName) {
+					defaultDataTasks.push(
+						db[modelName].bulkCreate(defaultData[modelName])
+					);
+				});
+
+				return Promise.all(defaultDataTasks.map(function(p) {
+					return p.reflect();
+				})).then(function(ins) {
+
+					let success = _.every(ins, function(p) {
+						return p.isFulfilled();
+					});
 
 					results.push({
-						title: '-- Insert default data... OK',
-						success: true
+						title: 'Database: Insert default data... ' + (success ? 'OK' : 'Failed'),
+						success: success
 					});
+
 					resolve();
 
-				})
-				.catch(function(err) {
-			 		results.push({
-						title: '-- Insert default data... Failed',
-						success: false
-					});
-					resolve();
-			 	});
+				});
 
 		  	})
 		 	.catch(function(err) {
 		 		results.push({
-					title: '-- Create database structure... Failed',
+					title: 'Database: Create structure... Failed',
 					success: false
 				});
 				resolve();
@@ -381,7 +444,7 @@ router.post('/', function(req, res, next) {
 		})
 		.catch(function(err) {
 			results.push({
-				title: 'Can connect to database engine?... Failed',
+				title: 'Database: Verify connection... Failed',
 				success: false
 			});
 			resolve();
@@ -410,21 +473,46 @@ router.post('/', function(req, res, next) {
 	results.push({
 		title: 'Can connect to Redis instance?',
 		success: tmpState
-	});
+	});*/
 
 	// ---------------------------------------------
 	// Setup Auth0
 	// ---------------------------------------------
 
-	results.push({
-		title: 'Auth0 is accessible and properly configured?',
-		success: tmpState
+	var token = jwt.sign({
+		"scopes": {
+			"connections": {
+				"actions": [
+					"read",
+        			"create"
+				]
+			}
+		}
+	},
+	new Buffer(app.locals.appconfig.auth0.apiSecret, 'base64'),
+	{
+		audience: app.locals.appconfig.auth0.apiKey
 	});
 
-	results.push({
-		title: '-- Create administrator account...',
-		success: tmpState
-	});*/
+	tasks.push(
+		rest.get('https://' + app.locals.appconfig.auth0.domain + '/api/v2/connections', {
+			accessToken: token
+		}).then(function(result) {
+		
+			results.push({
+				title: 'Auth0: Verify connection and base configuration... OK',
+				success: true
+			});
+
+		}, function(error) {
+		  
+			results.push({
+				title: 'Auth0: Verify connection and base configuration... Failed',
+				success: false
+			});
+
+		})
+	);
 
 	// ---------------------------------------------
 	// Return results

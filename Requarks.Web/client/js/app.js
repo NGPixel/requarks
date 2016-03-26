@@ -38,4 +38,12 @@ $(() => {
 		$('nav.actionbar').removeClass('active');
 	});
 
+	// ====================================
+	// Notifications
+	// ====================================
+
+	$(window).bind('beforeunload', function() {
+		$('#notifload').addClass('active');
+	});
+
 });

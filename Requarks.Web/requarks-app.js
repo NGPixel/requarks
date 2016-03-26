@@ -9,8 +9,9 @@ var appconfig = require('./config.json');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
+//var logger = require('morgan');
 var session = require('express-session');
+var redisStore = require('connect-redis')(session);
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sass = require('node-sass-middleware');
@@ -18,6 +19,17 @@ var expressBundles = require('express-bundles');
 var compression = require('compression');
 var passport = require('passport');
 var autoload = require('auto-load');
+var _ = require('lodash');
+var util = require('util');
+var Redis = require('ioredis');
+var red = new Redis({
+  port: appconfig.redis.port,
+  host: appconfig.redis.host,
+  password: appconfig.redis.pass,
+  tls: {
+    servername: appconfig.redis.host
+  }
+});
 
 var auth = require('./middlewares/auth');
 
@@ -28,6 +40,7 @@ var i18next_mw = require('i18next-express-middleware');
 var ctrl = autoload(__dirname + '/controllers');
 
 app = express();
+db = require("./models")(appconfig);
 
 var _isDebug = (app.get('env') === 'development');
 
@@ -38,7 +51,13 @@ var _isDebug = (app.get('env') === 'development');
 var strategy = require('./passport-auth0');
 
 app.use(cookieParser());
-app.use(session({ secret: appconfig.sessionSecret, resave: false,  saveUninitialized: false }));
+app.use(session({
+  name: 'requarks.sid',
+  store: new redisStore({ client: red }),
+  secret: appconfig.sessionSecret,
+  resave: false,
+  saveUninitialized: false
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -54,7 +73,7 @@ i18next
     ns: 'common',
     defaultNS: 'common',
     saveMissing: false,
-    debug: _isDebug,
+    //debug: _isDebug,
     supportedLngs: ['en', 'fr'],
     fallbackLng : 'en',
     backend: {
@@ -73,7 +92,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
-if(_isDebug) { app.use(logger('dev')); }
+//if(_isDebug) { app.use(logger('dev')); }
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -85,7 +104,7 @@ app.use(sass({
   src: path.join(__dirname, 'client'),
   dest: path.join(__dirname, 'assets'),
   outputStyle: 'compressed',
-  debug: _isDebug
+  //debug: _isDebug
 }));
 app.use(expressBundles.middleware({
   env: app.get('env'),

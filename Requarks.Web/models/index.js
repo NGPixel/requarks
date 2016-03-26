@@ -7,9 +7,7 @@ var Sequelize = require("sequelize");
 
 module.exports = function(config) {
 
-  //var config    = require(path.join(__dirname, '..', 'config.json'));
-
-  // Connect to DB
+  // Init DB connector
 
   var sequelize = new Sequelize(config.db.name, config.db.user, config.db.pass, {
                     dialect: config.db.engine,
@@ -26,7 +24,7 @@ module.exports = function(config) {
   fs
     .readdirSync(__dirname)
     .filter(function(file) {
-      return (file.indexOf(".") !== 0) && (file !== "index.js");
+      return (file.indexOf(".") !== 0) && (file !== "index.js") && (_.endsWith(file, '.js'));
     })
     .forEach(function(file) {
       var model = sequelize.import(path.join(__dirname, file));

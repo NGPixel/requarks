@@ -3,7 +3,13 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('create', { navbar_active: 'create', page_script: 'create' });
+
+	db.Category.findAll({
+		order: 'name'
+	}).then(function(cats) {
+		res.render('create', { navbar_active: 'create', page_script: 'create', categories: cats });
+	});
+
 });
 
 router.get('/:id', function(req, res, next) {

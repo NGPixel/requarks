@@ -5,6 +5,7 @@ module.exports = function(sequelize, DataTypes) {
   var Category = sequelize.define("Category",
   {
     name:         DataTypes.STRING,
+    shortName:    DataTypes.STRING,
     description:  DataTypes.STRING,
     color:        DataTypes.STRING,
     icon:         DataTypes.STRING

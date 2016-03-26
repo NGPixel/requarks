@@ -273,6 +273,19 @@ html
 										.note
 											strong.color-red-600 Required
 											| Auth0 Application Client Secret
+									section.row
+										.col-xs-6
+											label API Key
+											input(name='auth0_apikey', type='text', value=appconfig.auth0.apiKey)
+											.note
+												strong.color-red-600 Required
+												| Auth0 API Key
+										.col-xs-6
+											label API Secret
+											input(name='auth0_apisecret', type='text', value=appconfig.auth0.apiSecret)
+											.note
+												strong.color-red-600 Required
+												| Auth0 API Secret
 
 						button#setup-submit(type="submit", class="btn btn-green btn-block margin-bottom-20") Save &amp; Install
 
