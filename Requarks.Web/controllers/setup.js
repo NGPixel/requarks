@@ -66,10 +66,10 @@ router.post('/', function(req, res, next) {
 
 	//-> Host
 
-	if(validator.isURL(rawData.site_host, {require_protocol:true})) {
+	if(validator.isURL(rawData.site_host, {require_protocol:true}) && !_.endsWith(rawData.site_host, '/')) {
 		app.locals.appconfig.host = rawData.site_host;
 	} else {
-		formerrors.push({ field: 'site_host', msg: 'Invalid site host.' });
+		formerrors.push({ field: 'site_host', msg: 'Invalid site host. ( Do not use trailing slash! )' });
 	}
 
 	// ---------------------------------------------
@@ -453,7 +453,7 @@ router.post('/', function(req, res, next) {
 				title: 'Database: Verify connection... Failed',
 				success: false
 			});
-		});
+		})
 
 	);
 

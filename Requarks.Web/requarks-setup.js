@@ -4,7 +4,15 @@
 // Licensed under GPLv3
 // ===========================================
 
-var appconfig = require('./config.json');
+
+var fs = require('fs');
+var appconfig = {};
+try {
+    fs.accessSync('./config.json', fs.F_OK | fs.R_OK);
+    appconfig = require('./config.json');
+} catch (e) {
+    // Using empty config
+}
 
 var express = require('express');
 var path = require('path');
