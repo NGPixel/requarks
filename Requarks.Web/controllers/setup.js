@@ -9,7 +9,8 @@ var express = require('express'),
 	 Promise = require('bluebird'),
 	 fs = Promise.promisifyAll(require('fs')),
 	 jwt = require('jsonwebtoken'),
-	 rest = require('restling');
+	 rest = require('restling'),
+	 util = require('util');
 
 var router = express.Router();
 
@@ -335,11 +336,6 @@ router.post('/', function(req, res, next) {
 	tasks.push(
 		fs.accessAsync('./config.json', fs.R_OK | fs.W_OK).then(() => {
 
-			results.push({
-				title: 'File System: Verify write access to config.json... OK',
-				success: true
-			});
-
 			//-> Generate Session Secret
 
 			app.locals.appconfig.setup = true;
@@ -348,23 +344,17 @@ router.post('/', function(req, res, next) {
 			//-> Write configuration to disk
 
 			let configJSON = JSON.stringify(app.locals.appconfig, null, 3);
-			return fs.writeFileAsync('./config.json', configJSON).then(() => {
-				results.push({
-					title: 'File System: Write configuration to disk... OK',
-					success: true
-				});
-			}).catch((e) => {
-				results.push({
-					title: 'File System: Write configuration to disk... Failed',
-					success: false
-				});
+			return fs.writeFileAsync('./config.json', configJSON)
+			.then(() => {
+				return Promise.resolve('File System: Configuration written to disk succesfully.');
+			})
+			.catch((err) => {
+				return Promise.reject(new Promise.OperationalError('File System: Cannot write configuration to disk! Make sure config.json is writable.'));
 			});
 
-		}).catch((e) => {
-			results.push({
-				title: 'File System: Verify write access to config.json... Failed',
-				success: false
-			});
+		})
+		.catch((err) => {
+			return Promise.reject((err instanceof Promise.OperationalError) ? err : new Error('File System: Cannot write to config.json! Make sure folder is writable.'));
 		})
 	);
 
@@ -373,16 +363,12 @@ router.post('/', function(req, res, next) {
 	// ---------------------------------------------
 
 	tasks.push(
-		fs.accessAsync(os.tmpdir(), fs.R_OK | fs.W_OK).then(() => {
-			results.push({
-				title: 'File System: Verify write access to OS directory for temporary files... OK',
-				success: true
-			});
-		}).catch((e) => {
-			results.push({
-				title: 'File System: Verify write access to OS directory for temporary files... Failed',
-				success: false
-			});
+		fs.accessAsync(os.tmpdir(), fs.R_OK | fs.W_OK)
+		.then(() => {
+			return Promise.resolve('File System: Verified write access to OS directory for temporary files.');
+		})
+		.catch((err) => {
+			return Promise.reject(new Error('File System: Verify write access to OS directory for temporary files'));
 		})
 	);
 
@@ -398,19 +384,9 @@ router.post('/', function(req, res, next) {
 
 		db.sequelize.authenticate().then(() => {
 
-			results.push({
-				title: 'Database: Verify connection... OK',
-				success: true
-			});
-
 			// Create database structure
 		
-			return db.sequelize.sync({force: true}).then(function () {
-
-				results.push({
-					title: 'Database: Create structure... OK',
-					success: true
-				});
+			return db.sequelize.sync({force: true}).then(() => {
 
 				// Insert default database data
 
@@ -423,36 +399,22 @@ router.post('/', function(req, res, next) {
 					);
 				});
 
-				return Promise.all(defaultDataTasks.map(function(p) {
-					return p.reflect();
-				})).then(function(ins) {
-
-					let success = _.every(ins, function(p) {
-						return p.isFulfilled();
-					});
-
-					results.push({
-						title: 'Database: Insert default data... ' + (success ? 'OK' : 'Failed'),
-						success: success
-					});
-
-				});
+				return Promise.all(defaultDataTasks)
+				.then(() => {
+					return Promise.resolve('Database: Connection established, structure created and default data inserted successfully.');
+				})
+				.catch((err) => {
+			 		return Promise.reject(new Promise.OperationalError('Database: Unable to insert default data.'));
+			 	});
 
 		  	})
-		 	.catch(function(err) {
-		 		results.push({
-					title: 'Database: Create structure... Failed',
-					success: false
-				});
-				resolve();
+		 	.catch((err) => {
+		 		return Promise.reject((err instanceof Promise.OperationalError) ? err : new Promise.OperationalError('Database: Unable to create table structure.'));
 		 	});
 
 		})
-		.catch(function(err) {
-			results.push({
-				title: 'Database: Verify connection... Failed',
-				success: false
-			});
+		.catch((err) => {
+			return Promise.reject((err instanceof Promise.OperationalError) ? err : new Error('Database: Cannot establish connection to database.'));
 		})
 
 	);
@@ -461,24 +423,44 @@ router.post('/', function(req, res, next) {
 	// Setup Storage solution
 	// ---------------------------------------------
 
-	/*results.push({
-		title: 'Can access storage solution?',
-		success: tmpState
-	});
-
-	results.push({
-		title: '-- Create base structure in storage...',
-		success: tmpState
-	});
+	var storage = require('../modules/storage')(app.locals.appconfig);
+	tasks.push(
+		storage.connect()
+		.then(() => {
+			return storage.setup()
+				.then(() => {
+					return Promise.resolve('Storage: Connection established and properly configured.');
+				})
+				.catch((err) => {
+					return Promise.reject(new Promise.OperationalError('Storage: Cannot create folder structure. Make sure Requarks has write permissions.'));
+				});
+		})
+		.catch((err) => {
+			return Promise.reject((err instanceof Promise.OperationalError) ? err : new Error('Storage: Cannot connect to storage provider or invalid configuration.'));
+		})
+	);
 
 	// ---------------------------------------------
 	// Setup Redis
 	// ---------------------------------------------
 
-	results.push({
-		title: 'Can connect to Redis instance?',
-		success: tmpState
-	});*/
+	var red = require('../modules/redis')(app.locals.appconfig);
+
+	tasks.push(
+		new Promise(function (resolve, reject) {
+			red.on('connect', function () {
+				red.disconnect();
+				resolve('Redis: Connection successful to Redis instance.');
+			});
+			red.on('error', function() {
+				red.disconnect();
+				reject(new Promise.OperationalError('Redis: Cannot establish connection to Redis instance.'));
+			});
+		}).timeout(5000).catch((err) => {
+			red.disconnect();
+			return Promise.reject((err instanceof Promise.OperationalError) ? err : new Error('Redis: Cannot establish connection to Redis instance. (Timeout)'));
+		})
+	);
 
 	// ---------------------------------------------
 	// Setup Auth0
@@ -502,20 +484,12 @@ router.post('/', function(req, res, next) {
 	tasks.push(
 		rest.get('https://' + app.locals.appconfig.auth0.domain + '/api/v2/connections', {
 			accessToken: token
-		}).then(function(result) {
-		
-			results.push({
-				title: 'Auth0: Verify connection and base configuration... OK',
-				success: true
-			});
-
-		}, function(error) {
-		  
-			results.push({
-				title: 'Auth0: Verify connection and base configuration... Failed',
-				success: false
-			});
-
+		})
+		.then(() => {
+			return Promise.resolve('Auth0: Verified connection and base configuration.');
+		})
+		.catch(function(err) {
+			return Promise.reject(new Error('Auth0: Unable to connect / authenticate to Auth0.'));
 		})
 	);
 
@@ -523,7 +497,25 @@ router.post('/', function(req, res, next) {
 	// Return results
 	// ---------------------------------------------
 
-	Promise.all(tasks).then(function() {
+	Promise.all(
+		tasks.map(function(promise) {
+			return promise.reflect();
+		})
+	)
+	.each(function(inspection) {
+		if (inspection.isFulfilled()) {
+			results.push({
+				title: inspection.value(),
+				success: true
+			});
+		} else {
+			results.push({
+				title: inspection.reason().cause || inspection.reason(),
+				success: false
+			});
+		}
+	})
+	.then(() => {
 		res.render('setup', {
 			showform: (_.filter(results, ['success', false]).length > 0),
 			showresults: true,

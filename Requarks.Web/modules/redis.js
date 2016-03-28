@@ -1,6 +1,7 @@
 "use strict";
 
-var Redis = require('ioredis');
+var Redis = require('ioredis'),
+	_ = require('lodash');
 
 module.exports = (appconfig) => {
 
@@ -37,6 +38,8 @@ module.exports = (appconfig) => {
 		break;
 	}
 
-	return new Redis(conf);
+	return new Redis(_.defaultsDeep(conf), {
+		lazyConnect: false
+	});
 
 }
