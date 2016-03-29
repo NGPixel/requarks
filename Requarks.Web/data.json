@@ -9,7 +9,9 @@
 	"storageproviders": {
 		"local": "Local Filesystem",
 		"azure": "Azure Blob Storage",
-		"s3": "Amazon S3"
+		"s3": "Amazon S3",
+		"google": "Google Cloud Storage",
+		"softlayer": "IBM SoftLayer Object Storage"
 	},
 	"redisconfigs": {
 		"noauth": "No Authentication",

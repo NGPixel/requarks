@@ -219,7 +219,7 @@ router.post('/', function(req, res, next) {
 		formerrors.push({ field: 'redis_config', msg: 'Invalid Redis configuration.' });
 	}
 
-	if(rawData.redis_config == 'socket') {
+	if(rawData.redis_config === 'socket') {
 
 		//-> Redis Unix Socket
 
@@ -247,7 +247,7 @@ router.post('/', function(req, res, next) {
 			formerrors.push({ field: 'redis_port', msg: 'Invalid Redis port.' });
 		}
 
-		if(rawData.redis_config != 'noauth') {
+		if(rawData.redis_config !== 'noauth') {
 
 			//-> Redis Authentication Pass / Key
 

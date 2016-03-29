@@ -9,23 +9,31 @@ var _ = require('lodash'),
 
 class StorageProviderAzure extends StorageProvider {
 
+	/**
+	 * Constructor
+	 * @param  {object} appconfig Application Configuration
+	 * @return {void}
+	 */
 	constructor(appconfig) {
 		super(appconfig);
 	}
 
+	/**
+	 * Establish connection to Azure
+	 * @return {Promise} Promise of the connection result
+	 */
 	connect() {
+		let self = this;
 		return new Promise(function (resolve, reject) {
-			//blobService = azure.createBlobService(this.conf.name, this.conf.key);
-			return resolve('TEST');
+			let blobService = azure.createBlobService(self.conf.name, self.conf.key);
+			blobService.doesContainerExist('requarks', {}, (err, result, resp) => {
+				if(err != undefined) {
+					reject(new Error('Storage::connect - Connection failed'));
+				} else {
+					resolve(result);
+				}
+			});
 		});
-	}
-
-	saveTemp(file, data) {
-		console.log('TEST1');
-	}
-
-	readTemp(file) {
-		console.log('TEST2');
 	}
 
 }
