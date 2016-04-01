@@ -28,6 +28,12 @@
 		&.btn-#{$color-name} {
 			background-color: material-color($color-name, '500');
 			@include prefix(text-shadow, 1px 1px 0 material-color($color-name, '700'));
+
+			&:hover {
+				background-color: material-color($color-name, '600');
+				@include prefix(text-shadow, 1px 1px 0 material-color($color-name, '800'));
+			}
+
 		}
 
 	}

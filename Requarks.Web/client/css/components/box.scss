@@ -74,10 +74,16 @@
 					outline: none;
 					@include prefix(box-shadow, inset 0 0 5px 0 rgba(0,0,0,0.05));
 
+					&:hover {
+						@include prefix(box-shadow, inset 0 0 5px 0 rgba(0,0,0,0.20));
+						border-color: material-color('blue-grey', '200');
+					}
+
 					&:focus {
 						outline: none;
-						box-shadow: inset 0 0 5px 0 material-color('light-blue', '100');
-						border-color: material-color('light-blue', '200');
+						@include prefix(box-shadow, inset 0 0 5px 0 material-color('light-blue', '200'));
+						border-color: material-color('light-blue', '300');
+						color: material-color('light-blue', '800');
 					}
 
 				}
@@ -85,7 +91,7 @@
 				select {
 					display: block;
 					width: 100%;
-					padding: 5px 10px;
+					padding: 4px 10px;
 					margin: 0;
 					background-color: #FFF;
 					color: material-color('blue-grey', '600');
@@ -98,6 +104,19 @@
 					outline: none;
 					@include prefix(box-shadow, inset 0 0 5px 0 rgba(0,0,0,0.05));
 					transition: all 0.5s ease;
+
+					&:hover {
+						@include prefix(box-shadow, inset 0 0 5px 0 rgba(0,0,0,0.20));
+						border-color: material-color('blue-grey', '200');
+					}
+
+					&:focus {
+						outline: none;
+						@include prefix(box-shadow, inset 0 0 5px 0 material-color('light-blue', '200'));
+						border-color: material-color('light-blue', '300');
+						color: material-color('light-blue', '800');
+					}
+
 				}
 
 				.note {

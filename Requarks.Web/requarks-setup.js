@@ -86,7 +86,18 @@ app.use(function(req, res, next) {
 // Expose Application Configs
 // ----------------------------------------
 
-app.locals.appconfig = _.defaultsDeep(appconfig, { db: {}, storage: {}, redis: {}, auth0: {} });
+app.locals.appconfig = _.defaultsDeep(appconfig, {
+  db: {},
+  storage: {
+    "local": {},
+    "azure": {},
+    "google": {},
+    "s3": {},
+    "softlayer": {}
+  },
+  redis: {},
+  auth0: {}
+});
 app.locals.appdata = require('./data.json');
 
 // ----------------------------------------

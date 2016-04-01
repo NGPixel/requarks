@@ -16,17 +16,41 @@ class StorageProviderAzure extends StorageProvider {
 	 */
 	constructor(appconfig) {
 		super(appconfig);
+		this.blobService = null;
 	}
 
 	/**
 	 * Establish connection to Azure
-	 * @return {Promise} Promise of the connection result
+	 * @return {Promise} Promise
 	 */
 	connect() {
 		let self = this;
 		return new Promise(function (resolve, reject) {
-			let blobService = azure.createBlobService(self.conf.name, self.conf.key);
-			blobService.doesContainerExist('requarks', {}, (err, result, resp) => {
+			self.blobService = azure.createBlobService(self.conf.azure.name, self.conf.azure.key);
+			self.blobService.doesContainerExist('requarks', {}, (err, result, resp) => {
+				if(err != undefined) {
+					reject(new Error('Storage::connect - Connection failed'));
+				} else {
+					resolve(result);
+				}
+			});
+		});
+	}
+
+	/**
+	 * Create container on file system
+	 * @param  {string} conName Name of the container
+	 * @return {Promise}         Promise
+	 */
+	createContainer(conName) {
+		let self = this;
+		return new Promise(function (resolve, reject) {
+			if(self.blobService === null) {
+				return reject(new Error('Storage connector is not available. Connection failed.'));
+			}
+			self.blobService.createContainerIfNotExists(conName, {
+				publicAccessLevel : azure.BlobUtilities.BlobContainerPublicAccessType.OFF
+			}, (err, result, resp) => {
 				if(err != undefined) {
 					reject(new Error('Storage::connect - Connection failed'));
 				} else {

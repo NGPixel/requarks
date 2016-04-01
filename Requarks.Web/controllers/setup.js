@@ -44,6 +44,7 @@ router.post('/', function(req, res, next) {
 		storage_s3_region: _.toString(req.body.storage_s3_region),
 		storage_s3_id: _.toString(req.body.storage_s3_id),
 		storage_s3_key: _.toString(req.body.storage_s3_key),
+		storage_gl_keyfile: _.toString(req.body.storage_gl_keyfile),
 		redis_config: _.toString(req.body.redis_config),
 		redis_host: _.toString(req.body.redis_host),
 		redis_path: _.toString(req.body.redis_path),
@@ -147,7 +148,7 @@ router.post('/', function(req, res, next) {
 			//-> Local Storage Path
 
 			if(path.isAbsolute(rawData.storage_path)) {
-				app.locals.appconfig.storage.path = rawData.storage_path;
+				app.locals.appconfig.storage.local.path = rawData.storage_path;
 			} else {
 				formerrors.push({ field: 'storage_path', msg: 'Invalid storage folder path.' });
 			}
@@ -158,7 +159,7 @@ router.post('/', function(req, res, next) {
 			//-> Azure Storage Account Name
 
 			if(validator.isLength(rawData.storage_az_name, {min:3, max: 24}) && validator.isAlphanumeric(rawData.storage_az_name) && validator.isLowercase(rawData.storage_az_name)) {
-				app.locals.appconfig.storage.name = rawData.storage_az_name;
+				app.locals.appconfig.storage.azure.name = rawData.storage_az_name;
 			} else {
 				formerrors.push({ field: 'storage_az_name', msg: 'Invalid Storage Azure Account Name.' });
 			}
@@ -166,7 +167,7 @@ router.post('/', function(req, res, next) {
 			//-> Azure Storage Access Key
 
 			if(validator.isLength(rawData.storage_az_key, {min:10}) && validator.isBase64(rawData.storage_az_key)) {
-				app.locals.appconfig.storage.key = rawData.storage_az_key;
+				app.locals.appconfig.storage.azure.key = rawData.storage_az_key;
 			} else {
 				formerrors.push({ field: 'storage_az_key', msg: 'Invalid Storage Azure Access Key.' });
 			}
@@ -177,7 +178,7 @@ router.post('/', function(req, res, next) {
 			//-> Amazon S3 Bucket Name
 
 			if(validator.isLength(rawData.storage_s3_name, {min:3, max: 63}) && validator.isLowercase(rawData.storage_s3_name)) {
-				app.locals.appconfig.storage.name = rawData.storage_s3_name;
+				app.locals.appconfig.storage.s3.bucket = rawData.storage_s3_name;
 			} else {
 				formerrors.push({ field: 'storage_s3_name', msg: 'Invalid Storage S3 Bucket Name.' });
 			}
@@ -185,7 +186,7 @@ router.post('/', function(req, res, next) {
 			//-> Amazon S3 Region
 
 			if(validator.isLength(rawData.storage_s3_region, {min:3, max: 32}) && validator.isLowercase(rawData.storage_s3_region)) {
-				app.locals.appconfig.storage.region = rawData.storage_s3_region;
+				app.locals.appconfig.storage.s3.region = rawData.storage_s3_region;
 			} else {
 				formerrors.push({ field: 'storage_s3_region', msg: 'Invalid Storage S3 Region.' });
 			}
@@ -193,7 +194,7 @@ router.post('/', function(req, res, next) {
 			//-> Amazon S3 Access Key ID
 
 			if(validator.isLength(rawData.storage_s3_id, {min:16, max: 32}) && validator.isAlphanumeric(rawData.storage_s3_id)) {
-				app.locals.appconfig.storage.id = rawData.storage_s3_id;
+				app.locals.appconfig.storage.s3.id = rawData.storage_s3_id;
 			} else {
 				formerrors.push({ field: 'storage_s3_id', msg: 'Invalid Storage S3 Access Key ID.' });
 			}
@@ -201,9 +202,20 @@ router.post('/', function(req, res, next) {
 			//-> Amazon S3 Secret Access Key
 
 			if(validator.isLength(rawData.storage_s3_key, {min:8})) {
-				app.locals.appconfig.storage.key = rawData.storage_s3_key;
+				app.locals.appconfig.storage.s3.key = rawData.storage_s3_key;
 			} else {
 				formerrors.push({ field: 'storage_s3_key', msg: 'Invalid Storage S3 Secret Access Key.' });
+			}
+
+		break;
+		case 'google':
+
+			//-> Google Keyfile Path
+
+			if(path.isAbsolute(rawData.storage_gl_keyfile) && _.endsWith(rawData.storage_gl_keyfile, '.json')) {
+				app.locals.appconfig.storage.google.keyfile = rawData.storage_gl_keyfile;
+			} else {
+				formerrors.push({ field: 'storage_gl_keyfile', msg: 'Invalid storage Google keyfile path.' });
 			}
 
 		break;
@@ -432,6 +444,7 @@ router.post('/', function(req, res, next) {
 					return Promise.resolve('Storage: Connection established and properly configured.');
 				})
 				.catch((err) => {
+					console.log(err);
 					return Promise.reject(new Promise.OperationalError('Storage: Cannot create folder structure. Make sure Requarks has write permissions.'));
 				});
 		})
