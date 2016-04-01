@@ -1,14 +1,6 @@
-<<<<<<< HEAD
-/packages
-/.vs
-PublishProfiles
-*.csproj.user
-*.ai
-=======
 # Logs
 logs
 *.log
-npm-debug.log*
 
 # Runtime data
 pids
@@ -31,13 +23,15 @@ coverage
 build/Release
 
 # Dependency directory
-# https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
 node_modules
 
-# Optional npm cache directory
-.npm
+# Debug log from npm
+npm-debug.log
 
-# Optional REPL history
-.node_repl_history
->>>>>>> 94226798a9a31671f5224dd4d644afc226cff6a5
-Requarks.Web/config.json
+# SublimeText Project Files
+*.sublime-project
+*.sublime-workspace
+
+# Private config files
+config.json

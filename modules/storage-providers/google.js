@@ -2,12 +2,12 @@
 
 var _ = require('lodash'),
 	path = require('path'),
-	S3FS = require('s3fs'),
+	gcloud = require('gcloud'),
 	Promise = require('bluebird'),
 	fs = Promise.promisifyAll(require('fs')),
 	StorageProvider = require('./base');
 
-class StorageProviderS3 extends StorageProvider {
+class StorageProviderGoogle extends StorageProvider {
 
 	/**
 	 * Constructor
@@ -16,7 +16,7 @@ class StorageProviderS3 extends StorageProvider {
 	 */
 	constructor(appconfig) {
 		super(appconfig);
-		this.s3 = null;
+		this.gcs = null;
 	}
 
 	/**
@@ -26,25 +26,24 @@ class StorageProviderS3 extends StorageProvider {
 	connect() {
 		let self = this;
 		return new Promise(function (resolve, reject) {
-			/*return fs.accessAsync(self.conf.keyfile, fs.R_OK).then(() => {
-				return fs.readFileAsync(self.conf.keyfile, 'utf8').then((keydata) => {
+			return fs.accessAsync(self.conf.google.keyfile, fs.R_OK).then(() => {
+				return fs.readFileAsync(self.conf.google.keyfile, 'utf8').then((keydata) => {
 					try {
 						let keydataObj = JSON.parse(keydata);
 						if(_.isString(keydataObj.project_id)) {
 							self.gcs = gcloud.storage({
 								projectId: keydataObj.project_id,
-								keyFilename: self.conf.keyfile
+								keyFilename: self.conf.google.keyfile
 							});
 						} else {
-							throw new Error('Invalid Key File');
+							throw new Error('Storage::connect - Invalid Key File');
 						}
 					} catch(err) {
 						return reject(err);
 					}
 					return resolve(true);
 				});
-			});*/
-			resolve(true);
+			});
 		});
 	}
 
@@ -56,16 +55,19 @@ class StorageProviderS3 extends StorageProvider {
 	createContainer(conName) {
 		let self = this;
 		return new Promise(function (resolve, reject) {
-			/*if(self.gcs === null) {
-				return reject(new Error('Storage connector is not available. Connection failed.'));
+			if(self.gcs === null) {
+				return reject(new Error('Storage::createContainer - Storage connector is not available. Connection failed.'));
 			}
-			self.gcs.createBucket(conName, function(err, bucket) {
-				return (!err) ? resolve(bucket) : reject(err);
-			});*/
-			resolve(true);
+			self.gcs.createBucket(_.replace(conName, '{prefix}', self.conf.google.bucket), function(err, bucket) {
+				if(err && err.errors[0].reason === 'conflict' && err.message.indexOf('own') >= 0 ) {
+					return resolve(true);
+				} else {
+					return (!err) ? resolve(bucket) : reject(err);
+				}
+			});
 		});
 	}
 
 }
 
-module.exports = StorageProviderS3;
+module.exports = StorageProviderGoogle;

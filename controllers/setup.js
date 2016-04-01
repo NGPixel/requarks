@@ -40,10 +40,11 @@ router.post('/', function(req, res, next) {
 		storage_path: _.toString(req.body.storage_path),
 		storage_az_name: _.toString(req.body.storage_az_name),
 		storage_az_key: _.toString(req.body.storage_az_key),
-		storage_s3_name: _.toString(req.body.storage_s3_name),
+		storage_s3_bucket: _.toString(req.body.storage_s3_bucket),
 		storage_s3_region: _.toString(req.body.storage_s3_region),
 		storage_s3_id: _.toString(req.body.storage_s3_id),
 		storage_s3_key: _.toString(req.body.storage_s3_key),
+		storage_gl_bucket: _.toString(req.body.storage_gl_bucket),
 		storage_gl_keyfile: _.toString(req.body.storage_gl_keyfile),
 		redis_config: _.toString(req.body.redis_config),
 		redis_host: _.toString(req.body.redis_host),
@@ -158,7 +159,7 @@ router.post('/', function(req, res, next) {
 
 			//-> Azure Storage Account Name
 
-			if(validator.isLength(rawData.storage_az_name, {min:3, max: 24}) && validator.isAlphanumeric(rawData.storage_az_name) && validator.isLowercase(rawData.storage_az_name)) {
+			if(validator.matches(rawData.storage_az_name, /^[a-z0-9]{3,24}$/)) {
 				app.locals.appconfig.storage.azure.name = rawData.storage_az_name;
 			} else {
 				formerrors.push({ field: 'storage_az_name', msg: 'Invalid Storage Azure Account Name.' });
@@ -177,10 +178,10 @@ router.post('/', function(req, res, next) {
 
 			//-> Amazon S3 Bucket Name
 
-			if(validator.isLength(rawData.storage_s3_name, {min:3, max: 63}) && validator.isLowercase(rawData.storage_s3_name)) {
-				app.locals.appconfig.storage.s3.bucket = rawData.storage_s3_name;
+			if(validator.matches(rawData.storage_s3_bucket, /^[a-z0-9]{3,40}$/)) {
+				app.locals.appconfig.storage.s3.bucket = rawData.storage_s3_bucket;
 			} else {
-				formerrors.push({ field: 'storage_s3_name', msg: 'Invalid Storage S3 Bucket Name.' });
+				formerrors.push({ field: 'storage_s3_bucket', msg: 'Invalid Storage S3 Bucket Prefix Name.' });
 			}
 
 			//-> Amazon S3 Region
@@ -209,6 +210,14 @@ router.post('/', function(req, res, next) {
 
 		break;
 		case 'google':
+
+			//-> Google Bucket Name
+
+			if(validator.matches(rawData.storage_gl_bucket, /^[a-z0-9]{3,40}$/)) {
+				app.locals.appconfig.storage.google.bucket = rawData.storage_gl_bucket;
+			} else {
+				formerrors.push({ field: 'storage_gl_bucket', msg: 'Invalid Storage Google Bucket Prefix Name.' });
+			}
 
 			//-> Google Keyfile Path
 
@@ -444,8 +453,7 @@ router.post('/', function(req, res, next) {
 					return Promise.resolve('Storage: Connection established and properly configured.');
 				})
 				.catch((err) => {
-					console.log(err);
-					return Promise.reject(new Promise.OperationalError('Storage: Cannot create folder structure. Make sure Requarks has write permissions.'));
+					return Promise.reject(new Promise.OperationalError('Storage: Cannot create base structure. [ ' + err.message + ' ]'));
 				});
 		})
 		.catch((err) => {

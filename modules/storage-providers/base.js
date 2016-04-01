@@ -12,9 +12,9 @@ class StorageProvider {
 	constructor(appconfig) {
 		this.conf = appconfig.storage;
 		this.containers = {
-			files: 'requarks-files',
-			avatars: 'requarks-avatars',
-			archive: 'requarks-archive'
+			files: '{prefix}-files',
+			avatars: '{prefix}-avatars',
+			archive: '{prefix}-archive'
 		}
 	}
 
@@ -38,6 +38,8 @@ class StorageProvider {
 			() => { return self.createContainer(self.containers.archive) }
 		], function (promiseFn) {
 			return promiseFn();
+		}).catch((err) => {
+			return Promise.reject(new Error('Storage::setup - ' + err.message));
 		});
 	}
 

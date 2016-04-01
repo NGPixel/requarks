@@ -5,7 +5,6 @@ environment:
 # Install scripts. (runs after repo cloning)
 install:
   - ps: Install-Product node $env:nodejs_version
-  - cd Requarks.Web
   - npm install
 
 # Post-install test scripts.

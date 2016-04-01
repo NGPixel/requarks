@@ -183,17 +183,17 @@ html
 									section(v-bind:class="{'hidden' : storage!='s3'}")
 										.row
 											.col-xs-6
-												label Bucket
-												input(name='storage_s3_name', type='text', value=appconfig.storage.s3.bucket)
+												label Bucket Prefix Name
+												input(name='storage_s3_bucket', type='text', value=appconfig.storage.s3.bucket)
 												.note
 													strong.color-red-600 Required
-													| The S3 Bucket Name
+													| Prefix used when creating buckets
 											.col-xs-6
 												label Region
 												input(name='storage_s3_region', type='text', placeholder='e.g. us-west-2', value=appconfig.storage.s3.region)
 												.note
 													strong.color-red-600 Required
-													| The region where the bucket is located
+													| The region where the buckets will be located
 									section(v-bind:class="{'hidden' : storage!='s3'}")
 										.row
 											.col-xs-6
@@ -209,11 +209,19 @@ html
 													strong.color-red-600 Required
 													| The credentials Secret Access Key
 									section(v-bind:class="{'hidden' : storage!='google'}")
-										label JSON Key File Path
-										input(name='storage_gl_keyfile', type='text', placeholder='e.g. C:\\google-keyfile.json', value=appconfig.storage.google.keyfile)
-										.note
-											strong.color-red-600 Required
-											| Path to the Service Account JSON keyfile
+										.row
+											.col-xs-6
+												label Bucket Prefix Name
+												input(name='storage_gl_bucket', type='text', value=appconfig.storage.google.bucket)
+												.note
+													strong.color-red-600 Required
+													| Prefix used when creating buckets
+											.col-xs-6
+												label JSON Key File Path
+												input(name='storage_gl_keyfile', type='text', placeholder='e.g. C:\\google-keyfile.json', value=appconfig.storage.google.keyfile)
+												.note
+													strong.color-red-600 Required
+													| Path to the Service Account JSON keyfile
 
 						// Redis
 
