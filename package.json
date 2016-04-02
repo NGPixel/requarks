@@ -15,7 +15,8 @@
     "setup": "node ./bin/setup",
     "dev": "gulp",
     "dev-setup": "gulp setup",
-    "test": "mocha ./tests/*.js"
+    "test": "mocha --require chai --reporter mocha-appveyor-reporter --ui bdd ./tests/*.js",
+    "test-local": "mocha --require chai --reporter spec --ui bdd ./tests/*.js"
   },
   "dependencies": {
     "auto-load": "^2.1.0",
@@ -65,6 +66,7 @@
     "gulp-nodemon": "^2.0.6",
     "gulp-uglify": "^1.5.3",
     "mocha": "^2.4.5",
+    "mocha-appveyor-reporter": "^0.2.0",
     "nodemon": "^1.9.1"
   }
 }
