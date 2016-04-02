@@ -5,9 +5,9 @@ branches:
   - master
   
 services:
-- mssql2014
+- mssql2012sp1
 - mysql56
-- postgresql94
+- postgresql93
 
 environment:
   nodejs_version: "5.1"
