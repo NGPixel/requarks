@@ -12,6 +12,9 @@ services:
 environment:
   nodejs_version: "5.1"
 
+cache:
+  - node_modules 
+
 # Install scripts. (runs after repo cloning)
 install:
   - ps: Install-Product node $env:nodejs_version
