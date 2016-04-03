@@ -3,10 +3,7 @@ engines:
   csslint:
     enabled: true
   duplication:
-    enabled: true
-    config:
-      languages:
-      - javascript
+    enabled: false
   eslint:
     enabled: true
   fixme:
