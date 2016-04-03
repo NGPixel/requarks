@@ -13,7 +13,7 @@ module.exports = (appconfig) => {
 	return new Promise(function (resolve, reject) {
 		red.on('connect', function () {
 			red.disconnect();
-			resolve('Redis: Connection successful to Redis instance.');
+			resolve('Redis: Connection established and properly configured.');
 		});
 		red.on('error', function() {
 			red.disconnect();

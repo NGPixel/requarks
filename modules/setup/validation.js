@@ -46,7 +46,7 @@ module.exports = (rawData) => {
 		formerrors.push({ field: 'db_engine', msg: 'Invalid database engine.' });
 	}
 
-	if(rawData.db_engine == 'sqlite') {
+	if(rawData.db_engine === 'sqlite') {
 
 		//-> Database Path
 
@@ -255,6 +255,14 @@ module.exports = (rawData) => {
 		formerrors.push({ field: 'auth0_domain', msg: 'Invalid Auth0 domain.' });
 	}
 
+	//-> Auth0 Admin User ID
+
+	if(validator.isLength(rawData.auth0_admin, {min:5})) {
+		appconfig.auth0.admin = rawData.auth0_admin;
+	} else {
+		formerrors.push({ field: 'auth0_admin', msg: 'Invalid Auth0 Administrator User ID.' });
+	}
+
 	//-> Auth0 Client ID
 
 	if(validator.isLength(rawData.auth0_id, {min:10})) {
@@ -271,20 +279,12 @@ module.exports = (rawData) => {
 		formerrors.push({ field: 'auth0_secret', msg: 'Invalid Auth0 Client Secret.' });
 	}
 
-	//-> Auth0 Client Secret
+	//-> Auth0 API Token
 
-	if(validator.isLength(rawData.auth0_apikey, {min:10})) {
-		appconfig.auth0.apiKey = rawData.auth0_apikey;
+	if(validator.isLength(rawData.auth0_apitoken, {min:50})) {
+		appconfig.auth0.apiToken = rawData.auth0_apitoken;
 	} else {
-		formerrors.push({ field: 'auth0_apikey', msg: 'Invalid Auth0 API Key.' });
-	}
-
-	//-> Auth0 Client Secret
-
-	if(validator.isLength(rawData.auth0_apisecret, {min:10})) {
-		appconfig.auth0.apiSecret = rawData.auth0_apisecret;
-	} else {
-		formerrors.push({ field: 'auth0_apisecret', msg: 'Invalid Auth0 API Secret.' });
+		formerrors.push({ field: 'auth0_apitoken', msg: 'Invalid Auth0 API Token.' });
 	}
 
 	return {

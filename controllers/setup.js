@@ -45,10 +45,10 @@ router.post('/', function(req, res, next) {
 		redis_pass: _.toString(req.body.redis_pass),
 		redis_port: _.toString(req.body.redis_port),
 		auth0_domain: _.toString(req.body.auth0_domain),
+		auth0_admin: _.toString(req.body.auth0_admin),
 		auth0_id: _.toString(req.body.auth0_id),
 		auth0_secret: _.toString(req.body.auth0_secret),
-		auth0_apikey: _.toString(req.body.auth0_apikey),
-		auth0_apisecret: _.toString(req.body.auth0_apisecret)
+		auth0_apitoken: _.toString(req.body.auth0_apitoken)
 	};
 
 	// ---------------------------------------------

@@ -5,34 +5,43 @@
 // ---------------------------------------------
 
 var Promise = require('bluebird'),
-	 jwt = require('jsonwebtoken'),
-	 rest = require('restling');
+	 ManagementClient = require('auth0').ManagementClient;
 
 module.exports = (appconfig) => {
 
-	let token = jwt.sign({
-		"scopes": {
-			"connections": {
-				"actions": [
-					"read",
-        			"create"
-				]
-			}
-		}
-	},
-	new Buffer(appconfig.auth0.apiSecret, 'base64'),
-	{
-		audience: appconfig.auth0.apiKey
+	//-> Create management client
+
+	let auth0 = new ManagementClient({
+		domain: appconfig.auth0.domain,
+		token: appconfig.auth0.apiToken
 	});
 
-	return rest.get('https://' + appconfig.auth0.domain + '/api/v2/connections', {
-		accessToken: token
-	})
-	.then(() => {
-		return Promise.resolve('Auth0: Verified connection and base configuration.');
-	})
-	.catch(function(err) {
-		return Promise.reject(new Error('Auth0: Unable to connect / authenticate to Auth0.'));
-	});
+	//-> Attempt to connect
+
+	return auth0.connections.getAll()
+		.then(() => {
+
+			//-> Get user
+
+			return auth0.users.get({ id: appconfig.auth0.admin })
+				.then((usr) => {
+
+					// -> Promote user to admin
+
+					return auth0.users.updateAppMetadata({ id: appconfig.auth0.admin }, { admin: true })
+						.then(() => {
+							return Promise.resolve('Auth0: Connection established and promoted administrator user.');
+						}).catch((err) => {
+							return Promise.reject(new Promise.OperationalError('Auth0: Unable to update administrator metadata for administrator role.'));
+						});
+
+				}).catch((err) => {
+					return Promise.reject(new Promise.OperationalError('Auth0: Unable to fetch user designed for administrator role.'));
+				});
+			
+		})
+		.catch((err) => {
+			return Promise.reject((err instanceof Promise.OperationalError) ? err : new Error('Auth0: Unable to connect / authenticate to Auth0.'));
+		});
 
 }

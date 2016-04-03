@@ -285,31 +285,31 @@ html
 													strong.color-red-600 Required
 													| Auth0 Application Domain
 											.col-xs-6
+												label Administrator User ID
+												input(name='auth0_admin', type='text', value=appconfig.auth0.admin)
+												.note
+													strong.color-red-600 Required
+													| The user ID which will be given full administrator access to Requarks
+									section
+										.row
+											.col-xs-6
 												label Client ID
 												input(name='auth0_id', type='text', value=appconfig.auth0.clientID)
 												.note
 													strong.color-red-600 Required
 													| Auth0 Application Client ID
+											.col-xs-6
+												label Client Secret
+												input(name='auth0_secret', type='text', value=appconfig.auth0.clientSecret)
+												.note
+													strong.color-red-600 Required
+													| Auth0 Application Client Secret
 									section
-										label Client Secret
-										input(name='auth0_secret', type='text', value=appconfig.auth0.clientSecret)
+										label API Token
+										input(name='auth0_apitoken', type='text', value=appconfig.auth0.apiToken)
 										.note
 											strong.color-red-600 Required
-											| Auth0 Application Client Secret
-									section
-										.row
-											.col-xs-6
-												label API Key
-												input(name='auth0_apikey', type='text', value=appconfig.auth0.apiKey)
-												.note
-													strong.color-red-600 Required
-													| Auth0 API Key
-											.col-xs-6
-												label API Secret
-												input(name='auth0_apisecret', type='text', value=appconfig.auth0.apiSecret)
-												.note
-													strong.color-red-600 Required
-													| Auth0 API Secret
+											| Auth0 API Token
 
 						button#setup-submit(type="submit", class="btn btn-green btn-block margin-bottom-20") Save &amp; Install
 
@@ -330,7 +330,7 @@ html
 						.box-base
 							.box-chrome.padding-15.
 								You must #[strong restart] the Node process in order to load the new configuration and initialize the application.#[br]#[br]
-								The administrator account login is #[strong admin] with password #[strong admin].
+								Login using the account you specified as the administrator.
 
 		footer
 			div Powered by Requarks

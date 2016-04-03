@@ -19,6 +19,7 @@
     "test-local": "mocha -r chai -R spec -u bdd ./tests/*.js"
   },
   "dependencies": {
+    "auth0": "^2.1.0",
     "auto-load": "^2.1.0",
     "aws-sdk": "^2.3.0",
     "azure-storage": "^0.9.0",

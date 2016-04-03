@@ -14,7 +14,7 @@ module.exports = (appconfig) => {
 		.then(() => {
 			return storage.setup()
 				.then(() => {
-					return Promise.resolve('Storage: Connection established and properly configured.');
+					return Promise.resolve('Storage: Connection established, containers created and configured successfully.');
 				})
 				.catch((err) => {
 					return Promise.reject(new Promise.OperationalError('Storage: Cannot create base structure. [ ' + err.message + ' ]'));
