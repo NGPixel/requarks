@@ -8,7 +8,7 @@ var Promise = require('bluebird');
 
 module.exports = (appconfig) => {
 
-	let storage = require('../storage')(appconfig);
+	let storage = require('../../storage')(appconfig);
 
 	return storage.connect()
 		.then(() => {

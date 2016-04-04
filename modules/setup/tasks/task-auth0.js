@@ -5,7 +5,8 @@
 // ---------------------------------------------
 
 var Promise = require('bluebird'),
-	 ManagementClient = require('auth0').ManagementClient;
+	 ManagementClient = require('auth0').ManagementClient,
+	 fs = Promise.promisifyAll(require('fs'));
 
 module.exports = (appconfig) => {
 
@@ -26,7 +27,7 @@ module.exports = (appconfig) => {
 			return auth0.users.get({ id: appconfig.auth0.admin })
 				.then((usr) => {
 
-					// -> Promote user to admin
+					//-> Promote user to admin
 
 					return auth0.users.updateAppMetadata({ id: appconfig.auth0.admin }, { admin: true })
 						.then(() => {

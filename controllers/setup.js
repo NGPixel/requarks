@@ -77,7 +77,7 @@ router.post('/', function(req, res, next) {
 	// Setup everything
 	// =============================================
 
-	var setupTasks = autoload('modules/setup');
+	var setupTasks = autoload('modules/setup/tasks');
 
 	//-> Generate Session Secret
 
@@ -125,6 +125,8 @@ router.post('/', function(req, res, next) {
 			installresults: results,
 			appconfig: app.locals.appconfig
 		});
+
+		process.send('reload');
 	});
 
 });

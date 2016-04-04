@@ -1,4 +1,16 @@
 {
+	"configstructure": {
+	  "db": {},
+	  "storage": {
+	    "local": {},
+	    "azure": {},
+	    "google": {},
+	    "s3": {},
+	    "softlayer": {}
+	  },
+	  "redis": {},
+	  "auth0": {}
+	},
 	"dbengines": {
 		"mssql": "MS SQL Server / Azure SQL Database",
 		"mariadb": "MariaDB",

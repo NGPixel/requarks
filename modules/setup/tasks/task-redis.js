@@ -8,7 +8,7 @@ var Promise = require('bluebird');
 
 module.exports = (appconfig) => {
 
-	let red = require('../redis')(appconfig);
+	let red = require('../../redis')(appconfig);
 
 	return new Promise(function (resolve, reject) {
 		red.on('connect', function () {

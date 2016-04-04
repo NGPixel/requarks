@@ -4,7 +4,9 @@
  * Module dependencies.
  */
 
-var app = require('../requarks-app');
+var appMode = process.env.APPMODE || 'setup';
+
+var app = require('../requarks-' + appMode);
 var debug = require('debug')('Requarks.Web:server');
 var http = require('http');
 var db = {};
@@ -91,4 +93,4 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
-console.info('Requarks is running...');
+console.info('Requarks is running on port ' + port + '... [ ' + appMode + ' ]');

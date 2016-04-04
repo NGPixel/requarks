@@ -9,7 +9,7 @@ var Promise = require('bluebird'),
 
 module.exports = (appconfig) => {
 
-	let db = require("../../models")(appconfig);
+	let db = require("../../../models")(appconfig);
 
 	return db.sequelize.authenticate().then(() => {
 
@@ -19,7 +19,7 @@ module.exports = (appconfig) => {
 
 			// Insert default database data
 
-			let defaultData = require(path.join(__dirname, '../../models/_setup-data.json'));
+			let defaultData = require(path.join(__dirname, '../../../models/_setup-data.json'));
 			var defaultDataTasks = [];
 
 			Object.keys(defaultData).forEach(function(modelName) {

@@ -17,7 +17,6 @@ try {
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
 var bodyParser = require('body-parser');
 var sass = require('node-sass-middleware');
 var expressBundles = require('express-bundles');
@@ -40,7 +39,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
-if(_isDebug) { app.use(logger('dev')); }
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // ----------------------------------------
@@ -86,19 +84,8 @@ app.use(function(req, res, next) {
 // Expose Application Configs
 // ----------------------------------------
 
-app.locals.appconfig = _.defaultsDeep(appconfig, {
-  db: {},
-  storage: {
-    "local": {},
-    "azure": {},
-    "google": {},
-    "s3": {},
-    "softlayer": {}
-  },
-  redis: {},
-  auth0: {}
-});
 app.locals.appdata = require('./data.json');
+app.locals.appconfig = _.defaultsDeep(appconfig, app.locals.appdata.configstructure);
 
 // ----------------------------------------
 // Controllers
