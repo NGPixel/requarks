@@ -37,10 +37,10 @@ html
 		nav.actionbar
 			h4
 				i.material-icons face
-				| #{authusr.name.givenName} #{authusr.name.familyName}
+				| #{usr.firstName}
 			ul
-				li Settings
-				li Logout
+				li: a(href='/settings') Settings
+				li: a(href='/logout') Logout
 			h4
 				i.material-icons pin_drop
 				| Pinned

@@ -28,7 +28,6 @@ module.exports = (appconfig) => {
 		break;
 		default:
 			return null;
-		break;
 	}
 
 	return new Storage(appconfig);

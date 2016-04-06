@@ -20,4 +20,13 @@ router.get('/auth_callback',
   }
 );
 
+router.get('/logout', function(req, res, next) {
+   req.logout();
+   res.clearCookie('connect.sid');
+   req.session.destroy();
+   	delete req.session;
+   	return res.redirect('/');
+   
+});
+
 module.exports = router;

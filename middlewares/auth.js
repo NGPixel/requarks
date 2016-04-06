@@ -37,6 +37,7 @@ module.exports = function(req, res, next) {
 		} else {
 			return res.redirect('/unauthorized');
 		}
+		return null;
 	}).catch((err) => {
 		return res.redirect('/unauthorized');
 	});

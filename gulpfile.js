@@ -11,6 +11,7 @@ var paths = {
 gulp.task('server', function() {
 	nodemon({
 		script: './bin/www',
+		args: ["80", "app"],
 		ignore: ['assets/', 'client/'],
 		ext: 'js',
 		env: { 'NODE_ENV': 'development' }
@@ -19,7 +20,8 @@ gulp.task('server', function() {
 
 gulp.task('server-setup', function() {
 	nodemon({
-		script: './bin/setup',
+		script: './bin/www 80 setup',
+		args: ["80", "setup"],
 		ignore: ['assets/', 'client/'],
 		ext: 'js',
 		env: { 'NODE_ENV': 'development' }

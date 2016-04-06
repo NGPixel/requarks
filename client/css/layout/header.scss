@@ -230,11 +230,22 @@ nav.actionbar {
 		> li {
 			display: block;
 			border-top: 1px dotted rgba(255,255,255,0.6);
-			padding: 8px 8px 8px 0;
+			padding:0;
 			font-size: 13px;
 
 			&:first-child {
 				border-top: none;
+			}
+
+			> a {
+				display: block;
+				padding: 8px 8px 8px 0;
+				color: #FFF;
+
+				&:hover {
+					color: material-color('blue-grey', '200');
+				}
+
 			}
 
 		}
