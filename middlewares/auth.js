@@ -8,19 +8,26 @@ module.exports = function(req, res, next) {
 
 	db.User.findOne({
 		where: {
-			email: req.user._json.email
+			$or: [
+				{
+					email: req.user._json.email
+				},
+				{
+					username: req.user._json.user_id
+				}
+			]
 		}
 	}).then((usr) => {
 		if(usr) {
 
-			//-> First time login?
+			//-> Update user info if needed
+			//   (doesn't actually save to DB if nothing changed)
 
-			if(usr.username === null) {
-				usr.username = req.user._json.user_id;
-				usr.firstName = req.user._json.given_name;
-				usr.lastName = req.user._json.family_name;
-				usr.save();
-			}
+			usr.username = req.user._json.user_id;
+			usr.firstName = req.user._json.given_name;
+			usr.lastName = req.user._json.family_name;
+			usr.email = req.user._json.email;
+			usr.save();
 
 			res.locals.usr = usr;
 			res.locals.authusr = req.user._json;

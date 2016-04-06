@@ -81,7 +81,7 @@ router.post('/', function(req, res, next) {
 
 	//-> Generate Session Secret
 
-	app.locals.appconfig.setup = true;
+	app.locals.appconfig.setup = false;
 	app.locals.appconfig.sessionSecret = randomstring.generate(32);
 
 	//-> Run Setup Tasks
@@ -118,15 +118,28 @@ router.post('/', function(req, res, next) {
 		}
 	})
 	.then(() => {
+
+		let isFinished = !(_.filter(results, ['success', false]).length > 0);
+
+		// Show results
+
 		res.render('setup', {
-			showform: (_.filter(results, ['success', false]).length > 0),
+			showform: !isFinished,
 			showresults: true,
 			formerrors: [],
 			installresults: results,
 			appconfig: app.locals.appconfig
 		});
 
-		process.send('reload');
+		//-> Approve config file and reload in App Mode
+
+		if(isFinished) {
+			app.locals.appconfig.setup = true;
+			setupTasks.taskConfig(app.locals.appconfig).then(() => {
+				process.send('reload');
+			});
+		}
+
 	});
 
 });

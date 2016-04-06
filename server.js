@@ -45,6 +45,7 @@ try {
   }
 } catch(err) {
   setupMode = true;
+  console.log('Missing or invalid config file. Starting in setup mode...')
 }
 
 //-> Force setup mode?
@@ -61,20 +62,21 @@ let srvPath = path.join(__dirname, './bin/www');
 let srvPort = (program.port) ? program.port : 80;
 
 function startServer() {
-  return fork(srvPath, null, {
-    cwd: __dirname,
-    env: {
-      APPMODE: (setupMode) ? 'setup' : 'app',
-      PORT: srvPort
-    }
+  let srvMode = (setupMode) ? 'setup' : 'app';
+  return fork(srvPath, [srvPort, srvMode], {
+    cwd: __dirname
   });
 }
 
 srv = startServer();
 
+// -----------------------------------------------
+// Reload server after setup
+// -----------------------------------------------
+
 srv.on('message', (m) => {
   if(m === 'reload') {
-    console.log('Reloading...');
+    console.log('Killing setup process...');
     setupMode = false;
     reloadRequested = true;
     srv.kill();
@@ -83,8 +85,17 @@ srv.on('message', (m) => {
 
 srv.on('exit', (code) => {
   if(reloadRequested) {
+    console.log('Reloading...');
     srv = startServer();
-  } else {
-    console.log('Requarks has exited.');
+  }
+});
+
+// -----------------------------------------------
+// Kill child process before quitting
+// -----------------------------------------------
+
+process.on('exit', function() {
+  if(srv) {
+    srv.kill();
   }
 });

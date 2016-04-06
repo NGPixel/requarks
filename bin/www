@@ -4,7 +4,9 @@
  * Module dependencies.
  */
 
-var appMode = process.env.APPMODE || 'setup';
+var args = process.argv.slice(2);
+
+var appMode = args[1] || 'setup';
 
 var app = require('../requarks-' + appMode);
 var debug = require('debug')('Requarks.Web:server');
@@ -16,7 +18,7 @@ var red = {};
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(args[0] || '3000');
 app.set('port', port);
 
 /**
@@ -93,4 +95,4 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
-console.info('Requarks is running on port ' + port + '... [ ' + appMode + ' ]');
+console.info('Requarks is running on port ' + port + '... [ ' + appMode.toUpperCase() + ' ]');

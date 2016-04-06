@@ -28,6 +28,12 @@ module.exports = (appconfig) => {
 				);
 			});
 
+			// Insert admin user
+
+			defaultDataTasks.push(db.User.create({
+				'username': appconfig.auth0.admin
+			}));
+
 			return Promise.all(defaultDataTasks)
 			.then(() => {
 				return Promise.resolve('Database: Connection established, structure created and default data inserted successfully.');
