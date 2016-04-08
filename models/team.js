@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
   {
     timestamps: true,
     classMethods: {
-      associate: function(models) {
+      associate(models) {
         Team.belongsToMany(models.User, {through: 'TeamUsers'});
         Team.belongsToMany(models.Project, {through: 'TeamProjects'});
       }

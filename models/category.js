@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
   {
     timestamps: true,
     classMethods: {
-      associate: function(models) {
+      associate(models) {
 
         Category.belongsTo(models.Priority, { as: 'defaultPriority', constraints: false });
         Category.belongsTo(models.Status, { as: 'defaultStatus', constraints: false });

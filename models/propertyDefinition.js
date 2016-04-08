@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
     paranoid: true,
     timestamps: true,
     classMethods: {
-      associate: function(models) {
+      associate(models) {
 
         PropertyDefinition.belongsTo(models.Category);
         PropertyDefinition.belongsTo(models.Type);

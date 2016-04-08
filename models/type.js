@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
   {
     timestamps: true,
     classMethods: {
-      associate: function(models) {
+      associate(models) {
 
         Type.belongsTo(models.Category);
 

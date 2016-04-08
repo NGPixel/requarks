@@ -45,4 +45,4 @@ module.exports = (appconfig) => {
 			return Promise.reject((err instanceof Promise.OperationalError) ? err : new Error('Auth0: Unable to connect / authenticate to Auth0.'));
 		});
 
-}
+};

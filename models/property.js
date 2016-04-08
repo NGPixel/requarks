@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
   {
     timestamps: true,
     classMethods: {
-      associate: function(models) {
+      associate(models) {
 
         Property.belongsTo(models.Request);
         Property.belongsTo(models.PropertyDefinition);

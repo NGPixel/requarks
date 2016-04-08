@@ -52,4 +52,4 @@ module.exports = (appconfig) => {
 		return Promise.reject((err instanceof Promise.OperationalError) ? err : new Error('Database: Cannot establish connection to database.'));
 	});
 
-}
+};

@@ -42,4 +42,4 @@ module.exports = (appconfig) => {
 		lazyConnect: false
 	});
 
-}
+};

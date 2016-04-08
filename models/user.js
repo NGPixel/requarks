@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       fullName: function() { return this.firstName + ' ' + this.lastName; }
     },
     classMethods: {
-      associate: function(models) {
+      associate(models) {
         User.belongsToMany(models.Team, {through: 'TeamUsers'});
         User.belongsToMany(models.Request, { as: 'relatedRequests', through: 'Stakeholders'});
       }

@@ -24,4 +24,4 @@ module.exports = (appconfig) => {
 		return Promise.reject((err instanceof Promise.OperationalError) ? err : new Error('Redis: Cannot establish connection to Redis instance. (Timeout)'));
 	});
 
-}
+};

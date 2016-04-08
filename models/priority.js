@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
   {
     timestamps: true,
     classMethods: {
-      associate: function(models) {
+      associate(models) {
 
         Priority.belongsTo(models.Category);
 

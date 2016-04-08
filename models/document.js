@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     paranoid: true,
     timestamps: true,
     classMethods: {
-      associate: function(models) {
+      associate(models) {
 
         Document.belongsTo(models.Request);
         Document.belongsTo(models.Project);

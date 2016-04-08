@@ -292,4 +292,4 @@ module.exports = (rawData) => {
 		formerrors: formerrors
 	};
 
-}
+};

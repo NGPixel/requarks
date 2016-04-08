@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
   {
     timestamps: true,
     classMethods: {
-      associate: function(models) {
+      associate(models) {
         Sprint.belongsToMany(models.Request, {through: 'SprintRequests'});
         Sprint.belongsTo(models.Project);
       }

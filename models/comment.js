@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
   {
     timestamps: true,
     classMethods: {
-      associate: function(models) {
+      associate(models) {
 
         Comment.belongsTo(models.Request);
         Comment.belongsTo(models.User, { as: 'author' });

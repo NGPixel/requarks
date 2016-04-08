@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
   {
     timestamps: true,
     classMethods: {
-      associate: function(models) {
+      associate(models) {
         Project.belongsToMany(models.Team, {through: 'TeamProjects'});
         Project.belongsTo(models.User, { as: 'owner' });
       }

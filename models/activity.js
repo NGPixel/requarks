@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
   {
     timestamps: true,
     classMethods: {
-      associate: function(models) {
+      associate(models) {
 
         Activity.belongsTo(models.Request);
         Activity.belongsTo(models.User, { as: 'author' });

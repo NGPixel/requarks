@@ -27,4 +27,4 @@ module.exports = (appconfig) => {
 		return Promise.reject((err instanceof Promise.OperationalError) ? err : new Error('File System: Cannot write to config.json! Make sure folder is writable.'));
 	});
 
-}
+};

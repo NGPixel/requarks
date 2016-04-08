@@ -32,4 +32,4 @@ module.exports = (appconfig) => {
 
 	return new Storage(appconfig);
 
-}
+};

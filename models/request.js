@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     paranoid: true,
     timestamps: true,
     classMethods: {
-      associate: function(models) {
+      associate(models) {
 
         Request.belongsToMany(models.Sprint, {through: 'SprintRequests'});
         Request.belongsToMany(models.User, { as: 'stakeholders', through: 'Stakeholders'});

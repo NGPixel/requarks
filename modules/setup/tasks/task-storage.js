@@ -24,4 +24,4 @@ module.exports = (appconfig) => {
 			return Promise.reject((err instanceof Promise.OperationalError) ? err : new Error('Storage: Cannot connect to storage provider or invalid configuration.'));
 		});
 
-}
+};

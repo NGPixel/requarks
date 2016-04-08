@@ -18,4 +18,4 @@ module.exports = (appconfig) => {
 			return Promise.reject(new Error('File System: Verify write access to OS directory for temporary files'));
 		});
 
-}
+};
