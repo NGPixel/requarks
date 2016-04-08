@@ -34,6 +34,7 @@ var ctrl = autoload(__dirname + '/controllers');
 app = express();
 db = require("./models")(appconfig);
 red = require('./modules/redis')(appconfig);
+ROOTPATH = __dirname;
 
 var _isDebug = (app.get('env') === 'development');
 
@@ -97,7 +98,7 @@ app.use(sass({
   src: path.join(__dirname, 'client'),
   dest: path.join(__dirname, 'assets'),
   outputStyle: 'compressed',
-  //debug: _isDebug
+  debug: _isDebug
 }));
 app.use(expressBundles.middleware({
   env: app.get('env'),

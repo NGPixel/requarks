@@ -26,6 +26,7 @@ var _ = require('lodash');
 var ctrlSetup = require('./controllers/setup');
 
 app = express();
+ROOTPATH = __dirname;
 
 var _isDebug = (app.get('env') === 'development');
 

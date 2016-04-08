@@ -61,35 +61,18 @@
 			background-color: material-color($accent, '500');
 		}
 
-		nav.userbar #searchbox .tt-menu {
-			background-color: material-color($accent, '500');
-			color: material-color($accent, '100');
-
-			.tt-suggestion {
-				border-top-color: material-color($accent, '200');
-
-				&.tt-cursor {
-					background-color: material-color($accent, '900');
-					color: material-color($accent, '50');
-					border-top-color: material-color($accent, '900');
-
-					& + .tt-suggestion {
-						border-top-color: material-color($accent, '300');
-					}
-
-				}
-				.tt-highlight {
-					color: material-color($accent, '50');
-				}
-			}
-
-		}
-
 	}
 
 	nav.actionbar > h4 {
-		background-color: material-color($accent, '500');
-		border-bottom-color: lighten(material-color($accent, '500'), 15%);
+		background-color: material-color($accent, '700');
+		border-top-color: lighten(material-color($accent, '600'), 15%);
+		border-bottom-color: lighten(material-color($accent, '600'), 15%);
+	}
+
+	main {
+		&::before {
+			background-color: material-color($accent, '500');
+		}
 	}
 
 	.box .box-base .box-list > li {

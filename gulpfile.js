@@ -20,7 +20,7 @@ gulp.task('server', function() {
 
 gulp.task('server-setup', function() {
 	nodemon({
-		script: './bin/www 80 setup',
+		script: './bin/www',
 		args: ["80", "setup"],
 		ignore: ['assets/', 'client/'],
 		ext: 'js',

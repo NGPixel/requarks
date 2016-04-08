@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/*
+ * CREATE - Select category
+ */
 router.get('/', function(req, res, next) {
 
 	db.Category.findAll({
@@ -12,6 +14,9 @@ router.get('/', function(req, res, next) {
 
 });
 
+/*
+ * CREATE - Form
+ */
 router.get('/:id', function(req, res, next) {
   res.render('create-form', { navbar_active: 'create', page_script: 'create' });
 });

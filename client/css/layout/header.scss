@@ -6,6 +6,7 @@ header {
 	width: 100%;
 	border-bottom: 5px solid  material-color('blue-grey', '500');
 	box-sizing: border-box;
+	z-index: 100;
 
 	nav.navbar {
 		flex: 1;
@@ -137,25 +138,25 @@ header {
 			}
 
 			.tt-menu {
-				background-color: material-color('blue-grey', '500');
+				background-color: material-color('blue-grey', '800');
 				color: material-color('blue-grey', '100');
 				width: 100%;
 
 				.tt-suggestion {
 					padding: 6px 10px;
-					border-top: 1px dotted material-color('blue-grey', '300');
+					border-top: 1px dotted material-color('blue-grey', '400');
 
 					&:first-child {
 						border-top: none !important;
 					}
 
 					&.tt-cursor {
-						background-color: material-color('indigo', '900');
+						background-color: material-color('blue-grey', '900');
 						color: material-color('indigo', '50');
-						border-top: 1px solid material-color('blue-grey', '900');
+						border-top: 1px solid material-color('blue-grey', '700');
 
 						& + .tt-suggestion {
-							border-top: 1px solid material-color('blue-grey', '400');
+							border-top: 1px solid material-color('blue-grey', '500');
 						}
 
 					}
@@ -193,12 +194,13 @@ header {
 nav.actionbar {
 	background-color: transparentize(material-color('blue-grey', '900'), 0.1);
 	position: fixed;
-	top: 47px;
+	top: 42px;
 	right: -300px;
 	width: 250px;
 	color: #FFF;
 	height: 100vh;
-	transition: right 1s ease;
+	transition: right 0.5s ease;
+	z-index: 1000;
 
 	&.active {
 		right: 0;
@@ -206,7 +208,8 @@ nav.actionbar {
 
 	> h4 {
 		background-color: material-color('blue-grey', '500');
-		border-bottom: 2px solid material-color('blue-grey', '300');
+		border-top: 1px solid material-color('blue-grey', '300');
+		border-bottom: 1px solid material-color('blue-grey', '300');
 		padding: 8px;
 		display: block;
 		margin: 0;
@@ -215,10 +218,14 @@ nav.actionbar {
 		font-size: 14px;
 		font-weight: 600;
 
+		&:first-child {
+			border-top: none;
+		}
+
 		> i:first-child {
-			margin-right: 5px;
-			font-size: 24px;
 			align-self: stretch;
+			font-size: 24px;
+			margin-right: 5px;
 		}
 	}
 

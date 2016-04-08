@@ -1,6 +1,10 @@
 body.mi-dashboard {
 
 	@include section-common('teal');
+
+	main::before {
+		display:none;
+	}
 	
 }
 

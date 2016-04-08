@@ -13,6 +13,7 @@ var debug = require('debug')('Requarks.Web:server');
 var http = require('http');
 var db = {};
 var red = {};
+var ROOTPATH = '';
 
 /**
  * Get port from environment and store in Express.
