@@ -45,7 +45,7 @@ try {
   }
 } catch(err) {
   setupMode = true;
-  console.log('Missing or invalid config file. Starting in setup mode...')
+  console.log('Missing or invalid config file. Starting in setup mode...');
 }
 
 //-> Force setup mode?

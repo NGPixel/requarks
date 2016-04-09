@@ -33,9 +33,9 @@ class StorageProvider {
 	setup() {
 		let self = this;
 		return Promise.each([
-			() => { return self.createContainer(self.containers.files) },
-			() => { return self.createContainer(self.containers.avatars) },
-			() => { return self.createContainer(self.containers.archive) }
+			() => { return self.createContainer(self.containers.files); },
+			() => { return self.createContainer(self.containers.avatars); },
+			() => { return self.createContainer(self.containers.archive); }
 		], function (promiseFn) {
 			return promiseFn();
 		}).catch((err) => {
@@ -62,6 +62,6 @@ class StorageProvider {
 		return Promise.reject(new Error('Storage::readTeamp - Not Implemented'));
 	}
 
-}
+};
 
 module.exports = StorageProvider;

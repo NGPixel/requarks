@@ -19,8 +19,6 @@ var expressBundles = require('express-bundles');
 var compression = require('compression');
 var passport = require('passport');
 var autoload = require('auto-load');
-var _ = require('lodash');
-var util = require('util');
 
 
 var auth = require('./middlewares/auth');

@@ -288,8 +288,8 @@ module.exports = (rawData) => {
 	}
 
 	return {
-		appconfig: appconfig,
-		formerrors: formerrors
+		appconfig,
+		formerrors
 	};
 
 };

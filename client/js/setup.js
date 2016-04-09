@@ -1,6 +1,6 @@
 $(() => {
   
-	new Vue({
+	var vueSetup = new Vue({
 		el: 'main',
 		data: {
 			engine: $('select[name=db_engine]').data('initval') || 'mssql',

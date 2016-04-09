@@ -28,7 +28,7 @@ class StorageProviderAzure extends StorageProvider {
 		return new Promise(function (resolve, reject) {
 			self.blobService = azure.createBlobService(self.conf.azure.name, self.conf.azure.key);
 			self.blobService.doesContainerExist('requarks', {}, (err, result, resp) => {
-				if(err != undefined) {
+				if(err) {
 					reject(new Error('Storage::connect - Connection failed'));
 				} else {
 					resolve(result);
@@ -51,7 +51,7 @@ class StorageProviderAzure extends StorageProvider {
 			self.blobService.createContainerIfNotExists(conName, {
 				publicAccessLevel : azure.BlobUtilities.BlobContainerPublicAccessType.OFF
 			}, (err, result, resp) => {
-				if(err != undefined) {
+				if(err) {
 					reject(new Error('Storage::connect - Connection failed'));
 				} else {
 					resolve(result);

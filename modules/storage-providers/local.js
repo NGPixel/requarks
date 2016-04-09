@@ -48,6 +48,6 @@ class StorageProviderLocal extends StorageProvider {
 		});
 	}
 
-}
+};
 
 module.exports = StorageProviderLocal;

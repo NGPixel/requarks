@@ -1,10 +1,5 @@
 "use strict";
 
-var _ = require('lodash'),
-	fs = require('fs'),
-	path = require('path'),
-	util = require('util');
-
 module.exports = (appconfig) => {
 
 	// Load storage provider
