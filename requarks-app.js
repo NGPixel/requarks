@@ -107,6 +107,7 @@ app.use(expressBundles.middleware({
     'css/bundle.css': [
       'css/libs/normalize.css',
       'css/libs/flexboxgrid.css',
+      'css/libs/typicons.css',
       'css/style.css'
     ],
     'js/bundle.js': [

@@ -2,4 +2,13 @@ body.mi-projects {
 
 	@include section-common('orange');
 
+	main {
+		padding: 10px 15px 15px 15px;
+
+
+		&::before {
+			height:110px;
+		}
+	}
+
 }

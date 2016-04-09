@@ -1,20 +1,28 @@
 extends layout
 
 block content
-	.container.row
-		.col-xs-9
-			.box
-				h4
-					i.material-icons.color-red-500 note_add
-					| File New Request
-				.box-base
-					.box-chrome
-						| test
+	.row
 		.col-xs-3
+			| ---
+		.col-xs-9
+			.flat-nav
+				ul
+					li: a(href='/')
+						i.typcn.typcn-plus
+						| Create Project
+					li: a(href='/')
+						i.typcn.typcn-user-add
+						| Add Team / Member
+					li: a(href='/')
+						i.typcn.typcn-bell
+						| Notify Members
+					li: a(href='/')
+						i.typcn.typcn-archive
+						| Archive
 			.box
 				h4
-					i.material-icons info_outline
-					| Help
+					i.material-icons.color-orange-500 work
+					| Intranet
 				.box-base
 					.box-chrome
 						| test

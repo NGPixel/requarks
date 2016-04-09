@@ -3,18 +3,23 @@ extends ../layout
 block content
 	.row
 		.col-xs-3
-			.box
-				h4
-					i.material-icons info_outline
-					| Help
-				.box-base
-					.box-chrome
-						| test
+			| ---
 		.col-xs-9
+			.flat-nav
+				ul
+					li: a(href='/')
+						i.typcn.typcn-plus
+						| Create Team
+					li: a(href='/')
+						i.typcn.typcn-user-add
+						| Add Member
+					li: a(href='/')
+						i.typcn.typcn-bell
+						| Notify my team
 			.box
 				h4
 					i.material-icons.color-green-500 people
-					| File New Request
+					| Global IT Dev
 				.box-base
 					.box-chrome
 						| test
