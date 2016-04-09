@@ -7,5 +7,17 @@
 		"teams": "Teams",
 		"settings": "Settings"
 	},
+	"actions": {
+		"back": "Back",
+		"continue": "Continue",
+		"create": "Create",
+		"delete": "Delete",
+		"next": "Next",
+		"save": "Save"
+	},
+	"form": {
+		"required": "Required",
+		"optional": "Optional"
+	},
 	"copyright": "Powered by Requarks"
 }

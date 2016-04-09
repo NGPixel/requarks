@@ -1,0 +1,19 @@
+{
+	"actions": {
+		"create": "Create Team",
+		"addmember": "Add Member",
+		"notifyteam": "Notify Team"
+	},
+	"create": {
+		"name": {
+			"label": "Team Name",
+			"placeholder": "e.g. My Team",
+			"info": "The name of your team. The name must be unique across the site."
+		},
+		"description": {
+			"label": "Short Description",
+			"placeholder": "e.g. Backend Development Unit",
+			"info": "A short description of your team."
+		}
+	}
+}

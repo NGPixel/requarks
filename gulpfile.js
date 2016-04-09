@@ -12,7 +12,7 @@ gulp.task('server', function() {
 		script: './bin/www',
 		args: ["80", "app"],
 		ignore: ['assets/', 'client/'],
-		ext: 'js',
+		ext: 'js json',
 		env: { 'NODE_ENV': 'development' }
 	});
 });

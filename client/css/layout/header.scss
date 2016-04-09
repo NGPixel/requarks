@@ -73,7 +73,6 @@ header {
 		}
 
 		#notifbtn {
-			display:block;
 			width: 42px;
 			color: material-color('blue-grey', '300');
 			cursor: pointer;
@@ -211,7 +210,6 @@ nav.actionbar {
 		border-top: 1px solid material-color('blue-grey', '300');
 		border-bottom: 1px solid material-color('blue-grey', '300');
 		padding: 8px;
-		display: block;
 		margin: 0;
 		display: flex;
 		align-items: center;

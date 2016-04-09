@@ -2,4 +2,4 @@ extends layout
 
 block content
 	div(class="dashboard")
-		h1 Good evening #{usr.firstName}
+		h1= t('dashboard:welcome.evening', {name: usr.firstName})

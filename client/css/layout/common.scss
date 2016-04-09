@@ -8,6 +8,7 @@ body {
 main {
 	background-color: #FFF;
 	background-image: linear-gradient(to bottom, material-color('blue-grey', '50'), #FFF);
+	border-bottom: 1px solid #FFF;
 	min-height: 60vh;
 	position: relative;
 	z-index: 1;

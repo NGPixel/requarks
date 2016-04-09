@@ -9,7 +9,7 @@ var args = process.argv.slice(2);
 var appMode = args[1] || 'setup';
 
 var app = require('../requarks-' + appMode);
-var debug = require('debug')('Requarks.Web:server');
+var debug = require('debug')('requarks');
 var http = require('http');
 var db = {};
 var red = {};
@@ -93,7 +93,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  console.log('Requarks is running on port ' + port + '... [ ' + appMode.toUpperCase() + ' ]');
 }
-
-console.info('Requarks is running on port ' + port + '... [ ' + appMode.toUpperCase() + ' ]');

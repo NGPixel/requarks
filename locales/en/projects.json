@@ -1,0 +1,8 @@
+{
+	"actions": {
+		"create": "Create Project",
+		"addmember": "Add Team / Member",
+		"notifymembers": "Notify Members",
+		"archive": "Archive"
+	}
+}

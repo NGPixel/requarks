@@ -5,6 +5,9 @@ body.mi-teams {
 	main {
 		padding: 10px 15px 15px 15px;
 
+		> .container {
+			padding-top: 0;
+		}
 
 		&::before {
 			height:110px;

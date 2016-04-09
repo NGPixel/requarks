@@ -17,7 +17,7 @@
 	width: $width;
 	height: $height;
 	border-radius: 50%;
-	box-shadow:0 0 0 1px rgba(0,0,0,0.1), 2px 1px 0px $color;
+	box-shadow:0 0 0 1px rgba(0,0,0,0.1), 2px 1px 0 $color;
 	@include prefix(animation, spin $dur linear infinite);
 	@include keyframes(spin) {
 		100%{
@@ -51,6 +51,8 @@
 
 @mixin section-common($accent) {
 
+	//-> Header [layout/header]
+
 	header {
 		border-color: material-color($accent, '500');
 
@@ -60,17 +62,29 @@
 
 	}
 
+	//-> Action Bar [layout/header]
+
 	nav.actionbar > h4 {
 		background-color: material-color($accent, '700');
 		border-top-color: lighten(material-color($accent, '600'), 15%);
 		border-bottom-color: lighten(material-color($accent, '600'), 15%);
 	}
 
+	//-> Footer [layout/footer]
+
+	footer {
+		border-top-color: material-color($accent, '500');
+	}
+
+	//-> Main [layout/common]
+
 	main {
 		&::before {
 			background-color: material-color($accent, '500');
 		}
 	}
+
+	//-> Box [components/box]
 
 	.box .box-base .box-list > li {
 
@@ -84,5 +98,35 @@
 
 		}
 	}
+
+	//-> Flat-List  [components/flat-list]
+	
+	/*.flat-list {
+		border-color: material-color($accent, '800');
+
+		> li {
+			background-color: material-color($accent, '700');
+			border-bottom-color: material-color($accent, '800');
+
+			& + li {
+				border-top-color: material-color($accent, '600');
+			}
+
+			&:hover {
+				background-color: material-color($accent, '600');
+			}
+
+			&.active {
+				background-color: material-color($accent, '800');
+			}
+
+			> strong {
+				background-color: material-color($accent, '300');
+				color: material-color($accent, '900');
+			}
+
+		}
+
+	}*/
 
 }

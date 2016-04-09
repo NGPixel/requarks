@@ -1,0 +1,7 @@
+{
+	"welcome": {
+		"morning": "Bon matin {{name}}",
+		"afternoon": "Bon après-midi {{name}}",
+		"evening": "Bonsoir {{name}}"
+	}
+}

@@ -1,0 +1,11 @@
+{
+	"nav": {
+		"dashboard": "Sommaire",
+		"create": "Nouveau",
+		"review": "Révision",
+		"projects": "Projets",
+		"teams": "Équipes",
+		"settings": "Paramètres"
+	},
+	"copyright": "Propulsé par Requarks"
+}

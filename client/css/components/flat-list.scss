@@ -1,0 +1,75 @@
+
+// ========================================
+// FLAT LIST
+// ========================================
+
+.flat-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	border: 1px solid material-color('blue-grey', '800');
+	border-radius: 3px;
+	@include prefix(box-shadow, 0 0 0 1px rgba(255,255,255,0.25));
+
+	> li {
+		display: block;
+		background-color: material-color('blue-grey', '700');
+		padding: 10px;
+		color: #FFF;
+		border-bottom: 1px solid material-color('blue-grey', '800');
+		transition: all 0.5s ease;
+		cursor: pointer;
+
+		& + li {
+			border-top: 1px solid material-color('blue-grey', '600');
+		}
+
+		&:first-child {
+			border-radius: 3px 3px 0 0;
+		}
+
+		&:last-child {
+			border-radius: 0 0 3px 3px;
+			border-bottom: 0;
+		}
+
+		&:hover {
+			background-color: material-color('blue-grey', '600');
+		}
+
+		&.active {
+			background-color: material-color('blue-grey', '800');
+		}
+
+		> .material-icons {
+			vertical-align: middle;
+		}
+
+		> label {
+			font-size: 16px;
+			line-height: 16px;
+			font-weight: 400;
+			display: block;
+			margin: 2px 0 0 0;
+		}
+
+		> strong {
+			display: inline-block;
+			background-color: material-color('blue-grey', '300');
+			padding: 0 6px;
+			border-radius: 12px;
+			color: material-color('blue-grey', '900');
+			font-size: 12px;
+			font-weight: 400;
+			vertical-align: middle;
+			float:right;
+		}
+
+		> span {
+			font-size: 11px;
+			font-weight: 300;
+		}
+
+	}
+
+}

@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+	.container
+		.flat-nav
+				ul
+					li: a(href='/teams')
+						i.typcn.typcn-arrow-left-thick
+						= t('actions.back')
+		form(method='post', action='/teams/create')
+			.row
+				.col-xs-9
+					.box
+						h4.create-form-title
+							i.material-icons.color-green-500 add_box
+							= t('teams:actions.create')
+						.box-base
+							.box-chrome
+								section
+									label= t('teams:create.name.label')
+									input(name='site_title', type='text', placeholder=t('teams:create.name.placeholder'), value='')
+									span.note
+										strong.color-red-600= t('form.required')
+										= t('teams:create.name.info')
+								section
+									label= t('teams:create.description.label')
+									input(name='site_host', type='text', placeholder=t('teams:create.description.placeholder'), value='')
+									.note
+										strong.color-red-600= t('form.required')
+										= t('teams:create.description.info')
+							.box-actions
+								button#setup-submit(type="submit", class="btn btn-green")= t('actions.create')
+				.col-xs-3
+					.box
+						h4
+							i.material-icons info_outline
+							| Help
+						.box-base
+							.box-chrome
+								| test

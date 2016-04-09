@@ -6,10 +6,11 @@
 
 var appconfig = require('./config.json');
 
+// Load node modules
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-//var logger = require('morgan');
 var session = require('express-session');
 var redisStore = require('connect-redis')(session);
 var cookieParser = require('cookie-parser');
@@ -20,14 +21,16 @@ var compression = require('compression');
 var passport = require('passport');
 var autoload = require('auto-load');
 
-
-var auth = require('./middlewares/auth');
-
 var i18next = require('i18next');
 var i18next_backend = require('i18next-node-fs-backend');
 var i18next_mw = require('i18next-express-middleware');
 
+// Load app middlewares
+
+var mw = autoload(__dirname + '/middlewares');
 var ctrl = autoload(__dirname + '/controllers');
+
+// Load app modules
 
 app = express();
 db = require("./models")(appconfig);
@@ -35,6 +38,12 @@ red = require('./modules/redis')(appconfig);
 ROOTPATH = __dirname;
 
 var _isDebug = (app.get('env') === 'development');
+
+// ----------------------------------------
+// Security
+// ----------------------------------------
+
+app.use(mw.security);
 
 // ----------------------------------------
 // Passport Authentication
@@ -54,7 +63,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // ----------------------------------------
-// Localization Engine Setup
+// Localization Engine
 // ----------------------------------------
 
 i18next
@@ -62,9 +71,9 @@ i18next
   .use(i18next_mw.LanguageDetector)
   .init({
     load: 'languageOnly',
-    ns: 'common',
+    ns: ['common', 'dashboard', 'projects', 'teams'],
     defaultNS: 'common',
-    saveMissing: false,
+    saveMissing: _isDebug,
     //debug: _isDebug,
     supportedLngs: ['en', 'fr'],
     fallbackLng : 'en',
@@ -84,7 +93,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
-//if(_isDebug) { app.use(logger('dev')); }
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -120,15 +128,6 @@ app.use(expressBundles.middleware({
 app.use(express.static(path.join(__dirname, 'assets')));
 
 // ----------------------------------------
-// Disable IE compatibility mode
-// ----------------------------------------
-
-app.use(function(req, res, next) {
-  res.setHeader('X-UA-Compatible','IE=edge');
-  return next();
-});
-
-// ----------------------------------------
 // Expose Application Configs
 // ----------------------------------------
 
@@ -140,7 +139,7 @@ app.locals.appdata = require('./data.json');
 // ----------------------------------------
 
 app.use('/', ctrl.login);
-app.use(auth);
+app.use(mw.auth);
 
 app.use('/', ctrl.dashboard);
 app.use('/create', ctrl.create);
