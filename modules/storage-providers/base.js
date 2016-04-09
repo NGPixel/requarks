@@ -15,7 +15,7 @@ class StorageProvider {
 			files: '{prefix}-files',
 			avatars: '{prefix}-avatars',
 			archive: '{prefix}-archive'
-		}
+		};
 	}
 
 	/**

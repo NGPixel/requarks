@@ -26,7 +26,7 @@ class StorageProviderLocal extends StorageProvider {
 		})
 		.catch((err) => {
 			return Promise.reject(new Error('Storage::connect - Directory access failed'));
-		})
+		});
 	}
 
 	/**

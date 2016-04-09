@@ -1,7 +1,6 @@
 "use strict";
 
 var _ = require('lodash'),
-	path = require('path'),
 	AWS = require('aws-sdk'),
 	Promise = require('bluebird'),
 	StorageProvider = require('./base');
