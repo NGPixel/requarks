@@ -5,8 +5,7 @@
 // ---------------------------------------------
 
 var Promise = require('bluebird'),
-	 ManagementClient = require('auth0').ManagementClient,
-	 fs = Promise.promisifyAll(require('fs'));
+	 ManagementClient = require('auth0').ManagementClient;
 
 module.exports = (appconfig) => {
 

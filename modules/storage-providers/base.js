@@ -62,6 +62,6 @@ class StorageProvider {
 		return Promise.reject(new Error('Storage::readTeamp - Not Implemented'));
 	}
 
-};
+}
 
 module.exports = StorageProvider;

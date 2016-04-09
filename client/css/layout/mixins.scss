@@ -17,7 +17,7 @@
 	width: $width;
 	height: $height;
 	border-radius: 50%;
-	box-shadow:0px 0px 0px 1px rgba(0,0,0,0.1), 2px 1px 0px $color;
+	box-shadow:0 0 0 1px rgba(0,0,0,0.1), 2px 1px 0px $color;
 	@include prefix(animation, spin $dur linear infinite);
 	@include keyframes(spin) {
 		100%{
@@ -31,9 +31,6 @@
         @content;
     }
     @-moz-keyframes #{$animation-name} {
-        @content;
-    }  
-    @-ms-keyframes #{$animation-name} {
         @content;
     }
     @-o-keyframes #{$animation-name} {

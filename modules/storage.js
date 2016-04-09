@@ -1,29 +1,19 @@
 "use strict";
 
+var _ = require('lodash');
+
 module.exports = (appconfig) => {
+
+	// Validate storage provider
+	
+	let validProviders = require('../data.json').storageproviders;
+	if(!_.includes(_.keys(validProviders), appconfig.storage.provider)) {
+		return null;
+	}
 
 	// Load storage provider
 
-	let Storage = {};
-	switch(appconfig.storage.provider) {
-		case 'local':
-			Storage = require('./storage-providers/local');
-		break;
-		case 'azure':
-			Storage = require('./storage-providers/azure');
-		break;
-		case 's3':
-			Storage = require('./storage-providers/s3');
-		break;
-		case 'google':
-			Storage = require('./storage-providers/google');
-		break;
-		case 'softlayer':
-			Storage = require('./storage-providers/softlayer');
-		break;
-		default:
-			return null;
-	}
+	let Storage = require('./storage-providers/' + appconfig.storage.provider);
 
 	return new Storage(appconfig);
 

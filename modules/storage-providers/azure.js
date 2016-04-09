@@ -1,9 +1,6 @@
 "use strict";
 
-var _ = require('lodash'),
-	fs = require('fs'),
-	path = require('path'),
-	azure = require('azure-storage'),
+var azure = require('azure-storage'),
 	Promise = require('bluebird'),
 	StorageProvider = require('./base');
 

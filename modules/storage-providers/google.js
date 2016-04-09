@@ -1,7 +1,6 @@
 "use strict";
 
 var _ = require('lodash'),
-	path = require('path'),
 	gcloud = require('gcloud'),
 	Promise = require('bluebird'),
 	fs = Promise.promisifyAll(require('fs')),

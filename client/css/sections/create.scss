@@ -2,7 +2,7 @@ body.mi-create {
 
 	@include section-common('red');
 
-	h4.create-title {
+	.create-title {
 		margin: 0;
 		font-weight: 600;
 		font-size: 18px;
@@ -11,7 +11,7 @@ body.mi-create {
 		text-align: center;
 	}
 
-	h4.create-form-title {
+	.create-form-title {
 		color: material-color('red', '500');
 
 		> .create-form-chevron {

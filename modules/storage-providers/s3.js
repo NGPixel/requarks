@@ -4,7 +4,6 @@ var _ = require('lodash'),
 	path = require('path'),
 	AWS = require('aws-sdk'),
 	Promise = require('bluebird'),
-	fs = Promise.promisifyAll(require('fs')),
 	StorageProvider = require('./base');
 
 class StorageProviderS3 extends StorageProvider {

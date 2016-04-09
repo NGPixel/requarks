@@ -1,7 +1,6 @@
 "use strict";
 
-var _ = require('lodash'),
-	path = require('path'),
+var path = require('path'),
 	Promise = require('bluebird'),
 	fs = Promise.promisifyAll(require('fs')),
 	StorageProvider = require('./base');
@@ -48,6 +47,6 @@ class StorageProviderLocal extends StorageProvider {
 		});
 	}
 
-};
+}
 
 module.exports = StorageProviderLocal;

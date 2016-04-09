@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
   {
     timestamps: true,
     getterMethods: {
-      fullName: function() { return this.firstName + ' ' + this.lastName; }
+      fullName() { return this.firstName + ' ' + this.lastName; }
     },
     classMethods: {
       associate(models) {

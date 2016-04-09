@@ -1,6 +1,6 @@
 module.exports = function(req, res, next) {
 
-	if (req.baseUrl != '/login' && !req.isAuthenticated()) {
+	if (req.baseUrl !== '/login' && !req.isAuthenticated()) {
 		return res.redirect('/login');
 	}
 
