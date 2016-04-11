@@ -2,11 +2,18 @@ extends ../layout
 
 block content
 	.container
+
 		.flat-nav
+			if teamCount > 0
 				ul
 					li: a(href='/teams')
 						i.typcn.typcn-arrow-left-thick
 						= t('actions.back')
+			else
+				span
+					i.typcn.typcn-media-play
+					= t('teams:noteam')
+
 		form(method='post', action='/teams/create')
 			.row
 				.col-xs-9
@@ -18,13 +25,13 @@ block content
 							.box-chrome
 								section
 									label= t('teams:create.name.label')
-									input(name='site_title', type='text', placeholder=t('teams:create.name.placeholder'), value='')
+									input(name='team_create_name', type='text', placeholder=t('teams:create.name.placeholder'), value='')
 									span.note
 										strong.color-red-600= t('form.required')
 										= t('teams:create.name.info')
 								section
 									label= t('teams:create.description.label')
-									input(name='site_host', type='text', placeholder=t('teams:create.description.placeholder'), value='')
+									input(name='team_create_desc', type='text', placeholder=t('teams:create.description.placeholder'), value='')
 									.note
 										strong.color-red-600= t('form.required')
 										= t('teams:create.description.info')

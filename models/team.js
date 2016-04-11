@@ -4,7 +4,9 @@ module.exports = function(sequelize, DataTypes) {
 
   var Team = sequelize.define("Team",
   {
-    name:       DataTypes.STRING
+    name:         DataTypes.STRING,
+    description:  DataTypes.STRING,
+    slug:         DataTypes.STRING
   },
   {
     timestamps: true,

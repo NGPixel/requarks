@@ -6,7 +6,7 @@ block content
 			h4.create-title Which category should this request be filed in?
 			ul#create-categories.tiles
 				each cat in categories
-					li(class='bg-color-' + cat.color,data-link='/create/' + cat.shortName)
+					li(class='bg-color-' + cat.color,data-link='/create/' + cat.slug)
 						i.material-icons= cat.icon
 						strong= cat.name
 						span= cat.description

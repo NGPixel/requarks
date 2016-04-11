@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+	.container
+
+		.flat-nav
+			if teamCount > 0
+				ul
+					li: a(href='/teams')
+						i.typcn.typcn-arrow-left-thick
+						= t('actions.back')
+			else
+				span
+					i.typcn.typcn-media-play
+					= t('teams:noteam')

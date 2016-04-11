@@ -27,20 +27,19 @@ class StorageProviderGoogle extends StorageProvider {
 		return new Promise(function (resolve, reject) {
 			return fs.accessAsync(self.conf.google.keyfile, fs.R_OK).then(() => {
 				return fs.readFileAsync(self.conf.google.keyfile, 'utf8').then((keydata) => {
-					try {
-						let keydataObj = JSON.parse(keydata);
+					return Promise.resolve(JSON.parse(keydata)).then((keydataObj) => {
 						if(_.isString(keydataObj.project_id)) {
 							self.gcs = gcloud.storage({
 								projectId: keydataObj.project_id,
 								keyFilename: self.conf.google.keyfile
 							});
+							return resolve(true);
 						} else {
-							throw new Error('Storage::connect - Invalid Key File');
+							return reject(new Error('Storage::connect - Invalid Key File'));
 						}
-					} catch(err) {
+					}).catch((err) => {
 						return reject(err);
-					}
-					return resolve(true);
+					});
 				});
 			});
 		});

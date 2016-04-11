@@ -55,5 +55,18 @@
 			"target": "/settings",
 			"icon": "settings"
 		}
-	}
+	},
+	"reserved_names": [
+		"admin",
+		"create",
+		"dashboard",
+		"delete",
+		"edit",
+		"item",
+		"review",
+		"search",
+		"settings",
+		"teams",
+		"view"
+	]
 }

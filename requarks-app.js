@@ -20,6 +20,7 @@ var expressBundles = require('express-bundles');
 var compression = require('compression');
 var passport = require('passport');
 var autoload = require('auto-load');
+var expressValidator = require('express-validator');
 
 var i18next = require('i18next');
 var i18next_backend = require('i18next-node-fs-backend');
@@ -29,6 +30,7 @@ var i18next_mw = require('i18next-express-middleware');
 
 var mw = autoload(__dirname + '/middlewares');
 var ctrl = autoload(__dirname + '/controllers');
+var validators = autoload(__dirname + '/modules/validators');
 
 // Load app modules
 
@@ -95,6 +97,9 @@ app.set('view engine', 'jade');
 app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator({
+  customValidators: validators
+}));
 
 // ----------------------------------------
 // Assets

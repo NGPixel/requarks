@@ -6,25 +6,42 @@
 .flat-nav {
 	margin-bottom: 15px;
 
+	> span {
+		box-sizing: border-box;
+		color: #FFF;
+		display: block;
+		font-size: 14px;
+		font-weight: 400;
+		height: 30px;
+		padding: 5px 0 0 0;
+
+		> i {
+			font-size: 16px;
+			margin-right: 8px;
+			margin-top: -2px;
+		}
+		
+	}
+
 	> ul {
 		list-style: none;
-		padding: 0;
 		margin: 0;
+		padding: 0;
 
 		> li {
 			display: inline-block;
 			margin-right: 1px;
 
 			> a {
-				display: inline-flex;
 				align-items: center;
-				padding: 5px 12px;
+				border-radius: 5px;
 				color: #FFF;
+				display: inline-flex;
 				font-size: 12px;
 				font-weight: 600;
+				padding: 5px 12px;
 				text-transform: uppercase;
 				transition: all 0.5s ease;
-				border-radius: 5px;
 
 				&:hover {
 					background-color: rgba(0,0,0,0.2);

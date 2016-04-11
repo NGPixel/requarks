@@ -15,5 +15,6 @@
 			"placeholder": "e.g. Backend Development Unit",
 			"info": "A short description of your team."
 		}
-	}
+	},
+	"noteam": "You are not part of any team yet. You can create your own below."
 }
