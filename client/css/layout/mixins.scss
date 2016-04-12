@@ -99,6 +99,21 @@
 		}
 	}
 
+	//-> Box [components/splash]
+
+	.splash {
+		background-color: material-color($accent, '500');
+
+		> h4 {
+			@include prefix(text-shadow, 1px 1px 0 material-color($accent, '700'));
+		}
+
+		> .btn {
+			color: material-color($accent, '800');
+		}
+
+	}
+
 	//-> Flat-List  [components/flat-list]
 	
 	/*.flat-list {

@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
 		if(fteam) {
 			res.redirect('/teams/' + fteam.slug);
 		} else {
-			res.redirect('/teams/create');
+			res.render('teams/default', { navbar_active: 'teams', msg: 'You don\'t have or isn\'t part of any team yet!' });
 		}
 	});
 

@@ -38,6 +38,16 @@
 
 	}
 
+	&.btn-inverted {
+		background-color: #FFF;
+		color: material-color('blue-grey', '800');
+
+		&:hover {
+			background-color: rgba(255,255,255,0.6);
+		}
+
+	}
+
 	&:focus {
 		outline: none;
 	}
