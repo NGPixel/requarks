@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes) {
   {
     name:         DataTypes.STRING,
     description:  DataTypes.STRING,
-    slug:         DataTypes.STRING
+    slug:         DataTypes.STRING,
+    memberCount:  DataTypes.INTEGER
   },
   {
     timestamps: true,
@@ -14,6 +15,11 @@ module.exports = function(sequelize, DataTypes) {
       associate(models) {
         Team.belongsToMany(models.User, {through: 'TeamUsers'});
         Team.belongsToMany(models.Project, {through: 'TeamProjects'});
+      },
+      countFromUserId(usrid) {
+        return this.count({
+          include: [{ model: db.User, where: { id: usrid } }]
+        });
       }
     }
   });

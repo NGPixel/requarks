@@ -1,0 +1,1 @@
+"use strict";$(function(){$("#id-teams-list > li").on("click",function(t){t.preventDefault(),window.location.assign(t.currentTarget.dataset.link)})});

@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+	.row
+		.col-xs-3
+			.flat-nav
+				ul
+					li: a(href='/teams/create')
+						i.typcn.typcn-plus
+						= t('teams:actions.create')
+			ul#id-teams-list.flat-list
+				each tm in teams
+					li(class=(tm.id === team.id) ? 'active' : '', data-link='/teams/' + tm.slug)
+						strong= tm.memberCount
+						i.material-icons people
+						label=tm.name
+						span= tm.description
+		.col-xs-9
+			.flat-nav
+				ul
+					li: a(href='/teams/' + team.slug + '/add')
+						i.typcn.typcn-user-add
+						= t('teams:actions.addmember')
+					li: a(href='/teams/' + team.slug + '/notify')
+						i.typcn.typcn-bell
+						= t('teams:actions.notifyteam')
+			.box
+				h4
+					i.material-icons.color-green-500 people
+					= team.name
+				.box-base
+					.box-chrome
+						| team.description

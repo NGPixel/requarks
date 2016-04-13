@@ -31,9 +31,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/create', function(req, res, next) {
 
-	db.Team.count({
-		include: [{ model: db.User, where: { id: res.locals.usr.id } }]
-	}).then((teamCount) => {
+	db.Team.countFromUserId(res.locals.usr.id).then((teamCount) => {
 		res.render('teams/create', { navbar_active: 'teams', teamCount });
 	});
 
@@ -62,7 +60,8 @@ router.post('/create', function(req, res, next) {
 		db.Team.create({
 			name: req.body.team_create_name,
 			description: req.body.team_create_desc,
-			slug: teamSlug
+			slug: teamSlug,
+			memberCount: 1
 		}).then((team) => {
 			return team.addUsers(res.locals.usr);
 		}).then(() => {
@@ -74,9 +73,7 @@ router.post('/create', function(req, res, next) {
 	}).catch(function(errors) {
 		console.log(errors);
 
-		db.Team.count({
-			include: [{ model: db.User, where: { id: res.locals.usr.id } }]
-		}).then((teamCount) => {
+		db.Team.countFromUserId(res.locals.usr.id).then((teamCount) => {
 			res.render('teams/create', { navbar_active: 'teams', teamCount });
 		});
 
@@ -100,8 +97,9 @@ router.get('/:slug', function(req, res, next) {
 
 		let teamSlugs = _.map(teams, (t) => { return t.get('slug'); });
 
-		if(_.includes(teamSlugs, req.params.slug )) {
-			res.render('teams/teams', { navbar_active: 'teams' });
+		if(_.includes(teamSlugs, req.params.slug)) {
+			let team = _.find(teams, ['slug', req.params.slug]); 
+			res.render('teams/team', { navbar_active: 'teams', page_script: 'teams', teams, team });
 		} else {
 			res.render('teams/default', { navbar_active: 'teams', msg: 'You are not authorized to access this team.' });
 		}
