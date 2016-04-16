@@ -1,0 +1,21 @@
+
+//- Form field error
+
+mixin fielderror(name)
+	if formErrors
+		- var err = _.find(formErrors, {'param': name}) || false
+		if err
+			span.error= err.msg
+
+//- Form field note
+
+mixin fieldnote(mode, msg)
+	span.note
+		case mode
+			when 'required'
+				strong.color-red-600= t('form.required')
+			when 'optional'
+				strong.color-orange-600= t('form.optional')
+			default
+				strong.color-blue-600= t('form.info')
+		= msg

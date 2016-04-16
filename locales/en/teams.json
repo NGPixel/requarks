@@ -2,7 +2,8 @@
 	"actions": {
 		"create": "Create Team",
 		"addmember": "Add Member",
-		"notifyteam": "Notify Team"
+		"notifyteam": "Notify Team",
+		"edit": "Team Settings"
 	},
 	"create": {
 		"name": {
@@ -16,5 +17,7 @@
 			"info": "A short description of your team."
 		}
 	},
-	"noteam": "You are not part of any team yet. You can create your own below."
+	"noteam": "You are not part of any team yet.",
+	"noteamcreate": "You are not part of any team yet. You can create your own below.",
+	"unauthorized": "You are not authorized to access this team."
 }

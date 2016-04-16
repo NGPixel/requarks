@@ -9,6 +9,8 @@
 	},
 	"actions": {
 		"back": "Back",
+		"cancel": "Cancel",
+		"confirm": "Confirm",
 		"continue": "Continue",
 		"create": "Create",
 		"delete": "Delete",
@@ -17,7 +19,13 @@
 	},
 	"form": {
 		"required": "Required",
-		"optional": "Optional"
+		"optional": "Optional",
+		"info": "Info",
+		"errors": {
+			"required": "is required",
+			"length": "must be between {{min}} and {{max}} characters",
+			"unique": "must be unique"
+		}
 	},
 	"copyright": "Powered by Requarks"
 }

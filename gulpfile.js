@@ -28,7 +28,7 @@ gulp.task('server-setup', function() {
 });
 
 gulp.task("scripts", function () {
-  gulp.src(paths.scripts)
+  return gulp.src(paths.scripts)
     .pipe(babel())
     .pipe(uglify())
     .pipe(gulp.dest("./assets/js"));

@@ -22,7 +22,6 @@ var passport = require('passport');
 var autoload = require('auto-load');
 var expressValidator = require('express-validator');
 
-var i18next = require('i18next');
 var i18next_backend = require('i18next-node-fs-backend');
 var i18next_mw = require('i18next-express-middleware');
 
@@ -37,8 +36,9 @@ var validators = autoload(__dirname + '/modules/validators');
 app = express();
 db = require("./models")(appconfig);
 red = require('./modules/redis')(appconfig);
-ROOTPATH = __dirname;
+lang = require('i18next');
 
+ROOTPATH = __dirname;
 var _isDebug = (app.get('env') === 'development');
 
 // ----------------------------------------
@@ -68,7 +68,7 @@ app.use(passport.session());
 // Localization Engine
 // ----------------------------------------
 
-i18next
+lang
   .use(i18next_backend)
   .use(i18next_mw.LanguageDetector)
   .init({
@@ -90,9 +90,12 @@ i18next
 
 app.use(compression());
 
-app.use(i18next_mw.handle(i18next));
+app.use(i18next_mw.handle(lang));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+if(_isDebug) {
+	app.locals.pretty = true;
+}
 
 app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
 app.use(bodyParser.json());
@@ -123,6 +126,7 @@ app.use(expressBundles.middleware({
     ],
     'js/bundle.js': [
       'js/libs/modernizr-custom.min.js',
+      'js/libs/lodash.min.js',
       'js/libs/jquery.min.js',
       'js/libs/typeahead.bundle.min.js',
       _isDebug ? 'js/libs/vue.js' : 'js/libs/vue.min.js',
@@ -136,6 +140,7 @@ app.use(express.static(path.join(__dirname, 'assets')));
 // Expose Application Configs
 // ----------------------------------------
 
+app.locals._ = require('lodash');
 app.locals.appconfig = appconfig;
 app.locals.appdata = require('./data.json');
 

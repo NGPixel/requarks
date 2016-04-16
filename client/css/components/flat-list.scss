@@ -12,13 +12,15 @@
 	@include prefix(box-shadow, 0 0 0 1px rgba(255,255,255,0.25));
 
 	> li {
-		display: block;
+		display: flex;
 		background-color: material-color('blue-grey', '700');
 		padding: 10px;
 		color: #FFF;
 		border-bottom: 1px solid material-color('blue-grey', '800');
 		transition: all 0.5s ease;
 		cursor: pointer;
+		position: relative;
+		align-items: center;
 
 		& + li {
 			border-top: 1px solid material-color('blue-grey', '600');
@@ -42,33 +44,38 @@
 		}
 
 		> .material-icons {
-			vertical-align: middle;
+			margin-right: 10px;
 		}
 
 		> label {
 			font-size: 16px;
 			line-height: 16px;
 			font-weight: 400;
-			display: block;
+			display: flex;
+			flex-direction: column;
 			margin: 2px 0 0 0;
 			cursor: inherit;
-		}
 
-		> strong {
-			display: inline-block;
-			background-color: material-color('blue-grey', '300');
-			padding: 0 6px;
-			border-radius: 12px;
-			color: material-color('blue-grey', '900');
-			font-size: 12px;
-			font-weight: 400;
-			vertical-align: middle;
-			float:right;
+			> span {
+				margin-top: 5px;
+				font-size: 11px;
+				font-weight: 300;
+				color: material-color('blue-grey', '100');
+			}
+
 		}
 
 		> span {
-			font-size: 11px;
-			font-weight: 300;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-right: 10px;
+
+			> strong {
+				font-weight: 400;
+				font-size: 11px;
+			}
+
 		}
 
 	}

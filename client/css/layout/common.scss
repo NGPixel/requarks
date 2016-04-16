@@ -1,3 +1,10 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   background-color: material-color('blue-grey', '900');
   font-family: 'Open Sans', sans-serif;

@@ -11,10 +11,11 @@ block content
 			ul#id-teams-list.flat-list
 				each tm in teams
 					li(class=(tm.id === team.id) ? 'active' : '', data-link='/teams/' + tm.slug)
-						strong= tm.memberCount
-						i.material-icons people
+						span
+							i.material-icons people
+							strong= tm.memberCount
 						label=tm.name
-						span= tm.description
+							span= tm.description
 		.col-xs-9
 			.flat-nav
 				ul
@@ -24,10 +25,13 @@ block content
 					li: a(href='/teams/' + team.slug + '/notify')
 						i.typcn.typcn-bell
 						= t('teams:actions.notifyteam')
+					li: a(href='/teams/' + team.slug + '/edit')
+						i.typcn.typcn-pencil
+						= t('teams:actions.edit')
 			.box
 				h4
 					i.material-icons.color-green-500 people
 					= team.name
 				.box-base
 					.box-chrome
-						| team.description
+						= team.description

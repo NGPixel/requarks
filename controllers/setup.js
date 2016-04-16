@@ -9,7 +9,7 @@ var express = require('express'),
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-  res.render('setup', { showform: true, showresults: false, formerrors: [], appconfig: app.locals.appconfig });
+  res.render('setup/setup', { showform: true, showresults: false, formerrors: [], appconfig: app.locals.appconfig });
 });
 
 router.post('/', function(req, res, next) {
@@ -59,7 +59,7 @@ router.post('/', function(req, res, next) {
 
 	if(validation.formerrors.length > 0) {
 
-		res.render('setup', {
+		res.render('setup/setup', {
 			showform: true,
 			showresults: false,
 			formerrors: validation.formerrors,
@@ -123,7 +123,7 @@ router.post('/', function(req, res, next) {
 
 		// Show results
 
-		res.render('setup', {
+		res.render('setup/setup', {
 			showform: !isFinished,
 			showresults: true,
 			formerrors: [],

@@ -1,0 +1,130 @@
+
+body.dimmed {
+	overflow: hidden;
+}
+
+.modal {
+	align-items: center;
+	animation: modal-bg-shown .5s ease;
+	background-color: rgba(0,0,0,0.85);
+	color: #FFF;
+	display: none;
+	height: 100%;
+	justify-content: center;
+	left: 0;
+	position: fixed;
+	top: 0;
+	transition: background-color .5s linear;
+	width: 100%;
+	z-index: 100;
+
+	&.shown {
+		display: flex;
+	}
+
+	&.exit {
+		animation: modal-bg-exit .5s ease;
+
+		.modal-box {
+			animation: modal-box-exit .5s ease;
+		}
+
+	}
+
+	.modal-box {
+		width: 760px;
+		text-align: center;
+		transition: all .5s ease;
+		animation: modal-box-shown .5s ease;
+
+		> .material-icons {
+			font-size: 60px;
+			border: 2px solid #FFF;
+			border-radius: 25%;
+			padding: 15px;
+		}
+
+		> h4 {
+			font-size: 20px;
+			font-weight: 300;
+			margin: 0;
+			padding: 15px 0;
+		}
+
+		> label {
+			font-size: 14px;
+			display: block;
+		}
+
+	}
+
+	.modal-actions {
+		padding-top: 25px;
+		display: flex;
+		justify-content: center;
+
+		button {
+			@extend .btn;
+			margin-left: 15px;
+			border: 2px solid #FFF;
+			background-color: rgba(0,0,0,0);
+			color: #FFF;
+
+			@each $color-name, $color-variants in $material-colors {
+
+				&.#{$color-name} {
+					border-color: material-color($color-name, '500');
+
+					&:hover {
+						background-color: material-color($color-name, '600');
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+}
+
+@include keyframes(modal-bg-shown) {
+	0% {
+		background-color: rgba(0,0,0,0);
+	}
+	100% {
+		background-color: rgba(0,0,0,0.85);
+	}
+}
+
+@include keyframes(modal-box-shown) {
+	0% {
+		opacity: 0;
+		@include prefix(transform, scale(0.8, 0.8));
+	}
+	100% {
+		opacity: 1;
+		@include prefix(transform, scale(1, 1));
+	}
+}
+
+@include keyframes(modal-bg-exit) {
+	0% {
+		background-color: rgba(0,0,0,0.85);
+	}
+	100% {
+		background-color: rgba(0,0,0,0);
+	}
+}
+
+@include keyframes(modal-box-exit) {
+	0% {
+		opacity: 1;
+		@include prefix(transform, scale(1, 1));
+	}
+	100% {
+		opacity: 0;
+		@include prefix(transform, scale(1.2, 1.2));
+	}
+}

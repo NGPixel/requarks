@@ -13,6 +13,7 @@ var debug = require('debug')('requarks');
 var http = require('http');
 var db = {};
 var red = {};
+var lang = {};
 var ROOTPATH = '';
 
 /**

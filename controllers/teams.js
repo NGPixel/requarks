@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
 		if(fteam) {
 			res.redirect('/teams/' + fteam.slug);
 		} else {
-			res.render('teams/default', { navbar_active: 'teams', msg: 'You don\'t have or isn\'t part of any team yet!' });
+			res.render('teams/default', { navbar_active: 'teams', msg: lang.t('teams:noteam') });
 		}
 	});
 
@@ -42,13 +42,13 @@ router.post('/create', function(req, res, next) {
 	//-> Validate form
 
 	req.sanitizeBody('team_create_name').trim();
-	req.checkBody('team_create_name', 'required').notEmpty();
-	req.checkBody('team_create_name', 'must be between 3 and 50 characters').isLength({min: 3, max: 50});
-	req.checkBody('team_create_name', 'must be unique').isUniqueTeam();
+	req.checkBody('team_create_name', lang.t('form.errors.required')).notEmpty();
+	req.checkBody('team_create_name', lang.t('form.errors.length', {min: 3, max: 50})).isLength({min: 3, max: 50});
+	req.checkBody('team_create_name', lang.t('form.errors.unique')).isUniqueTeam();
 
 	req.sanitizeBody('team_create_desc').trim();
-	req.checkBody('team_create_desc', 'required').notEmpty();
-	req.checkBody('team_create_desc', 'must be between 3 and 50 characters').isLength({min: 3, max: 50});
+	req.checkBody('team_create_desc', lang.t('form.errors.required')).notEmpty();
+	req.checkBody('team_create_desc', lang.t('form.errors.length', {min: 3, max: 50})).isLength({min: 3, max: 50});
 
 	// Create Team
 
@@ -70,11 +70,10 @@ router.post('/create', function(req, res, next) {
 			console.log(err);
 		});
 
-	}).catch(function(errors) {
-		console.log(errors);
+	}).catch(function(formErrors) {
 
 		db.Team.countFromUserId(res.locals.usr.id).then((teamCount) => {
-			res.render('teams/create', { navbar_active: 'teams', teamCount });
+			res.render('teams/create', { navbar_active: 'teams', teamCount, formErrors });
 		});
 
 	});
@@ -101,7 +100,34 @@ router.get('/:slug', function(req, res, next) {
 			let team = _.find(teams, ['slug', req.params.slug]); 
 			res.render('teams/team', { navbar_active: 'teams', page_script: 'teams', teams, team });
 		} else {
-			res.render('teams/default', { navbar_active: 'teams', msg: 'You are not authorized to access this team.' });
+			res.render('teams/default', { navbar_active: 'teams', msg: lang.t('teams:unauthorized') });
+		}
+
+	});
+
+});
+
+// ----------------------------------------------------
+// TEAMS - Edit team
+// ----------------------------------------------------
+
+router.get('/:slug/edit', function(req, res, next) {
+
+	//-> Load all user's teams
+
+	db.Team.findAll({
+		include: [{ model: db.User, where: { id: res.locals.usr.id }, attributes: ['id'] }]
+	}).then((teams) => {
+
+		//-> Make sure user has access to the requested team
+
+		let teamSlugs = _.map(teams, (t) => { return t.get('slug'); });
+
+		if(_.includes(teamSlugs, req.params.slug)) {
+			let team = _.find(teams, ['slug', req.params.slug]); 
+			res.render('teams/edit', { navbar_active: 'teams', page_script: 'teams', team });
+		} else {
+			res.render('teams/default', { navbar_active: 'teams', msg: lang.t('teams:unauthorized') });
 		}
 
 	});

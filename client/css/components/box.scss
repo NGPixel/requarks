@@ -124,6 +124,18 @@
 
 				}
 
+				.error {
+					background-color: material-color('red', '50');
+					border-radius: 0 0 3px 3px;
+					border: 1px solid material-color('red', '100');
+					color: material-color('red', '600');
+					display: block;
+					font-size: 12px;
+					font-weight: 600;
+					margin-top: -1px;
+					padding: 4px 10px;
+				}
+
 				.note {
 					margin-top: 5px;
 					font-size: 11px;
@@ -148,7 +160,22 @@
 
 		.box-actions {
 			padding: 8px 0 0 0;
-			text-align: right;
+			display: flex;
+			flex-direction: row-reverse;
+			justify-content: space-between;
+
+			> div:first-child {
+				a, input, button {
+					margin-left: 8px;
+				}
+			}
+
+			> div:nth-child(2) {
+				a, input, button {
+					margin-right: 8px;
+				}
+			}
+
 		}
 
 		.box-list {

@@ -12,7 +12,7 @@ block content
 			else
 				span
 					i.typcn.typcn-media-play
-					= t('teams:noteam')
+					= t('teams:noteamcreate')
 
 		form(method='post', action='/teams/create')
 			.row
@@ -26,17 +26,16 @@ block content
 								section
 									label= t('teams:create.name.label')
 									input(name='team_create_name', type='text', placeholder=t('teams:create.name.placeholder'), value='')
-									span.note
-										strong.color-red-600= t('form.required')
-										= t('teams:create.name.info')
+									+fielderror('team_create_name')
+									+fieldnote('required', t('teams:create.name.info'))
 								section
 									label= t('teams:create.description.label')
 									input(name='team_create_desc', type='text', placeholder=t('teams:create.description.placeholder'), value='')
-									.note
-										strong.color-red-600= t('form.required')
-										= t('teams:create.description.info')
+									+fielderror('team_create_desc')
+									+fieldnote('required', t('teams:create.description.info'))
 							.box-actions
-								button#setup-submit(type="submit", class="btn btn-green")= t('actions.create')
+								div
+									button#setup-submit(type="submit", class="btn btn-green")= t('actions.create')
 				.col-xs-3
 					.box
 						h4
