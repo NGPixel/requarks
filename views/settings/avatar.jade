@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+	.container.row
+		include _menu
+		.col-xs-9
+			.box
+				h4.color-indigo-500
+					i.material-icons account_box
+					= t('settings:menu.avatar')
+				.box-base
+					.box-chrome
+						section
+							label= t('settings:profile.email.label')
+							input(name='team_edit_name', type='text', placeholder=t('settings:profile.email.placeholder'))
+							+fielderror('team_edit_name')
+							+fieldnote('required', t('settings:profile.email.info'))
+					.box-actions
+						div
+							button#edit-submit(type="submit", class="btn btn-green")
+								i.typcn.typcn-tick
+								= t('actions.save')

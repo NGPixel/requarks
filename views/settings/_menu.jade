@@ -1,0 +1,18 @@
+mixin settingsnav(name, link, icon)
+	li(class=(settingsnav_active === name) ? 'active' : '', data-link=link)
+		i.material-icons= icon
+		= t('settings:menu.' + name)
+
+.col-xs-3
+	.box
+		h4.color-indigo-500
+			i.material-icons settings
+			= t('nav.settings')
+		.box-base
+			.box-chrome
+				ul#id-settings-nav.box-list
+					+settingsnav('profile','','receipt')
+					+settingsnav('avatar','avatar','account_box')
+					+settingsnav('preferences','preferences','settings_applications')
+					+settingsnav('notifications','notifications','notifications')
+					+settingsnav('administration','admin','perm_data_setting')

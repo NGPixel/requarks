@@ -1,8 +1,8 @@
 {
 	"actions": {
-		"create": "Create Project",
-		"addmember": "Add Team / Member",
-		"notifymembers": "Notify Members",
-		"archive": "Archive"
+		"create": "Créer un projet",
+		"addmember": "Ajouter une équipe / membre",
+		"notifymembers": "Notifier l'équipe",
+		"archive": "Archiver"
 	}
 }

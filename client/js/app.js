@@ -5,7 +5,12 @@ $(() => {
 	});
 
 	$('#usravatar').on('click', (e) => {
-		$('nav.actionbar').toggleClass('active');
+		$('#root').addClass('pushed');
+		_.delay(() => {
+			$('nav.actionbar').one('mouseleave', (e) => {
+				$('#root').removeClass('pushed');
+			});
+		}, 500);
 	});
 
 	// ====================================
@@ -34,7 +39,7 @@ $(() => {
 	{
 		name: 'rsearch',
 		source: rsearch_engine
-	}).bind('typeahead:open', function() {
+	}).bind('typeahead:open', () => {
 		$('nav.actionbar').removeClass('active');
 	});
 
@@ -42,8 +47,48 @@ $(() => {
 	// Notifications
 	// ====================================
 
-	$(window).bind('beforeunload', function() {
+	$(window).bind('beforeunload', () => {
 		$('#notifload').addClass('active');
 	});
 
 });
+
+// ====================================
+// Modals
+// ====================================
+
+class Modal {
+
+	constructor(mId) {
+		this.id = mId;
+	}
+
+	open() {
+
+		$(document.body).addClass('dimmed');
+		$('#id-modal-' + this.id).addClass('shown');
+
+	}
+
+	bind(act, clb = false) {
+
+		$('#id-modal-' + this.id + ' .modal-actions > button.act-' + act).one('click', (e) => {
+			if(clb) {
+				clb();
+			} else {
+				this.close();
+			}
+		});
+
+	}
+
+	close(immediate = false) {
+		$('#id-modal-' + this.id + ' .modal-actions > button').off('click');
+		$('#id-modal-' + this.id).addClass('exit');
+		_.delay(() => {
+			$(document.body).removeClass('dimmed');
+			$('#id-modal-' + this.id).removeClass('shown exit');
+		}, (immediate) ? 0 : 500);
+	}
+
+};

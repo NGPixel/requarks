@@ -22,32 +22,41 @@ block content
 							.box-chrome
 								section
 									label= t('teams:create.name.label')
-									input(name='team_create_name', type='text', placeholder=t('teams:create.name.placeholder'), value=team.name)
-									+fielderror('team_create_name')
+									+fielderror('team_edit_name')
+									input(name='team_edit_name', type='text', placeholder=t('teams:create.name.placeholder'), value=team.name)
 									+fieldnote('required', t('teams:create.name.info'))
 								section
 									label= t('teams:create.description.label')
-									input(name='team_create_desc', type='text', placeholder=t('teams:create.description.placeholder'), value=team.description)
-									+fielderror('team_create_desc')
+									+fielderror('team_edit_desc')
+									input(name='team_edit_desc', type='text', placeholder=t('teams:create.description.placeholder'), value=team.description)
 									+fieldnote('required', t('teams:create.description.info'))
 							.box-actions
 								div
-									button#edit-submit(type="submit", class="btn btn-green")= t('actions.save')
+									button#edit-submit(type="submit", class="btn btn-green")
+										i.typcn.typcn-tick
+										= t('actions.save')
 								div
-									button#edit-delete(type="button", class="btn btn-red")= t('actions.delete')
+									button#edit-delete(type="button", class="btn btn-red")
+										i.typcn.typcn-trash
+										= t('actions.delete')
+									button#edit-archive(type="button", class="btn btn-orange")
+										i.typcn.typcn-archive
+										= t('actions.archive')
 				.col-xs-3
 					.box
 						h4
-							i.material-icons info_outline
-							| Help
+							i.material-icons.color-green-500 people
+							| Team Info
 						.box-base
 							.box-chrome
 								| ---
-	.modal
+								
+block outside
+	.modal#id-modal-teamdelete
 		.modal-box
 			i.material-icons people
 			h4 Delete this team?
 			label You are about to delete team #[=team.name]? Are you sure?
 			.modal-actions
-				button#id-modal-cancel(class="grey")= t('actions.cancel')
-				button#id-modal-ok(class="red")= t('actions.confirm')
+				button.act-cancel(class="grey")= t('actions.cancel')
+				button.act-ok(class="red")= t('actions.confirm')

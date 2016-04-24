@@ -1,0 +1,44 @@
+{
+	"menu": {
+		"profile": "Profile",
+		"avatar": "Avatar",
+		"preferences": "Preferences",
+		"notifications": "Notifications",
+		"administration": "Administration"
+	},
+	"profile": {
+		"firstname": {
+			"label": "First Name",
+			"placeholder": "e.g. John",
+			"info": "Your first name / surname"
+		},
+		"lastname": {
+			"label": "Last Name",
+			"placeholder": "e.g. Smith",
+			"info": "Your given name"
+		},
+		"email": {
+			"label": "Email",
+			"placeholder": "e.g. john.smith@company.com",
+			"info": "Your email address"
+		},
+		"jobtitle": {
+			"label": "Job Title",
+			"placeholder": "e.g. Senior Lead Developer",
+			"info": "Your job title / role"
+		},
+		"avatar": {
+			"label": "Picture"
+		}
+	},
+	"prefs": {
+		"locale": {
+			"label": "Locale",
+			"info": "Adapts the interface to your language / region specifics"
+		},
+		"timezone": {
+			"label": "Timezone",
+			"info": "Time will be adjusted to your timezone"
+		}
+	}
+}

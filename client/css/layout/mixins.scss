@@ -64,10 +64,15 @@
 
 	//-> Action Bar [layout/header]
 
-	nav.actionbar > h4 {
-		background-color: material-color($accent, '700');
-		border-top-color: lighten(material-color($accent, '600'), 15%);
-		border-bottom-color: lighten(material-color($accent, '600'), 15%);
+	nav.actionbar {
+		> h3 {
+			background-color: material-color($accent, '500');
+		}
+		> h4 {
+			background-color: material-color($accent, '700');
+			border-top-color: lighten(material-color($accent, '600'), 15%);
+			border-bottom-color: lighten(material-color($accent, '600'), 15%);
+		}
 	}
 
 	//-> Footer [layout/footer]

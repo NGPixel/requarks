@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('dashboard', {
+	res.render('dashboard/dashboard', {
 		usr: res.locals.usr,
   		navbar_active: 'dashboard'
 	});

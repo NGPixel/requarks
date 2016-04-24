@@ -43,6 +43,8 @@
     "jade": "~1.11.0",
     "jsonwebtoken": "^5.7.0",
     "lodash": "^4.11.1",
+    "moment": "^2.13.0",
+    "moment-timezone": "^0.5.3",
     "morgan": "~1.6.1",
     "mysql": "^2.10.2",
     "node-sass": "^3.4.2",

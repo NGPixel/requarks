@@ -14,7 +14,7 @@
 	"dbengines": {
 		"mssql": "MS SQL Server / Azure SQL Database",
 		"mariadb": "MariaDB",
-		"mysql": "MySQL",
+		"mysql": "MySQL / Google Cloud SQL",
 		"postgres": "PostgreSQL",
 		"sqlite": "SQLite3"
 	},
@@ -55,6 +55,13 @@
 			"target": "/settings",
 			"icon": "settings"
 		}
+	},
+	"locales": {
+		"en-ca": "English (Canada)",
+		"en-uk": "English (United Kingdom)",
+		"en": "English (United States)",
+		"fr-ca": "Français (Canada)",
+		"fr": "Français (France)"
 	},
 	"reserved_names": [
 		"admin",

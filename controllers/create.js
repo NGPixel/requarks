@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 	db.Category.findAll({
 		order: 'name'
 	}).then(function(cats) {
-		res.render('create', { navbar_active: 'create', page_script: 'create', categories: cats });
+		res.render('create/create', { navbar_active: 'create', page_script: 'create', categories: cats });
 	});
 
 });
@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
  * CREATE - Form
  */
 router.get('/:id', function(req, res, next) {
-  res.render('create-form', { navbar_active: 'create', page_script: 'create' });
+  res.render('create/create-form', { navbar_active: 'create', page_script: 'create' });
 });
 
 module.exports = router;

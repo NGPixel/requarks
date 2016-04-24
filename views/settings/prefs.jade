@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+	.container.row
+		include _menu
+		.col-xs-9
+			.box
+				h4.color-indigo-500
+					i.material-icons settings_applications
+					= t('settings:menu.preferences')
+				.box-base
+					.box-chrome
+						section
+							.row
+								.col-xs-6
+									label= t('settings:prefs.locale.label')
+									select(name='settings_prefs_locale')
+										each lcName, lcKey in appdata.locales
+											option(value=lcKey, selected=(lcKey == usr.locale))= lcName
+									+fielderror('settings_prefs_locale')
+									+fieldnote('required', t('settings:prefs.locale.info'))
+								.col-xs-6
+									label= t('settings:prefs.timezone.label')
+									select(name='settings_prefs_timezone')
+										each tzname in timezones
+											option(value=tzname, selected=(tzname == usr.timezone))= tzname
+									+fielderror('settings_prefs_timezone')
+									+fieldnote('required', t('settings:prefs.timezone.info'))
+					.box-actions
+						div
+							button#edit-submit(type="submit", class="btn btn-green")
+								i.typcn.typcn-tick
+								= t('actions.save')

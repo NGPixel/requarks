@@ -6,16 +6,15 @@ $(() => {
 	});
 
 	$('#edit-delete').on('click', (e) => {
-		$(document.body).addClass('dimmed');
-		$('.modal').addClass('shown');
-	});
 
-	$('#id-modal-cancel').on('click', (e) => {
-		$('.modal').addClass('exit');
-		_.delay(() => {
-			$(document.body).removeClass('dimmed');
-			$('.modal').removeClass('shown exit');
-		}, 500);
+		let md = new Modal('teamdelete');
+		md.bind('cancel');
+		md.bind('ok', () => {
+			$('#notifload').addClass('active');
+			md.close(true);
+		});
+		md.open();
+
 	});
 
 });

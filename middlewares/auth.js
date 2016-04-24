@@ -29,6 +29,7 @@ module.exports = function(req, res, next) {
 			usr.email = req.user._json.email;
 			usr.save();
 
+			req.i18n.changeLanguage(UserData.getLang(usr.locale));
 			res.locals.usr = usr;
 			res.locals.authusr = req.user._json;
 
@@ -39,6 +40,7 @@ module.exports = function(req, res, next) {
 		}
 		return null;
 	}).catch((err) => {
+		console.log(err);
 		return res.redirect('/unauthorized');
 	});
 

@@ -25,17 +25,19 @@ block content
 							.box-chrome
 								section
 									label= t('teams:create.name.label')
-									input(name='team_create_name', type='text', placeholder=t('teams:create.name.placeholder'), value='')
 									+fielderror('team_create_name')
+									input(name='team_create_name', type='text', placeholder=t('teams:create.name.placeholder'), value='')
 									+fieldnote('required', t('teams:create.name.info'))
 								section
 									label= t('teams:create.description.label')
-									input(name='team_create_desc', type='text', placeholder=t('teams:create.description.placeholder'), value='')
 									+fielderror('team_create_desc')
+									input(name='team_create_desc', type='text', placeholder=t('teams:create.description.placeholder'), value='')
 									+fieldnote('required', t('teams:create.description.info'))
 							.box-actions
 								div
-									button#setup-submit(type="submit", class="btn btn-green")= t('actions.create')
+									button#setup-submit(type="submit", class="btn btn-green")
+										i.typcn.typcn-plus
+										= t('actions.create')
 				.col-xs-3
 					.box
 						h4

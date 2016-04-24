@@ -8,7 +8,9 @@ module.exports = function(sequelize, DataTypes) {
     firstName:  DataTypes.STRING,
     lastName:   DataTypes.STRING,
     email:      DataTypes.STRING,
-    jobTitle:   DataTypes.STRING
+    jobTitle:   DataTypes.STRING,
+    locale:     DataTypes.STRING,
+    timezone:   DataTypes.STRING
   },
   {
     timestamps: true,
@@ -17,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     classMethods: {
       associate(models) {
-        User.belongsToMany(models.Team, {through: 'TeamUsers'});
+        User.belongsToMany(models.Team, {through: models.TeamUsers});
         User.belongsToMany(models.Request, { as: 'relatedRequests', through: 'Stakeholders'});
       }
     }

@@ -37,6 +37,7 @@ app = express();
 db = require("./models")(appconfig);
 red = require('./modules/redis')(appconfig);
 lang = require('i18next');
+UserData = require('./modules/auth');
 
 ROOTPATH = __dirname;
 var _isDebug = (app.get('env') === 'development');
@@ -73,11 +74,12 @@ lang
   .use(i18next_mw.LanguageDetector)
   .init({
     load: 'languageOnly',
-    ns: ['common', 'dashboard', 'projects', 'teams'],
+    ns: ['common', 'dashboard', 'projects', 'teams', 'settings'],
     defaultNS: 'common',
     saveMissing: _isDebug,
     //debug: _isDebug,
     supportedLngs: ['en', 'fr'],
+    preload: ['en', 'fr'],
     fallbackLng : 'en',
     backend: {
       loadPath: './locales/{{lng}}/{{ns}}.json'
@@ -93,9 +95,6 @@ app.use(compression());
 app.use(i18next_mw.handle(lang));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-if(_isDebug) {
-	app.locals.pretty = true;
-}
 
 app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
 app.use(bodyParser.json());

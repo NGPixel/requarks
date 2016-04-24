@@ -1,4 +1,4 @@
-include ./common
+include ./common/mixins
 
 doctype html
 html
@@ -23,36 +23,41 @@ html
 			script(src='/js/#{page_script}.js')
 
 	body(class='mi-' + navbar_active)
-		header
-			nav.navbar
+		#root
+			header
+				nav.navbar
+					ul
+						each menuitem, menukey in appdata.navbar
+							li(data-key=menukey, class=(navbar_active == menukey ? 'active' : ''), data-link=menuitem.target)
+								i.material-icons= menuitem.icon
+								= t('nav.' + menukey)
+				nav.userbar
+					i#notifload
+					i#notifbtn.material-icons notifications
+					#searchbox
+						input(type='text', placeholder=t('search.placeholder'))
+					#usravatar(style={'background-image':'url(https://s3.amazonaws.com/uifaces/faces/twitter/mlane/73.jpg)'},alt='User')
+			nav.actionbar
+				h3 Quick Access Panel
+				h4
+					i.material-icons face
+					| #{usr.firstName}
 				ul
-					each menuitem, menukey in appdata.navbar
-						li(data-key=menukey, class=(navbar_active == menukey ? 'active' : ''), data-link=menuitem.target)
-							i.material-icons= menuitem.icon
-							= t('nav.' + menukey)
-			nav.userbar
-				i#notifload
-				i#notifbtn.material-icons notifications
-				#searchbox
-					input(type='text', placeholder='Search')
-				#usravatar(style={'background-image':'url(https://s3.amazonaws.com/uifaces/faces/twitter/mlane/73.jpg)'},alt='User')
-		nav.actionbar
-			h4
-				i.material-icons face
-				| #{usr.firstName}
-			ul
-				li: a(href='/settings') Settings
-				li: a(href='/logout') Logout
-			h4
-				i.material-icons pin_drop
-				| Pinned
-			ul
-				li: a(href='/') Test
-			h4
-				i.material-icons schedule
-				| Recent
-		main
-			block content
-		footer
-			div
-				a(href='https://requarks.io/')= t('copyright')
+					li: a(href='/settings') Settings
+					li: a(href='/logout') Logout
+				h4
+					i.material-icons pin_drop
+					| Pinned
+				ul
+					li: a(href='/') Test
+				h4
+					i.material-icons schedule
+					| Recent
+			main
+				block content
+			footer
+				div
+					a(href='https://requarks.io/')= t('copyright')
+		block outside
+		include ./common/modals
+		

@@ -7,5 +7,37 @@
 		"teams": "Équipes",
 		"settings": "Paramètres"
 	},
+	"search": {
+		"placeholder": "Rechercher"
+	},
+	"actions": {
+		"archive": "Archiver",
+		"back": "Retour",
+		"cancel": "Annuler",
+		"confirm": "Confirmer",
+		"continue": "Continuer",
+		"create": "Créer",
+		"delete": "Supprimer",
+		"logout": "Déconnexion",
+		"next": "Suivant",
+		"resync": "Resynchro",
+		"save": "Enregistrer"
+	},
+	"form": {
+		"required": "Requis",
+		"optional": "Optionel",
+		"info": "Info",
+		"errors": {
+			"required": "est requis",
+			"length": "doit avoir entre {{min}} et {{max}} caractères",
+			"unique": "doit être unique"
+		}
+	},
+	"auth": {
+		"logout": {
+			"title": "Déconnexion?",
+			"msg": "Vous êtes sur le point de vous déconnecter de l'application. Êtes-vous sûr?"
+		}
+	},
 	"copyright": "Propulsé par Requarks"
 }

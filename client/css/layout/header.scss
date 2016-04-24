@@ -6,7 +6,7 @@ header {
 	width: 100%;
 	border-bottom: 5px solid  material-color('blue-grey', '500');
 	box-sizing: border-box;
-	z-index: 1;
+	z-index: 2;
 
 	nav.navbar {
 		flex: 1;
@@ -193,16 +193,29 @@ header {
 nav.actionbar {
 	background-color: transparentize(material-color('blue-grey', '900'), 0.1);
 	position: fixed;
-	top: 42px;
-	right: -300px;
+	top: 0;
+	right: -250px;
 	width: 250px;
 	color: #FFF;
 	height: 100vh;
 	transition: right 0.5s ease;
-	z-index: 1000;
+	z-index: 3;
 
 	&.active {
 		right: 0;
+	}
+
+	> h3 {
+		background-color: material-color('blue-grey', '700');
+		font-size: 12px;
+		font-weight: 400;
+		text-transform: uppercase;
+		margin: 0;
+		height: 42px;
+		padding: 8px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	> h4 {
@@ -216,7 +229,7 @@ nav.actionbar {
 		font-size: 14px;
 		font-weight: 600;
 
-		&:first-child {
+		&:first-of-type {
 			border-top: none;
 		}
 

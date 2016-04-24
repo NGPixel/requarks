@@ -126,13 +126,13 @@
 
 				.error {
 					background-color: material-color('red', '50');
-					border-radius: 0 0 3px 3px;
+					border-radius: 3px 3px 0 0;
 					border: 1px solid material-color('red', '100');
 					color: material-color('red', '600');
 					display: block;
 					font-size: 12px;
 					font-weight: 600;
-					margin-top: -1px;
+					margin-bottom: -1px;
 					padding: 4px 10px;
 				}
 

@@ -1,1 +1,20 @@
-"use strict";$(function(){$("#id-teams-list > li").on("click",function(d){d.preventDefault(),window.location.assign(d.currentTarget.dataset.link)}),$("#edit-delete").on("click",function(d){$(document.body).addClass("dimmed"),$(".modal").addClass("shown")}),$("#id-modal-cancel").on("click",function(d){$(".modal").addClass("exit"),_.delay(function(){$(document.body).removeClass("dimmed"),$(".modal").removeClass("shown exit")},500)})});
+'use strict';
+
+$(function () {
+
+	$('#id-teams-list > li').on('click', function (e) {
+		e.preventDefault();
+		window.location.assign(e.currentTarget.dataset.link);
+	});
+
+	$('#edit-delete').on('click', function (e) {
+
+		var md = new Modal('teamdelete');
+		md.bind('cancel');
+		md.bind('ok', function () {
+			$('#notifload').addClass('active');
+			md.close(true);
+		});
+		md.open();
+	});
+});

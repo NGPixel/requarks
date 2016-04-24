@@ -1,7 +1,23 @@
 {
 	"actions": {
-		"create": "Create Team",
-		"addmember": "Add Member",
-		"notifyteam": "Notify Team"
-	}
+		"create": "Créer une équipe",
+		"addmember": "Ajouter un membre",
+		"notifyteam": "Notifier l'équipe",
+		"edit": "Paramètres"
+	},
+	"create": {
+		"name": {
+			"label": "Nom de l'équipe",
+			"placeholder": "ex. Mon équipe",
+			"info": "Le nom de votre équipe. Le nom doit être unique à travers le site."
+		},
+		"description": {
+			"label": "Description courte",
+			"placeholder": "ex. Unité de développement principale",
+			"info": "Une courte description de votre équipe."
+		}
+	},
+	"noteam": "Vous n'appartenez pas à une équipe pour l'instant.",
+	"noteamcreate": "Vous n'appartenez pas à une équipe. Créez la votre ci-dessous.",
+	"unauthorized": "Vous n'êtes pas autorisé à accéder à cette équipe."
 }

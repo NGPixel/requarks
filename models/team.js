@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: true,
     classMethods: {
       associate(models) {
-        Team.belongsToMany(models.User, {through: 'TeamUsers'});
+        Team.belongsToMany(models.User, {through: models.TeamUsers});
         Team.belongsToMany(models.Project, {through: 'TeamProjects'});
       },
       countFromUserId(usrid) {

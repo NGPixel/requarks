@@ -9,7 +9,23 @@ body {
   background-color: material-color('blue-grey', '900');
   font-family: 'Open Sans', sans-serif;
   margin: 0;
-  padding: 47px 0 0 0;
+  padding: 0;
+}
+
+#root {
+	position: relative;
+	padding: 47px 0 0 0;
+	transition: all 0.5s ease;
+
+	&.pushed {
+		transform: translate(-250px, 0);
+
+		> main {
+			opacity: 0.5;
+		}
+
+	}
+
 }
 
 main {
@@ -19,6 +35,7 @@ main {
 	min-height: 60vh;
 	position: relative;
 	z-index: 1;
+	transition: all 0.5s ease;
 
 	&::before {
 		content: " ";
@@ -80,4 +97,33 @@ a {
 	font-weight: 400;
 	text-align: center;
 	color: #FFF;
+}
+
+// ========================================
+// Error Page
+// ========================================
+
+.server-error {
+	color: #FFF;
+	text-align: center;
+
+	h1 {
+		color: #FFF;
+		font-weight: 300;
+		text-align: center;
+	}
+
+	h4 {
+		color: material-color('blue-grey', '200');
+		margin-bottom: 40px;
+	}
+
+	pre {
+		border-top: 1px solid material-color('blue-grey', '400');
+		color: material-color('blue-grey', '200');
+		font-size: 11px;
+		padding: 15px;
+		text-align: left;
+	}
+
 }

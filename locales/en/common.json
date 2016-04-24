@@ -7,14 +7,20 @@
 		"teams": "Teams",
 		"settings": "Settings"
 	},
+	"search": {
+		"placeholder": "Search"
+	},
 	"actions": {
+		"archive": "Archive",
 		"back": "Back",
 		"cancel": "Cancel",
 		"confirm": "Confirm",
 		"continue": "Continue",
 		"create": "Create",
 		"delete": "Delete",
+		"logout": "Logout",
 		"next": "Next",
+		"resync": "Resync",
 		"save": "Save"
 	},
 	"form": {
@@ -25,6 +31,12 @@
 			"required": "is required",
 			"length": "must be between {{min}} and {{max}} characters",
 			"unique": "must be unique"
+		}
+	},
+	"auth": {
+		"logout": {
+			"title": "Logout?",
+			"msg": "You are about to logout from this application. Are you sure?"
 		}
 	},
 	"copyright": "Powered by Requarks"
