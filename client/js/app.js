@@ -91,4 +91,4 @@ class Modal {
 		}, (immediate) ? 0 : 500);
 	}
 
-};
+}

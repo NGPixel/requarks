@@ -30,7 +30,7 @@ gulp.task('server-setup', function() {
 gulp.task("scripts", function () {
   return gulp.src(paths.scripts)
     .pipe(babel())
-    //.pipe(uglify())
+    .pipe(uglify())
     .pipe(gulp.dest("./assets/js"));
 });
 

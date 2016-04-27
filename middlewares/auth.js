@@ -1,46 +1,48 @@
+"use strict";
+
+var Promise = require('bluebird'),
+	moment = require('moment');
+
 module.exports = function(req, res, next) {
+
+	// Is user authenticated ?
 
 	if (req.baseUrl !== '/login' && !req.isAuthenticated()) {
 		return res.redirect('/login');
 	}
 
-	// Is user authorized
+	// Do we have a session user ?
 
-	db.User.findOne({
-		where: {
-			$or: [
-				{
-					email: req.user._json.email
-				},
-				{
-					username: req.user._json.user_id
-				}
-			]
+	let usrFetch = {};
+	if(UserData.isValidSession(req.session.usr, req.user)) {
+		usrFetch = Promise.resolve(req.session.usr);
+	} else {
+		usrFetch = UserData.isAuthorizedUser(req.user);
+	}
+
+	// Is user authorized ?
+
+	usrFetch.then((usr) => {
+
+		// Set session user
+		
+		if(!usr.sessionExpires) {
+			usr.sessionExpires = moment().utc().add(5, 'm').unix();
 		}
-	}).then((usr) => {
-		if(usr) {
+		req.session.usr = usr;
 
-			//-> Update user info if needed
-			//   (doesn't actually save to DB if nothing changed)
+		// Set i18n locale
 
-			usr.username = req.user._json.user_id;
-			usr.firstName = req.user._json.given_name;
-			usr.lastName = req.user._json.family_name;
-			usr.email = req.user._json.email;
-			usr.save();
+		req.i18n.changeLanguage(UserData.getLang(usr.locale));
 
-			req.i18n.changeLanguage(UserData.getLang(usr.locale));
-			res.locals.usr = usr;
-			res.locals.authusr = req.user._json;
+		// Expose user data
 
-			next();
+		res.locals.usr = usr;
+		res.locals.authusr = req.user._json;
 
-		} else {
-			return res.redirect('/unauthorized');
-		}
-		return null;
+		return next();
+
 	}).catch((err) => {
-		console.log(err);
 		return res.redirect('/unauthorized');
 	});
 

@@ -10,7 +10,8 @@ module.exports = function(sequelize, DataTypes) {
     email:      DataTypes.STRING,
     jobTitle:   DataTypes.STRING,
     locale:     DataTypes.STRING,
-    timezone:   DataTypes.STRING
+    timezone:   DataTypes.STRING,
+    isActive:   DataTypes.BOOLEAN
   },
   {
     timestamps: true,

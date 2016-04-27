@@ -1,8 +1,1 @@
-'use strict';
-
-$(function () {
-
-	$('#create-categories > li').on('click', function (e) {
-		window.location.assign(e.currentTarget.dataset.link);
-	});
-});
+"use strict";$(function(){$("#create-categories > li").on("click",function(t){window.location.assign(t.currentTarget.dataset.link)})});

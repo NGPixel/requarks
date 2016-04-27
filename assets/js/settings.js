@@ -1,9 +1,1 @@
-'use strict';
-
-$(function () {
-
-	$('#id-settings-nav > li').on('click', function (e) {
-		e.preventDefault();
-		window.location.assign('/settings/' + e.currentTarget.dataset.link);
-	});
-});
+"use strict";$(function(){$("#id-settings-nav > li").on("click",function(t){t.preventDefault(),window.location.assign("/settings/"+t.currentTarget.dataset.link)})});

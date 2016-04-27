@@ -35,7 +35,7 @@ class StorageProviderAzure extends StorageProvider {
 	}
 
 	/**
-	 * Create container on file system
+	 * Create container on Azure
 	 * @param  {string} conName Name of the container
 	 * @return {Promise}         Promise
 	 */

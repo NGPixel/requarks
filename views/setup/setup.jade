@@ -20,318 +20,319 @@ html
 		script(src='/js/setup.js')
 
 	body(class='mi-setup')
-		header
-			nav.navbar
-				ul
-					li.active
-						i.material-icons developer_board
-						| Requarks Setup
-		main
+		#root
+			header
+				nav.navbar
+					ul
+						li.active
+							i.material-icons developer_board
+							| Requarks Setup
+			main
 
-			mixin installresults
-				.box.flat
-					h4.color-indigo-600
-						i.material-icons dns
-						| Installation Results
-					.box-base
-						.box-chrome
-							ul.box-checklist
-								each rsItem in installresults
-									li
-										if rsItem.success
-											i.material-icons.color-green-500 check_circle
-										else
-											i.material-icons.color-red-500 error
-										= rsItem.title
-			
-			if showform
-				.container
+				mixin installresults
+					.box.flat
+						h4.color-indigo-600
+							i.material-icons dns
+							| Installation Results
+						.box-base
+							.box-chrome
+								ul.box-checklist
+									each rsItem in installresults
+										li
+											if rsItem.success
+												i.material-icons.color-green-500 check_circle
+											else
+												i.material-icons.color-red-500 error
+											= rsItem.title
+				
+				if showform
+					.container
 
-					form(method='post', action='/')
+						form(method='post', action='/')
 
-						if showresults
-							+installresults
+							if showresults
+								+installresults
 
-						if formerrors.length > 0
-							.box
-								h4.color-red-600
-									i.material-icons warning
-									| Errors
+							if formerrors.length > 0
+								.box
+									h4.color-red-600
+										i.material-icons warning
+										| Errors
+									.box-base
+										.box-chrome
+											ul.box-checklist
+												each errItem in formerrors
+													li
+														i.material-icons.color-red-500 error_outline
+														= errItem.msg
+
+							// Site Info
+
+							.box.flat
+								h4.color-green-600
+									i.material-icons select_all
+									| Site Info
 								.box-base
 									.box-chrome
-										ul.box-checklist
-											each errItem in formerrors
-												li
-													i.material-icons.color-red-500 error_outline
-													= errItem.msg
+										section
+											label Site Name
+											input(name='site_title', type='text', placeholder='My Requarks Site', value=appconfig.title)
+											span.note
+												strong.color-red-600 Required
+												| The name of your site
+										section
+											label Site Host
+											input(name='site_host', type='text', placeholder='http://', value=appconfig.host)
+											.note
+												strong.color-red-600 Required
+												| The base URL to access this site, without the trailing slash
 
-						// Site Info
+							// Database
 
-						.box.flat
-							h4.color-green-600
-								i.material-icons select_all
-								| Site Info
-							.box-base
-								.box-chrome
-									section
-										label Site Name
-										input(name='site_title', type='text', placeholder='My Requarks Site', value=appconfig.title)
-										span.note
-											strong.color-red-600 Required
-											| The name of your site
-									section
-										label Site Host
-										input(name='site_host', type='text', placeholder='http://', value=appconfig.host)
-										.note
-											strong.color-red-600 Required
-											| The base URL to access this site, without the trailing slash
+							.box.flat
+								h4.color-indigo-600
+									i.material-icons data_usage
+									| Database
+								.box-base
+									.box-chrome
+										section
+											.row
+												.col-xs-6
+													label Database Engine
+													select(name='db_engine', v-model='engine', data-initval=appconfig.db.engine)
+														each dbname, dbkey in appdata.dbengines
+															option(value=dbkey)= dbname
+													span.note
+														strong.color-red-600 Required
+														| Database engine to use
+												.col-xs-6(v-bind:class="{'hidden' : engine=='sqlite'}")
+													label Database Host
+													input(name='db_host', type='text', value=appconfig.db.host, placeholder='e.g. localhost, domain.com:3306')
+													.note
+														strong.color-red-600 Required
+														| Host where the database is located. Port can be added at the end if not default.
+												.col-xs-6(v-bind:class="{'hidden' : engine!='sqlite'}")
+													label Database File Path
+													input(name='db_path', type='text', value=appconfig.db.path, placeholder='e.g. C:\\sqlite.db')
+													.note
+														strong.color-red-600 Required
+														| Path to the SQLite database file
 
-						// Database
+										section(v-bind:class="{'hidden' : engine=='sqlite'}")
+											.row
+												.col-xs-4
+													label Database Name
+													input(name='db_name', type='text', value=appconfig.db.name)
+													.note
+														strong.color-red-600 Required
+														| Name of the database to connect to
+												.col-xs-4
+													label Database Username
+													input(name='db_user', type='text', value=appconfig.db.user)
+													.note
+														strong.color-red-600 Required
+														| Username to use for the database connection
+												.col-xs-4
+													label Database Password
+													input(name='db_pass', type='text', value=appconfig.db.pass)
+													.note
+														strong.color-red-600 Required
+														| Password to use for the database connection
+
+							// Storage
+
+							.box.flat
+								h4.color-light-blue-600
+									i.material-icons storage
+									| Storage
+								.box-base
+
+									.box-chrome
+										section
+											.row
+												.col-xs-6
+													label Storage Provider
+													select(name='storage_provider', v-model='storage', data-initval=appconfig.storage.provider)
+														each stname, stkey in appdata.storageproviders
+															option(value=stkey)= stname
+													span.note
+														strong.color-red-600 Required
+														| Where uploads are stored
+
+										section(v-bind:class="{'hidden' : storage!='local'}")
+											label Folder Path
+											input(name='storage_path', type='text', placeholder='e.g. C:\\uploads', value=appconfig.storage.local.path)
+											.note
+												strong.color-red-600 Required
+												| Path to the folder where uploads are stored, without the trailing slash
+
+										section(v-bind:class="{'hidden' : storage!='azure'}")
+											.row
+												.col-xs-6
+													label Account Name
+													input(name='storage_az_name', type='text', value=appconfig.storage.azure.name)
+													.note
+														strong.color-red-600 Required
+														| The Azure storage account name
+												.col-xs-6
+													label Access Key
+													input(name='storage_az_key', type='text', value=appconfig.storage.azure.key)
+													.note
+														strong.color-red-600 Required
+														| The access key (primary or secondary) for the Azure storage account
+
+										section(v-bind:class="{'hidden' : storage!='s3'}")
+											.row
+												.col-xs-6
+													label Bucket Prefix Name
+													input(name='storage_s3_bucket', type='text', value=appconfig.storage.s3.bucket)
+													.note
+														strong.color-red-600 Required
+														| Prefix used when creating buckets
+												.col-xs-6
+													label Region
+													input(name='storage_s3_region', type='text', placeholder='e.g. us-west-2', value=appconfig.storage.s3.region)
+													.note
+														strong.color-red-600 Required
+														| The region where the buckets will be located
+										section(v-bind:class="{'hidden' : storage!='s3'}")
+											.row
+												.col-xs-6
+													label Access Key Id
+													input(name='storage_s3_id', type='text', value=appconfig.storage.s3.id)
+													.note
+														strong.color-red-600 Required
+														| The credentials Access Key Id
+												.col-xs-6
+													label Secret Access Key
+													input(name='storage_s3_key', type='text', value=appconfig.storage.s3.key)
+													.note
+														strong.color-red-600 Required
+														| The credentials Secret Access Key
+										section(v-bind:class="{'hidden' : storage!='google'}")
+											.row
+												.col-xs-6
+													label Bucket Prefix Name
+													input(name='storage_gl_bucket', type='text', value=appconfig.storage.google.bucket)
+													.note
+														strong.color-red-600 Required
+														| Prefix used when creating buckets
+												.col-xs-6
+													label JSON Key File Path
+													input(name='storage_gl_keyfile', type='text', placeholder='e.g. C:\\google-keyfile.json', value=appconfig.storage.google.keyfile)
+													.note
+														strong.color-red-600 Required
+														| Path to the Service Account JSON keyfile
+
+							// Redis
+
+							.box.flat
+								h4.color-red-600
+									i.material-icons widgets
+									| Redis Cache
+								.box-base
+									.box-chrome
+										section
+											.row
+												.col-xs-6
+													label Redis Configuration
+													select(name='redis_config', v-model='redis', data-initval=appconfig.redis.config)
+														each rdname, rdkey in appdata.redisconfigs
+															option(value=rdkey)= rdname
+													span.note
+														strong.color-red-600 Required
+														| How to connect to Redis
+												.col-xs-6(v-bind:class="{'hidden' : redis=='socket'}")
+													label Redis Host
+													input(name='redis_host', type='text', placeholder='e.g. localhost', value=appconfig.redis.host)
+													.note
+														strong.color-red-600 Required
+														| Host where Redis is located
+												.col-xs-6(v-bind:class="{'hidden' : redis!='socket'}")
+													label Redis Path
+													input(name='redis_path', type='text', placeholder='e.g. /tmp/redis.sock', value=appconfig.redis.path)
+													.note
+														strong.color-red-600 Required
+														| Unix socket path to connect to
+										section(v-bind:class="{'hidden' : redis=='socket'}")
+											.row
+												.col-xs-6(v-bind:class="{'hidden' : redis!='pwd' && redis!='tls'}")
+													label Redis Password / Key
+													input(name='redis_pass', type='text', value=appconfig.redis.pass)
+													.note
+														strong.color-red-600 Required
+														| Password / Access Key for Redis authentication
+												.col-xs-6(v-bind:class="{'hidden' : redis=='socket'}")
+													label Redis Port
+													input(name='redis_port', type='text', placeholder='e.g. 6379', value=appconfig.redis.port)
+													.note
+														strong.color-red-600 Required
+														| Port to connect to
+
+							// Auth0
+
+							.box.flat
+								h4.color-orange-600
+									i.material-icons security
+									| Auth0
+								.box-base
+									.box-chrome
+										section
+											.row
+												.col-xs-6
+													label Domain
+													input(name='auth0_domain', type='text', value=appconfig.auth0.domain)
+													.note
+														strong.color-red-600 Required
+														| Auth0 Application Domain
+												.col-xs-6
+													label Administrator User ID
+													input(name='auth0_admin', type='text', value=appconfig.auth0.admin)
+													.note
+														strong.color-red-600 Required
+														| The user ID which will be given full administrator access to Requarks
+										section
+											.row
+												.col-xs-6
+													label Client ID
+													input(name='auth0_id', type='text', value=appconfig.auth0.clientID)
+													.note
+														strong.color-red-600 Required
+														| Auth0 Application Client ID
+												.col-xs-6
+													label Client Secret
+													input(name='auth0_secret', type='text', value=appconfig.auth0.clientSecret)
+													.note
+														strong.color-red-600 Required
+														| Auth0 Application Client Secret
+										section
+											label API Token
+											input(name='auth0_apitoken', type='text', value=appconfig.auth0.apiToken)
+											.note
+												strong.color-red-600 Required
+												| Auth0 API Token
+
+							button#setup-submit(type="submit", class="btn btn-green btn-block margin-bottom-20") Save &amp; Install
+
+				else
+
+					.container
+
+						// Installation results
+
+						+installresults
+
+						// Next steps
 
 						.box.flat
 							h4.color-indigo-600
-								i.material-icons data_usage
-								| Database
+								i.material-icons thumb_up
+								| Success! Next steps...
 							.box-base
-								.box-chrome
-									section
-										.row
-											.col-xs-6
-												label Database Engine
-												select(name='db_engine', v-model='engine', data-initval=appconfig.db.engine)
-													each dbname, dbkey in appdata.dbengines
-														option(value=dbkey)= dbname
-												span.note
-													strong.color-red-600 Required
-													| Database engine to use
-											.col-xs-6(v-bind:class="{'hidden' : engine=='sqlite'}")
-												label Database Host
-												input(name='db_host', type='text', value=appconfig.db.host, placeholder='e.g. localhost, domain.com:3306')
-												.note
-													strong.color-red-600 Required
-													| Host where the database is located. Port can be added at the end if not default.
-											.col-xs-6(v-bind:class="{'hidden' : engine!='sqlite'}")
-												label Database File Path
-												input(name='db_path', type='text', value=appconfig.db.path, placeholder='e.g. C:\\sqlite.db')
-												.note
-													strong.color-red-600 Required
-													| Path to the SQLite database file
+								.box-chrome.padding-15.
+									The server was reloaded in normal mode automatically.#[br]#[br]
+									Login using the account you specified as the administrator.#[br]#[br]
+									#[a(href='/', class='btn btn-green') Launch Requarks]
 
-									section(v-bind:class="{'hidden' : engine=='sqlite'}")
-										.row
-											.col-xs-4
-												label Database Name
-												input(name='db_name', type='text', value=appconfig.db.name)
-												.note
-													strong.color-red-600 Required
-													| Name of the database to connect to
-											.col-xs-4
-												label Database Username
-												input(name='db_user', type='text', value=appconfig.db.user)
-												.note
-													strong.color-red-600 Required
-													| Username to use for the database connection
-											.col-xs-4
-												label Database Password
-												input(name='db_pass', type='text', value=appconfig.db.pass)
-												.note
-													strong.color-red-600 Required
-													| Password to use for the database connection
-
-						// Storage
-
-						.box.flat
-							h4.color-light-blue-600
-								i.material-icons storage
-								| Storage
-							.box-base
-
-								.box-chrome
-									section
-										.row
-											.col-xs-6
-												label Storage Provider
-												select(name='storage_provider', v-model='storage', data-initval=appconfig.storage.provider)
-													each stname, stkey in appdata.storageproviders
-														option(value=stkey)= stname
-												span.note
-													strong.color-red-600 Required
-													| Where uploads are stored
-
-									section(v-bind:class="{'hidden' : storage!='local'}")
-										label Folder Path
-										input(name='storage_path', type='text', placeholder='e.g. C:\\uploads', value=appconfig.storage.local.path)
-										.note
-											strong.color-red-600 Required
-											| Path to the folder where uploads are stored, without the trailing slash
-
-									section(v-bind:class="{'hidden' : storage!='azure'}")
-										.row
-											.col-xs-6
-												label Account Name
-												input(name='storage_az_name', type='text', value=appconfig.storage.azure.name)
-												.note
-													strong.color-red-600 Required
-													| The Azure storage account name
-											.col-xs-6
-												label Access Key
-												input(name='storage_az_key', type='text', value=appconfig.storage.azure.key)
-												.note
-													strong.color-red-600 Required
-													| The access key (primary or secondary) for the Azure storage account
-
-									section(v-bind:class="{'hidden' : storage!='s3'}")
-										.row
-											.col-xs-6
-												label Bucket Prefix Name
-												input(name='storage_s3_bucket', type='text', value=appconfig.storage.s3.bucket)
-												.note
-													strong.color-red-600 Required
-													| Prefix used when creating buckets
-											.col-xs-6
-												label Region
-												input(name='storage_s3_region', type='text', placeholder='e.g. us-west-2', value=appconfig.storage.s3.region)
-												.note
-													strong.color-red-600 Required
-													| The region where the buckets will be located
-									section(v-bind:class="{'hidden' : storage!='s3'}")
-										.row
-											.col-xs-6
-												label Access Key Id
-												input(name='storage_s3_id', type='text', value=appconfig.storage.s3.id)
-												.note
-													strong.color-red-600 Required
-													| The credentials Access Key Id
-											.col-xs-6
-												label Secret Access Key
-												input(name='storage_s3_key', type='text', value=appconfig.storage.s3.key)
-												.note
-													strong.color-red-600 Required
-													| The credentials Secret Access Key
-									section(v-bind:class="{'hidden' : storage!='google'}")
-										.row
-											.col-xs-6
-												label Bucket Prefix Name
-												input(name='storage_gl_bucket', type='text', value=appconfig.storage.google.bucket)
-												.note
-													strong.color-red-600 Required
-													| Prefix used when creating buckets
-											.col-xs-6
-												label JSON Key File Path
-												input(name='storage_gl_keyfile', type='text', placeholder='e.g. C:\\google-keyfile.json', value=appconfig.storage.google.keyfile)
-												.note
-													strong.color-red-600 Required
-													| Path to the Service Account JSON keyfile
-
-						// Redis
-
-						.box.flat
-							h4.color-red-600
-								i.material-icons widgets
-								| Redis Cache
-							.box-base
-								.box-chrome
-									section
-										.row
-											.col-xs-6
-												label Redis Configuration
-												select(name='redis_config', v-model='redis', data-initval=appconfig.redis.config)
-													each rdname, rdkey in appdata.redisconfigs
-														option(value=rdkey)= rdname
-												span.note
-													strong.color-red-600 Required
-													| How to connect to Redis
-											.col-xs-6(v-bind:class="{'hidden' : redis=='socket'}")
-												label Redis Host
-												input(name='redis_host', type='text', placeholder='e.g. localhost', value=appconfig.redis.host)
-												.note
-													strong.color-red-600 Required
-													| Host where Redis is located
-											.col-xs-6(v-bind:class="{'hidden' : redis!='socket'}")
-												label Redis Path
-												input(name='redis_path', type='text', placeholder='e.g. /tmp/redis.sock', value=appconfig.redis.path)
-												.note
-													strong.color-red-600 Required
-													| Unix socket path to connect to
-									section(v-bind:class="{'hidden' : redis=='socket'}")
-										.row
-											.col-xs-6(v-bind:class="{'hidden' : redis!='pwd' && redis!='tls'}")
-												label Redis Password / Key
-												input(name='redis_pass', type='text', value=appconfig.redis.pass)
-												.note
-													strong.color-red-600 Required
-													| Password / Access Key for Redis authentication
-											.col-xs-6(v-bind:class="{'hidden' : redis=='socket'}")
-												label Redis Port
-												input(name='redis_port', type='text', placeholder='e.g. 6379', value=appconfig.redis.port)
-												.note
-													strong.color-red-600 Required
-													| Port to connect to
-
-						// Auth0
-
-						.box.flat
-							h4.color-orange-600
-								i.material-icons security
-								| Auth0
-							.box-base
-								.box-chrome
-									section
-										.row
-											.col-xs-6
-												label Domain
-												input(name='auth0_domain', type='text', value=appconfig.auth0.domain)
-												.note
-													strong.color-red-600 Required
-													| Auth0 Application Domain
-											.col-xs-6
-												label Administrator User ID
-												input(name='auth0_admin', type='text', value=appconfig.auth0.admin)
-												.note
-													strong.color-red-600 Required
-													| The user ID which will be given full administrator access to Requarks
-									section
-										.row
-											.col-xs-6
-												label Client ID
-												input(name='auth0_id', type='text', value=appconfig.auth0.clientID)
-												.note
-													strong.color-red-600 Required
-													| Auth0 Application Client ID
-											.col-xs-6
-												label Client Secret
-												input(name='auth0_secret', type='text', value=appconfig.auth0.clientSecret)
-												.note
-													strong.color-red-600 Required
-													| Auth0 Application Client Secret
-									section
-										label API Token
-										input(name='auth0_apitoken', type='text', value=appconfig.auth0.apiToken)
-										.note
-											strong.color-red-600 Required
-											| Auth0 API Token
-
-						button#setup-submit(type="submit", class="btn btn-green btn-block margin-bottom-20") Save &amp; Install
-
-			else
-
-				.container
-
-					// Installation results
-
-					+installresults
-
-					// Next steps
-
-					.box.flat
-						h4.color-indigo-600
-							i.material-icons thumb_up
-							| Success! Next steps...
-						.box-base
-							.box-chrome.padding-15.
-								The server was reloaded in normal mode automatically.#[br]#[br]
-								Login using the account you specified as the administrator.#[br]#[br]
-								#[a(href='/', class='btn btn-green') Launch Requarks]
-
-		footer
-			div Powered by Requarks
+			footer
+				div Powered by Requarks
