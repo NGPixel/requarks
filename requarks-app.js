@@ -27,9 +27,9 @@ var i18next_mw = require('i18next-express-middleware');
 
 // Load app middlewares
 
-var mw = autoload(__dirname + '/middlewares');
-var ctrl = autoload(__dirname + '/controllers');
-var validators = autoload(__dirname + '/modules/validators');
+var mw = autoload(path.join(__dirname, '/middlewares'));
+var ctrl = autoload(path.join(__dirname, '/controllers'));
+var validators = autoload(path.join(__dirname, '/modules/validators'));
 
 // Load app modules
 

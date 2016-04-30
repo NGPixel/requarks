@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
   {
     summary:        DataTypes.STRING,
     oldValue:       DataTypes.TEXT,
-    newValue:       DataTypes.TEXT,
+    newValue:       DataTypes.TEXT
   },
   {
     timestamps: true,

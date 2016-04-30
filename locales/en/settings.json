@@ -20,7 +20,7 @@
 		"email": {
 			"label": "Email",
 			"placeholder": "e.g. john.smith@company.com",
-			"info": "Your email address"
+			"info": "The email address that will be used for notifications purposes. It is not related to the authentication used to login to this application and therefore can be a different email address."
 		},
 		"jobtitle": {
 			"label": "Job Title",
@@ -39,6 +39,7 @@
 		"timezone": {
 			"label": "Timezone",
 			"info": "Time will be adjusted to your timezone"
-		}
+		},
+		"localizeddatetime": "Current localized date/time"
 	}
 }

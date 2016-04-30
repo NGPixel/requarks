@@ -19,6 +19,19 @@ module.exports = class UserData {
 	}
 
 	/**
+	 * Get the timezone
+	 *
+	 * @method     getTimezone
+	 * @param      {string}  tz      Raw timezone identifier
+	 * @return     {string}  Timezone identifier
+	 */	
+	static getTimezone(tz) {
+
+		return (tz) || 'America/Montreal';
+
+	}
+
+	/**
 	 * Determine if valid user session
 	 *
 	 * @method     isValidSession

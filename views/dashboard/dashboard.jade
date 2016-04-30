@@ -2,4 +2,9 @@ extends ../layout
 
 block content
 	div(class="dashboard")
-		h1= t('dashboard:welcome.evening', {name: usr.firstName})
+		if usrtime.hour() < 12
+			h1= t('dashboard:welcome.morning', {name: usr.firstName})
+		else if usrtime.hour() >= 18
+			h1= t('dashboard:welcome.evening', {name: usr.firstName})
+		else
+			h1= t('dashboard:welcome.afternoon', {name: usr.firstName})

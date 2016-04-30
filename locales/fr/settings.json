@@ -20,7 +20,7 @@
 		"email": {
 			"label": "Courriel",
 			"placeholder": "ex. john.smith@company.com",
-			"info": "Votre adresse courriel"
+			"info": "Le courriel utilisé aux fins de notifications. Il n'est en aucune façon lié à la méthode d'authentification utilisé pour vous connecter à cette application et peut donc être différent."
 		},
 		"jobtitle": {
 			"label": "Titre",
@@ -39,6 +39,7 @@
 		"timezone": {
 			"label": "Fuseau horaire",
 			"info": "Les heures seront ajustées à votre fuseau."
-		}
+		},
+		"localizeddatetime": "Date et heure courante selon vos paramètres"
 	}
 }
