@@ -73,7 +73,12 @@ router.post('/create', function(req, res, next) {
 			slug: teamSlug,
 			memberCount: 1
 		}).then((team) => {
-			return team.addUsers(res.locals.usr, { level: 'admin' });
+			console.log(res.locals.usr);
+			return UserData.getById(res.locals.usr.id).then((usr) => {
+				return team.addUsers(usr, { level: 'admin' });
+			}).catch((err) => {
+				throw err;
+			});
 		}).then(() => {
 			res.redirect('/teams/' + teamSlug);
 		}).catch((err) => {

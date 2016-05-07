@@ -35,8 +35,9 @@ module.exports = class UserData {
 	 * Determine if valid user session
 	 *
 	 * @method     isValidSession
-	 * @param      {object}  usrSess  The user session object
-	 * @param      {object}  authUsr  The Auth0 User object
+	 * @param      {object}   usrSess  The user session object
+	 * @param      {object}   authUsr  The Auth0 User object
+	 * @return     {boolean}  True if valid session, False otherwise.
 	 */
 	static isValidSession(usrSess, authUsr) {
 
@@ -49,6 +50,27 @@ module.exports = class UserData {
 	}
 
 	/**
+	 * Get a user by id.
+	 *
+	 * @method     getById
+	 * @param      {int}      usrId   The user id
+	 * @return     {Promise}  Promise<db.User instance>
+	 */
+	static getById(usrId) {
+
+		return db.User.findById(usrId).then((usr) => {
+
+			if(!usr) {
+				return Promise.reject(new Error('User not found'));
+			}
+
+			return usr;
+
+		});
+
+	}
+
+	/**
 	 * Get the user from DB and check authorization
 	 *
 	 * @method     isAuthorizedUser
@@ -57,28 +79,39 @@ module.exports = class UserData {
 	 */
 	static isAuthorizedUser(authUsr) {
 
+		// Attempt via username search
+
 		return db.User.findOne({
 			where: {
-				$or: [
-					{
-						email: authUsr._json.email
-					},
-					{
-						username: authUsr._json.user_id
-					}
-				]
+				username: authUsr._json.user_id,
+				isActive: true
 			}
 		}).then((usr) => {
-			
-			return (!usr.isActive) ? UserData.resyncUser(authUsr, usr) : usr;
+
+			// Attempt via new user search
+
+			return (usr) ? usr : db.User.findOne({
+				where: {
+					username: 'pending:' + authUsr._json.email,
+					isActive: true,
+					isPending: true
+				}
+			});
+
+		}).then((usr) => {
+
+			if(!usr) {
+				throw new RqError.unauthorized('Unauthorized user');
+			}
+
+			return (usr.isPending) ? UserData.resyncUser(authUsr, usr) : usr;
 
 		}).then((usr) => {
 
 			return usr.get();
 
 		}).catch((err) => {
-			console.log(err);
-			return err;
+			throw err;
 		});
 
 	}
@@ -93,11 +126,13 @@ module.exports = class UserData {
 	 */
 	static resyncUser(authUsr, usr) {
 
-		usr.username = authUsr._json.user_id;
-		usr.firstName = authUsr._json.given_name;
-		usr.lastName = authUsr._json.family_name;
-		usr.email = authUsr._json.email;
-		usr.isActive = true;
+		usr.set('username', authUsr._json.user_id);
+		usr.set('firstName', authUsr._json.given_name);
+		usr.set('lastName', authUsr._json.family_name);
+		usr.set('email', authUsr._json.email);
+		usr.set('locale', usr.locale || 'en');
+		usr.set('timezone', usr.timezone || 'America/Montreal');
+		usr.set('isPending', false);
 		return usr.save();
 
 	}

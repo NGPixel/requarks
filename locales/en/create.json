@@ -1,0 +1,12 @@
+{
+	"title": {
+		"label": "Summary",
+		"placeholder": "Quick summary of the request",
+		"info": "Enter at least 15 characters. (Max. 255)"
+	},
+	"subcategory": {
+		"label": "Sub-Category",
+		"placeholder": "Choose...",
+		"info": "Sub-category of this request"
+	}
+}

@@ -4,43 +4,44 @@ block content
 	.container.row
 		include _menu
 		.col-xs-9
-			.box
-				h4.color-indigo-500
-					i.material-icons receipt
-					= t('settings:menu.profile')
-				.box-base
-					.box-chrome
-						section
-							.row
-								.col-xs-6
-									label= t('settings:profile.firstname.label')
-									input(name='settings_prefs_fname', type='text', placeholder=t('settings:profile.firstname.placeholder'), value=usr.firstName)
-									+fielderror('settings_prefs_fname')
-									+fieldnote('required', t('settings:profile.firstname.info'))
-								.col-xs-6
-									label= t('settings:profile.lastname.label')
-									input(name='settings_prefs_lname', type='text', placeholder=t('settings:profile.lastname.placeholder'), value=usr.lastName)
-									+fielderror('settings_prefs_lname')
-									+fieldnote('required', t('settings:profile.lastname.info'))
-						section
-							label= t('settings:profile.email.label')
-							input(name='settings_prefs_email', type='text', placeholder=t('settings:profile.email.placeholder'), value=usr.email)
-							+fielderror('settings_prefs_email')
-							+fieldnote('required', t('settings:profile.email.info'))
-						section
-							label= t('settings:profile.jobtitle.label')
-							input(name='settings_prefs_jobtitle', type='text', placeholder=t('settings:profile.jobtitle.placeholder'), value=usr.jobTitle)
-							+fielderror('settings_prefs_jobtitle')
-							+fieldnote('optional', t('settings:profile.jobtitle.info'))
-					.box-actions
-						div
-							button#edit-submit(type="submit", class="btn btn-green")
-								i.typcn.typcn-tick
-								= t('actions.save')
-						div
-							button#edit-delete(type="button", class="btn btn-red")
-								i.typcn.typcn-key
-								= t('actions.logout')
-							button#edit-archive(type="button", class="btn btn-purple")
-								i.typcn.typcn-arrow-repeat
-								= t('actions.resync')
+			form(method='post', action='/settings')
+				.box
+					h4.color-indigo-500
+						i.material-icons receipt
+						= t('settings:menu.profile')
+					.box-base
+						.box-chrome
+							section
+								.row
+									.col-xs-6
+										label= t('settings:profile.firstname.label')
+										+fielderror('settings_profile_fname')
+										input(name='settings_profile_fname', type='text', placeholder=t('settings:profile.firstname.placeholder'), value=usr.firstName)
+										+fieldnote('required', t('settings:profile.firstname.info'))
+									.col-xs-6
+										label= t('settings:profile.lastname.label')
+										+fielderror('settings_profile_lname')
+										input(name='settings_profile_lname', type='text', placeholder=t('settings:profile.lastname.placeholder'), value=usr.lastName)
+										+fieldnote('required', t('settings:profile.lastname.info'))
+							section
+								label= t('settings:profile.email.label')
+								+fielderror('settings_profile_email')
+								input(name='settings_profile_email', type='text', placeholder=t('settings:profile.email.placeholder'), value=usr.email)
+								+fieldnote('required', t('settings:profile.email.info'))
+							section
+								label= t('settings:profile.jobtitle.label')
+								+fielderror('settings_profile_jobtitle')
+								input(name='settings_profile_jobtitle', type='text', placeholder=t('settings:profile.jobtitle.placeholder'), value=usr.jobTitle)
+								+fieldnote('optional', t('settings:profile.jobtitle.info'))
+						.box-actions
+							div
+								button#edit-submit(type="submit", class="btn btn-green")
+									i.typcn.typcn-tick
+									= t('actions.save')
+							div
+								button#edit-delete(type="button", class="btn btn-red")
+									i.typcn.typcn-key
+									= t('actions.logout')
+								button#edit-archive(type="button", class="btn btn-purple")
+									i.typcn.typcn-arrow-repeat
+									= t('actions.resync')

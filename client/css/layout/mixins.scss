@@ -91,20 +91,33 @@
 
 	//-> Box [components/box]
 
-	.box .box-base .box-list > li {
+	.box .box-base {
 
-		&.active {
-			border-top: 1px solid material-color($accent, '500');
-			background-color: material-color($accent, '500');
+		.box-chrome {
 
-			& + li {
+			> section.alt {
+				background-color: lighten(material-color($accent, '50'), 3%);
+				color: material-color($accent, '800');
+			}
+
+		}
+
+		.box-list > li {
+
+			&.active {
 				border-top: 1px solid material-color($accent, '500');
+				background-color: material-color($accent, '500');
+
+				& + li {
+					border-top: 1px solid material-color($accent, '500');
+				}
+
 			}
 
 		}
 	}
 
-	//-> Box [components/splash]
+	//-> Splash [components/splash]
 
 	.splash {
 		background-color: material-color($accent, '500');

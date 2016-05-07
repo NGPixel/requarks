@@ -2,22 +2,23 @@
 
 module.exports = function(sequelize, DataTypes) {
 
-  var Type = sequelize.define("Type",
+  var SubCategory = sequelize.define("SubCategory",
   {
     name:         DataTypes.STRING,
     description:  DataTypes.STRING,
     color:        DataTypes.STRING,
-    icon:         DataTypes.STRING
+    sortIndex:    DataTypes.INTEGER
   },
   {
     timestamps: true,
     classMethods: {
       associate(models) {
 
+        SubCategory.belongsTo(models.Category);
 
       }
     }
   });
 
-  return Type;
+  return SubCategory;
 };

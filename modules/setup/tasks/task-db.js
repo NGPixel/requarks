@@ -31,7 +31,9 @@ module.exports = (appconfig) => {
 			// Insert admin user
 
 			defaultDataTasks.push(db.User.create({
-				'username': appconfig.auth0.admin
+				username: appconfig.auth0.admin,
+				isActive: true,
+				isPending: true
 			}));
 
 			return Promise.all(defaultDataTasks)

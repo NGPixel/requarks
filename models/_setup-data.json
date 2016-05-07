@@ -21,5 +21,49 @@
 			"color": "green-600",
 			"icon": "palette"
 		}
+	],
+	"SubCategory": [
+		{
+			"name": "Bug - Critical",
+			"description": "A bug that crashes or renders the application unoperational.",
+			"color": "red-500",
+			"sortIndex": 100,
+			"CategoryId": 1
+		},
+		{
+			"name": "Bug - Major",
+			"description": "A bug that produces one or more errors.",
+			"color": "orange-500",
+			"sortIndex": 200,
+			"CategoryId": 1
+		},
+		{
+			"name": "Bug - Normal",
+			"description": "A feature that does not work as expected.",
+			"color": "brown-500",
+			"sortIndex": 300,
+			"CategoryId": 1
+		},
+		{
+			"name": "Bug - Minor",
+			"description": "Small visual glitches, typos or other cosmetic bugs.",
+			"color": "yellow-500",
+			"sortIndex": 400,
+			"CategoryId": 1
+		},
+		{
+			"name": "Enhancement",
+			"description": "A change or add-on to an existing functionality.",
+			"color": "indigo-500",
+			"sortIndex": 500,
+			"CategoryId": 1
+		},
+		{
+			"name": "New Feature",
+			"description": "A new functionality which isn't currently present in the application.",
+			"color": "blue-500",
+			"sortIndex": 600,
+			"CategoryId": 1
+		}
 	]
 }

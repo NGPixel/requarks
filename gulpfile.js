@@ -1,10 +1,12 @@
 var gulp = require("gulp");
 var babel = require("gulp-babel");
 var uglify = require('gulp-uglify');
+var concat = require('gulp-concat');
 var nodemon = require('gulp-nodemon');
 
 var paths = {
-  scripts: ['./client/js/**/*.js']
+	compscripts: ['./client/js/components/**/*.js'],
+	pagescripts: ['./client/js/*.js']
 };
 
 gulp.task('server', function() {
@@ -27,8 +29,16 @@ gulp.task('server-setup', function() {
 	});
 });
 
-gulp.task("scripts", function () {
-  return gulp.src(paths.scripts)
+gulp.task("scripts", ['scripts-components', 'scripts-page']);
+gulp.task("scripts-components", function () {
+  return gulp.src(paths.compscripts)
+    .pipe(concat('components.js'))
+    .pipe(babel())
+    .pipe(uglify())
+    .pipe(gulp.dest("./assets/js"));
+});
+gulp.task("scripts-page", function () {
+  return gulp.src(paths.pagescripts)
     .pipe(babel())
     .pipe(uglify())
     .pipe(gulp.dest("./assets/js"));

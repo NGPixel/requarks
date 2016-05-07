@@ -15,17 +15,17 @@ block content
 								.row
 									.col-xs-6
 										label= t('settings:prefs.locale.label')
+										+fielderror('settings_prefs_locale')
 										select(name='settings_prefs_locale')
 											each lcName, lcKey in appdata.locales
 												option(value=lcKey, selected=(lcKey == usr.locale))= lcName
-										+fielderror('settings_prefs_locale')
 										+fieldnote('required', t('settings:prefs.locale.info'))
 									.col-xs-6
 										label= t('settings:prefs.timezone.label')
+										+fielderror('settings_prefs_timezone')
 										select(name='settings_prefs_timezone')
 											each tzname in timezones
 												option(value=tzname, selected=(tzname == usr.timezone))= tzname
-										+fielderror('settings_prefs_timezone')
 										+fieldnote('required', t('settings:prefs.timezone.info'))
 							section.alt
 								label=t('settings:prefs.localizeddatetime')

@@ -19,3 +19,12 @@ mixin fieldnote(mode, msg)
 			default
 				strong.color-blue-600= t('form.info')
 		= msg
+
+mixin dropdown(name, defaultval)
+	.dropdown
+		input(name=name, type='hidden', value=defaultval)
+		div
+			span= attributes.placeholder
+			i.typcn.typcn-arrow-sorted-down
+		ul
+			block

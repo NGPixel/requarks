@@ -15,6 +15,7 @@ var db = {};
 var red = {};
 var lang = {};
 var UserData = {};
+var RqError = {};
 var ROOTPATH = '';
 
 /**

@@ -8,10 +8,30 @@ block content
 					i.material-icons note_add
 					| File New Request
 					i.material-icons.create-form-chevron chevron_right
-					span Technical
+					span= reqdata.category.name
 				.box-base
 					.box-chrome
-						| test
+						section
+							label= t('create:title.label')
+							+fielderror('create_title')
+							input(name='create_title', type='text', placeholder=t('create:title.placeholder'))
+							+fieldnote('required', t('create:title.info'))
+					.box-chrome
+						section
+							label= t('create:subcategory.label')
+							+fielderror('create_subcategory')
+							+dropdown('create_subcategory')(placeholder=t('create:subcategory.placeholder'))
+								each subcat in reqdata.subcategories
+									li(data-value=subcat.id)
+										i(class='typcn typcn-media-record color-' + subcat.color)
+										= subcat.name
+										span= subcat.description
+							+fieldnote('required', t('create:subcategory.info'))
+					.box-actions
+							div
+								button#create-submit(type="submit", class="btn btn-green")
+									i.typcn.typcn-plus
+									= t('actions.create')
 		.col-xs-3
 			.box
 				h4

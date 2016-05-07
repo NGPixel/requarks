@@ -11,7 +11,8 @@ module.exports = function(sequelize, DataTypes) {
     jobTitle:   DataTypes.STRING,
     locale:     DataTypes.STRING,
     timezone:   DataTypes.STRING,
-    isActive:   DataTypes.BOOLEAN
+    isActive:   DataTypes.BOOLEAN,
+    isPending:  DataTypes.BOOLEAN
   },
   {
     timestamps: true,

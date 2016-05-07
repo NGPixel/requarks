@@ -38,6 +38,7 @@ db = require("./models")(appconfig);
 red = require('./modules/redis')(appconfig);
 lang = require('i18next');
 UserData = require('./modules/auth');
+RqError = autoload(path.join(__dirname, '/modules/errors'));
 
 ROOTPATH = __dirname;
 var _isDebug = (app.get('env') === 'development');
@@ -74,7 +75,7 @@ lang
   .use(i18next_mw.LanguageDetector)
   .init({
     load: 'languageOnly',
-    ns: ['common', 'dashboard', 'projects', 'teams', 'settings'],
+    ns: ['common', 'dashboard', 'create', 'projects', 'teams', 'settings'],
     defaultNS: 'common',
     saveMissing: _isDebug,
     //debug: _isDebug,
@@ -129,6 +130,7 @@ app.use(expressBundles.middleware({
       'js/libs/jquery.min.js',
       'js/libs/typeahead.bundle.min.js',
       _isDebug ? 'js/libs/vue.js' : 'js/libs/vue.min.js',
+      'js/components.js',
       'js/app.js'
     ]
   }

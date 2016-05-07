@@ -7,7 +7,11 @@ module.exports = function(req, res, next) {
 
 	// Is user authenticated ?
 
-	if (req.baseUrl !== '/login' && !req.isAuthenticated()) {
+	if (req.baseUrl == '/login') {
+		return next();
+	}
+
+	if(!req.isAuthenticated()) {
 		return res.redirect('/login');
 	}
 
@@ -43,10 +47,11 @@ module.exports = function(req, res, next) {
 		res.locals.usr = usr;
 		res.locals.authusr = req.user._json;
 
-		return next();
+		next();
 
-	}).catch((err) => {
+		return null;
+
+	}).catch(RqError.unauthorized, (err) => {
 		return res.redirect('/unauthorized');
-	});
-
+	}).catch(next);
 };
