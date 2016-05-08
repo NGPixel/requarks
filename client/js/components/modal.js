@@ -2,12 +2,14 @@
 
 /**
  * Modal
+ * @class
  */
 class Modal {
 
 	/**
 	 * Constructor
 	 *
+	 * @constructor
 	 * @param      {string}  mId     Modal ID
 	 */
 	constructor(mId) {

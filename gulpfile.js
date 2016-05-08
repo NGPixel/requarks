@@ -45,7 +45,7 @@ gulp.task("scripts-page", function () {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths.scripts, ['scripts']);
+  gulp.watch([paths.compscripts, paths.pagescripts], ['scripts']);
 });
 
 gulp.task('default', ['watch', 'scripts', 'server']);

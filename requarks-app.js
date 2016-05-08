@@ -122,6 +122,8 @@ app.use(expressBundles.middleware({
       'css/libs/normalize.css',
       'css/libs/flexboxgrid.css',
       'css/libs/typicons.css',
+      'css/libs/medium-editor.min.css',
+      'css/libs/medium-beagle.min.css',
       'css/style.css'
     ],
     'js/bundle.js': [
@@ -129,6 +131,9 @@ app.use(expressBundles.middleware({
       'js/libs/lodash.min.js',
       'js/libs/jquery.min.js',
       'js/libs/typeahead.bundle.min.js',
+      'js/libs/medium-editor.min.js',
+      'js/libs/medium-autolist.min.js',
+      'js/libs/me-markdown.standalone.min.js',
       _isDebug ? 'js/libs/vue.js' : 'js/libs/vue.min.js',
       'js/components.js',
       'js/app.js'

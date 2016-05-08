@@ -3,11 +3,19 @@
 var Promise = require('bluebird'),
 	moment = require('moment');
 
+/**
+ * Authentication middleware
+ *
+ * @param      {Express Request}   req     Express Request object
+ * @param      {Express Response}  res     Express Response object
+ * @param      {Function}          next    Next callback function
+ * @return     {any}               void
+ */
 module.exports = function(req, res, next) {
 
 	// Is user authenticated ?
 
-	if (req.baseUrl == '/login') {
+	if (req.baseUrl === '/login') {
 		return next();
 	}
 

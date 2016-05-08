@@ -1,5 +1,8 @@
 "use strict";
 
+/**
+ * Unauthorized Error
+ */
 module.exports = class Unauthorized extends Error {
   constructor(msg) {
       super(msg);
@@ -7,4 +10,4 @@ module.exports = class Unauthorized extends Error {
 		this.message = msg;
       Error.captureStackTrace(this, this.contructor);
   }
-}
+};

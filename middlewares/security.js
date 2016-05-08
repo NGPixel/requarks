@@ -1,3 +1,11 @@
+/**
+ * Security Middleware
+ *
+ * @param      {Express Request}   req     Express request object
+ * @param      {Express Response}  res     Express response object
+ * @param      {Function}          next    next callback function
+ * @return     {any}               void
+ */
 module.exports = function(req, res, next) {
 
 	//-> Disable X-Powered-By

@@ -28,3 +28,11 @@ mixin dropdown(name, defaultval)
 			i.typcn.typcn-arrow-sorted-down
 		ul
 			block
+
+mixin dropdownitem(label, value, icon, iconcolor, description)
+	li(data-value=value, data-label=label)
+		if icon
+			i(class='typcn typcn-' + icon + ' color-' + iconcolor)
+		= label
+		if description
+			span= description

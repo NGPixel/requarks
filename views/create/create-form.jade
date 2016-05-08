@@ -12,21 +12,24 @@ block content
 				.box-base
 					.box-chrome
 						section
-							label= t('create:title.label')
-							+fielderror('create_title')
-							input(name='create_title', type='text', placeholder=t('create:title.placeholder'))
-							+fieldnote('required', t('create:title.info'))
-					.box-chrome
-						section
 							label= t('create:subcategory.label')
 							+fielderror('create_subcategory')
 							+dropdown('create_subcategory')(placeholder=t('create:subcategory.placeholder'))
 								each subcat in reqdata.subcategories
-									li(data-value=subcat.id)
-										i(class='typcn typcn-media-record color-' + subcat.color)
-										= subcat.name
-										span= subcat.description
+									+dropdownitem(subcat.name, subcat.id, 'media-record', subcat.color, subcat.description)
 							+fieldnote('required', t('create:subcategory.info'))
+					.box-chrome
+						section
+							label= t('create:title.label')
+							+fielderror('create_title')
+							input(name='create_title', type='text', placeholder=t('create:title.placeholder'))
+							+fieldnote('required', t('create:title.info'))
+						section
+							label= t('create:description.label')
+							+fielderror('create_description')
+							input(name='create_description', type='hidden')
+							#medescription
+							+fieldnote('required', t('create:description.info'))
 					.box-actions
 							div
 								button#create-submit(type="submit", class="btn btn-green")

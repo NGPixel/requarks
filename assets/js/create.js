@@ -1,1 +1,1 @@
-"use strict";$(function(){$("#create-categories > li").on("click",function(t){window.location.assign(t.currentTarget.dataset.link)})});
+"use strict";$(function(){$("#create-categories > li").on("click",function(t){window.location.assign(t.currentTarget.dataset.link)});var t=$("input[name=create_description]");new MediumEditor($("#medescription"),{autoLink:!0,imageDragging:!1,toolbar:{buttons:["bold","italic","anchor","unorderedlist","orderedlist","h2","h3","quote"]},extensions:{autolist:new AutoList,markdown:new MeMarkdown(function(i){t.val(i)})}})});

@@ -5,6 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/Requarks/requarks/badges/gpa.svg)](https://codeclimate.com/github/Requarks/requarks)
 [![Dependency Status](https://gemnasium.com/badges/github.com/Requarks/requarks.svg)](https://gemnasium.com/github.com/Requarks/requarks)
 [![Documentation](https://img.shields.io/badge/docs-100%-green.svg)](https://requarks.readme.io/)
+[![Gitter](https://badges.gitter.im/Requarks/requarks.svg)](https://gitter.im/Requarks/requarks?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ###### Requests and Bugs Tracking Management System
 *Under development*

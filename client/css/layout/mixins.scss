@@ -1,3 +1,8 @@
+/**
+ * Clearfix
+ *
+ * @return     {string}  Clearfix attribute
+ */
 @mixin clearfix {
   &:after {
     content: "";
@@ -6,13 +11,28 @@
   }
 }
 
+/**
+ * Placeholder attribute for inputs
+ *
+ * @return     {string}  Placeholder attributes
+ */
 @mixin placeholder {
-	&::-webkit-input-placeholder {@content}
+	&::-webkit-input-placeholder {@content};
 	&::-moz-placeholder {@content}
 	&:-ms-input-placeholder {@content}
-	&:placeholder-shown {@content}
+	&:placeholder-shown {@content};
 }
 
+/**
+ * Spinner element
+ *
+ * @param      {string}  $color             - Color
+ * @param      {string}  $dur               - Animation Duration
+ * @param      {int}     $width             - Width
+ * @param      {int}     $height  [$width]  - height
+ *
+ * @return     {string}  Spinner element
+ */
 @mixin spinner($color,$dur,$width,$height:$width) {
 	width: $width;
 	height: $height;
@@ -26,6 +46,13 @@
 	};
 }
 
+/**
+ * Prefixes for keyframes
+ *
+ * @param      {string}  $animation-name          - The animation name
+ *
+ * @return     {string}  Prefixed keyframes attributes
+ */
 @mixin keyframes($animation-name) {
     @-webkit-keyframes #{$animation-name} {
         @content;
@@ -41,6 +68,14 @@
     }
 }
 
+/**
+ * Prefix function for browser compatibility
+ *
+ * @param      {string}  $property          - Property name
+ * @param      {any}     $value             - Property value
+ *
+ * @return     {string}  Prefixed attributes
+ */
 @mixin prefix($property, $value) {
   -webkit-#{$property}: #{$value};
      -moz-#{$property}: #{$value};
@@ -49,6 +84,13 @@
           #{$property}: #{$value};
 }
 
+/**
+ * Section specific color theming mixin
+ *
+ * @param      {string}  $accent          - Accent color name
+ *
+ * @return     {string}  Section specific color overrides
+ */
 @mixin section-common($accent) {
 
 	//-> Header [layout/header]
