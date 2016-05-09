@@ -6,7 +6,7 @@ block content
 			.flat-nav
 				ul
 					li: a(href='/teams/create')
-						i.typcn.typcn-plus
+						i.fa.fa-plus
 						= t('teams:actions.create')
 			ul#id-teams-list.flat-list
 				each tm in teams
@@ -20,13 +20,13 @@ block content
 			.flat-nav
 				ul
 					li: a(href='/teams/' + team.slug + '/add')
-						i.typcn.typcn-user-add
+						i.fa.fa-plus
 						= t('teams:actions.addmember')
 					li: a(href='/teams/' + team.slug + '/notify')
-						i.typcn.typcn-bell
+						i.fa.fa-bell-o
 						= t('teams:actions.notifyteam')
 					li: a(href='/teams/' + team.slug + '/edit')
-						i.typcn.typcn-pencil
+						i.fa.fa-pencil
 						= t('teams:actions.edit')
 			.box
 				h4

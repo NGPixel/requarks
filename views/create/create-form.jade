@@ -1,5 +1,16 @@
 extends ../layout
 
+mixin cfield(cf)
+	label= cf.name
+	+fielderror('create_cf_' + cf.id)
+	if cf.format === 'choice'
+		+dropdown('create_cf_' + cf.id)(placeholder=cf.defaultValue)
+			each subcat in _.split(cf.value, ';')
+				+dropdownitem(subcat, subcat)
+	else
+		input(name='create_cf_' + cf.id, type='text', placeholder=cf.placeholder)
+	+fieldnote(cf.isRequired ? 'required' : 'optional', cf.description)
+
 block content
 	.container.row
 		.col-xs-9
@@ -28,12 +39,37 @@ block content
 							label= t('create:description.label')
 							+fielderror('create_description')
 							input(name='create_description', type='hidden')
-							#medescription
+							#medescription.me-editor(data-placeholder=t('create:description.placeholder'))
 							+fieldnote('required', t('create:description.info'))
+
+					if reqdata.customfields
+						.box-chrome
+							- var cfield_half = false;
+							each cf in reqdata.customfields
+								if cf.isHalfSize
+									if !cfield_half
+										section
+											.row
+												.col-xs-6
+													+cfield(cf)
+									else
+										.col-xs-6
+											+cfield(cf)
+									- cfield_half = true;
+								else
+									section
+										+cfield(cf)
+
+					.box-chrome
+						section
+							label= t('create:upload.label')
+							+fielderror('create_upload')
+							| todo
+							+fieldnote('optional', t('create:upload.info'))
 					.box-actions
 							div
 								button#create-submit(type="submit", class="btn btn-green")
-									i.typcn.typcn-plus
+									i.fa.fa-plus
 									= t('actions.create')
 		.col-xs-3
 			.box

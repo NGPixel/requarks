@@ -55,6 +55,20 @@ router.get('/:id', function(req, res, next) {
 
 	}).then((reqdata) => {
 
+		// Get Custom Fields
+
+		return db.PropertyDefinition.findAll({
+			where: { CategoryId: reqdata.category.id },
+			order: 'sortIndex'
+		}).then(function(cfields) {
+		
+			reqdata.customfields = (cfields) ? cfields : [];
+			return reqdata;
+
+		});
+
+	}).then((reqdata) => {
+
 		res.render('create/create-form', {
 			navbar_active: 'create',
 			page_script: 'create',

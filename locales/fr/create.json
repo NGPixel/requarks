@@ -1,0 +1,17 @@
+{
+	"title": {
+		"label": "Sommaire",
+		"placeholder": "Court sommaire de la requête",
+		"info": "Entrez au moins 15 caractères. (Max. 255)"
+	},
+	"subcategory": {
+		"label": "Sous-catégorie",
+		"placeholder": "Choisir...",
+		"info": "Sous-catégorie de la requête."
+	},
+	"description": {
+		"label": "Description",
+		"placeholder": "Description détaillée de la requête...",
+		"info": "Sélectionner du texte pour afficher les options de formattage. Ajoutez le plus détails que possible (Minimum 15 caractères)."
+	}
+}

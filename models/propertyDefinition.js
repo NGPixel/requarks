@@ -9,12 +9,14 @@ module.exports = function(sequelize, DataTypes) {
     prefix:       DataTypes.STRING,
     suffix:       DataTypes.STRING,
     sortIndex:    DataTypes.INTEGER,
+    isHalfSize:   DataTypes.BOOLEAN,
     value:        DataTypes.TEXT,
     defaultValue: DataTypes.STRING,
     placeholder:  DataTypes.STRING,
     description:  DataTypes.STRING,
     icon:         DataTypes.STRING,
     validation:   DataTypes.STRING,
+    isRequired:   DataTypes.BOOLEAN,
     isRestricted: DataTypes.BOOLEAN
   },
   {
@@ -24,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
       associate(models) {
 
         PropertyDefinition.belongsTo(models.Category);
-        PropertyDefinition.belongsTo(models.Type);
+        PropertyDefinition.belongsTo(models.SubCategory);
 
       }
     }

@@ -65,5 +65,58 @@
 			"sortIndex": 600,
 			"CategoryId": 1
 		}
+	],
+	"PropertyDefinition": [
+		{
+			"name": "Application",
+			"format": "choice",
+			"prefix": null,
+			"suffix": null,
+			"sortIndex": 100,
+			"isHalfSize": true,
+			"value": "Corporate Website;Intranet;Extranet;Social Media",
+			"defaultValue": "Corporate Website",
+			"placeholder": null,
+			"description": "Name of the website / application",
+			"icon": "laptop",
+			"validation": null,
+			"isRequired": true,
+			"isRestricted": false,
+			"CategoryId": 1
+		},
+		{
+			"name": "Sub-Section",
+			"format": "text",
+			"prefix": null,
+			"suffix": null,
+			"sortIndex": 200,
+			"isHalfSize": true,
+			"value": null,
+			"defaultValue": null,
+			"placeholder": "e.g. Canada > Investors",
+			"description": "Sub-section of the application",
+			"icon": "level-down",
+			"validation": null,
+			"isRequired": false,
+			"isRestricted": false,
+			"CategoryId": 1
+		},
+		{
+			"name": "URL",
+			"format": "text",
+			"prefix": null,
+			"suffix": null,
+			"sortIndex": 300,
+			"isHalfSize": false,
+			"value": null,
+			"defaultValue": null,
+			"placeholder": "http://",
+			"description": "Link to the page where the problem is or an example of a page.",
+			"icon": "globe",
+			"validation": null,
+			"isRequired": false,
+			"isRestricted": false,
+			"CategoryId": 1
+		}
 	]
 }

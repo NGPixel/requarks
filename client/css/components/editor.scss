@@ -1,0 +1,24 @@
+
+.me-editor {
+
+	z-index: 1;
+	padding: 5px 10px;
+	margin: 0;
+	background-color: #FFF;
+	color: material-color('blue-grey', '600');
+	font-size: 13px;
+	font-weight: 400;
+	font-family: 'Open Sans', sans-serif;
+	border: 1px solid material-color('blue-grey', '100');
+	border-radius: 2px;
+	box-sizing: border-box;
+	transition: all 0.5s ease;
+	outline: none;
+	min-height: 100px;
+	@include prefix(box-shadow, inset 0 0 5px 0 rgba(0,0,0,0.05));
+
+	&.medium-editor-placeholder:after {
+		font-style: normal;
+	}
+
+}

@@ -8,5 +8,15 @@
 		"label": "Sub-Category",
 		"placeholder": "Choose...",
 		"info": "Sub-category of this request"
+	},
+	"description": {
+		"label": "Description",
+		"placeholder": "Detailed description of the request...",
+		"info": "Select text to show the formatting tools. Add as much detail as possible (Minimum 15 characters)."
+	},
+	"upload": {
+		"label": "Attachment(s)",
+		"placeholder": "Drag &amp; Drop files here",
+		"info": "Screenshots, Documents or related files. 500MB max."
 	}
 }

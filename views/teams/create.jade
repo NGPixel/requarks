@@ -7,11 +7,11 @@ block content
 			if teamCount > 0
 				ul
 					li: a(href='/teams')
-						i.typcn.typcn-arrow-left-thick
+						i.fa.fa-arrow-left
 						= t('actions.back')
 			else
 				span
-					i.typcn.typcn-media-play
+					i.fa.fa-hand-o-right
 					= t('teams:noteamcreate')
 
 		form(method='post', action='/teams/create')
@@ -36,7 +36,7 @@ block content
 							.box-actions
 								div
 									button#setup-submit(type="submit", class="btn btn-green")
-										i.typcn.typcn-plus
+										i.fa.fa-plus
 										= t('actions.create')
 				.col-xs-3
 					.box
