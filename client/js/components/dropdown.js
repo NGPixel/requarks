@@ -2,14 +2,14 @@
 
 /**
  * Dropdown
- * @class
  */
 class Dropdown {
 
 	/**
 	 * Constructor
 	 *
-	 * @constructor
+	 * @class
+	 *
 	 * @param      {Element}  dObj    Element to bind to
 	 */
 	constructor(dObj) {

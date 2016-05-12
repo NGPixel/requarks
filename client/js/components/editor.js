@@ -10,8 +10,9 @@ class Editor {
 	 *
 	 * @class
 	 *
-	 * @param      {Element/String}  editorObj  Element or selector to bind to
-	 * @param      {Element/String}  targetObj  The target obj
+	 * @param      {Element/String}  editorObj    Element or selector to bind to
+	 * @param      {Element/String}  targetObj    The target obj
+	 * @param      {String}          placeholder  Placeholder text
 	 */
 	constructor(editorObj, targetObj, placeholder) {
 
