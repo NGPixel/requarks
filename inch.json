@@ -1,0 +1,11 @@
+{
+  "files": {
+    "included": [
+      "client/js/**/*.js",
+      "controllers/**/*.js",
+      "middlewares/**/*.js",
+      "modules/**/**.js"
+    ],
+    "excluded": []
+  }
+}
