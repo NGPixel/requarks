@@ -1,18 +1,29 @@
+'use strict';
+
 var express = require('express');
 var passport = require('passport');
 var router = express.Router();
 
-router.get('/login', function(req, res, next) {
+/**
+ * Login
+ */
+router.get('/login', (req, res, next) => {
 	res.render('auth/login');
 });
 
-router.get('/unauthorized', function(req, res, next) {
+/**
+ * Unauthorized
+ */
+router.get('/unauthorized', (req, res, next) => {
 	res.render('auth/unauthorized');
 });
 
+/**
+ * Authentication callback
+ */
 router.get('/auth_callback',
   passport.authenticate('auth0', { failureRedirect: '/unauthorized' }),
-  function(req, res) {
+  (req, res) => {
     if (!req.user) {
       throw new Error('user null');
     }
@@ -20,13 +31,15 @@ router.get('/auth_callback',
   }
 );
 
-router.get('/logout', function(req, res, next) {
-   req.logout();
-   res.clearCookie('connect.sid');
-   req.session.destroy();
-   	delete req.session;
-   	return res.redirect('/');
-   
+/**
+ * Logout
+ */
+router.get('/logout', (req, res, next) => {
+  req.logout();
+  res.clearCookie('connect.sid');
+  req.session.destroy();
+  delete req.session;
+  return res.redirect('/');
 });
 
 module.exports = router;

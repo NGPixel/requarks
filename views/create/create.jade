@@ -1,12 +1,19 @@
 extends ../layout
 
 block content
-	.container.row
-		.col-xs-12
-			h4.create-title Which category should this request be filed in?
-			ul#create-categories.tiles
-				each cat in categories
-					li(class='bg-color-' + cat.color,data-link='/create/' + cat.slug)
-						i.material-icons= cat.icon
-						strong= cat.name
-						span= cat.description
+	.container
+		.box
+			h4.color-red-500
+				i.material-icons note_add
+				= t('create:title')
+			.box-base
+				.box-chrome
+					section
+						label= t('create:fields.category.label')
+						ul#create-categories.tiles
+							each cat in categories
+								li(data-link='/create/' + cat.slug)
+									i(class='material-icons color-' + cat.color)= cat.icon
+									div
+										strong= cat.name
+										span= cat.description

@@ -20,6 +20,8 @@ mixin fieldnote(mode, msg)
 				strong.color-blue-600= t('form.info')
 		= msg
 
+//- Dropdown Form Field
+
 mixin dropdown(name, defaultval)
 	.dropdown
 		input(name=name, type='hidden', value=defaultval)
@@ -36,3 +38,36 @@ mixin dropdownitem(label, value, icon, iconcolor, description)
 		= label
 		if description
 			span= description
+
+//- Custom Fields
+
+mixin cfieldlayout(fields)
+	if fields && fields.length > 0
+		.box-chrome
+			.box-header Details
+			- var cfield_half = false;
+			each cf in fields
+				if cf.isHalfSize
+					if !cfield_half
+						| <section><div class="row">
+						.col-xs-6
+							+cfield(cf)
+					else
+						.col-xs-6
+							+cfield(cf)
+						| </div></section>
+					- cfield_half = true;
+				else
+					section
+						+cfield(cf)
+
+mixin cfield(cf)
+	label= cf.name
+	+fielderror('create_cf_' + cf.id)
+	if cf.format === 'choice'
+		+dropdown('create_cf_' + cf.id)(placeholder=cf.defaultValue)
+			each subcat in _.split(cf.value, ';')
+				+dropdownitem(subcat, subcat)
+	else
+		input(name='create_cf_' + cf.id, type='text', placeholder=cf.placeholder)
+	+fieldnote(cf.isRequired ? 'required' : 'optional', cf.description)

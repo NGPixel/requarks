@@ -11,13 +11,9 @@ var Promise = require('bluebird'),
  * @param      {Function}          next    Next callback function
  * @return     {any}               void
  */
-module.exports = function(req, res, next) {
+module.exports = (req, res, next) => {
 
 	// Is user authenticated ?
-
-	if (req.baseUrl === '/login') {
-		return next();
-	}
 
 	if(!req.isAuthenticated()) {
 		return res.redirect('/login');
@@ -62,4 +58,5 @@ module.exports = function(req, res, next) {
 	}).catch(RqError.unauthorized, (err) => {
 		return res.redirect('/unauthorized');
 	}).catch(next);
+	
 };

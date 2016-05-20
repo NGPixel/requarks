@@ -1,71 +1,45 @@
 extends ../layout
 
-mixin cfield(cf)
-	label= cf.name
-	+fielderror('create_cf_' + cf.id)
-	if cf.format === 'choice'
-		+dropdown('create_cf_' + cf.id)(placeholder=cf.defaultValue)
-			each subcat in _.split(cf.value, ';')
-				+dropdownitem(subcat, subcat)
-	else
-		input(name='create_cf_' + cf.id, type='text', placeholder=cf.placeholder)
-	+fieldnote(cf.isRequired ? 'required' : 'optional', cf.description)
-
 block content
 	.container.row
 		.col-xs-9
 			.box
 				h4.create-form-title
 					i.material-icons note_add
-					| File New Request
+					= t('create:title')
 					i.material-icons.create-form-chevron chevron_right
 					span= reqdata.category.name
 				.box-base
 					.box-chrome
 						section
-							label= t('create:subcategory.label')
+							label= t('create:fields.subcategory.label')
 							+fielderror('create_subcategory')
-							+dropdown('create_subcategory')(placeholder=t('create:subcategory.placeholder'))
+							+dropdown('create_subcategory')(placeholder=t('create:fields.subcategory.placeholder'))
 								each subcat in reqdata.subcategories
 									+dropdownitem(subcat.name, subcat.id, 'media-record', subcat.color, subcat.description)
-							+fieldnote('required', t('create:subcategory.info'))
+							+fieldnote('required', t('create:fields.subcategory.info'))
 					.box-chrome
+						.box-header General
 						section
-							label= t('create:title.label')
+							label= t('create:fields.title.label')
 							+fielderror('create_title')
-							input(name='create_title', type='text', placeholder=t('create:title.placeholder'))
-							+fieldnote('required', t('create:title.info'))
+							input(name='create_title', type='text', placeholder=t('create:fields.title.placeholder'))
+							+fieldnote('required', t('create:fields.title.info'))
 						section
-							label= t('create:description.label')
+							label= t('create:fields.description.label')
 							+fielderror('create_description')
 							input(name='create_description', type='hidden')
-							#medescription.me-editor(data-placeholder=t('create:description.placeholder'))
-							+fieldnote('required', t('create:description.info'))
+							#medescription.me-editor(data-placeholder=t('create:fields.description.placeholder'))
+							+fieldnote('required', t('create:fields.description.info'))
 
-					if reqdata.customfields
-						.box-chrome
-							- var cfield_half = false;
-							each cf in reqdata.customfields
-								if cf.isHalfSize
-									if !cfield_half
-										section
-											.row
-												.col-xs-6
-													+cfield(cf)
-									else
-										.col-xs-6
-											+cfield(cf)
-									- cfield_half = true;
-								else
-									section
-										+cfield(cf)
+					+cfieldlayout(reqdata.customfields)
 
 					.box-chrome
 						section
-							label= t('create:upload.label')
+							label= t('create:fields.upload.label')
 							+fielderror('create_upload')
 							| todo
-							+fieldnote('optional', t('create:upload.info'))
+							+fieldnote('optional', t('create:fields.upload.info'))
 					.box-actions
 							div
 								button#create-submit(type="submit", class="btn btn-green")
@@ -75,7 +49,19 @@ block content
 			.box
 				h4
 					i.material-icons info_outline
-					| Help
+					| Category
 				.box-base
 					.box-chrome
 						| test
+
+			.box
+				h4
+					i.material-icons today
+					| Planning
+				.box-base
+					.box-chrome
+						section
+							label= t('create:fields.title.label')
+							+fielderror('create_title')
+							input(name='create_title', type='text', placeholder=t('create:fields.title.placeholder'))
+							+fieldnote('required', t('create:fields.title.info'))

@@ -156,14 +156,13 @@ app.locals.appdata = require('./data.json');
 // ----------------------------------------
 
 app.use('/', ctrl.login);
-app.use(mw.auth);
 
-app.use('/', ctrl.dashboard);
-app.use('/create', ctrl.create);
-app.use('/review', ctrl.review);
-app.use('/projects', ctrl.projects);
-app.use('/teams', ctrl.teams);
-app.use('/settings', ctrl.settings);
+app.use('/', mw.auth, ctrl.dashboard);
+app.use('/create', mw.auth, ctrl.create);
+app.use('/review', mw.auth, ctrl.review);
+app.use('/projects', mw.auth, ctrl.projects);
+app.use('/teams', mw.auth, ctrl.teams);
+app.use('/settings', mw.auth, ctrl.settings);
 
 // ----------------------------------------
 // Error handling
