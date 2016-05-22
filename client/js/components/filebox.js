@@ -27,7 +27,7 @@ class FileBox {
 		});
 
 		$('.filebox-placeholder', self.el).on('click', (e) => { self.selectFiles(e); });
-		self.input.on('change', (e) => { self.handleFiles(e); })
+		self.input.on('change', (e) => { self.handleFiles(e); });
 
 	}
 
