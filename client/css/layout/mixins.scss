@@ -137,6 +137,10 @@
 
 		.box-chrome {
 
+			.box-header {
+				background-color: material-color($accent, '300');
+			}
+
 			> section.alt {
 				background-color: lighten(material-color($accent, '50'), 3%);
 				color: material-color($accent, '800');

@@ -121,7 +121,6 @@ app.use(expressBundles.middleware({
     'css/bundle.css': [
       'css/libs/normalize.css',
       'css/libs/flexboxgrid.css',
-      'css/libs/typicons.css',
       'css/libs/fontawesome.css',
       'css/libs/medium-editor.min.css',
       'css/libs/medium-beagle.min.css',

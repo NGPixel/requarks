@@ -1,1 +1,1 @@
-"use strict";$(function(){$("#create-categories > li").on("click",function(e){window.location.assign(e.currentTarget.dataset.link)});new Editor("#medescription","input[name=create_description]",$("#medescription").data("placeholder"))});
+"use strict";$(function(){$("#create-categories > li").on("click",function(e){window.location.assign(e.currentTarget.dataset.link)});new Editor("#medescription","input[name=create_description]",$("#medescription").data("placeholder")),new FileBox("#create_upload")});

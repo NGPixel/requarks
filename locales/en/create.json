@@ -1,8 +1,19 @@
 {
 	"title": "File New Request",
+	"headers": {
+		"general": "General",
+		"details": "Details",
+		"category": "Category",
+		"files": "Files",
+		"planning": "Planning"
+	},
 	"fields": {
 		"category": {
 			"label": "Category"
+		},
+		"type": {
+			"label": "Type",
+			"value": "Request"
 		},
 		"title": {
 			"label": "Summary",
@@ -21,8 +32,17 @@
 		},
 		"upload": {
 			"label": "Attachment(s)",
-			"placeholder": "Drag &amp; Drop files here",
-			"info": "Screenshots, Documents or related files. 500MB max."
+			"info": "Screenshots, Documents, etc. 500MB max."
+		},
+		"deadline": {
+			"label": "Deadline",
+			"placeholder": "YYYY/MM/DD",
+			"info": "Preferred deadline to complete this request."
+		},
+		"depends": {
+			"label": "Depends on",
+			"placeholder": "e.g. 12, 13, 55",
+			"info": "Related request IDs this request depends on."
 		}
 	}
 }

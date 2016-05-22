@@ -2,7 +2,7 @@ extends ../layout
 
 block content
 	.container.row
-		.col-xs-9
+		.col-xs-8
 			.box
 				h4.create-form-title
 					i.material-icons note_add
@@ -19,7 +19,6 @@ block content
 									+dropdownitem(subcat.name, subcat.id, 'media-record', subcat.color, subcat.description)
 							+fieldnote('required', t('create:fields.subcategory.info'))
 					.box-chrome
-						.box-header General
 						section
 							label= t('create:fields.title.label')
 							+fielderror('create_title')
@@ -34,34 +33,55 @@ block content
 
 					+cfieldlayout(reqdata.customfields)
 
-					.box-chrome
-						section
-							label= t('create:fields.upload.label')
-							+fielderror('create_upload')
-							| todo
-							+fieldnote('optional', t('create:fields.upload.info'))
 					.box-actions
 							div
 								button#create-submit(type="submit", class="btn btn-green")
 									i.fa.fa-plus
 									= t('actions.create')
-		.col-xs-3
+		.col-xs-4
 			.box
-				h4
-					i.material-icons info_outline
-					| Category
-				.box-base
-					.box-chrome
-						| test
-
-			.box
-				h4
-					i.material-icons today
-					| Planning
+				h4.color-red-600
+					i.material-icons view_array
+					= t('create:headers.category')
 				.box-base
 					.box-chrome
 						section
-							label= t('create:fields.title.label')
-							+fielderror('create_title')
-							input(name='create_title', type='text', placeholder=t('create:fields.title.placeholder'))
-							+fieldnote('required', t('create:fields.title.info'))
+							label= t('create:fields.category.label')
+							.icon-block
+								i(class='material-icons color-' + reqdata.category.color)= reqdata.category.icon
+								div
+									strong= reqdata.category.name
+									span= reqdata.category.description
+						section
+							label= t('create:fields.type.label')
+							.icon-block
+								i.material-icons.color-blue-grey-500 note
+								div
+									strong= t('create:fields.type.value')
+			.box
+				h4.color-red-600
+					i.material-icons attach_file
+					= t('create:headers.files')
+				.box-base
+					.box-chrome
+						section
+							label= t('create:fields.upload.label')
+							+fielderror('create_upload')
+							+filebox('create_upload')
+							+fieldnote('optional', t('create:fields.upload.info'))
+			.box
+				h4.color-red-600
+					i.material-icons today
+					= t('create:headers.planning')
+				.box-base
+					.box-chrome
+						section
+							label= t('create:fields.deadline.label')
+							+fielderror('create_deadline')
+							input(name='create_deadline', type='text', placeholder=t('create:fields.deadline.placeholder'))
+							+fieldnote('optional', t('create:fields.deadline.info'))
+						section
+							label= t('create:fields.depends.label')
+							+fielderror('create_depends')
+							input(name='create_depends', type='text', placeholder=t('create:fields.depends.placeholder'))
+							+fieldnote('optional', t('create:fields.depends.info'))

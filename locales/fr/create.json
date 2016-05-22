@@ -1,8 +1,19 @@
 {
 	"title": "Nouvelle requête",
+	"headers": {
+		"general": "Général",
+		"details": "Détails",
+		"category": "Catégorie",
+		"files": "Fichiers",
+		"planning": "Planification"
+	},
 	"fields": {
 		"category": {
 			"label": "Catégorie"
+		},
+		"type": {
+			"label": "Type",
+			"value": "Requête"
 		},
 		"title": {
 			"label": "Sommaire",
@@ -18,6 +29,21 @@
 			"label": "Description",
 			"placeholder": "Description détaillée de la requête...",
 			"info": "Sélectionner du texte pour afficher les options de formattage. Ajoutez le plus détails que possible (Minimum 15 caractères)."
+		},
+		"upload": {
+			"label": "Pièce(s) jointe(s)",
+			"placeholder": "Glisser-déposer fichier(s) ici",
+			"info": "Captures d'écran, documents, etc. 500Mo max."
+		},
+		"deadline": {
+			"label": "Date limite",
+			"placeholder": "AAAA/MM/JJ",
+			"info": "Date limite désirée pour compléter cette requête."
+		},
+		"depends": {
+			"label": "Dépends de",
+			"placeholder": "ex.: 12, 13, 55",
+			"info": "ID des requêtes dont dépend cette requête."
 		}
 	}
 }

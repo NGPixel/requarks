@@ -41,10 +41,11 @@ mixin dropdownitem(label, value, icon, iconcolor, description)
 
 //- Custom Fields
 
-mixin cfieldlayout(fields)
+mixin cfieldlayout(fields, title)
 	if fields && fields.length > 0
 		.box-chrome
-			.box-header Details
+			if title
+				.box-header= title
 			- var cfield_half = false;
 			each cf in fields
 				if cf.isHalfSize
@@ -71,3 +72,20 @@ mixin cfield(cf)
 	else
 		input(name='create_cf_' + cf.id, type='text', placeholder=cf.placeholder)
 	+fieldnote(cf.isRequired ? 'required' : 'optional', cf.description)
+
+//- Upload Box
+
+mixin filebox(fldName)
+	.filebox(id=fldName)
+		input(type='file', name=fldName, multiple)
+		.filebox-placeholder(v-bind:class="{ 'hasfiles': items.length }")
+			i.material-icons cloud_upload
+			span
+				= t('filebox.placeholder')
+				span= t('filebox.placeholdersub')
+		ul
+			li(v-for="item in items")
+				div
+					strong {{ item.filename }}
+					span {{ item.type }} | {{ item.size }}
+				i.fa.fa-close

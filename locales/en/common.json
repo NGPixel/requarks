@@ -40,5 +40,9 @@
 			"msg": "You are about to logout from this application. Are you sure?"
 		}
 	},
+	"filebox": {
+		"placeholder": "Drag & drop files here",
+		"placeholdersub": "or click to browse..."
+	},
 	"copyright": "Powered by Requarks"
 }

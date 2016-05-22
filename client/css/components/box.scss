@@ -47,6 +47,7 @@
 
 			.box-header {
 				background-color: material-color('blue-grey', '300');
+				//background-image: linear-gradient(to bottom, material-color('blue-grey', '300'), material-color('blue-grey', '200'));
 				color: #FFF;
 				padding: 8px 15px;
 				text-transform: uppercase;
@@ -279,6 +280,37 @@
 				}
 			}
 
+		}
+
+	}
+
+}
+
+// ========================================
+// Blocks
+// ========================================
+
+.icon-block {
+	display: flex;
+	align-items: flex-start;
+
+	> div {
+
+		margin-left: 5px;
+		color: material-color('blue-grey', '800');
+
+		> strong {
+			font-weight: 600;
+			display: block;
+			padding: 2px 0 0 0;
+		}
+
+		> span {
+			font-weight: 12px;
+			font-size: 11px;
+			display: block;
+			margin-top: 5px;
+			color: material-color('blue-grey', '600');
 		}
 
 	}
