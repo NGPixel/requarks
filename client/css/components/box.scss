@@ -40,6 +40,7 @@
 			background-color: #FFF;
 			border: 1px solid lighten(material-color('blue-grey', '100'), 7%);
 			box-shadow: 0 0 5px 0 rgba(0,0,0,.05);
+			border-radius: 3px;
 
 			& + .box-chrome {
 				margin-top: 8px;
@@ -106,9 +107,9 @@
 
 					&:focus {
 						outline: none;
-						@include prefix(box-shadow, inset 0 0 5px 0 material-color('light-blue', '200'));
-						border-color: material-color('light-blue', '300');
-						color: material-color('light-blue', '800');
+						@include prefix(box-shadow, inset 0 0 5px 0 material-color('indigo', '100'));
+						border-color: material-color('indigo', '200');
+						color: material-color('blue-grey', '800');
 					}
 
 				}
@@ -186,6 +187,31 @@
 
 				}
 
+			}
+
+		}
+
+		.box-info {
+			background-color: material-color('blue-grey', '600');
+			color: #FFF;
+			margin-top: 8px;
+			padding: 3px 15px;
+			font-size: 12px;
+			display: flex;
+			align-items: center;
+			border-radius: 3px;
+
+			> i {
+				font-size: 24px;
+				margin-right: 15px;
+			}
+
+			& + .box-chrome {
+				margin-top: 8px;
+			}
+
+			p {
+				margin: 12px 0;
 			}
 
 		}

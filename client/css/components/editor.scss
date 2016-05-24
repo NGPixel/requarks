@@ -17,8 +17,23 @@
 	min-height: 100px;
 	@include prefix(box-shadow, inset 0 0 5px 0 rgba(0,0,0,0.05));
 
+	&:hover {
+		@include prefix(box-shadow, inset 0 0 5px 0 rgba(0,0,0,0.20));
+		border-color: material-color('blue-grey', '200');
+	}
+
+	&[data-medium-focused=true] {
+		@include prefix(box-shadow, inset 0 0 5px 0 material-color('indigo', '100'));
+		border-color: material-color('indigo', '200');
+	}
+
 	&.medium-editor-placeholder:after {
 		font-style: normal;
+		color:#AAA;
+	}
+
+	> p:first-child, > h2:first-child, > h3:first-child {
+		margin-top:0;
 	}
 
 }

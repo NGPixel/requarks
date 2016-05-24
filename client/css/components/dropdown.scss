@@ -6,9 +6,21 @@
 
 	&.shown {
 
-		> div > i {
-			transform: rotate(180deg);
-		}
+		> div {
+			@include prefix(box-shadow, inset 0 0 5px 0 material-color('indigo', '100'));
+			border-color: material-color('indigo', '200');
+			color: material-color('blue-grey', '800');
+
+			&:hover {
+				@include prefix(box-shadow, inset 0 0 5px 0 material-color('indigo', '100'));
+				border-color: material-color('indigo', '200');
+			}
+
+			> i {
+				transform: rotate(180deg);
+			}
+
+		} 
 
 	}
 
@@ -28,9 +40,14 @@
 		cursor: pointer;
 		position: relative;
 
+		&:hover {
+			@include prefix(box-shadow, inset 0 0 5px 0 rgba(0,0,0,0.20));
+			border-color: material-color('blue-grey', '200');
+		}
+
 		> i {
 			position: absolute;
-			top: 5px;
+			top: 8px;
 			right: 10px;
 			transition: transform 0.4s ease;
 		}
@@ -74,7 +91,7 @@
 			}
 
 			> i {
-				font-size: 16px;
+				font-size: 14px;
 				margin-right: 10px;
 			}
 

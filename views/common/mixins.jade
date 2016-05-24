@@ -27,14 +27,14 @@ mixin dropdown(name, defaultval)
 		input(name=name, type='hidden', value=defaultval)
 		div
 			span= attributes.placeholder
-			i.typcn.typcn-arrow-sorted-down
+			i.fa.fa-caret-down
 		ul
 			block
 
 mixin dropdownitem(label, value, icon, iconcolor, description)
 	li(data-value=value, data-label=label)
 		if icon
-			i(class='typcn typcn-' + icon + ' color-' + iconcolor)
+			i(class='fa fa-' + icon + ' color-' + iconcolor)
 		= label
 		if description
 			span= description
@@ -77,15 +77,25 @@ mixin cfield(cf)
 
 mixin filebox(fldName)
 	.filebox(id=fldName)
-		input(type='file', name=fldName, multiple)
-		.filebox-placeholder(v-bind:class="{ 'hasfiles': items.length }")
+		.filebox-placeholder
 			i.material-icons cloud_upload
 			span
 				= t('filebox.placeholder')
 				span= t('filebox.placeholdersub')
 		ul
-			li(v-for="item in items")
+			li
+				span
+					strong(data-dz-name)
+					span(data-dz-size)
+				i.fa.fa-close(data-dz-remove)
+
+//- Info Box
+
+mixin infobox(ib, pos)
+	- var fib = _.filter(ib, ['position', pos])
+	if fib.length > 0
+		each fibItem in fib
+			.box-info
+				i.material-icons= fibItem.icon
 				div
-					strong {{ item.filename }}
-					span {{ item.type }} | {{ item.size }}
-				i.fa.fa-close
+					!= md.render(fibItem.content).body

@@ -135,6 +135,7 @@ app.use(expressBundles.middleware({
       'js/libs/medium-autolist.min.js',
       'js/libs/me-markdown.standalone.min.js',
       _isDebug ? 'js/libs/vue.js' : 'js/libs/vue.min.js',
+      _isDebug ? 'js/libs/dropzone.js' : 'js/libs/dropzone.min.js',
       'js/components.js',
       'js/app.js'
     ]
@@ -147,6 +148,7 @@ app.use(express.static(path.join(__dirname, 'assets')));
 // ----------------------------------------
 
 app.locals._ = require('lodash');
+app.locals.md = require('jstransformer')(require('jstransformer-markdown-it'));
 app.locals.appconfig = appconfig;
 app.locals.appdata = require('./data.json');
 

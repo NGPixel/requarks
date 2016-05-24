@@ -10,48 +10,55 @@ class FileBox {
 	 *
 	 * @class
 	 *
-	 * @param      {Element/String}  id      Element or selector to bind to
+	 * @param      {String}  id      Selector to bind to
 	 */
 	constructor(id) {
 
 		let self = this;
 
-		self.el = $(id);
-		self.input = $('input[type=file]', self.el).first();
+		let prevTemplate = $('ul > li', id).detach();
 
-		self.obj = new Vue({
-			el: id,
-			data: {
-				items: []
-			}
+		self.el = $(id);
+		self.dz = new Dropzone(id, {
+			url: '/create/technical',
+			method: 'post',
+			maxFilesize: 500,
+			autoProcessQueue: false,
+			previewTemplate: '<li>' + prevTemplate.html() + '</li>',
+			previewsContainer: id + ' > ul',
+			clickable: id + ' .filebox-placeholder'
 		});
 
-		$('.filebox-placeholder', self.el).on('click', (e) => { self.selectFiles(e); });
-		self.input.on('change', (e) => { self.handleFiles(e); });
+		self.dz.on('addedfile', (f) => { self.addedfile(f); });
+		self.dz.on('removedfile', (f) => { self.removedfile(f); });
 
 	}
 
 	/**
-	 * Select file(s)
+	 * File added to list
 	 *
-	 * @param      {Event}  e       Click Event
+	 * @param      {File}  f       File object that was added
 	 */
-	selectFiles(e) {
+	addedfile(f) {
 
-		this.input.click();
-		e.preventDefault();
+		let self = this;
+
+		$('.filebox-placeholder', self.el).addClass('hasfiles');
 
 	}
 
 	/**
-	 * Select file(s)
+	 * File removed from the list
 	 *
-	 * @param      {Event}  e       Click Event
+	 * @param      {File}  f       File object that was removed
 	 */
-	handleFiles(e) {
+	removedfile(f) {
 
-		console.log(this.input.get(0).files);
-		e.preventDefault();
+		let self = this;
+
+		if(self.dz.files.length < 1) {
+			$('.filebox-placeholder', self.el).removeClass('hasfiles');
+		}
 
 	}
 

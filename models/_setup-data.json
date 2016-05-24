@@ -66,6 +66,22 @@
 			"CategoryId": 1
 		}
 	],
+	"CategoryInfo": [
+		{
+			"name": "Language Warning",
+			"position": "before-summary",
+			"content": "**All requests must be written in English.** Content in other languages can be included in the description or attachment, but all information detailing the request must be in English.",
+			"icon": "speaker_notes",
+			"CategoryId": null
+		},
+		{
+			"name": "Content Warning",
+			"position": "before-actions",
+			"content": "**IMPORTANT:** Please note that your request will only be addressed after a complete form has been submitted. The date at which all the information is available will be considered the request date. All requests will be processed within 48 hours. If urgent, please call us to discuss your request priority.\r\n\r\nALL CONTENT FOR THE GLOBAL WEBSITE AND GROUP INTRANET IS PUBLISHED IN ENGLISH AND FRENCH SIMULTANEOUSLY, WITH NO EXCEPTIONS.",
+			"icon": "error_outline",
+			"CategoryId": 2
+		}
+	],
 	"PropertyDefinition": [
 		{
 			"name": "Application",

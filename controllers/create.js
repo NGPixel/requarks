@@ -4,7 +4,7 @@ var router = express.Router();
 /*
  * CREATE - Select category
  */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
 
 	db.Category.findAll({
 		order: 'name'
@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 /*
  * CREATE - Form
  */
-router.get('/:id', function(req, res, next) {
+router.get('/:id', (req, res, next) => {
 
 	// Get category
 
@@ -42,7 +42,7 @@ router.get('/:id', function(req, res, next) {
 		return db.SubCategory.findAll({
 			where: { CategoryId: reqdata.category.id },
 			order: 'sortIndex'
-		}).then(function(subcats) {
+		}).then((subcats) => {
 			
 			if(subcats) {
 				reqdata.subcategories = subcats;
@@ -60,7 +60,7 @@ router.get('/:id', function(req, res, next) {
 		return db.PropertyDefinition.findAll({
 			where: { CategoryId: reqdata.category.id },
 			order: 'sortIndex'
-		}).then(function(cfields) {
+		}).then((cfields) => {
 		
 			reqdata.customfields = (cfields) ? cfields : [];
 			return reqdata;
@@ -68,6 +68,27 @@ router.get('/:id', function(req, res, next) {
 		});
 
 	}).then((reqdata) => {
+
+		// Get Category Info boxes
+
+		return db.CategoryInfo.findAll({
+			where: { 
+				$or: [
+					{ CategoryId: reqdata.category.id },
+					{ CategoryId: null }
+				]
+			}
+		}).then((ib) => {
+
+			console.log(ib);
+		
+			reqdata.infoboxes = (ib) ? ib : [];
+			return reqdata;
+
+		});
+
+	})
+	.then((reqdata) => {
 
 		res.render('create/create-form', {
 			navbar_active: 'create',

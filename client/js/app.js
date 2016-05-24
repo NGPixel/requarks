@@ -1,3 +1,6 @@
+
+Dropzone.autoDiscover = false;
+
 $(() => {
   
 	$('nav.navbar > ul > li').on('click', (e) => {

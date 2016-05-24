@@ -10,14 +10,20 @@ block content
 					i.material-icons.create-form-chevron chevron_right
 					span= reqdata.category.name
 				.box-base
+
+					+infobox(reqdata.infoboxes, 'top')
+
 					.box-chrome
 						section
 							label= t('create:fields.subcategory.label')
 							+fielderror('create_subcategory')
 							+dropdown('create_subcategory')(placeholder=t('create:fields.subcategory.placeholder'))
 								each subcat in reqdata.subcategories
-									+dropdownitem(subcat.name, subcat.id, 'media-record', subcat.color, subcat.description)
+									+dropdownitem(subcat.name, subcat.id, 'circle', subcat.color, subcat.description)
 							+fieldnote('required', t('create:fields.subcategory.info'))
+					
+					+infobox(reqdata.infoboxes, 'before-summary')								
+
 					.box-chrome
 						section
 							label= t('create:fields.title.label')
@@ -31,13 +37,20 @@ block content
 							#medescription.me-editor(data-placeholder=t('create:fields.description.placeholder'))
 							+fieldnote('required', t('create:fields.description.info'))
 
+					+infobox(reqdata.infoboxes, 'before-customfields')
+
 					+cfieldlayout(reqdata.customfields)
 
+					+infobox(reqdata.infoboxes, 'before-actions')
+
 					.box-actions
-							div
-								button#create-submit(type="submit", class="btn btn-green")
-									i.fa.fa-plus
-									= t('actions.create')
+						div
+							button#create-submit(class="btn btn-green")
+								i.fa.fa-plus
+								= t('actions.create')
+
+					+infobox(reqdata.infoboxes, 'bottom')
+
 		.col-xs-4
 			.box
 				h4.color-red-600
@@ -85,3 +98,10 @@ block content
 							+fielderror('create_depends')
 							input(name='create_depends', type='text', placeholder=t('create:fields.depends.placeholder'))
 							+fieldnote('optional', t('create:fields.depends.info'))
+
+block outside
+	.modal#id-modal-createrequest
+		.modal-box
+			i.spinner
+			h4 Just a moment
+			label Uploading attachments...

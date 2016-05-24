@@ -148,6 +148,10 @@
 
 		}
 
+		.box-info {
+			background-color: material-color($accent, '500');
+		}
+
 		.box-list > li {
 
 			&.active {

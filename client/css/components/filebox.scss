@@ -5,6 +5,11 @@
 	border-radius: 3px;
 	min-height: 100px;
 	color: material-color('indigo','500');
+	transition: all 0.5s ease;
+
+	&.dz-drag-hover {
+		background-color: material-color('indigo','50');
+	}
 
 	> input {
 		display: none;

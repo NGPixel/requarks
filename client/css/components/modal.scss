@@ -44,6 +44,11 @@ body.dimmed {
 			padding: 15px;
 		}
 
+		> .spinner {
+			display: inline-block;
+			@include spinner(material-color('red', '400'), 0.5s, 40px);
+		}
+
 		> h4 {
 			font-size: 20px;
 			font-weight: 300;
