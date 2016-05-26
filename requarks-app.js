@@ -95,7 +95,7 @@ app.use(compression());
 
 app.use(i18next_mw.handle(lang));
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use(favicon(path.join(__dirname, 'assets', 'favicon.ico')));
 app.use(bodyParser.json());

@@ -1,4 +1,5 @@
 var express = require('express');
+var _ = require('lodash');
 var router = express.Router();
 
 /*
@@ -79,10 +80,9 @@ router.get('/:id', (req, res, next) => {
 				]
 			}
 		}).then((ib) => {
-
-			console.log(ib);
 		
-			reqdata.infoboxes = (ib) ? ib : [];
+			reqdata.infoboxes = (ib) ? _.map(ib, (i) => { return i.get(); }) : [];
+			console.log(reqdata.infoboxes);
 			return reqdata;
 
 		});
