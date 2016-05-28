@@ -40,7 +40,7 @@ $(() => {
 			data: {},
 			dataType: 'json',
 			method: 'POST',
-			url: '/create'
+			url: window.location.pathname
 		}).done((resp) => {
 
 

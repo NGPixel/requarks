@@ -82,7 +82,6 @@ router.get('/:id', (req, res, next) => {
 		}).then((ib) => {
 		
 			reqdata.infoboxes = (ib) ? _.map(ib, (i) => { return i.get(); }) : [];
-			console.log(reqdata.infoboxes);
 			return reqdata;
 
 		});
@@ -97,6 +96,17 @@ router.get('/:id', (req, res, next) => {
 		});
 
 	}).catch(next);
+
+});
+
+/**
+ * CREATE - Submit
+ */
+router.post('/:id', (req, res, next) => {
+
+	res.send({
+		"OK": "OK"
+	});
 
 });
 

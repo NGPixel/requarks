@@ -15,14 +15,14 @@ module.exports = (req, res, next) => {
 
 	// Is user authenticated ?
 
-	if(!req.isAuthenticated()) {
+	if (!req.isAuthenticated()) {
 		return res.redirect('/login');
 	}
 
 	// Do we have a session user ?
 
 	let usrFetch = {};
-	if(UserData.isValidSession(req.session.usr, req.user)) {
+	if (UserData.isValidSession(req.session.usr, req.user)) {
 		usrFetch = Promise.resolve(req.session.usr);
 	} else {
 		usrFetch = UserData.isAuthorizedUser(req.user);
@@ -33,8 +33,8 @@ module.exports = (req, res, next) => {
 	usrFetch.then((usr) => {
 
 		// Set session user
-		
-		if(!usr.sessionExpires) {
+
+		if (!usr.sessionExpires) {
 			usr.sessionExpires = moment().utc().add(5, 'm').unix();
 		}
 		req.session.usr = usr;
@@ -58,5 +58,5 @@ module.exports = (req, res, next) => {
 	}).catch(RqError.unauthorized, (err) => {
 		return res.redirect('/unauthorized');
 	}).catch(next);
-	
+
 };
