@@ -22,9 +22,9 @@ mixin fieldnote(mode, msg)
 
 //- Dropdown Form Field
 
-mixin dropdown(name, defaultval)
+mixin dropdown(name, modelBinding, defaultval)
 	.dropdown
-		input(name=name, type='hidden', value=defaultval)
+		input(name=name, v-model=modelBinding, type='hidden', value=defaultval)
 		div
 			span= attributes.placeholder
 			i.fa.fa-caret-down
@@ -66,11 +66,11 @@ mixin cfield(cf)
 	label= cf.name
 	+fielderror('create_cf_' + cf.id)
 	if cf.format === 'choice'
-		+dropdown('create_cf_' + cf.id)(placeholder=cf.defaultValue)
+		+dropdown('create_cf_' + cf.id, 'cf_' + cf.id, cf.defaultValue)(placeholder=cf.defaultValue)
 			each subcat in _.split(cf.value, ';')
 				+dropdownitem(subcat, subcat)
 	else
-		input(name='create_cf_' + cf.id, type='text', placeholder=cf.placeholder)
+		input(name='create_cf_' + cf.id, type='text', v-model='cf_' + cf.id, placeholder=cf.placeholder, value=cf.defaultValue)
 	+fieldnote(cf.isRequired ? 'required' : 'optional', cf.description)
 
 //- Upload Box

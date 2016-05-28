@@ -18,7 +18,7 @@ class Editor {
 
 		let self = this;
 
-		this.obj = new MediumEditor($(editorObj), {
+		self.obj = new MediumEditor($(editorObj), {
 			autoLink: true,
 			buttonLabels: 'fontawesome',
 			imageDragging: false,
@@ -29,28 +29,13 @@ class Editor {
 				autolist: new AutoList(),
 				markdown: new MeMarkdown((md) => {
 					$(targetObj).val(md);
+					$(targetObj).change();
 				})
 			},
 			placeholder: {
 				text: placeholder
 			}
 		});
-
-
-	}
-
-	/**
-	 * Toggle dropdown menu
-	 *
-	 * @param      {Event}  e       Click Event
-	 */
-	toggle(e) {
-
-		if(!this.state) {
-			this.open();
-		} else {
-			this.close();
-		}
 
 	}
 

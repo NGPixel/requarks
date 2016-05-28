@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-	.container.row
+	.container.row#create-form
 		.col-xs-8
 			.box
 				h4.create-form-title
@@ -17,7 +17,7 @@ block content
 						section
 							label= t('create:fields.subcategory.label')
 							+fielderror('create_subcategory')
-							+dropdown('create_subcategory')(placeholder=t('create:fields.subcategory.placeholder'))
+							+dropdown('create_subcategory', 'subcategory', '')(placeholder=t('create:fields.subcategory.placeholder'))
 								each subcat in reqdata.subcategories
 									+dropdownitem(subcat.name, subcat.id, 'circle', subcat.color, subcat.description)
 							+fieldnote('required', t('create:fields.subcategory.info'))
@@ -28,12 +28,12 @@ block content
 						section
 							label= t('create:fields.title.label')
 							+fielderror('create_title')
-							input(name='create_title', type='text', placeholder=t('create:fields.title.placeholder'))
+							input(name='create_title', type='text', v-model='title', placeholder=t('create:fields.title.placeholder'))
 							+fieldnote('required', t('create:fields.title.info'))
 						section
 							label= t('create:fields.description.label')
 							+fielderror('create_description')
-							input(name='create_description', type='hidden')
+							input(name='create_description', type='hidden', v-model='description')
 							#medescription.me-editor(data-placeholder=t('create:fields.description.placeholder'))
 							+fieldnote('required', t('create:fields.description.info'))
 
@@ -48,7 +48,6 @@ block content
 							button#create-submit(class="btn btn-green")
 								i.fa.fa-plus
 								= t('actions.create')
-
 					+infobox(reqdata.infoboxes, 'bottom')
 
 		.col-xs-4
@@ -91,12 +90,12 @@ block content
 						section
 							label= t('create:fields.deadline.label')
 							+fielderror('create_deadline')
-							input(name='create_deadline', type='text', placeholder=t('create:fields.deadline.placeholder'))
+							input(name='create_deadline', type='text', v-model='deadline', placeholder=t('create:fields.deadline.placeholder'))
 							+fieldnote('optional', t('create:fields.deadline.info'))
 						section
 							label= t('create:fields.depends.label')
 							+fielderror('create_depends')
-							input(name='create_depends', type='text', placeholder=t('create:fields.depends.placeholder'))
+							input(name='create_depends', type='text', v-model='depends', placeholder=t('create:fields.depends.placeholder'))
 							+fieldnote('optional', t('create:fields.depends.info'))
 
 block outside

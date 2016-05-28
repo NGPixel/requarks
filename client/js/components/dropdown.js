@@ -16,11 +16,11 @@ class Dropdown {
 
 		let self = this;
 
-		this.obj = $(dObj);
-		this.state = false;
+		self.obj = $(dObj);
+		self.state = false;
 
-		this.obj.children('div').on('click', (e) => { self.toggle(e); });
-		$('ul > li', this.obj).on('click', (e) => { self.pick(e); });
+		self.obj.children('div').on('click', (e) => { self.toggle(e); });
+		$('ul > li', self.obj).on('click', (e) => { self.pick(e); });
 
 	}
 
@@ -76,8 +76,10 @@ class Dropdown {
 
 		let self = this;
 
-		this.obj.children('input').val($(e.currentTarget).data('value'));
-		$('div > span', this.obj).html($(e.currentTarget).data('label'));
+		self.obj.children('input').val($(e.currentTarget).data('value'));
+		$('div > span', self.obj).html($(e.currentTarget).data('label'));
+
+		self.obj.children('input').change();
 
 		self.close();
 

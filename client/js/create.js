@@ -20,6 +20,15 @@ $(() => {
 	let meDescription = new Editor('#medescription', 'input[name=create_description]', $('#medescription').data('placeholder'));
 	let fbAttachments = new FileBox('#create_upload');
 
+	let vueCreateReq = new Vue({
+		el: '#create-form',
+		data: {
+			title: '',
+			description: '',
+			subcategory: ''
+		}
+	});
+
 	// --------------------------
 	// Create request
 	// --------------------------
@@ -37,7 +46,7 @@ $(() => {
 
 		$.ajax({
 			cache: false,
-			data: {},
+			data: vueCreateReq.$data,
 			dataType: 'json',
 			method: 'POST',
 			url: window.location.pathname
