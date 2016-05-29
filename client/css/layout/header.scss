@@ -6,7 +6,7 @@ header {
 	width: 100%;
 	border-bottom: 5px solid  material-color('blue-grey', '500');
 	box-sizing: border-box;
-	z-index: 2;
+	z-index: 3;
 
 	nav.navbar {
 		flex: 1;
@@ -75,15 +75,30 @@ header {
 		#notifbtn {
 			width: 42px;
 			color: material-color('blue-grey', '300');
-			cursor: pointer;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			transition: all 0.5s ease;
+			position: relative;
+
+			> i {
+				cursor: pointer;
+			}
 
 			&:hover {
 				background-color: material-color('blue-grey', '800');
 				color: #FFF;
+			}
+
+			&.active {
+
+				> i {
+					transform-origin: top center;
+					animation-name: swing;
+					animation-duration: 1s;
+	  				animation-fill-mode: both;
+					animation-iteration-count: infinite;
+				}
 			}
 
 		}
@@ -199,7 +214,7 @@ nav.actionbar {
 	color: #FFF;
 	height: 100vh;
 	transition: right 0.5s ease;
-	z-index: 3;
+	z-index: 4;
 
 	&.active {
 		right: 0;

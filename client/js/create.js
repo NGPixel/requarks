@@ -53,12 +53,12 @@ $(() => {
 		}).done((resp) => {
 
 
-
-
 		}).fail((xhr, status, err) => {
 
 			md.close();
 			$('#notifload').removeClass('active');
+
+			alerts.push('error', 'Connection Error', err, 'fa-plug');
 			
 		});
 

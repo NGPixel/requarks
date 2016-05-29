@@ -90,7 +90,7 @@ block content
 						section
 							label= t('create:fields.deadline.label')
 							+fielderror('create_deadline')
-							input(name='create_deadline', type='text', v-model='deadline', placeholder=t('create:fields.deadline.placeholder'))
+							input(name='create_deadline', type='text', v-model='deadline', placeholder=t('create:fields.deadline.placeholder'), maxlength=10)
 							+fieldnote('optional', t('create:fields.deadline.info'))
 						section
 							label= t('create:fields.depends.label')

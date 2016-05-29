@@ -1,5 +1,6 @@
 
 Dropzone.autoDiscover = false;
+var alerts;
 
 $(() => {
   
@@ -63,5 +64,7 @@ $(() => {
 	$(window).bind('beforeunload', () => {
 		$('#notifload').addClass('active');
 	});
+
+	alerts = new Alerts();
 
 });

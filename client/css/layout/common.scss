@@ -127,3 +127,53 @@ a {
 	}
 
 }
+
+// ========================================
+// Animations
+// ========================================
+
+@include keyframes(swing) {
+  20% {
+    transform: rotate3d(0, 0, 1, 15deg);
+  }
+  40% {
+    transform: rotate3d(0, 0, 1, -10deg);
+  }
+  60% {
+    transform: rotate3d(0, 0, 1, 5deg);
+  }
+  80% {
+    transform: rotate3d(0, 0, 1, -5deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+}
+
+@include keyframes(slideFromRight) {
+	from {
+		transform: translate3d(25%, 0, 0);
+		opacity: 0.1;
+		visibility: visible;
+	}
+
+	to {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+}
+
+@include keyframes(zoomOut) {
+	from {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0;
+		transform: scale3d(.3, .3, .3);
+	}
+
+	to {
+		opacity: 0;
+	}
+}
