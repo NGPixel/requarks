@@ -59,7 +59,10 @@ router.get('/:id', (req, res, next) => {
 		// Get Custom Fields
 
 		return db.PropertyDefinition.findAll({
-			where: { CategoryId: reqdata.category.id },
+			where: {
+				CategoryId: reqdata.category.id,
+				isRestricted: false
+			},
 			order: 'sortIndex'
 		}).then((cfields) => {
 		

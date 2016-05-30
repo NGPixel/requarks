@@ -58,7 +58,6 @@ block content
 				.box-base
 					.box-chrome
 						section
-							label= t('create:fields.category.label')
 							.icon-block
 								i(class='material-icons color-' + reqdata.category.color)= reqdata.category.icon
 								div
@@ -77,7 +76,6 @@ block content
 				.box-base
 					.box-chrome
 						section
-							label= t('create:fields.upload.label')
 							+fielderror('create_upload')
 							+filebox('create_upload')
 							+fieldnote('optional', t('create:fields.upload.info'))
@@ -92,11 +90,6 @@ block content
 							+fielderror('create_deadline')
 							input(name='create_deadline', type='text', v-model='deadline', placeholder=t('create:fields.deadline.placeholder'), maxlength=10)
 							+fieldnote('optional', t('create:fields.deadline.info'))
-						section
-							label= t('create:fields.depends.label')
-							+fielderror('create_depends')
-							input(name='create_depends', type='text', v-model='depends', placeholder=t('create:fields.depends.placeholder'))
-							+fieldnote('optional', t('create:fields.depends.info'))
 
 block outside
 	.modal#id-modal-createrequest

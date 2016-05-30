@@ -19,6 +19,11 @@ $(() => {
 
 	let meDescription = new Editor('#medescription', 'input[name=create_description]', $('#medescription').data('placeholder'));
 	let fbAttachments = new FileBox('#create_upload');
+	let dpDeadline = new Pikaday({
+		field: $('input[name=create_deadline]').get(0),
+		format: 'YYYY/MM/DD',
+		minDate: moment().toDate()
+	});
 
 	let vueCreateReq = new Vue({
 		el: '#create-form',
@@ -40,26 +45,33 @@ $(() => {
 		$('#notifload').addClass('active');
 
 		let md = new Modal('createrequest');
-		md.open();
+		md.open().then(() => {
 
-		// Send form
+			// Send form
 
-		$.ajax({
-			cache: false,
-			data: vueCreateReq.$data,
-			dataType: 'json',
-			method: 'POST',
-			url: window.location.pathname
-		}).done((resp) => {
+			$.ajax({
+				cache: false,
+				data: vueCreateReq.$data,
+				dataType: 'json',
+				method: 'POST',
+				url: window.location.pathname
+			}).done((resp) => {
 
 
-		}).fail((xhr, status, err) => {
+			}).fail((xhr, status, err) => {
 
-			md.close();
-			$('#notifload').removeClass('active');
+				md.close();
+				$('#notifload').removeClass('active');
 
-			alerts.push('error', 'Connection Error', err, 'fa-plug');
-			
+				alerts.push({
+					class: 'error',
+					title: 'Connection Error',
+					message:  err,
+					iconClass: 'fa-plug'
+				});
+				
+			});
+
 		});
 
 	});

@@ -21,8 +21,11 @@ class Modal {
 	 */
 	open() {
 
-		$(document.body).addClass('dimmed');
 		$('#id-modal-' + this.id).addClass('shown');
+
+		return new Promise((resolve, reject) => {
+			_.delay(resolve, 500);
+		});
 
 	}
 

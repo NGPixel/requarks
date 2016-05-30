@@ -12,15 +12,15 @@ html
 			link(rel='icon', type='image/png', sizes=favsize + 'x' + favsize href='/images/favicon-' + favsize + 'x' + favsize + '.png')
 
 		// CSS
-		link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700|Inconsolata|Material+Icons', rel='stylesheet', type='text/css')
+		link(type='text/css', rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700|Inconsolata|Material+Icons')
 		for name in bundles.emit('css/bundle.css')
-			link(rel='stylesheet', href='/' + name)
+			link(type='text/css', rel='stylesheet', href='/' + name)
 
 		// JS
 		for name in bundles.emit('js/bundle.js')
-			script(src='/' + name)
+			script(type='text/javascript', src='/' + name)
 		if(page_script)
-			script(src='/js/' + page_script + '.js')
+			script(type='text/javascript', src='/js/' + page_script + '.js')
 
 	body(class='mi-' + navbar_active)
 		#root
@@ -37,7 +37,7 @@ html
 						i.material-icons notifications
 					#searchbox
 						input(type='text', placeholder=t('search.placeholder'))
-					#usravatar(style={'background-image':'url(https://s3.amazonaws.com/uifaces/faces/twitter/mlane/73.jpg)'},alt='User')
+					#usravatar(style={'background-image':'url(https://s3.amazonaws.com/uifaces/faces/twitter/mlane/73.jpg)'})
 			nav.actionbar
 				h3 Quick Access Panel
 				h4
@@ -57,7 +57,7 @@ html
 			#alerts
 				ul
 					template(v-for="aItem in children", track-by='_uid')
-						li(v-bind:class='aItem.class')
+						li(v-bind:class='aItem.class', v-on:click='acknowledge(aItem._uid)')
 							strong
 								i.fa(v-bind:class='aItem.iconClass')
 								| {{ aItem.title }}
@@ -67,6 +67,18 @@ html
 			footer
 				div
 					a(href='https://requarks.io/')= t('copyright')
+
 		block outside
+
+		// Modals
 		include ./common/modals
-		
+
+		// Alerts
+		if appflash.length > 0
+			script(type='text/javascript')
+				| jQuery(window).on('load', function() {
+				each flashItem in appflash
+					| alerts.push(
+					!= JSON.stringify(flashItem)
+					| );
+				| });

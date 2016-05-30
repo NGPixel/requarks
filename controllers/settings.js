@@ -54,6 +54,14 @@ router.post('/', function(req, res, next) {
 
 				return usr.save().then(() => {
 					req.session.usr = usr;
+
+					req.flash('alert', {
+						class: 'success',
+						title: 'Saved',
+						message:  "Profile saved successfully.",
+						iconClass: 'fa-check'
+					});
+
 					return res.redirect('/settings');
 				}).catch((err) => {
 					throw err;
@@ -131,6 +139,14 @@ router.post('/preferences', function(req, res, next) {
 
 				return usr.save().then(() => {
 					req.session.usr = usr;
+
+					req.flash('alert', {
+						class: 'success',
+						title: 'Saved',
+						message:  "Preferences saved successfully",
+						iconClass: 'fa-check'
+					});
+
 					return res.redirect('/settings/preferences');
 				}).catch((err) => {
 					throw err;

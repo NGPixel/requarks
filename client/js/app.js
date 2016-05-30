@@ -47,6 +47,8 @@ $(() => {
 		$('nav.actionbar').removeClass('active');
 	});
 
+	$('#searchbox .tt-input').focus();
+
 	// ====================================
 	// Dropdown
 	// ====================================

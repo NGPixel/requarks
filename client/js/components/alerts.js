@@ -18,6 +18,11 @@ class Alerts {
 			el: '#alerts',
 			data: {
 				children: []
+			},
+			methods: {
+				acknowledge: (uid) => {
+					self.close(uid);
+				}
 			}
 		});
 
@@ -28,38 +33,52 @@ class Alerts {
 	/**
 	 * Show a new Alert
 	 *
-	 * @param      {String}   aType   Alert Type
-	 * @param      {String}   aTitle  Alert Title
-	 * @param      {String}   aMsg    Alert Main Message
-	 * @param      {Boolean}  sticky  Should the alert stay displayed until user
-	 *                                action
+	 * @param      {Object}  options  Alert properties
 	 */
-	push(aType, aTitle, aMsg, aIcon, sticky) {
+	push(options) {
 
 		let self = this;
 
-		let nAlert = {
+		let nAlert = _.defaults(options, {
 			_uid: self.uidNext,
-			class: aType,
-			title: aTitle,
-			iconClass: aIcon,
-			message: aMsg
-		};
+			class: 'info',
+			iconClass: 'fa-info',
+			message: '---',
+			sticky: false,
+			title: '---'
+		});
 
 		self.mdl.children.push(nAlert);
 
-		if(!sticky) {
+		if(!nAlert.sticky) {
 			_.delay(() => {
-				let nAlertIdx = _.indexOf(self.mdl.children, nAlert);
-				nAlert.class = aType + ' exit';
-				self.mdl.children.$set(nAlertIdx, nAlert);
-				_.delay(() => {
-					self.mdl.children.$remove(nAlert);
-				}, 500);
+				self.close(nAlert._uid);
 			}, 5000);
 		}
 
 		self.uidNext++;
+
+	}
+
+	/**
+	 * Close an alert
+	 *
+	 * @param      {Integer}  uid     The unique ID of the alert
+	 */
+	close(uid) {
+
+		let self = this;
+
+		let nAlertIdx = _.findIndex(self.mdl.children, ['_uid', uid]);
+		let nAlert = _.nth(self.mdl.children, nAlertIdx);
+
+		if(nAlertIdx >= 0 && nAlert) {
+			nAlert.class += ' exit';
+			self.mdl.children.$set(nAlertIdx, nAlert);
+			_.delay(() => {
+				self.mdl.children.$remove(nAlert);
+			}, 500);
+		}
 
 	}
 

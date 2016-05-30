@@ -3,6 +3,7 @@ var babel = require("gulp-babel");
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var nodemon = require('gulp-nodemon');
+var plumber = require('gulp-plumber');
 
 var paths = {
 	compscripts: ['./client/js/components/**/*.js'],
@@ -31,21 +32,24 @@ gulp.task('server-setup', function() {
 
 gulp.task("scripts", ['scripts-components', 'scripts-page']);
 gulp.task("scripts-components", function () {
-  return gulp.src(paths.compscripts)
-    .pipe(concat('components.js'))
-    .pipe(babel())
-    .pipe(uglify())
-    .pipe(gulp.dest("./assets/js"));
+	return gulp.src(paths.compscripts)
+	.pipe(plumber())
+	.pipe(concat('components.js'))
+	.pipe(babel())
+	.pipe(uglify())
+	.pipe(plumber.stop())
+	.pipe(gulp.dest("./assets/js"));
 });
 gulp.task("scripts-page", function () {
-  return gulp.src(paths.pagescripts)
-    .pipe(babel())
-    .pipe(uglify())
-    .pipe(gulp.dest("./assets/js"));
+	return gulp.src(paths.pagescripts)
+	.pipe(babel())
+	.pipe(uglify())
+	.pipe(plumber.stop())
+	.pipe(gulp.dest("./assets/js"));
 });
 
 gulp.task('watch', function() {
-  gulp.watch([paths.compscripts, paths.pagescripts], ['scripts']);
+	gulp.watch([paths.compscripts, paths.pagescripts], ['scripts']);
 });
 
 gulp.task('default', ['watch', 'scripts', 'server']);

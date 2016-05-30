@@ -17,6 +17,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sass = require('node-sass-middleware');
 var expressBundles = require('express-bundles');
+var flash = require('connect-flash');
 var compression = require('compression');
 var passport = require('passport');
 var autoload = require('auto-load');
@@ -63,6 +64,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -103,6 +105,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator({
   customValidators: validators
 }));
+app.locals.pretty = true;
 
 // ----------------------------------------
 // Assets
@@ -130,12 +133,15 @@ app.use(expressBundles.middleware({
       'js/libs/modernizr-custom.min.js',
       'js/libs/lodash.min.js',
       'js/libs/jquery.min.js',
+      _isDebug ? 'js/libs/bluebird.js' : 'js/libs/bluebird.min.js',
+      'js/libs/moment.min.js',
       'js/libs/typeahead.bundle.min.js',
       'js/libs/medium-editor.min.js',
       'js/libs/medium-autolist.min.js',
       'js/libs/me-markdown.standalone.min.js',
       _isDebug ? 'js/libs/vue.js' : 'js/libs/vue.min.js',
       _isDebug ? 'js/libs/dropzone.js' : 'js/libs/dropzone.min.js',
+      'js/libs/pikaday.min.js',
       'js/components.js',
       'js/app.js'
     ]
@@ -151,6 +157,7 @@ app.locals._ = require('lodash');
 app.locals.md = require('jstransformer')(require('jstransformer-markdown-it'));
 app.locals.appconfig = appconfig;
 app.locals.appdata = require('./data.json');
+app.use(mw.flash);
 
 // ----------------------------------------
 // Controllers
