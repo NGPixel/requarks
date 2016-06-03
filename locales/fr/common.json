@@ -30,8 +30,11 @@
 		"errors": {
 			"required": "est requis",
 			"length": "doit avoir entre {{min}} et {{max}} caractères",
+			"minlength": "doit avoir au moins {{min}} caractères",
 			"unique": "doit être unique",
-			"enum": "doit être une des valeurs proposées"
+			"enum": "doit être une des valeurs proposées",
+			"invalid": "est invalide",
+			"futuredate": "doit être une date future"
 		}
 	},
 	"auth": {

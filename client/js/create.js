@@ -57,8 +57,33 @@ $(() => {
 				url: window.location.pathname
 			}).done((resp) => {
 
+				if(resp.state === 'ok') {
+
+					// Proceed with attachment(s) (if any)
+
+					
+
+				} else {
+
+					// Show first error
+
+					md.close();
+					$('#notifload').removeClass('active');
+
+					let fldTitle = $('label[for=fld_' + resp.errors[0].param + ']').html() || resp.errors[0].param;
+
+					alerts.push({
+						class: 'error',
+						title: fldTitle,
+						message: resp.errors[0].msg,
+						iconClass: 'fa-times-circle'
+					});
+
+				}
 
 			}).fail((xhr, status, err) => {
+
+				// Connection failed
 
 				md.close();
 				$('#notifload').removeClass('active');

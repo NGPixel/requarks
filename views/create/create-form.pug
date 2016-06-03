@@ -15,7 +15,7 @@ block content
 
 					.box-chrome
 						section
-							label= t('create:fields.subcategory.label')
+							label(for='fld_subcategory')= t('create:fields.subcategory.label')
 							+fielderror('create_subcategory')
 							+dropdown('create_subcategory', 'subcategory', '')(placeholder=t('create:fields.subcategory.placeholder'))
 								each subcat in reqdata.subcategories
@@ -26,12 +26,12 @@ block content
 
 					.box-chrome
 						section
-							label= t('create:fields.title.label')
+							label(for='fld_title')= t('create:fields.title.label')
 							+fielderror('create_title')
-							input(name='create_title', type='text', v-model='title', placeholder=t('create:fields.title.placeholder'))
+							input#fld_title(name='create_title', type='text', v-model='title', placeholder=t('create:fields.title.placeholder'))
 							+fieldnote('required', t('create:fields.title.info'))
 						section
-							label= t('create:fields.description.label')
+							label(for='fld_description')= t('create:fields.description.label')
 							+fielderror('create_description')
 							input(name='create_description', type='hidden', v-model='description')
 							#medescription.me-editor(data-placeholder=t('create:fields.description.placeholder'))

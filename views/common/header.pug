@@ -1,0 +1,14 @@
+header
+	nav.navbar
+		ul
+			each menuitem, menukey in appdata.navbar
+				li(data-key=menukey, class=(navbar_active == menukey ? 'active' : ''), data-link=menuitem.target)
+					i.material-icons= menuitem.icon
+					= t('nav.' + menukey)
+	nav.userbar
+		i#notifload
+		#notifbtn
+			i.material-icons notifications
+		#searchbox
+			input(type='text', placeholder=t('search.placeholder'))
+		#usravatar(style={'background-image':'url(https://s3.amazonaws.com/uifaces/faces/twitter/mlane/73.jpg)'})

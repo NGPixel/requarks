@@ -1,3 +1,5 @@
+"use strict";
+
 var express = require('express');
 var _ = require('lodash');
 var router = express.Router();
@@ -9,7 +11,7 @@ router.get('/', (req, res, next) => {
 
 	db.Category.findAll({
 		order: 'name'
-	}).then(function(cats) {
+	}).then((cats) => {
 		res.render('create/create', {
 			navbar_active: 'create',
 			page_script: 'create',
@@ -107,7 +109,144 @@ router.get('/:id', (req, res, next) => {
  */
 router.post('/:id', (req, res, next) => {
 
-	res.send('');
+	//-> Get category
+
+	db.Category.findOne({
+		where: { slug: req.params.id }
+	}).then((cat) => {
+
+		if(cat) {
+			return { category: cat };
+		} else {
+			return Promise.reject(new Error('Invalid category'));
+		}
+
+	}).then((reqdata) => {
+
+		//-> Get subcategories
+
+		return db.SubCategory.findAll({
+			attributes: ['id'],
+			where: { CategoryId: reqdata.category.id },
+			raw: true
+		}).then((subcats) => {
+			
+			if(subcats) {
+				reqdata.subcategories = _.map(subcats, 'id');
+				return reqdata;
+			} else {
+				return Promise.reject(new Error('Missing subcategory for this category. At least one required.'));
+			}
+
+		});
+
+	}).then((reqdata) => {
+
+		//-> Get Custom Fields
+
+		return db.PropertyDefinition.findAll({
+			where: {
+				CategoryId: reqdata.category.id,
+				isRestricted: false
+			},
+			raw: true
+		}).then((cfields) => {
+		
+			reqdata.customfields = (cfields) ? cfields : [];
+			return reqdata;
+
+		});
+
+	}).then((reqdata) => {
+
+		//-> Validate form
+
+		req.checkBody('subcategory', lang.t('form.errors.required')).isInt({ min: 1 });
+		req.checkBody('subcategory', lang.t('form.errors.enum')).isIn(reqdata.subcategories);
+
+		let subcatId = _.toInteger(req.body.subcategory);
+
+		req.sanitizeBody('title').trim();
+		req.sanitizeBody('title').stripLow();
+		req.sanitizeBody('title').escape();
+		req.checkBody('title', lang.t('form.errors.required')).notEmpty();
+		req.checkBody('title', lang.t('form.errors.length', {min: 15, max: 255})).isLength({min: 15, max: 255});
+
+		req.sanitizeBody('description').trim();
+		req.sanitizeBody('description').stripLow({ keep_new_lines: true });
+		req.sanitizeBody('description').escape();
+		req.checkBody('description', lang.t('form.errors.required')).notEmpty();
+		req.checkBody('description', lang.t('form.errors.minlength', {min: 15})).isLength({min: 15});
+
+		req.sanitizeBody('deadline').trim();
+		req.checkBody('deadline', lang.t('form.errors.invalid')).optional().isDate();
+		req.checkBody('deadline', lang.t('form.errors.futuredate')).optional().isAfter();
+
+		//-> Validate custom fields
+
+		if(_.includes(reqdata.subcategories, subcatId)) {
+			_.filter(reqdata.customfields, (cf) => {
+				return _.isNil(cf.SubCategoryId) || cf.SubCategoryId === subcatId;
+			}).forEach((cf) => {
+
+				let cfName = 'cf_' + cf.id;
+
+				//-> Sanitize
+
+				req.sanitizeBody(cfName).trim();
+				req.sanitizeBody(cfName).stripLow();
+				req.sanitizeBody(cfName).escape();
+
+				//-> Required
+
+				if(cf.isRequired) {
+					req.checkBody(cfName, lang.t('form.errors.required')).notEmpty();
+				}
+
+				//-> Format Check
+
+				if(cf.format === 'int') {
+					(cf.isRequired)
+						? req.checkBody(cfName, lang.t('form.errors.invalid')).isInt({min: 0})
+						: req.checkBody(cfName, lang.t('form.errors.invalid')).optional().isInt({min: 0});
+				}
+				if(cf.format === 'choice') {
+					let choices = _.split(cf.value, ';');
+					(cf.isRequired)
+						? req.checkBody(cfName, lang.t('form.errors.invalid')).isIn(choices)
+						: req.checkBody(cfName, lang.t('form.errors.invalid')).optional().isIn(choices);
+				}
+
+				//-> Custom validator
+
+				if(!_.isEmpty(cf.validation)) {
+					(cf.isRequired)
+						? req.checkBody(cfName, lang.t('form.errors.invalid')).matches(cf.validation)
+						: req.checkBody(cfName, lang.t('form.errors.invalid')).optional().matches(cf.validation);
+				}
+
+			});
+		}
+
+		//-> Perform validation
+
+		req.asyncValidationErrors().then(() => {
+
+			res.send({
+				state: 'ok',
+				errors: []
+			});
+
+		}).catch((formErrors) => {
+
+			res.send({
+				state: 'error',
+				errors: formErrors
+			});
+
+		});
+
+	});
 
 });
 

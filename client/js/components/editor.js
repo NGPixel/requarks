@@ -19,7 +19,7 @@ class Editor {
 		let self = this;
 
 		self.obj = new MediumEditor($(editorObj), {
-			autoLink: true,
+			autoLink: false,
 			buttonLabels: 'fontawesome',
 			imageDragging: false,
 			toolbar: {

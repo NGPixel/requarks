@@ -1,0 +1,17 @@
+#alerts
+	ul
+		template(v-for="aItem in children", track-by='_uid')
+			li(v-bind:class='aItem.class', v-on:click='acknowledge(aItem._uid)')
+				strong
+					i.fa(v-bind:class='aItem.iconClass')
+					| {{ aItem.title }}
+				span {{ aItem.message }}
+
+if appflash.length > 0
+	script(type='text/javascript')
+		| jQuery(window).on('load', function() {
+		each flashItem in appflash
+			| alerts.push(
+			!= JSON.stringify(flashItem)
+			| );
+		| });

@@ -105,7 +105,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator({
   customValidators: validators
 }));
-app.locals.pretty = true;
+//app.locals.pretty = true;
 
 // ----------------------------------------
 // Assets
