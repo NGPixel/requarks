@@ -1,5 +1,5 @@
 # [![Requarks Logo](https://raw.githubusercontent.com/Requarks/requarks/master/assets/images/logo_50x50.png)](https://requarks.io/) Requarks
-[![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://github.com/NGPixel/requarks/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-AGPLv3-blue.svg)](https://github.com/NGPixel/requarks/blob/master/LICENSE)
 [![Linux Build Status](https://travis-ci.org/Requarks/requarks.svg?branch=master)](https://travis-ci.org/Requarks/requarks)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/vsu1i5kkj3jpmn0h?svg=true)](https://ci.appveyor.com/project/NGPixel/requarks)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/300c04a735e34b39a1be902693e69d1e)](https://www.codacy.com/app/Requarks/requarks)
