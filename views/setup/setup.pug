@@ -12,11 +12,11 @@ html
 		// CSS
 		link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700|Inconsolata|Material+Icons', rel='stylesheet', type='text/css')
 		for name in bundles.emit('css/bundle.css')
-			link(rel='stylesheet', href='/#{name}')
+			link(type='text/css', rel='stylesheet', href='/' + name)
 
 		// JS
 		for name in bundles.emit('js/bundle.js')
-			script(src='/#{name}')
+			script(type='text/javascript', src='/' + name)
 		script(src='/js/setup.js')
 
 	body(class='mi-setup')

@@ -1,6 +1,7 @@
 "use strict";
 
 var express = require('express');
+var moment = require('moment');
 var _ = require('lodash');
 var router = express.Router();
 
@@ -17,6 +18,7 @@ router.get('/', (req, res, next) => {
 			page_script: 'create',
 			categories: cats
 		});
+		return true;
 	});
 
 });
@@ -100,6 +102,8 @@ router.get('/:id', (req, res, next) => {
 			reqdata
 		});
 
+		return true;
+
 	}).catch(next);
 
 });
@@ -112,7 +116,12 @@ router.post('/:id', (req, res, next) => {
 	//-> Get category
 
 	db.Category.findOne({
-		where: { slug: req.params.id }
+		where: { slug: req.params.id },
+		include: [
+			{ model: db.Type, as: 'defaultType', attributes: ['id'] },
+			{ model: db.Status, as: 'defaultStatus', attributes: ['id'] },
+			{ model: db.Priority, as: 'defaultPriority', attributes: ['id'] }
+		]
 	}).then((cat) => {
 
 		if(cat) {
@@ -127,7 +136,7 @@ router.post('/:id', (req, res, next) => {
 
 		return db.SubCategory.findAll({
 			attributes: ['id'],
-			where: { CategoryId: reqdata.category.id },
+			where: { CategoryId: reqdata.category.get('id') },
 			raw: true
 		}).then((subcats) => {
 			
@@ -146,7 +155,7 @@ router.post('/:id', (req, res, next) => {
 
 		return db.PropertyDefinition.findAll({
 			where: {
-				CategoryId: reqdata.category.id,
+				CategoryId: reqdata.category.get('id'),
 				isRestricted: false
 			},
 			raw: true
@@ -231,6 +240,36 @@ router.post('/:id', (req, res, next) => {
 		//-> Perform validation
 
 		req.asyncValidationErrors().then(() => {
+
+			let nReqDeadline = moment(req.body.deadline, 'YYYY/MM/DD');
+
+			// Create request
+
+			let nReq = {
+
+				title: req.body.title,
+				effort: 0,
+				progress: 0,
+				scrumPoker: 0,
+				deadline: null,
+				deadlinePre: nReqDeadline.isValid() ? nReqDeadline.toDate() : null,
+
+				CategoryId: reqdata.category.get('id'),
+				SubCategoryId: subcatId
+
+			};
+
+			db.Request.create(nReq).then((cReq) => {
+
+				// Set associations
+
+				cReq.setType(reqdata.category.get('defaultType'), { save: false });
+				cReq.setStatus(reqdata.category.get('defaultStatus'), { save: false });
+				cReq.setPriority(reqdata.category.get('defaultPriority'), { save: false });
+
+				cReq.save();
+
+			});
 
 			res.send({
 				state: 'ok',

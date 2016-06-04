@@ -24,6 +24,9 @@ router.get('/', function(req, res, next) {
 				msg: lang.t('teams:noteam')
 			});
 		}
+
+		return true;
+		
 	}).catch((err) => {
 		throw err;
 	});
@@ -42,6 +45,7 @@ router.get('/create', function(req, res, next) {
 			page_script: 'teams',
 			teamCount
 		});
+		return true;
 	}).catch((err) => {
 		throw err;
 	});
@@ -129,6 +133,8 @@ router.get('/:slug', function(req, res, next) {
 				msg: lang.t('teams:unauthorized')
 			});
 		}
+
+		return true;
 
 	}).catch((err) => {
 		throw err;

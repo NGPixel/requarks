@@ -1,6 +1,6 @@
 body.mi-create {
 
-	@include section-common('red');
+	@include section-common('indigo');
 
 	.create-title {
 		margin: 0;
@@ -12,7 +12,7 @@ body.mi-create {
 	}
 
 	.create-form-title {
-		color: material-color('red', '500');
+		color: material-color('indigo', '500');
 
 		> .create-form-chevron {
 			color: material-color('blue-grey', '600');

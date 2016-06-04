@@ -63,7 +63,7 @@ mixin cfieldlayout(fields, title)
 						+cfield(cf)
 
 mixin cfield(cf)
-	label= cf.name
+	label(for='fld_cf_' + cf.id)= cf.name
 	+fielderror('create_cf_' + cf.id)
 	if cf.format === 'choice'
 		+dropdown('create_cf_' + cf.id, 'cf_' + cf.id, cf.defaultValue)(placeholder=cf.defaultValue)

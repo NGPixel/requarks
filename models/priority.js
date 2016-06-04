@@ -5,6 +5,7 @@ module.exports = function(sequelize, DataTypes) {
   var Priority = sequelize.define("Priority",
   {
     name:       DataTypes.STRING,
+    slug:       DataTypes.STRING,
     color:      DataTypes.STRING,
     sortIndex:  DataTypes.INTEGER
   },

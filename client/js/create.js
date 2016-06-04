@@ -74,8 +74,8 @@ $(() => {
 
 					alerts.push({
 						class: 'error',
-						title: fldTitle,
-						message: resp.errors[0].msg,
+						title: 'Form Error',
+						message: fldTitle + ' ' + resp.errors[0].msg,
 						iconClass: 'fa-times-circle'
 					});
 

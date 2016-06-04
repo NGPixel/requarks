@@ -5,6 +5,7 @@ module.exports = function(sequelize, DataTypes) {
   var Status = sequelize.define("Status",
   {
     name:         DataTypes.STRING,
+    slug:         DataTypes.STRING,
     closed:       DataTypes.BOOLEAN,
     color:        DataTypes.STRING,
     sortIndex:    DataTypes.INTEGER

@@ -5,21 +5,30 @@
 			"slug": "technical",
 			"description": "Report bugs, request new technical features, enhancements or support.",
 			"color": "grey-800",
-			"icon": "memory"
+			"icon": "memory",
+			"defaultTypeId": 1,
+			"defaultStatusId": 1,
+			"defaultPriorityId": 2
 		},
 		{
 			"name": "Content",
 			"slug": "content",
 			"description": "Request new digital content such as website news, intranet articles, social media posts, or changes to existing intranet or website pages.",
 			"color": "light-blue-600",
-			"icon": "wrap_text"
+			"icon": "wrap_text",
+			"defaultTypeId": 1,
+			"defaultStatusId": 2,
+			"defaultPriorityId": 3
 		},
 		{
 			"name": "Graphic Design",
 			"slug": "graphic-design",
 			"description": "Request banners, graphics, images or other graphic design elements.",
 			"color": "green-600",
-			"icon": "palette"
+			"icon": "palette",
+			"defaultTypeId": 1,
+			"defaultStatusId": 3,
+			"defaultPriorityId": 4
 		}
 	],
 	"SubCategory": [
@@ -132,6 +141,172 @@
 			"validation": null,
 			"isRequired": false,
 			"isRestricted": false,
+			"CategoryId": 1
+		}
+	],
+	"Type": [
+		{
+			"name": "Request",
+			"slug": "request",
+			"description": "Client Request, Story, Product Backlog",
+			"color": "blue-grey",
+			"icon": "note",
+			"system": true
+		},
+		{
+			"name": "Task",
+			"slug": "task",
+			"description": "A small piece of work to be assigned, usually part of a request",
+			"color": "blue",
+			"icon": "assignment",
+			"system": true
+		}
+	],
+	"Status": [
+		{
+			"name": "Unconfirmed",
+			"slug": "unconfirmed",
+			"closed": false,
+			"color": "blue-grey",
+			"sortIndex": 0,
+			"CategoryId": 1
+		},
+		{
+			"name": "Unconfirmed",
+			"slug": "unconfirmed",
+			"closed": false,
+			"color": "blue-grey",
+			"sortIndex": 0,
+			"CategoryId": 2
+		},
+		{
+			"name": "Unconfirmed",
+			"slug": "unconfirmed",
+			"closed": false,
+			"color": "blue-grey",
+			"sortIndex": 0,
+			"CategoryId": 3
+		},
+		{
+			"name": "Under Analysis",
+			"slug": "under-analysis",
+			"closed": false,
+			"color": "teal",
+			"sortIndex": 100,
+			"CategoryId": 1
+		},
+		{
+			"name": "Awaiting Approval",
+			"slug": "awaiting-approval",
+			"closed": false,
+			"color": "orange",
+			"sortIndex": 200,
+			"CategoryId": 1
+		},
+		{
+			"name": "Info Required",
+			"slug": "info-required",
+			"closed": false,
+			"color": "yellow",
+			"sortIndex": 300,
+			"CategoryId": 1
+		},
+		{
+			"name": "Queued",
+			"slug": "queued",
+			"closed": false,
+			"color": "blue",
+			"sortIndex": 400,
+			"CategoryId": 1
+		},
+		{
+			"name": "On Hold",
+			"slug": "on-hold",
+			"closed": false,
+			"color": "cyan",
+			"sortIndex": 500,
+			"CategoryId": 1
+		},
+		{
+			"name": "In Progress",
+			"slug": "in-progress",
+			"closed": false,
+			"color": "purple",
+			"sortIndex": 600,
+			"CategoryId": 1
+		},
+		{
+			"name": "To Be Deployed",
+			"slug": "info-required",
+			"closed": false,
+			"color": "brown",
+			"sortIndex": 700,
+			"CategoryId": 1
+		},
+		{
+			"name": "Completed",
+			"slug": "completed",
+			"closed": false,
+			"color": "green",
+			"sortIndex": 800,
+			"CategoryId": 1
+		},
+		{
+			"name": "Deferred",
+			"slug": "on-hold",
+			"closed": true,
+			"color": "pink",
+			"sortIndex": 900,
+			"CategoryId": 1
+		},
+		{
+			"name": "Rejected",
+			"slug": "rejected",
+			"closed": true,
+			"color": "red",
+			"sortIndex": 1000,
+			"CategoryId": 1
+		}
+	],
+	"Priority": [
+		{
+			"name": "Low",
+			"slug": "low",
+			"closed": false,
+			"color": "yellow",
+			"sortIndex": 100,
+			"CategoryId": 1
+		},
+		{
+			"name": "Normal",
+			"slug": "normal",
+			"closed": false,
+			"color": "indigo",
+			"sortIndex": 200,
+			"CategoryId": 1
+		},
+		{
+			"name": "Normal",
+			"slug": "normal",
+			"closed": false,
+			"color": "indigo",
+			"sortIndex": 200,
+			"CategoryId": 2
+		},
+		{
+			"name": "Normal",
+			"slug": "normal",
+			"closed": false,
+			"color": "indigo",
+			"sortIndex": 200,
+			"CategoryId": 3
+		},
+		{
+			"name": "High",
+			"slug": "high",
+			"closed": false,
+			"color": "red",
+			"sortIndex": 300,
 			"CategoryId": 1
 		}
 	]
