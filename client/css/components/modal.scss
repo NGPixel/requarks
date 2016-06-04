@@ -47,6 +47,11 @@ body.dimmed {
 		> .spinner {
 			display: inline-block;
 			@include spinner(material-color('red', '400'), 0.5s, 40px);
+
+			&.alt {
+				@include spinner(material-color('indigo', '400'), 0.75s, 40px);
+			}
+
 		}
 
 		> h4 {

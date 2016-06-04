@@ -62,4 +62,21 @@ class FileBox {
 
 	}
 
+	/**
+	 * Starts the upload process
+	 *
+	 * @param      {Function}  completeCallback  The complete callback
+	 * @param      {Function}  progressCallback  The progress callback
+	 */
+	startUpload(completeCallback, progressCallback) {
+
+		let self = this;
+
+		self.dz.on('queuecomplete', () => { completeCallback(self.dz.files); });
+		self.dz.on('totaluploadprogress', (uploadProgress, totalBytes, totalBytesSent) => { progressCallback(uploadProgress, totalBytes, totalBytesSent); });
+
+		self.dz.processQueue();
+
+	}
+
 }

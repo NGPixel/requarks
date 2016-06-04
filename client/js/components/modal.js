@@ -61,4 +61,24 @@ class Modal {
 		}, (immediate) ? 0 : 500);
 	}
 
+	/**
+	 * Sets the content of inner element
+	 *
+	 * @param      {(string|Element)}  elm      Element to update
+	 * @param      {string}            content  New content
+	 */
+	setContent(elm, content) {
+		$(elm, '#id-modal-' + this.id).html(content);
+	}
+
+	/**
+	 * Gets an inner element of the modal
+	 *
+	 * @param      {(string|Element)}  elm     Element to get
+	 * @return     {Element}           The element
+	 */
+	getElement(elm) {
+		return $(elm, '#id-modal-' + this.id);
+	}
+
 }

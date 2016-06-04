@@ -193,10 +193,19 @@ router.post('/:id', (req, res, next) => {
 
 		//-> Validate custom fields
 
+		let cfields = [];
+
 		if(_.includes(reqdata.subcategories, subcatId)) {
-			_.filter(reqdata.customfields, (cf) => {
+
+			//-> Filter custom fields for selected subcategory only
+
+			cfields = _.filter(reqdata.customfields, (cf) => {
 				return _.isNil(cf.SubCategoryId) || cf.SubCategoryId === subcatId;
-			}).forEach((cf) => {
+			})
+
+			//-> Validate against filtered custom fields
+
+			cfields.forEach((cf) => {
 
 				let cfName = 'cf_' + cf.id;
 
@@ -243,7 +252,7 @@ router.post('/:id', (req, res, next) => {
 
 			let nReqDeadline = moment(req.body.deadline, 'YYYY/MM/DD');
 
-			// Create request
+			//-> Create request
 
 			let nReq = {
 
@@ -254,26 +263,59 @@ router.post('/:id', (req, res, next) => {
 				deadline: null,
 				deadlinePre: nReqDeadline.isValid() ? nReqDeadline.toDate() : null,
 
-				CategoryId: reqdata.category.get('id'),
-				SubCategoryId: subcatId
+				Descriptions: [
+					{
+						content: req.body.description,
+						authorId: res.locals.usr.id
+					}
+				],
+				Properties: []
 
 			};
 
-			db.Request.create(nReq).then((cReq) => {
+			//-> Create custom fields (properties)
 
-				// Set associations
+			cfields.forEach((cf) => {
 
-				cReq.setType(reqdata.category.get('defaultType'), { save: false });
-				cReq.setStatus(reqdata.category.get('defaultStatus'), { save: false });
-				cReq.setPriority(reqdata.category.get('defaultPriority'), { save: false });
+				let cfName = 'cf_' + cf.id;
 
-				cReq.save();
+				if(_.has(req.body, cfName)) {
+					nReq.Properties.push({
+						value: req.body[cfName],
+						PropertyDefinitionId: cf.id
+					});
+				}
 
 			});
 
-			res.send({
-				state: 'ok',
-				errors: []
+			//-> Save static data
+
+			return db.Request.create(nReq, {
+				include: [ db.Description, db.Property ]
+			}).then((cReq) => {
+
+					//-> Set associations
+					
+					cReq.setCategory(reqdata.category, { save: false });
+					cReq.setSubCategory(subcatId, { save: false });					
+
+					cReq.setType(reqdata.category.get('defaultType'), { save: false });
+					cReq.setStatus(reqdata.category.get('defaultStatus'), { save: false });
+					cReq.setPriority(reqdata.category.get('defaultPriority'), { save: false });
+				
+					cReq.setAuthor(res.locals.usr.id, { save: false });
+
+					//-> Save associations
+
+					return cReq.save().then((cReq) => {
+
+						return res.send({
+							state: 'ok',
+							id: cReq.id
+						});
+
+					});
+
 			});
 
 		}).catch((formErrors) => {

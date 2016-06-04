@@ -45,5 +45,11 @@
 			"placeholder": "ex.: 12, 13, 55",
 			"info": "ID des requêtes dont dépend cette requête."
 		}
+	},
+	"modal": {
+		"wait": "Veuillez patienter",
+		"processing": "Traitement de la requête...",
+		"attachments": "Transfert des fichiers...",
+		"finishing": "Nous y sommes presque..."
 	}
 }

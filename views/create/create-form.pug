@@ -95,5 +95,12 @@ block outside
 	.modal#id-modal-createrequest
 		.modal-box
 			i.spinner
-			h4 Just a moment
-			label Uploading attachments...
+			h4= t('create:modal.wait')
+			label= t('create:modal.processing')
+
+	script(type='text/javascript')
+		| var modalIntl = {
+		= "processing: '" + t('create:modal.processing') + "',"
+		= "attachments: '" + t('create:modal.attachments') + "',"
+		= "finishing: '" + t('create:modal.finishing') + "'"
+		| };

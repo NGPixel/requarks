@@ -45,6 +45,9 @@ $(() => {
 		$('#notifload').addClass('active');
 
 		let md = new Modal('createrequest');
+
+		md.setContent('label', modalIntl.processing);
+
 		md.open().then(() => {
 
 			// Send form
@@ -61,7 +64,19 @@ $(() => {
 
 					// Proceed with attachment(s) (if any)
 
-					
+					let compFunc = () => {
+						md.getElement('i.spinner').removeClass('alt');
+						md.setContent('label', modalIntl.finishing);
+					};
+
+					md.getElement('i.spinner').addClass('alt');
+					md.setContent('label', modalIntl.attachments);
+
+					fbAttachments.startUpload(compFunc,
+						(uploadProgress, totalBytes, totalBytesSent) => {
+							md.setContent('label', modalIntl.attachments + ' ' + _.ceil(uploadProgress) + '%');
+						}
+					);
 
 				} else {
 

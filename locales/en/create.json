@@ -44,5 +44,11 @@
 			"placeholder": "e.g. 12, 13, 55",
 			"info": "Related request IDs this request depends on."
 		}
+	},
+	"modal": {
+		"wait": "Just a moment",
+		"processing": "Processing your request...",
+		"attachments": "Uploading attachments...",
+		"finishing": "Almost done..."
 	}
 }
