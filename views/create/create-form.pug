@@ -98,6 +98,14 @@ block outside
 			h4= t('create:modal.wait')
 			label= t('create:modal.processing')
 
+	.modal#id-modal-createuplerror
+		.modal-box
+			i.material-icons report
+			h4 Upload failure
+			label Your request was created successfully but one or more of your attachments could not be uploaded. Try to upload them again from the request page.
+			.modal-actions
+				button.act-ok(class="grey")= t('actions.continue')
+
 	script(type='text/javascript')
 		| var modalIntl = {
 		= "processing: '" + t('create:modal.processing') + "',"

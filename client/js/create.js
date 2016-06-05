@@ -64,20 +64,52 @@ $(() => {
 
 					// Proceed with attachment(s) (if any)
 
-					let compFunc = () => {
-						md.getElement('i.spinner').removeClass('alt');
-						md.setContent('label', modalIntl.finishing);
+					let compFunc = (f) => {
+
+						if(!_.isNil(f) && _.some(f, ['status','error'])) {
+
+							//-> Error during upload
+
+							md.close(true);
+
+							let mdUplError = new Modal('createuplerror');
+							mdUplError.bind('ok', () => {
+								window.location.assign('/item/' + resp.id);
+							});
+							mdUplError.open();
+
+						} else {
+
+							//-> Upload successful
+
+							md.getElement('i.spinner').removeClass('alt');
+							md.setContent('label', modalIntl.finishing);
+
+							window.location.assign('/item/' + resp.id);
+
+						}
+
 					};
 
-					md.getElement('i.spinner').addClass('alt');
-					md.setContent('label', modalIntl.attachments);
+					if(fbAttachments.hasFiles()) {
 
-					fbAttachments.startUpload(compFunc,
-						(uploadProgress, totalBytes, totalBytesSent) => {
-							md.setContent('label', modalIntl.attachments + ' ' + _.ceil(uploadProgress) + '%');
-						}
-					);
+						md.getElement('i.spinner').addClass('alt');
+						md.setContent('label', modalIntl.attachments);
 
+						fbAttachments.setUrl('/item/' + resp.id + '/upload');
+
+						fbAttachments.startUpload(compFunc,
+							(uploadProgress, totalBytes, totalBytesSent) => {
+								md.setContent('label', modalIntl.attachments + ' ' + _.ceil(uploadProgress) + '%');
+							}
+						);
+
+					} else {
+
+						compFunc(null);
+
+					}
+					
 				} else {
 
 					// Show first error

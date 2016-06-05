@@ -15,11 +15,17 @@
 - [x] Base Layout
 - [x] Setup
 - [ ] Dashboard
-- [ ] Create
+- [x] Search
+- [x] Create
 - [ ] Review
 - [ ] Item
 - [ ] Projects
-- [ ] Project
+	- [ ] Project
 - [ ] Teams
-- [ ] Team
+	- [ ] Team
 - [ ] Settings
+	- [x] Profile
+	- [ ] Avatar
+	- [x] Preferences
+	- [ ] Notifications
+- [ ] Administration

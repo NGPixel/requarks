@@ -20,7 +20,7 @@ class FileBox {
 
 		self.el = $(id);
 		self.dz = new Dropzone(id, {
-			url: '/create/technical',
+			url: '/',
 			method: 'post',
 			maxFilesize: 500,
 			autoProcessQueue: false,
@@ -31,6 +31,7 @@ class FileBox {
 
 		self.dz.on('addedfile', (f) => { self.addedfile(f); });
 		self.dz.on('removedfile', (f) => { self.removedfile(f); });
+		self.dz.on("maxfilesexceeded", (f) => { this.removeFile(f); });
 
 	}
 
@@ -40,11 +41,7 @@ class FileBox {
 	 * @param      {File}  f       File object that was added
 	 */
 	addedfile(f) {
-
-		let self = this;
-
-		$('.filebox-placeholder', self.el).addClass('hasfiles');
-
+		$('.filebox-placeholder', this.el).addClass('hasfiles');
 	}
 
 	/**
@@ -53,13 +50,18 @@ class FileBox {
 	 * @param      {File}  f       File object that was removed
 	 */
 	removedfile(f) {
-
-		let self = this;
-
-		if(self.dz.files.length < 1) {
-			$('.filebox-placeholder', self.el).removeClass('hasfiles');
+		if(this.dz.files.length < 1) {
+			$('.filebox-placeholder', this.el).removeClass('hasfiles');
 		}
+	}
 
+	/**
+	 * Determines if at least 1 file is pending upload
+	 *
+	 * @return     {boolean}  True if has files, False otherwise.
+	 */
+	hasFiles() {
+		return (this.dz.files.length > 0);
 	}
 
 	/**
@@ -77,6 +79,15 @@ class FileBox {
 
 		self.dz.processQueue();
 
+	}
+
+	/**
+	 * Sets the upload URL
+	 *
+	 * @param      {string}  destUrl  The destination url
+	 */
+	setUrl(destUrl) {
+		this.dz.options.url = destUrl;
 	}
 
 }

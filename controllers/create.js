@@ -201,7 +201,7 @@ router.post('/:id', (req, res, next) => {
 
 			cfields = _.filter(reqdata.customfields, (cf) => {
 				return _.isNil(cf.SubCategoryId) || cf.SubCategoryId === subcatId;
-			})
+			});
 
 			//-> Validate against filtered custom fields
 
