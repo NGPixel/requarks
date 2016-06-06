@@ -1,0 +1,40 @@
+.list {
+
+	.list-content {
+		outline: none;
+	}
+
+	.list-row {
+
+		padding: 8px 15px;
+		display: flex;
+		font-size: 13px;
+		box-sizing: border-box;
+
+		&:nth-child(odd) {
+			background-color: #FFF;
+		}
+
+	}
+
+}
+
+.list-header {
+	background-color: material-color('teal', '600');
+	padding: 15px;
+	margin: 0;
+	list-style-type: none;
+	display: flex;
+
+	div {
+		color: #FFF;
+		text-transform: uppercase;
+		font-weight: 600;
+		font-size: 12px;
+	}
+
+}
+
+.clusterize-extra-row.clusterize-keep-parity{
+  display: none;
+}

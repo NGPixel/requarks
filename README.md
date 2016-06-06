@@ -15,7 +15,7 @@
 - [x] Base Layout
 - [x] Setup
 - [ ] Dashboard
-- [x] Search
+- [ ] Search
 - [x] Create
 - [ ] Review
 - [ ] Item

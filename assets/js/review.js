@@ -1,0 +1,1 @@
+"use strict";$(function(){var e=_.template($("#list-tmpl").html()),r=_.times(1e3,function(r){return e({id:r,summary:faker.lorem.sentence(),category:faker.lorem.word(),subcategory:faker.lorem.word(),priority:faker.helpers.randomize(["Low","Normal","High"])})});new Clusterize({rows:r,scrollId:"review-scroll",contentId:"review-content",tag:"div",no_data_class:"list-no-data"})});

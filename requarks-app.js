@@ -141,7 +141,9 @@ app.use(expressBundles.middleware({
       'js/libs/me-markdown.standalone.min.js',
       _isDebug ? 'js/libs/vue.js' : 'js/libs/vue.min.js',
       _isDebug ? 'js/libs/dropzone.js' : 'js/libs/dropzone.min.js',
+      _isDebug ? 'js/libs/clusterize.js' : 'js/libs/clusterize.min.js',
       'js/libs/pikaday.min.js',
+      'js/libs/faker.js', // REMOVE BEFORE RELEASE
       'js/components.js',
       'js/app.js'
     ]
@@ -167,6 +169,7 @@ app.use('/', ctrl.login);
 
 app.use('/', mw.auth, ctrl.dashboard);
 app.use('/create', mw.auth, ctrl.create);
+app.use('/item', mw.auth, ctrl.item);
 app.use('/review', mw.auth, ctrl.review);
 app.use('/projects', mw.auth, ctrl.projects);
 app.use('/teams', mw.auth, ctrl.teams);

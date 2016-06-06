@@ -1,20 +1,31 @@
 extends ../layout
 
 block content
-	.container.row
-		.col-xs-9
-			.box
+	.review
+		.review-sd
+			.sdl
 				h4
-					i.material-icons.color-red-500 note_add
-					| Browse
-				.box-base
-					.box-chrome
-						| test
-		.col-xs-3
-			.box
-				h4
-					i.material-icons info_outline
-					| Help
-				.box-base
-					.box-chrome
-						| test
+					i.material-icons find_in_page
+					| Filters
+				| --
+
+		.review-list
+			.list-header
+				.width-100 ID
+				.width-fill Summary
+				.width-200 Category
+				.width-200 Sub-Category
+				.width-100 Priority
+			.list#review-scroll
+				.list-content#review-content
+					.list-no-data Nothing to display!
+
+	script#list-tmpl(type='text/template')
+		.list-row
+			.width-100 <%= id %>
+			.width-fill <%= summary %>
+			.width-200 <%= category %>
+			.width-200 <%= subcategory %>
+			.width-100 <%= priority %>
+
+

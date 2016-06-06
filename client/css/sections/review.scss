@@ -2,4 +2,35 @@ body.mi-review {
 
 	@include section-common('teal');
 
+	main {
+		padding:0;
+		border-bottom: none;
+		background-image: linear-gradient(to bottom, material-color('blue-grey', '50'), #FFF);
+
+		&::before {
+			display: none;
+		}
+
+		.review {
+			display: flex;		
+
+			.review-sd {
+				flex: 0 0 250px;
+			}
+			.review-list {
+				flex: 1;
+				height: 90vh;
+				display: flex;
+				flex-direction: column;
+
+				> .list {
+					flex: 1;
+					overflow: auto;
+				}
+
+			}
+		}
+
+	}
+
 }
