@@ -14,18 +14,23 @@ block content
 				.width-100 ID
 				.width-fill Summary
 				.width-200 Category
-				.width-200 Sub-Category
-				.width-100 Priority
+				.width-100 Project
+				.width-50: i.fa.fa-user
 			.list#review-scroll
 				.list-content#review-content
 					.list-no-data Nothing to display!
 
-	script#list-tmpl(type='text/template')
+	script#list-row-tmpl(type='text/template')
 		.list-row
-			.width-100 <%= id %>
+			.cell-id.width-100: span <%= id %>
 			.width-fill <%= summary %>
-			.width-200 <%= category %>
-			.width-200 <%= subcategory %>
-			.width-100 <%= priority %>
+			.width-200 <%= category %> &gt; <%= subcategory %>
+			.width-100 <%= project %>
+			.width-50: i.fa.fa-user
+
+	script#list-status-tmpl(type='text/template')
+		.list-status-row
+			i
+			| Unconfirmed
 
 

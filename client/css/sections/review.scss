@@ -5,7 +5,7 @@ body.mi-review {
 	main {
 		padding:0;
 		border-bottom: none;
-		background-image: linear-gradient(to bottom, material-color('blue-grey', '50'), #FFF);
+		background-image: linear-gradient(to bottom, darken(material-color('blue-grey', '50'), 1%), lighten(material-color('blue-grey', '50'), 4%));
 
 		&::before {
 			display: none;

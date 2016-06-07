@@ -1,15 +1,22 @@
 $(() => {
 
-	let listTmpl = _.template($('#list-tmpl').html());
+	let listRowTmpl = _.template($('#list-row-tmpl').html());
+	let listStatusTmpl = _.template($('#list-status-tmpl').html());
 
-	var data = _.times(1000, (idx) => {
-		return listTmpl({
-			id: idx,
-			summary: faker.lorem.sentence(),
-			category: faker.lorem.word(),
-			subcategory: faker.lorem.word(),
-			priority: faker.helpers.randomize(['Low', 'Normal', 'High'])
-		});
+	var data = _.times(10000, (idx) => {
+		if(idx % 20 === 0) {
+			return listStatusTmpl({
+
+			});
+		} else {
+			return listRowTmpl({
+				id: idx,
+				summary: faker.lorem.sentence(),
+				category: faker.lorem.word(),
+				subcategory: faker.lorem.word(),
+				project: faker.lorem.word()
+			});
+		}
 	});
 
 	var clusterize = new Clusterize({
