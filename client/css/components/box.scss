@@ -96,7 +96,7 @@
 					border: 1px solid material-color('blue-grey', '100');
 					border-radius: 2px;
 					box-sizing: border-box;
-					transition: all 0.5s ease;
+					transition: border-color 0.5s ease, box-shadow 0.5s ease;
 					outline: none;
 					@include prefix(box-shadow, inset 0 0 5px 0 rgba(0,0,0,0.05));
 
@@ -110,6 +110,10 @@
 						@include prefix(box-shadow, inset 0 0 5px 0 material-color('indigo', '100'));
 						border-color: material-color('indigo', '200');
 						color: material-color('blue-grey', '800');
+					}
+
+					@include placeholder() {
+						color: material-color('blue-grey', '200');
 					}
 
 				}

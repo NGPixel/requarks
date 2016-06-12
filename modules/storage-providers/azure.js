@@ -1,6 +1,7 @@
 "use strict";
 
-var azure = require('azure-storage'),
+var _ = require('lodash'),
+	azure = require('azure-storage'),
 	Promise = require('bluebird'),
 	StorageProvider = require('./base');
 
@@ -45,7 +46,7 @@ class StorageProviderAzure extends StorageProvider {
 			if(self.blobService === null) {
 				return reject(new Error('Storage connector is not available. Connection failed.'));
 			}
-			self.blobService.createContainerIfNotExists(conName, {
+			self.blobService.createContainerIfNotExists(_.replace(conName, '{prefix}', 'requarks'), {
 				publicAccessLevel : azure.BlobUtilities.BlobContainerPublicAccessType.OFF
 			}, (err, result, resp) => {
 				if(err) {

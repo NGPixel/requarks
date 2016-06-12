@@ -13,24 +13,26 @@ block content
 			.list-header
 				.width-100 ID
 				.width-fill Summary
-				.width-200 Category
-				.width-100 Project
-				.width-50: i.fa.fa-user
+				.width-200
+					.switch
+						label
+							| Show sub-tasks
+							input(type='checkbox')
+							span.lever
 			.list#review-scroll
 				.list-content#review-content
 					.list-no-data Nothing to display!
 
 	script#list-row-tmpl(type='text/template')
-		.list-row
-			.cell-id.width-100: span <%= id %>
-			.width-fill <%= summary %>
-			.width-200 <%= category %> &gt; <%= subcategory %>
-			.width-100 <%= project %>
-			.width-50: i.fa.fa-user
+		.list-row(class!='${ rowClass }')
+			.cell-id: span(class!='${ priority }') ${ id }
+			.cell-summary.width-fill
+				span ${ summary }
+			.cell-avatar: img(src!='${  avatar }')
 
 	script#list-status-tmpl(type='text/template')
 		.list-status-row
 			i
-			| Unconfirmed
+			| ${ statusName }
 
 

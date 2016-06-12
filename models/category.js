@@ -4,18 +4,18 @@ module.exports = function(sequelize, DataTypes) {
 
   var Category = sequelize.define("Category",
   {
-    name:         DataTypes.STRING,
-    slug:         DataTypes.STRING,
-    description:  DataTypes.STRING,
-    color:        DataTypes.STRING,
-    icon:         DataTypes.STRING
+    name:             DataTypes.STRING,
+    slug:             DataTypes.STRING,
+    description:      DataTypes.STRING,
+    color:            DataTypes.STRING,
+    icon:             DataTypes.STRING,
+    defaultPriority:  DataTypes.ENUM('low','normal','high')
   },
   {
     timestamps: true,
     classMethods: {
       associate(models) {
 
-        Category.belongsTo(models.Priority, { as: 'defaultPriority', constraints: false });
         Category.belongsTo(models.Status, { as: 'defaultStatus', constraints: false });
         Category.belongsTo(models.Type, { as: 'defaultType', constraints: false });
 

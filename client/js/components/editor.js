@@ -16,6 +16,8 @@ class Editor {
 	 */
 	constructor(editorObj, targetObj, placeholder) {
 
+		if($(editorObj).length === 0) { return null; }
+
 		let self = this;
 
 		self.obj = new MediumEditor($(editorObj), {

@@ -16,6 +16,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate(models) {
 
+        Type.belongsTo(models.Type, { as: 'parent' });
 
       }
     }

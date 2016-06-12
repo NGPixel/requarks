@@ -1,6 +1,7 @@
 "use strict";
 
-var path = require('path'),
+var _ = require('lodash'),
+	path = require('path'),
 	Promise = require('bluebird'),
 	fs = Promise.promisifyAll(require('fs')),
 	StorageProvider = require('./base');
@@ -35,7 +36,7 @@ class StorageProviderLocal extends StorageProvider {
 	 * @return {Promise}         Promise
 	 */
 	createContainer(conName) {
-		let fpath = path.join(this.conf.local.path, conName);
+		let fpath = path.join(this.conf.local.path, _.replace(conName, '{prefix}', 'requarks'));
 		return fs.accessAsync(fpath, fs.F_OK).then(() => {
 			return Promise.resolve(true);
 		}).catch(() => {

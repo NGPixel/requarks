@@ -9,7 +9,8 @@ module.exports = function(sequelize, DataTypes) {
     progress:     DataTypes.INTEGER,
     scrumPoker:   DataTypes.DECIMAL(4,1),
     deadline:     DataTypes.DATEONLY,
-    deadlinePre:  DataTypes.DATEONLY
+    deadlinePre:  DataTypes.DATEONLY,
+    priority:     DataTypes.ENUM('low','normal','high')
   },
   {
     paranoid: true,
@@ -28,7 +29,6 @@ module.exports = function(sequelize, DataTypes) {
         Request.hasMany(models.Property);
 
         Request.belongsTo(models.Status);
-        Request.belongsTo(models.Priority);
         Request.belongsTo(models.Type);
         Request.belongsTo(models.Category);
         Request.belongsTo(models.SubCategory);

@@ -3,6 +3,9 @@ body.mi-review {
 	@include section-common('teal');
 
 	main {
+		display: flex;
+		height: 100%;
+		align-items: stretch;
 		padding:0;
 		border-bottom: none;
 		background-image: linear-gradient(to bottom, darken(material-color('blue-grey', '50'), 1%), lighten(material-color('blue-grey', '50'), 4%));
@@ -12,16 +15,20 @@ body.mi-review {
 		}
 
 		.review {
-			display: flex;		
+			display: flex;
+			height: 100%;
+			flex: 1;
+			align-items: stretch;
 
 			.review-sd {
 				flex: 0 0 250px;
+				height: 100%;
 			}
 			.review-list {
 				flex: 1;
-				height: 90vh;
 				display: flex;
 				flex-direction: column;
+				height: 100%;
 
 				> .list {
 					flex: 1;
@@ -31,6 +38,10 @@ body.mi-review {
 			}
 		}
 
+	}
+
+	footer {
+		display: none;
 	}
 
 }

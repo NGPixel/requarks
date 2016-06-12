@@ -8,7 +8,7 @@
 			"icon": "memory",
 			"defaultTypeId": 1,
 			"defaultStatusId": 1,
-			"defaultPriorityId": 2
+			"defaultPriority": null
 		},
 		{
 			"name": "Content",
@@ -18,7 +18,7 @@
 			"icon": "wrap_text",
 			"defaultTypeId": 1,
 			"defaultStatusId": 2,
-			"defaultPriorityId": 3
+			"defaultPriority": null
 		},
 		{
 			"name": "Graphic Design",
@@ -28,7 +28,7 @@
 			"icon": "palette",
 			"defaultTypeId": 1,
 			"defaultStatusId": 3,
-			"defaultPriorityId": 4
+			"defaultPriority": null
 		}
 	],
 	"SubCategory": [
@@ -265,48 +265,6 @@
 			"closed": true,
 			"color": "red",
 			"sortIndex": 1000,
-			"CategoryId": 1
-		}
-	],
-	"Priority": [
-		{
-			"name": "Low",
-			"slug": "low",
-			"closed": false,
-			"color": "yellow",
-			"sortIndex": 100,
-			"CategoryId": 1
-		},
-		{
-			"name": "Normal",
-			"slug": "normal",
-			"closed": false,
-			"color": "indigo",
-			"sortIndex": 200,
-			"CategoryId": 1
-		},
-		{
-			"name": "Normal",
-			"slug": "normal",
-			"closed": false,
-			"color": "indigo",
-			"sortIndex": 200,
-			"CategoryId": 2
-		},
-		{
-			"name": "Normal",
-			"slug": "normal",
-			"closed": false,
-			"color": "indigo",
-			"sortIndex": 200,
-			"CategoryId": 3
-		},
-		{
-			"name": "High",
-			"slug": "high",
-			"closed": false,
-			"color": "red",
-			"sortIndex": 300,
 			"CategoryId": 1
 		}
 	]

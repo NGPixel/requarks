@@ -138,7 +138,7 @@ app.use(expressBundles.middleware({
       'js/libs/typeahead.bundle.min.js',
       'js/libs/medium-editor.min.js',
       'js/libs/medium-autolist.min.js',
-      'js/libs/me-markdown.standalone.min.js',
+      _isDebug ? 'js/libs/me-markdown.standalone.js' : 'js/libs/me-markdown.standalone.min.js',
       _isDebug ? 'js/libs/vue.js' : 'js/libs/vue.min.js',
       _isDebug ? 'js/libs/dropzone.js' : 'js/libs/dropzone.min.js',
       _isDebug ? 'js/libs/clusterize.js' : 'js/libs/clusterize.min.js',

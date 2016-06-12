@@ -14,6 +14,8 @@ class FileBox {
 	 */
 	constructor(id) {
 
+		if($(id).length === 0) { return null; }
+
 		let self = this;
 
 		let prevTemplate = $('ul > li', id).detach();

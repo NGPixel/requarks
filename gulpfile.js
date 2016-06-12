@@ -42,6 +42,7 @@ gulp.task("scripts-components", function () {
 });
 gulp.task("scripts-page", function () {
 	return gulp.src(paths.pagescripts)
+	.pipe(plumber())
 	.pipe(babel())
 	.pipe(uglify())
 	.pipe(plumber.stop())

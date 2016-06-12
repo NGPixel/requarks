@@ -1,8 +1,9 @@
 .sdl {
 
 	background-color: material-color('teal', '700');
-	min-height: 90vh;
 	box-sizing: border-box;
+	height: 100%;
+	flex: 1;
 
 	h4 {
 		color: #FFF;
