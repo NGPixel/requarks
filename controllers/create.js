@@ -119,8 +119,7 @@ router.post('/:id', (req, res, next) => {
 		where: { slug: req.params.id },
 		include: [
 			{ model: db.Type, as: 'defaultType', attributes: ['id'] },
-			{ model: db.Status, as: 'defaultStatus', attributes: ['id'] },
-			{ model: db.Priority, as: 'defaultPriority', attributes: ['id'] }
+			{ model: db.Status, as: 'defaultStatus', attributes: ['id'] }
 		]
 	}).then((cat) => {
 
@@ -301,7 +300,6 @@ router.post('/:id', (req, res, next) => {
 
 					cReq.setType(reqdata.category.get('defaultType'), { save: false });
 					cReq.setStatus(reqdata.category.get('defaultStatus'), { save: false });
-					cReq.setPriority(reqdata.category.get('defaultPriority'), { save: false });
 				
 					cReq.setAuthor(res.locals.usr.id, { save: false });
 

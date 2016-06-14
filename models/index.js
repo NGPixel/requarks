@@ -21,13 +21,15 @@ module.exports = function(config) {
 
   // Load Models
 
+  let dbModelsPath = path.join(__dirname, '/db');
+
   fs
-    .readdirSync(__dirname)
+    .readdirSync(dbModelsPath)
     .filter(function(file) {
       return (file.indexOf(".") !== 0) && (file !== "index.js") && (_.endsWith(file, '.js'));
     })
     .forEach(function(file) {
-      var model = sequelize.import(path.join(__dirname, file));
+      var model = sequelize.import(path.join(dbModelsPath, file));
       db[model.name] = model;
     });
 
@@ -41,6 +43,8 @@ module.exports = function(config) {
 
   db.sequelize = sequelize;
   db.Sequelize = Sequelize;
+
+  db.common = require('./common');
 
   return db;
 

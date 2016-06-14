@@ -35,4 +35,7 @@ block content
 			i
 			| ${ statusName }
 
+	script(type='text/javascript')
+		!= 'var reqData = "' + JSON.stringify(reqdata).replace(/"/g, '\\"') + '";'
+
 
