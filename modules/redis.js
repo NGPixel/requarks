@@ -3,6 +3,12 @@
 var Redis = require('ioredis'),
 	_ = require('lodash');
 
+/**
+ * Redis module
+ *
+ * @param      {Object}  appconfig  Application config
+ * @return     {Redis}   Redis instance
+ */
 module.exports = (appconfig) => {
 
 	let conf = {};
@@ -38,8 +44,16 @@ module.exports = (appconfig) => {
 		break;
 	}
 
-	return new Redis(_.defaultsDeep(conf), {
+	let rd = new Redis(_.defaultsDeep(conf), {
 		lazyConnect: false
 	});
+
+	// Handle connection errors
+
+	rd.on('error', (err) => {
+		winston.error('Failed to connect to Redis instance.');
+	});
+
+	return rd;
 
 };

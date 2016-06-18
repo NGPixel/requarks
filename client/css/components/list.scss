@@ -31,8 +31,22 @@
 			background-color: #FFF;
 		}
 
+		&:nth-child(even) {
+			background-color: material-color('blue-grey', '50');
+
+			.cell-summary > ul {
+				background-color: material-color('blue-grey', '50');
+			}
+
+		}
+
 		&:hover {
 			background-color: material-color('teal', '100');
+
+			.cell-summary > ul {
+				background-color: material-color('teal', '100');
+			}
+
 		}
 
 		&.sub {
@@ -147,12 +161,39 @@
 	.cell-summary {
 		display: flex;
 		align-items: center;
+		position: relative;
 		
-
 		> span {
-			max-width: 100%;
-			white-space: nowrap;
-			text-overflow: ellipsis;
+
+		}
+
+		> ul {
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+			position: absolute;
+			right: 0;
+			display: inline-flex;
+			align-items: center;
+			flex-direction: row-reverse;
+			height: 34px;
+			background-color: #FFF;
+
+			> li {
+				display: inline-flex;
+				align-items: center;
+				background-color: material-color('red', '400');
+				border-radius: 5px;
+				color: #FFF;
+				font-size: 11px;
+				font-weight: 600;
+				margin-left: 5px;
+				height: 24px;
+				padding: 0 8px;
+				text-shadow: 1px 1px 0 rgba(0,0,0,0.6);
+				text-transform: uppercase;
+			}
+
 		}
 
 	}

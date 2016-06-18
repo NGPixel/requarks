@@ -8,6 +8,8 @@ var args = process.argv.slice(2);
 
 var appMode = args[1] || 'setup';
 
+global.winston = require('winston');
+
 var app = require('../requarks-' + appMode);
 var debug = require('debug')('requarks');
 var http = require('http');

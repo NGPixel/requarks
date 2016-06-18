@@ -8,7 +8,7 @@ body.mi-review {
 		align-items: stretch;
 		padding:0;
 		border-bottom: none;
-		background-image: linear-gradient(to bottom, darken(material-color('blue-grey', '50'), 1%), lighten(material-color('blue-grey', '50'), 4%));
+		background-color: #FFF;
 
 		&::before {
 			display: none;

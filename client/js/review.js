@@ -57,6 +57,27 @@ $(() => {
 			id: v.id,
 			summary: v.summary,
 			priority: v.priority,
+			labels: (() => {
+				
+				let lbls = [];
+
+				// Category
+				
+				lbls.push({
+					title: v.category,
+					color: 'red'
+				});
+
+				// Subcategory
+				
+				lbls.push({
+					title: v.subcategory,
+					color: 'brown'
+				});
+
+				return lbls;
+
+			})(),
 			avatar: v.avatar,
 			rowClass: (v.parent > 0) ? 'sub' : 'main'
 		}));
