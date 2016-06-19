@@ -1,45 +1,201 @@
 "use strict";
 
-module.exports = function(sequelize, DataTypes) {
+var modb = require('mongoose');
+var autoIncrement = require("mongodb-autoincrement");
+require('mongoose-double')(modb);
 
-  var Request = sequelize.define("Request",
-  {
-    title:        DataTypes.STRING,
-    effort:       DataTypes.DECIMAL(6,2),
-    progress:     DataTypes.INTEGER,
-    scrumPoker:   DataTypes.DECIMAL(4,1),
-    deadline:     DataTypes.DATEONLY,
-    deadlinePre:  DataTypes.DATEONLY,
-    priority:     DataTypes.ENUM('low','normal','high')
+var requestSchema = modb.Schema({
+
+  _id: Number,
+
+  summary: {
+    type: String,
+    required: true
   },
-  {
-    paranoid: true,
-    timestamps: true,
-    classMethods: {
-      associate(models) {
-
-        Request.belongsToMany(models.Sprint, {through: 'SprintRequests'});
-        Request.belongsToMany(models.User, { as: 'stakeholders', through: 'Stakeholders'});
-        Request.belongsToMany(models.Request, { as: 'dependencies', through: 'Dependencies'});
-
-        Request.hasMany(models.Activity);
-        Request.hasMany(models.Comment);
-        Request.hasMany(models.Description);
-        Request.hasMany(models.Document);
-        Request.hasMany(models.Property);
-
-        Request.belongsTo(models.Status);
-        Request.belongsTo(models.Type);
-        Request.belongsTo(models.Category);
-        Request.belongsTo(models.SubCategory);
-        Request.belongsTo(models.Request, { as: 'parent' });
-        Request.belongsTo(models.User, { as: 'author' });
-        Request.belongsTo(models.User, { as: 'assignedUser' });
-        Request.belongsTo(models.Team, { as: 'assignedTeam' });
-
-      }
+  planning: {
+    effort: {
+      type: modb.Schema.Types.Double,
+      default: 0
+    },
+    progress: {
+      type: Number,
+      min: 0,
+      max: 0,
+      default: 0
+    },
+    scrumPoker: {
+      type: modb.Schema.Types.Double,
+      default: 0
+    },
+    deadline: {
+      type: Date
+    },
+    deadlineInitial: {
+      type: Date
     }
-  });
+  },
+  priority: {
+    type: String,
+    enum: ['', 'low', 'normal', 'high'],
+    default: '',
+    required: true
+  },
+  assigneeType: {
+    type: String,
+    enum: ['user','team'],
+    default: 'user',
+    required: true
+  },
 
-  return Request;
-};
+  // Activities
+
+  activities: [{
+    summary: {
+      type: String,
+      required: true
+    },
+    oldValue: {
+      type: String
+    },
+    newValue: {
+      type: String
+    },
+    author: {
+      type: Number,
+      ref: 'User'
+    }
+  }],
+
+  // Comments
+
+  comments: [{
+    content: {
+      type: String,
+      required: true
+    },
+    author: {
+      type: Number,
+      ref: 'User'
+    }
+  }],
+
+  // Descriptions
+
+  descriptions: [{
+    content: {
+      type: String,
+      required: true
+    },
+    author: {
+      type: Number,
+      ref: 'User'
+    }
+  }],
+
+  // Documents
+
+  documents: [{
+    name: {
+      type: String,
+      required: true
+    },
+    fileType: {
+      type: String,
+      required: true,
+      default: 'application/octet-stream'
+    },
+    parentFolder: {
+      type: String,
+      default: ''
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
+    },
+    author: {
+      type: Number,
+      ref: 'User',
+      required: true
+    }
+  }],
+
+  // Custom Fields
+
+  fields: [{
+    value: {
+      type: String
+    },
+    defintion: {
+      type: Number,
+      ref: 'FieldDefinition'
+    }
+  }],
+
+  // Notes
+  
+  notes: [{
+    name: {
+      type: String,
+      required: true
+    },
+    content: {
+      type: String
+    }
+  }],
+
+  // References
+
+  category: {
+    type: modb.Schema.Types.ObjectId,
+    ref: 'Category'
+  },
+  subCategory: {
+    type: modb.Schema.Types.ObjectId,
+    ref: 'SubCategory'
+  },
+  status: {
+    type: modb.Schema.Types.ObjectId,
+    ref: 'Status'
+  },
+  type: {
+    type: modb.Schema.Types.ObjectId,
+    ref: 'Type'
+  },
+  parent: {
+    type: Number,
+    ref: 'Request'
+  },
+  author: {
+    type: Number,
+    ref: 'User'
+  },
+  assignees: [{
+    kind: String,
+    item: {
+      type: Number,
+      ref: 'assignees.kind'
+    }
+  }],
+  sprints: [{
+    type: modb.Schema.Types.ObjectId,
+    ref: 'Sprint'
+  }],
+  stakeholders: [{
+    kind: String,
+    item: {
+      type: Number,
+      ref: 'stakeholders.kind'
+    }
+  }],
+  dependencies: [{
+    type: Number,
+    ref: 'Request'
+  }]
+},
+{
+  timestamps: {}
+});
+
+requestSchema.plugin(autoIncrement.mongoosePlugin);
+
+module.exports = modb.model('Request', requestSchema);

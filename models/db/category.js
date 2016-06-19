@@ -1,27 +1,87 @@
 "use strict";
 
-module.exports = function(sequelize, DataTypes) {
+var modb = require('mongoose');
 
-  var Category = sequelize.define("Category",
-  {
-    name:             DataTypes.STRING,
-    slug:             DataTypes.STRING,
-    description:      DataTypes.STRING,
-    color:            DataTypes.STRING,
-    icon:             DataTypes.STRING,
-    defaultPriority:  DataTypes.ENUM('low','normal','high')
+var categorySchema = modb.Schema({
+
+  _id: String,
+
+  // Fields
+
+  name: {
+    type: String,
+    required: true
   },
-  {
-    timestamps: true,
-    classMethods: {
-      associate(models) {
+  description: {
+    type: String
+  },
+  color: {
+    type: String
+  },
+  icon: {
+    type: String
+  },
+  defaultPriority: {
+    type: String,
+    enum: ['','low','normal','high']
+  },
 
-        Category.belongsTo(models.Status, { as: 'defaultStatus', constraints: false });
-        Category.belongsTo(models.Type, { as: 'defaultType', constraints: false });
+  // References
 
-      }
+  defaultStatus: {
+    type: String,
+    ref: 'Status'
+  },
+  defaultType: {
+    type: String,
+    ref: 'Type'
+  },
+  statuses: [{
+    type: String,
+    ref: 'Status'
+  }],
+  types: [{
+    type: String,
+    ref: 'Type'
+  }],
+
+  // Sub-documents
+
+  subCategories: [{
+    name: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String
+    },
+    color: {
+      type: String
+    },
+    sortIndex: {
+      type: Number
     }
-  });
+  }],
+  infoBoxes: [{
+    name: {
+      type: String,
+      required: true
+    },
+    position: {
+      type: String,
+      required: true
+    },
+    content: {
+      type: String
+    },
+    icon: {
+      type: String
+    }
+  }]
 
-  return Category;
-};
+},
+{
+  timestamps: {}
+});
+
+module.exports = modb.model('Category', categorySchema);

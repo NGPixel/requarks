@@ -10,15 +10,16 @@ var appMode = args[1] || 'setup';
 
 global.winston = require('winston');
 
-var app = require('../requarks-' + appMode);
-var debug = require('debug')('requarks');
-var http = require('http');
-var db = {};
+global.db = {};
 var red = {};
 var lang = {};
 var UserData = {};
 var RqError = {};
 var ROOTPATH = '';
+
+var app = require('../requarks-' + appMode);
+var debug = require('debug')('requarks');
+var http = require('http');
 
 /**
  * Get port from environment and store in Express.

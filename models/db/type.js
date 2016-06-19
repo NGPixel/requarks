@@ -1,26 +1,43 @@
 "use strict";
 
-module.exports = function(sequelize, DataTypes) {
+var modb = require('mongoose');
 
-  var Type = sequelize.define("Type",
-  {
-    name:         DataTypes.STRING,
-    slug:         DataTypes.STRING,
-    description:  DataTypes.STRING,
-    color:        DataTypes.STRING,
-    icon:         DataTypes.STRING,
-    system:       DataTypes.BOOLEAN
+var typeSchema = modb.Schema({
+
+  _id: String,
+
+  // Fields
+
+  name: {
+    type: String,
+    required: true
   },
-  {
-    timestamps: true,
-    classMethods: {
-      associate(models) {
+  description: {
+    type: String
+  },
+  color: {
+    type: String,
+    required: true
+  },
+  icon: {
+    type: String,
+    required: true
+  },
+  isSystem: {
+    type: Boolean,
+    default: false
+  },
 
-        Type.belongsTo(models.Type, { as: 'parent' });
+  // References
+  
+  parent: {
+    type: String,
+    ref: "Type"
+  }
 
-      }
-    }
-  });
+},
+{
+  timestamps: {}
+});
 
-  return Type;
-};
+module.exports = modb.model('Type', typeSchema);

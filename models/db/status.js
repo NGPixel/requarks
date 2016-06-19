@@ -1,25 +1,37 @@
 "use strict";
 
-module.exports = function(sequelize, DataTypes) {
+var modb = require('mongoose');
 
-  var Status = sequelize.define("Status",
-  {
-    name:         DataTypes.STRING,
-    slug:         DataTypes.STRING,
-    closed:       DataTypes.BOOLEAN,
-    color:        DataTypes.STRING,
-    sortIndex:    DataTypes.INTEGER
+var statusSchema = modb.Schema({
+
+  _id: String,
+
+  // Fields
+
+  name: {
+    type: String,
+    required: true
   },
-  {
-    timestamps: true,
-    classMethods: {
-      associate(models) {
+  description: {
+    type: String
+  },
+  color: {
+    type: String,
+    required: true
+  },
+  sortIndex: {
+    type: Number,
+    default: 0,
+    required: true
+  },
+  isClosed: {
+    type: Boolean,
+    default: false
+  }
 
-        Status.belongsTo(models.Category);
+},
+{
+  timestamps: {}
+});
 
-      }
-    }
-  });
-
-  return Status;
-};
+module.exports = modb.model('Status', statusSchema);
