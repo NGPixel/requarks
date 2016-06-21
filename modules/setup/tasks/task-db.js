@@ -5,48 +5,66 @@
 // ---------------------------------------------
 
 var Promise = require('bluebird'),
+	 _ = require('lodash'),
+	 modb = require('mongoose'),
+	 fs   = require('fs'),
 	 path = require('path');
 
 module.exports = (appconfig) => {
 
-	let db = require("../../../models")(appconfig);
+	modb.Promise = require('bluebird');
 
-	return db.sequelize.authenticate().then(() => {
+	// Check connection
 
-		// Create database structure
-	
-		return db.sequelize.sync({force: true}).then(() => {
+	return modb.connect(appconfig.db.connstr).then(() => {
 
-			// Insert default database data
+		// Load models
 
-			let defaultData = require(path.join(__dirname, '../../../models/_setup-data.json'));
-			var defaultDataTasks = [];
+		let dbModels = {};
+		let dbModelsPath = path.join(__dirname, '../../../models/db');
 
-			Object.keys(defaultData).forEach(function(modelName) {
-				defaultDataTasks.push(
-					db[modelName].bulkCreate(defaultData[modelName])
-				);
-			});
+		fs
+		.readdirSync(dbModelsPath)
+		.filter(function(file) {
+			return (file.indexOf(".") !== 0);
+		})
+		.forEach(function(file) {
+			let modelName = _.upperFirst(_.split(file,'.')[0]);
+			dbModels[modelName] = require(path.join(dbModelsPath, file));
+		});
 
-			// Insert admin user
+		// Insert default database data
 
-			defaultDataTasks.push(db.User.create({
-				username: appconfig.auth0.admin,
-				isActive: true,
-				isPending: true
-			}));
+		let defaultData = require(path.join(__dirname, '../_setup-data.json'));
+		var defaultDataTasks = [];
 
-			return Promise.all(defaultDataTasks)
-			.then(() => {
-				return Promise.resolve('Database: Connection established, structure created and default data inserted successfully.');
-			})
-			.catch((err) => {
-		 		return Promise.reject(new Promise.OperationalError('Database: Unable to insert default data.'));
-		 	});
+		Object.keys(defaultData).forEach(function(modelName) {
+			defaultDataTasks.push(
+				dbModels[modelName].collection.insert(defaultData[modelName])
+			);
+		});
 
-	  	})
-	 	.catch((err) => {
-	 		return Promise.reject((err instanceof Promise.OperationalError) ? err : new Promise.OperationalError('Database: Unable to create table structure.'));
+		// Insert admin user
+
+		defaultDataTasks.push(dbModels.User.findOneAndUpdate({
+			username: appconfig.auth0.admin
+		}, {
+			_id: modb.Types.ObjectId(),
+			username: appconfig.auth0.admin,
+			isActive: true,
+			isPending: true
+		}, {
+			upsert: true,
+			setDefaultsOnInsert: true
+		}));
+
+		return Promise.all(defaultDataTasks)
+		.then(() => {
+			return Promise.resolve('Database: Connection established, structure created and default data inserted successfully.');
+			modb.disconnect();
+		})
+		.catch((err) => {
+	 		return Promise.reject(new Promise.OperationalError('Database: Unable to insert default data.'));
 	 	});
 
 	})

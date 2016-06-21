@@ -29,9 +29,10 @@ module.exports = function(appconfig) {
 
 	// Connect
 
-	modb.connect('mongodb://localhost/requarks');
+	modb.connect(appconfig.db.connstr);
 
 	dbModels.connection = modb.connection;
+	dbModels.ObjectId = modb.Types.ObjectId;
 
 	// Load Models
 

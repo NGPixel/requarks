@@ -1,0 +1,309 @@
+{
+	"Category": [
+		{
+			"_id": "technical",
+			"name": "Technical",
+			"description": "Report bugs, request new technical features, enhancements or support.",
+			"color": "grey-800",
+			"icon": "memory",
+			"defaultPriority": "",
+			"defaultType": "request",
+			"defaultStatus": "unconfirmed",
+			"statuses": ["unconfirmed", "under-analysis", "awaiting-approval", "info-required", "on-hold", "queued", "in-progress", "to-be-deployed", "completed", "deferred", "rejected"],
+			"types": [],
+			"subCategories": [
+				{
+					"id": "5768a9fb9e877e2d75e19dfb",
+					"name": "Bug - Critical",
+					"description": "A bug that crashes or renders the application unoperational.",
+					"color": "red-500",
+					"sortIndex": 100
+				},
+				{
+					"id": "5768a9fb56c513dd4cb21448",
+					"name": "Bug - Major",
+					"description": "A bug that produces one or more errors.",
+					"color": "orange-500",
+					"sortIndex": 200
+				},
+				{
+					"id": "5768a9fb2ca2a30f69b26bad",
+					"name": "Bug - Normal",
+					"description": "A feature that does not work as expected.",
+					"color": "brown-500",
+					"sortIndex": 300
+				},
+				{
+					"id": "5768aa17cdb682fa7b257687",
+					"name": "Bug - Minor",
+					"description": "Small visual glitches, typos or other cosmetic bugs.",
+					"color": "yellow-500",
+					"sortIndex": 400
+				},
+				{
+					"id": "5768aa1754f6a173e3aec77c",
+					"name": "Enhancement",
+					"description": "A change or add-on to an existing functionality.",
+					"color": "indigo-500",
+					"sortIndex": 500
+				},
+				{
+					"id": "5768aa17072e0bdee771c0c3",
+					"name": "New Feature",
+					"description": "A new functionality which isn't currently present in the application.",
+					"color": "blue-500",
+					"sortIndex": 600
+				}
+			],
+			"fields": [
+				{
+					"id": "5768a9d45e310806620c463b",
+					"name": "Application",
+					"format": "choice",
+					"prefix": null,
+					"suffix": null,
+					"sortIndex": 100,
+					"isHalfSize": true,
+					"value": "Corporate Website;Intranet;Extranet;Social Media",
+					"defaultValue": "Corporate Website",
+					"placeholder": null,
+					"description": "Name of the website / application",
+					"icon": "laptop",
+					"validation": null,
+					"isRequired": true,
+					"isRestricted": false,
+					"subCategory": null
+				},
+				{
+					"id": "5768a9d4fba419b4ea92084d",
+					"name": "Sub-Section",
+					"format": "text",
+					"prefix": null,
+					"suffix": null,
+					"sortIndex": 200,
+					"isHalfSize": true,
+					"value": null,
+					"defaultValue": null,
+					"placeholder": "e.g. Canada > Investors",
+					"description": "Sub-section of the application",
+					"icon": "level-down",
+					"validation": null,
+					"isRequired": false,
+					"isRestricted": false,
+					"subCategory": null
+				},
+				{
+					"id": "5768a9d4a7284edce38c306b",
+					"name": "URL",
+					"format": "text",
+					"prefix": null,
+					"suffix": null,
+					"sortIndex": 300,
+					"isHalfSize": false,
+					"value": null,
+					"defaultValue": null,
+					"placeholder": "http://",
+					"description": "Link to the page where the problem is or an example of a page.",
+					"icon": "globe",
+					"validation": null,
+					"isRequired": false,
+					"isRestricted": false,
+					"subCategory": null
+				}
+			],
+			"infoBoxes": [
+				{
+					"id": "5768a6a5bb9b077c2a5b2569",
+					"name": "Language Warning",
+					"position": "before-summary",
+					"content": "**All requests must be written in English.** Content in other languages can be included in the description or attachment, but all information detailing the request must be in English.",
+					"icon": "speaker_notes"
+				}
+			]
+		},
+		{
+			"_id": "content",
+			"name": "Content",
+			"description": "Request new digital content such as website news, intranet articles, social media posts, or changes to existing intranet or website pages.",
+			"color": "light-blue-600",
+			"icon": "wrap_text",
+			"defaultPriority": "",
+			"defaultType": "request",
+			"defaultStatus": "unconfirmed",
+			"statuses": ["unconfirmed", "under-analysis", "awaiting-approval", "info-required", "on-hold", "queued", "in-progress", "completed", "rejected"],
+			"types": [],
+			"subCategories": [
+				{
+					"id": "5768a98e65db5542a15fa75a",
+					"name": "Modify content",
+					"description": "Request changes to existing pages.",
+					"color": "blue-500",
+					"sortIndex": 100
+				},
+				{
+					"id": "5768a9a54c730f5414f9d56b",
+					"name": "Translation",
+					"description": "Content that needs to be translated.",
+					"color": "teal-500",
+					"sortIndex": 200
+				}
+			],
+			"infoBoxes": [
+				{
+					"id": "5768a74153c7a39b4e647924",
+					"name": "Language Warning",
+					"position": "before-summary",
+					"content": "**All requests must be written in English.** Content in other languages can be included in the description or attachment, but all information detailing the request must be in English.",
+					"icon": "speaker_notes"
+				},
+				{
+					"id": "5768a7660fcb8675f8a21678",
+					"name": "Content Warning",
+					"position": "before-actions",
+					"content": "**IMPORTANT:** Please note that your request will only be addressed after a complete form has been submitted. The date at which all the information is available will be considered the request date. All requests will be processed within 48 hours. If urgent, please call us to discuss your request priority.\r\n\r\nALL CONTENT FOR THE GLOBAL WEBSITE AND GROUP INTRANET IS PUBLISHED IN ENGLISH AND FRENCH SIMULTANEOUSLY, WITH NO EXCEPTIONS.",
+					"icon": "error_outline"
+				}
+			]
+		},
+		{
+			"_id": "graphic-design",
+			"name": "Graphic Design",
+			"description": "Request banners, graphics, images or other graphic design elements.",
+			"color": "green-600",
+			"icon": "palette",
+			"defaultPriority": "",
+			"defaultType": "request",
+			"defaultStatus": "unconfirmed",
+			"statuses": ["unconfirmed", "under-analysis", "awaiting-approval", "info-required", "on-hold", "queued", "in-progress", "completed", "rejected"],
+			"types": [],
+			"subCategories": [
+				{
+					"id": "5768a9b11741be8e83c082c7",
+					"name": "New Design",
+					"description": "Request a new design / illustration.",
+					"color": "green-500",
+					"sortIndex": 100
+				}
+			],
+			"infoBoxes": [
+				{
+					"id": "5768a77da156364809d8b6ed",
+					"name": "Language Warning",
+					"position": "before-summary",
+					"content": "**All requests must be written in English.** Content in other languages can be included in the description or attachment, but all information detailing the request must be in English.",
+					"icon": "speaker_notes"
+				}
+			]
+		}
+	],
+	"RequestType": [
+		{
+			"_id": "request",
+			"name": "Request",
+			"description": "Client Request, Story, Product Backlog",
+			"color": "blue-grey",
+			"icon": "note",
+			"isSystem": true,
+			"parent": ""
+		},
+		{
+			"_id": "task",
+			"name": "Task",
+			"description": "A small piece of work to be assigned, usually part of a request",
+			"color": "blue",
+			"icon": "assignment",
+			"isSystem": true,
+			"parent": "request"
+		}
+	],
+	"Status": [
+		{
+			"_id": "unconfirmed",
+			"name": "Unconfirmed",
+			"description": "",
+			"color": "blue-grey",
+			"sortIndex": 0,
+			"isClosed": false
+		},
+		{
+			"_id": "under-analysis",
+			"name": "Under Analysis",
+			"description": "",
+			"color": "teal",
+			"sortIndex": 100,
+			"isClosed": false
+		},
+		{
+			"_id": "awaiting-approval",
+			"name": "Awaiting Approval",
+			"description": "",
+			"color": "orange",
+			"sortIndex": 200,
+			"isClosed": false
+		},
+		{
+			"_id": "info-required",
+			"name": "Info Required",
+			"description": "",
+			"color": "yellow",
+			"sortIndex": 300,
+			"isClosed": false
+		},
+		{
+			"_id": "queued",
+			"name": "Queued",
+			"description": "",
+			"color": "blue",
+			"sortIndex": 400,
+			"isClosed": false
+		},
+		{
+			"_id": "on-hold",
+			"name": "On Hold",
+			"description": "",
+			"color": "cyan",
+			"sortIndex": 500,
+			"isClosed": false
+		},
+		{
+			"_id": "in-progress",
+			"name": "In Progress",
+			"description": "",
+			"color": "purple",
+			"sortIndex": 600,
+			"isClosed": false
+		},
+		{
+			"_id": "to-be-deployed",
+			"name": "To Be Deployed",
+			"description": "",
+			"color": "brown",
+			"sortIndex": 700,
+			"isClosed": false
+		},
+		{
+			"_id": "completed",
+			"name": "Completed",
+			"description": "",
+			"color": "green",
+			"sortIndex": 800,
+			"isClosed": true
+		},
+		{
+			"_id": "deferred",
+			"name": "Deferred",
+			"description": "",
+			"color": "pink",
+			"sortIndex": 900,
+			"isClosed": false
+		},
+		{
+			"_id": "rejected",
+			"name": "Rejected",
+			"description": "",
+			"color": "red",
+			"sortIndex": 1000,
+			"isClosed": true
+		}
+	]
+}

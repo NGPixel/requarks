@@ -51,15 +51,15 @@ mixin cfieldlayout(fields, title)
 				if cf.isHalfSize
 					if !cfield_half
 						| <section><div class="row">
-						.col-xs-6(v-show=(cf.SubCategoryId) ? 'subcategory == \'' + cf.SubCategoryId + '\'' : null)
+						.col-xs-6(v-show=(cf.subCategory) ? 'subcategory == \'' + cf.subCategory + '\'' : null)
 							+cfield(cf)
 					else
-						.col-xs-6(v-show=(cf.SubCategoryId) ? 'subcategory == \'' + cf.SubCategoryId + '\'' : null)
+						.col-xs-6(v-show=(cf.subCategory) ? 'subcategory == \'' + cf.subCategory + '\'' : null)
 							+cfield(cf)
 						| </div></section>
 					- cfield_half = true;
 				else
-					section(v-show=(cf.SubCategoryId) ? 'subcategory == \'' + cf.SubCategoryId + '\'' : null)
+					section(v-show=(cf.subCategory) ? 'subcategory == \'' + cf.subCategory + '\'' : null)
 						+cfield(cf)
 
 mixin cfield(cf)

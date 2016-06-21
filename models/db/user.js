@@ -4,7 +4,7 @@ var modb = require('mongoose');
 
 var userSchema = modb.Schema({
 
-  _id: String,
+  _id: modb.Schema.Types.ObjectId,
 
   // Fields
 

@@ -2,7 +2,7 @@
 
 var modb = require('mongoose');
 
-var typeSchema = modb.Schema({
+var requestTypeSchema = modb.Schema({
 
   _id: String,
 
@@ -40,4 +40,4 @@ var typeSchema = modb.Schema({
   timestamps: {}
 });
 
-module.exports = modb.model('Type', typeSchema);
+module.exports = modb.model('RequestType', requestTypeSchema);

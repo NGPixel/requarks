@@ -4,7 +4,7 @@ var modb = require('mongoose');
 
 var teamSchema = modb.Schema({
 
-  _id: String,
+  _id: modb.Schema.Types.ObjectId,
 
   // Fields
 
@@ -12,20 +12,29 @@ var teamSchema = modb.Schema({
     type: String,
     required: true
   },
+  slug: {
+    type: String,
+    required: true,
+    index: true
+  },
   description: {
     type: String
+  },
+  memberCount: {
+    type: Number,
+    default: 0
   },
 
   // References
 
-  members: {
-    type: String,
+  members: [{
+    type: modb.Schema.Types.ObjectId,
     ref: 'User'
-  },
-  projects: {
+  }],
+  projects: [{
     type: modb.Schema.Types.ObjectId,
     ref: 'Project'
-  }
+  }]
 
 },
 {

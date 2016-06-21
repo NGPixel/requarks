@@ -22,8 +22,8 @@ module.exports = class Common {
 		});
 
 		return db.Category.findOne({
-			where: { slug: options.slug }
-		}).then((cat) => {
+			where: { _id: options.slug }
+		}, 'slug name description color icon').then((cat) => {
 
 			if(cat) {
 				return { category: cat };

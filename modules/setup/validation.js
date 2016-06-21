@@ -40,58 +40,10 @@ module.exports = (rawData) => {
 	// Validate: Database
 	// ---------------------------------------------
 
-	if(validator.isIn(rawData.db_engine, _.keys(app.locals.appdata.dbengines))) {
-		appconfig.db.engine = rawData.db_engine;
+	if(validator.matches(rawData.db_connstr, /^mongodb:\/\/([a-zA-Z0-9_-]+:.+@)?[a-zA-Z0-9.-]+[:0-9]*\/[a-zA-Z0-9_-]+$/)) {
+		appconfig.db.connstr = rawData.db_connstr;
 	} else {
-		formerrors.push({ field: 'db_engine', msg: 'Invalid database engine.' });
-	}
-
-	if(rawData.db_engine === 'sqlite') {
-
-		//-> Database Path
-
-		if(path.isAbsolute(req.body.db_path)) {
-			appconfig.db.host = rawData.db_path;
-		} else {
-			formerrors.push({ field: 'db_path', msg: 'Database Path is invalid.' });
-		}
-
-	} else {
-
-		//-> Database Host
-
-		if(validator.matches(rawData.db_host, /^[a-zA-Z0-9\-\.]{3,}(:[0-9]{1,5})?$/)) {
-			let dbhost = _.split(rawData.db_host, ':', 2);
-			appconfig.db.host = dbhost[0];
-			appconfig.db.port = dbhost.length > 1 ? dbhost[1] : null;
-		} else {
-			formerrors.push({ field: 'db_host', msg: 'Database Host is invalid.' });
-		}
-
-		//-> Database Name
-
-		if(validator.matches(rawData.db_name, /^[a-zA-Z0-9\-_]{2,128}$/)) {
-			appconfig.db.name = rawData.db_name;
-		} else {
-			formerrors.push({ field: 'db_name', msg: 'Database Name is invalid.' });
-		}
-
-		//-> Database Username
-
-		if(validator.matches(rawData.db_user, /^[a-zA-Z0-9\-_@]{2,128}$/)) {
-			appconfig.db.user = rawData.db_user;
-		} else {
-			formerrors.push({ field: 'db_user', msg: 'Database Username is invalid.' });
-		}
-
-		//-> Database Password
-
-		if(validator.isLength(rawData.db_pass, {min:8, max: 128})) {
-			appconfig.db.pass = rawData.db_pass;
-		} else {
-			formerrors.push({ field: 'db_pass', msg: 'Database Password is invalid or too short.' });
-		}
-
+		formerrors.push({ field: 'db_connstr', msg: 'Database connection string is invalid.' });
 	}
 
 	// ---------------------------------------------

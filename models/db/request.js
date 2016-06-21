@@ -61,7 +61,7 @@ var requestSchema = modb.Schema({
       type: String
     },
     author: {
-      type: Number,
+      type: modb.Schema.Types.ObjectId,
       ref: 'User'
     }
   }],
@@ -74,7 +74,7 @@ var requestSchema = modb.Schema({
       required: true
     },
     author: {
-      type: Number,
+      type: modb.Schema.Types.ObjectId,
       ref: 'User'
     }
   }],
@@ -87,7 +87,7 @@ var requestSchema = modb.Schema({
       required: true
     },
     author: {
-      type: Number,
+      type: modb.Schema.Types.ObjectId,
       ref: 'User'
     }
   }],
@@ -113,7 +113,7 @@ var requestSchema = modb.Schema({
       default: false
     },
     author: {
-      type: Number,
+      type: modb.Schema.Types.ObjectId,
       ref: 'User',
       required: true
     }
@@ -126,8 +126,8 @@ var requestSchema = modb.Schema({
       type: String
     },
     defintion: {
-      type: Number,
-      ref: 'FieldDefinition'
+      type: modb.Schema.Types.ObjectId,
+      ref: 'Field'
     }
   }],
 
@@ -157,9 +157,9 @@ var requestSchema = modb.Schema({
     type: modb.Schema.Types.ObjectId,
     ref: 'Status'
   },
-  type: {
+  requestType: {
     type: modb.Schema.Types.ObjectId,
-    ref: 'Type'
+    ref: 'RequestType'
   },
   parent: {
     type: Number,

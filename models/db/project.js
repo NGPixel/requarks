@@ -27,13 +27,13 @@ var projectSchema = modb.Schema({
   // References
 
   owner: {
-    type: Number,
+    type: modb.Schema.Types.ObjectId,
     ref: 'User'
   },
   stakeholders: [{
     kind: String,
     item: {
-      type: Number,
+      type: modb.Schema.Types.ObjectId,
       ref: 'stakeholders.kind'
     }
   }],
@@ -82,7 +82,7 @@ var projectSchema = modb.Schema({
       default: false
     },
     author: {
-      type: Number,
+      type: modb.Schema.Types.ObjectId,
       ref: 'User',
       required: true
     }

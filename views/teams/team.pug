@@ -10,7 +10,7 @@ block content
 						= t('teams:actions.create')
 			ul#id-teams-list.flat-list
 				each tm in teams
-					li(class=(tm.id === team.id) ? 'active' : '', data-link='/teams/' + tm.slug)
+					li(class=(tm.slug === team.slug) ? 'active' : '', data-link='/teams/' + tm.slug)
 						span
 							i.material-icons people
 							strong= tm.memberCount

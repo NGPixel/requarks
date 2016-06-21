@@ -10,9 +10,11 @@ var router = express.Router();
  */
 router.get('/', (req, res, next) => {
 
-	db.Category.findAll({
-		order: 'name'
-	}).then((cats) => {
+	db.Category.find()
+	.sort('name')
+	.select('name description color icon')
+	.exec()
+	.then((cats) => {
 		res.render('create/create', {
 			navbar_active: 'create',
 			page_script: 'create',
@@ -31,67 +33,34 @@ router.get('/:id', (req, res, next) => {
 	// Get category
 
 	db.Category.findOne({
-		where: { slug: req.params.id }
+		_id: req.params.id
 	}).then((cat) => {
 
 		if(cat) {
-			return { category: cat };
+			return cat.toObject();
 		} else {
 			return Promise.reject(new Error('Invalid category'));
 		}
 
 	}).then((reqdata) => {
 
-		// Get subcategories
-
-		return db.SubCategory.findAll({
-			where: { CategoryId: reqdata.category.id },
-			order: 'sortIndex'
-		}).then((subcats) => {
+		// Sort subcategories
 			
-			if(subcats) {
-				reqdata.subcategories = subcats;
-				return reqdata;
-			} else {
-				return Promise.reject(new Error('Missing subcategory for this category. At least one required.'));
-			}
-
-		});
+		if(reqdata.subCategories && reqdata.subCategories.length > 0) {
+			reqdata.subCategories = _.sortBy(reqdata.subCategories, 'sortIndex');
+			return reqdata;
+		} else {
+			return Promise.reject(new Error('Missing subcategory for this category. At least one required.'));
+		}
 
 	}).then((reqdata) => {
 
-		// Get Custom Fields
+		// Sort Custom Fields
 
-		return db.PropertyDefinition.findAll({
-			where: {
-				CategoryId: reqdata.category.id,
-				isRestricted: false
-			},
-			order: 'sortIndex'
-		}).then((cfields) => {
-		
-			reqdata.customfields = (cfields) ? cfields : [];
-			return reqdata;
-
-		});
-
-	}).then((reqdata) => {
-
-		// Get Category Info boxes
-
-		return db.CategoryInfo.findAll({
-			where: { 
-				$or: [
-					{ CategoryId: reqdata.category.id },
-					{ CategoryId: null }
-				]
-			}
-		}).then((ib) => {
-		
-			reqdata.infoboxes = (ib) ? _.map(ib, (i) => { return i.get(); }) : [];
-			return reqdata;
-
-		});
+		reqdata.fields = (reqdata.fields) ? _.sortBy(_.filter(reqdata.fields, {
+			isRestricted: false
+		}), 'sortIndex') : [];
+		return reqdata;
 
 	})
 	.then((reqdata) => {
