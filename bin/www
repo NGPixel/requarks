@@ -11,7 +11,7 @@ var appMode = args[1] || 'setup';
 global.winston = require('winston');
 
 global.db = {};
-var red = {};
+global.red = {};
 var lang = {};
 var UserData = {};
 var RqError = {};

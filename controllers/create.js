@@ -37,7 +37,7 @@ router.get('/:id', (req, res, next) => {
 	}).then((cat) => {
 
 		if(cat) {
-			return cat.toObject();
+			return cat.toObject({ transform: db.common.stringifyIds });
 		} else {
 			return Promise.reject(new Error('Invalid category'));
 		}
@@ -65,6 +65,8 @@ router.get('/:id', (req, res, next) => {
 	})
 	.then((reqdata) => {
 
+		console.log(reqdata);
+
 		res.render('create/create-form', {
 			navbar_active: 'create',
 			page_script: 'create',
@@ -85,63 +87,45 @@ router.post('/:id', (req, res, next) => {
 	//-> Get category
 
 	db.Category.findOne({
-		where: { slug: req.params.id },
-		include: [
-			{ model: db.Type, as: 'defaultType', attributes: ['id'] },
-			{ model: db.Status, as: 'defaultStatus', attributes: ['id'] }
-		]
+		_id: req.params.id
 	}).then((cat) => {
 
 		if(cat) {
-			return { category: cat };
+			return cat.toObject({ transform: db.common.stringifyIds });
 		} else {
 			return Promise.reject(new Error('Invalid category'));
 		}
 
 	}).then((reqdata) => {
 
-		//-> Get subcategories
-
-		return db.SubCategory.findAll({
-			attributes: ['id'],
-			where: { CategoryId: reqdata.category.get('id') },
-			raw: true
-		}).then((subcats) => {
+		// Check subcategories
 			
-			if(subcats) {
-				reqdata.subcategories = _.map(subcats, 'id');
-				return reqdata;
-			} else {
-				return Promise.reject(new Error('Missing subcategory for this category. At least one required.'));
-			}
-
-		});
-
-	}).then((reqdata) => {
-
-		//-> Get Custom Fields
-
-		return db.PropertyDefinition.findAll({
-			where: {
-				CategoryId: reqdata.category.get('id'),
-				isRestricted: false
-			},
-			raw: true
-		}).then((cfields) => {
-		
-			reqdata.customfields = (cfields) ? cfields : [];
+		if(reqdata.subCategories && reqdata.subCategories.length > 0) {
 			return reqdata;
-
-		});
+		} else {
+			return Promise.reject(new Error('Missing subcategory for this category. At least one required.'));
+		}
 
 	}).then((reqdata) => {
+
+		//-> Check Custom Fields
+
+		reqdata.fields = (reqdata.fields) ? _.filter(reqdata.fields, {
+			isRestricted: false
+		}) : [];
+		return reqdata;
+
+	}).then((reqdata) => {
+
+		let validSubCategories = _.map(reqdata.subCategories,'id');
 
 		//-> Validate form
 
-		req.checkBody('subcategory', lang.t('form.errors.required')).isInt({ min: 1 });
-		req.checkBody('subcategory', lang.t('form.errors.enum')).isIn(reqdata.subcategories);
+		req.sanitizeBody('subcategory').trim();
+		req.checkBody('subcategory', lang.t('form.errors.required')).notEmpty();
+		req.checkBody('subcategory', lang.t('form.errors.enum')).isIn(validSubCategories);
 
-		let subcatId = _.toInteger(req.body.subcategory);
+		let subcatId = _.trim(req.body.subcategory);
 
 		req.sanitizeBody('title').trim();
 		req.sanitizeBody('title').stripLow();
@@ -163,12 +147,12 @@ router.post('/:id', (req, res, next) => {
 
 		let cfields = [];
 
-		if(_.includes(reqdata.subcategories, subcatId)) {
+		if(_.includes(validSubCategories, subcatId)) {
 
 			//-> Filter custom fields for selected subcategory only
 
-			cfields = _.filter(reqdata.customfields, (cf) => {
-				return _.isNil(cf.SubCategoryId) || cf.SubCategoryId === subcatId;
+			cfields = _.filter(reqdata.fields, (cf) => {
+				return _.isNil(cf.subCategory) || cf.subCategory === subcatId;
 			});
 
 			//-> Validate against filtered custom fields
@@ -218,70 +202,79 @@ router.post('/:id', (req, res, next) => {
 
 		req.asyncValidationErrors().then(() => {
 
-			let nReqDeadline = moment(req.body.deadline, 'YYYY/MM/DD');
+			return db.common.getIdAndIncrement('request').then((nextIdx) => {
 
-			//-> Create request
+				let nReqDeadline = moment(req.body.deadline, 'YYYY/MM/DD');
 
-			let nReq = {
+				//-> Create request
 
-				title: req.body.title,
-				effort: 0,
-				progress: 0,
-				scrumPoker: 0,
-				deadline: null,
-				deadlinePre: nReqDeadline.isValid() ? nReqDeadline.toDate() : null,
+				let nReq = {
 
-				Descriptions: [
-					{
-						content: req.body.description,
-						authorId: res.locals.usr.id
-					}
-				],
-				Properties: []
+					_id: nextIdx,
 
-			};
+					summary: req.body.title,
+					planning: {
+						effort: 0,
+						progress: 0,
+						scrumPoker: 0,
+						deadline: null,
+						deadlineInitial: nReqDeadline.isValid() ? nReqDeadline.toDate() : null,
+					},
+					priority: reqdata.defaultPriority,
+					activities: [
+						{
+							summary: "Initial Request Creation",
+							author: res.locals.usr._id
+						}
+					],
+					comments: [],
+					descriptions: [
+						{
+							content: req.body.description,
+							author: res.locals.usr._id
+						}
+					],
+					documents: [],
+					fields: [],
+					notes: [],
+					category: reqdata._id,
+					subCategory: db.ObjectId(subcatId),
+					status: reqdata.defaultStatus,
+					requestType: reqdata.defaultType,
+					parent: 0,
+					author: res.locals.usr._id,
+					assignees: [],
+					sprints: [],
+					stakeholders: [],
+					dependencies: []
 
-			//-> Create custom fields (properties)
+				};
 
-			cfields.forEach((cf) => {
+				//-> Create custom fields
 
-				let cfName = 'cf_' + cf.id;
+				cfields.forEach((cf) => {
 
-				if(_.has(req.body, cfName)) {
-					nReq.Properties.push({
-						value: req.body[cfName],
-						PropertyDefinitionId: cf.id
-					});
-				}
+					let cfName = 'cf_' + cf.id;
 
-			});
-
-			//-> Save static data
-
-			return db.Request.create(nReq, {
-				include: [ db.Description, db.Property ]
-			}).then((cReq) => {
-
-					//-> Set associations
-					
-					cReq.setCategory(reqdata.category, { save: false });
-					cReq.setSubCategory(subcatId, { save: false });					
-
-					cReq.setType(reqdata.category.get('defaultType'), { save: false });
-					cReq.setStatus(reqdata.category.get('defaultStatus'), { save: false });
-				
-					cReq.setAuthor(res.locals.usr.id, { save: false });
-
-					//-> Save associations
-
-					return cReq.save().then((cReq) => {
-
-						return res.send({
-							state: 'ok',
-							id: cReq.id
+					if(_.has(req.body, cfName)) {
+						nReq.fields.push({
+							value: req.body[cfName],
+							definition: db.ObjectId(cf.id)
 						});
+					}
 
+				});
+
+				//-> Save request data
+
+				return db.Request.create(nReq).then((cReq) => {
+
+					return res.send({
+						state: 'ok',
+						id: cReq.id
 					});
+
+				});
 
 			});
 

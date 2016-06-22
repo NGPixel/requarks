@@ -27,9 +27,7 @@ module.exports = function(appconfig) {
 		winston.log('Connected to MongoDB instance.');
 	});
 
-	// Connect
-
-	modb.connect(appconfig.db.connstr);
+	// Store connection handle
 
 	dbModels.connection = modb.connection;
 	dbModels.ObjectId = modb.Types.ObjectId;
@@ -44,6 +42,18 @@ module.exports = function(appconfig) {
 	.forEach(function(file) {
 		let modelName = _.upperFirst(_.split(file,'.')[0]);
 		dbModels[modelName] = require(path.join(dbModelsPath, file));
+	});
+
+	// Helpers
+
+	dbModels.common = require('../models/common');
+
+	// Connect
+
+	modb.connect(appconfig.db.connstr).then(() => {
+
+	  dbModels.common.fetchLatestIncrements();
+
 	});
 
 	return dbModels;

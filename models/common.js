@@ -7,6 +7,51 @@ var _ = require('lodash');
  */
 module.exports = class Common {
 
+
+	/**
+	 * Convert ObjectIDs to String in document
+	 *
+	 * @param      {Document}  doc     The original document
+	 * @param      {Document}  ret     The transformed document
+	 * @param      {Object}    opt     Options
+	 * @return     {Document}  Transformed document
+	 */
+	static stringifyIds(doc, ret, opt) {
+		if(doc.id && typeof doc.id !== String) {
+			ret.id = _.toString(doc.id.valueOf());
+		}
+		return ret;
+	}
+
+	/**
+	 * Fetches a latest increments and stores them in Redis cache
+	 */
+	static fetchLatestIncrements() {
+
+		// Requests
+
+		db.Request.findOne({}).sort({ _id: -1}).exec().then((rq) => {
+			red.set('db:request_next_id', (rq && _.isFinite(rq._id)) ? rq._id + 1 : 1);
+		});
+
+	}
+
+	/**
+	 * Gets the current identifier and increment it.
+	 *
+	 * @param      {string}  col     Collection name
+	 * @return     {Number}  Incremented identifier
+	 */
+	static getIdAndIncrement(col) {
+
+		return red.get('db:' + col + '_next_id').then((curIdx) => {
+			return red.set('db:' + col + '_next_id', curIdx + 1).then(() => {
+				return curIdx + 1;
+			});
+		});
+
+	}
+
 	/**
 	 * Gets category and its subcategories (optional).
 	 *

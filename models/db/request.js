@@ -1,7 +1,6 @@
 "use strict";
 
 var modb = require('mongoose');
-var autoIncrement = require("mongodb-autoincrement");
 require('mongoose-double')(modb);
 
 var requestSchema = modb.Schema({
@@ -37,14 +36,7 @@ var requestSchema = modb.Schema({
   priority: {
     type: String,
     enum: ['', 'low', 'normal', 'high'],
-    default: '',
-    required: true
-  },
-  assigneeType: {
-    type: String,
-    enum: ['user','team'],
-    default: 'user',
-    required: true
+    default: ''
   },
 
   // Activities
@@ -146,28 +138,34 @@ var requestSchema = modb.Schema({
   // References
 
   category: {
-    type: modb.Schema.Types.ObjectId,
-    ref: 'Category'
+    type: String,
+    ref: 'Category',
+    required: true
   },
   subCategory: {
     type: modb.Schema.Types.ObjectId,
-    ref: 'SubCategory'
+    ref: 'SubCategory',
+    required: true
   },
   status: {
-    type: modb.Schema.Types.ObjectId,
-    ref: 'Status'
+    type: String,
+    ref: 'Status',
+    required: true
   },
   requestType: {
-    type: modb.Schema.Types.ObjectId,
-    ref: 'RequestType'
+    type: String,
+    ref: 'RequestType',
+    required: true
   },
   parent: {
     type: Number,
-    ref: 'Request'
+    ref: 'Request',
+    required: true
   },
   author: {
-    type: Number,
-    ref: 'User'
+    type: modb.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
   assignees: [{
     kind: String,
@@ -195,7 +193,5 @@ var requestSchema = modb.Schema({
 {
   timestamps: {}
 });
-
-requestSchema.plugin(autoIncrement.mongoosePlugin);
 
 module.exports = modb.model('Request', requestSchema);

@@ -8,7 +8,7 @@ var appconfig = require('./config.json');
 
 // Load node modules
 
-var db = require('mongoose');
+var _ = require('lodash');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -36,8 +36,8 @@ var validators = autoload(path.join(__dirname, '/modules/validators'));
 // Load app modules
 
 app = express();
+global.red = require('./modules/redis')(appconfig);
 global.db = require("./modules/db")(appconfig);
-red = require('./modules/redis')(appconfig);
 lang = require('i18next');
 UserData = require('./modules/auth');
 RqError = autoload(path.join(__dirname, '/modules/errors'));
