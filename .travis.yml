@@ -6,9 +6,12 @@ node_js:
 services:
   - redis-server
   - mongodb
+env:
+  CODACY_PROJECT_TOKEN:
+    - secure: "b6JiWB6lsTbbxKoRsmIbGy3MR6JjKxsDtzTpHSF2wW7ZbNO6FveHAj0kcA/kgXO/kZ3jK7mxAvUS1CN2RU+AuVJlMs5LzwXVgn2RgAi3QvESlb7OKEvP10xxvCXk4j3gJiaQE72yM7oBkwPEppoieGsaZJy4PexloC/rf//k0K42CSNS2pNddpTmuRUKOdWjokhfX6Lhzuz7vHb8h+ab2fJO9RtkZWdvzUwY6ubvu2glPZq5jRbUagge2G3vjHIlvB8a/V2tdzuj7QXiA/y+Hkit/ZbB0tK7SoFDWYsd1yy7bnagH6Ni25C6VU4ti4S8XvJQ7gTccxtytGB34t4/ozsgAmv+7K06h0/nQKYFx4l20kaYvaPwYLI5eSfUFp8uVaih6pce7Ol2IqnZDTHYZxXChgXm4pzkm3m3wb4dF+Ypea0YVzUM0EsLeU0qIMF8uN7u2tr6IdfXGZ7dVZWL3+0lx5GO4jxlaNIMSITmfrP6NykHqjWIaN87GxDOrW8eSgIs4y7J/448F5oW/HLa9DDC1LFmYPA6UtDMLiLW72+UseqsJq/zhupa1/c5bxyQqY8qZq0+Aq5RLRcCHlpQVK2DMArvScG6GuOArCu7kwYvacAtXBvjFyKvu5ETWZII7E9NsLGp+efxwplYgqbChRSIg54fAs2hgHu4VQsmrJ4="
 cache:
   directories:
-  - node_modules
+    - node_modules
 deploy:
   provider: releases
   api_key:
