@@ -10,7 +10,7 @@ module.exports = (teamName) => {
 		teamName = slug(teamName, {lower: true});
 
 		return db.Team.count({
-			where: { slug: teamName }
+			slug: teamName
 		}).then((teamCount) => {
 			if(teamCount > 0) {
 				reject(new Error('Team name is not unique.'));

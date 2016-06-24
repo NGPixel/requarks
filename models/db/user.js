@@ -1,31 +1,53 @@
 "use strict";
 
-module.exports = function(sequelize, DataTypes) {
+var modb = require('mongoose');
 
-  var User = sequelize.define("User",
-  {
-    username:   DataTypes.STRING,
-    firstName:  DataTypes.STRING,
-    lastName:   DataTypes.STRING,
-    email:      DataTypes.STRING,
-    jobTitle:   DataTypes.STRING,
-    locale:     DataTypes.STRING,
-    timezone:   DataTypes.STRING,
-    isActive:   DataTypes.BOOLEAN,
-    isPending:  DataTypes.BOOLEAN
+var userSchema = modb.Schema({
+
+  _id: modb.Schema.Types.ObjectId,
+
+  // Fields
+
+  username: {
+    type: String,
+    index: true
   },
-  {
-    timestamps: true,
-    getterMethods: {
-      fullName() { return this.firstName + ' ' + this.lastName; }
-    },
-    classMethods: {
-      associate(models) {
-        User.belongsToMany(models.Team, {through: models.TeamUsers});
-        User.belongsToMany(models.Request, { as: 'relatedRequests', through: 'Stakeholders'});
-      }
-    }
-  });
+  firstName: {
+    type: String,
+    index: true
+  },
+  lastName: {
+    type: String,
+    index: true
+  },
+  email: {
+    type: String,
+    index: true
+  },
+  jobTitle: {
+    type: String
+  },
+  locale: {
+    type: String
+  },
+  timezone: {
+    type: String
+  },
+  isActive: {
+    type: Boolean,
+    default: false
+  },
+  isPending: {
+    type: Boolean,
+    default: true
+  }
+},
+{
+  timestamps: {}
+});
 
-  return User;
-};
+userSchema.virtual('fullName').get(() => {
+  return this.firstName + ' ' + this.lastName;
+});
+
+module.exports = modb.model('User', userSchema);

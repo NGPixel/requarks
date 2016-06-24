@@ -12,7 +12,7 @@ block content
 						label= t('create:fields.category.label')
 						ul#create-categories.tiles
 							each cat in categories
-								li(data-link='/create/' + cat.slug)
+								li(data-link='/create/' + cat._id)
 									i(class='material-icons color-' + cat.color)= cat.icon
 									div
 										strong= cat.name

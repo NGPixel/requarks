@@ -2,7 +2,7 @@
 
 var modb = require('mongoose');
 
-var statusSchema = modb.Schema({
+var requestTypeSchema = modb.Schema({
 
   _id: String,
 
@@ -19,14 +19,20 @@ var statusSchema = modb.Schema({
     type: String,
     required: true
   },
-  sortIndex: {
-    type: Number,
-    default: 0,
+  icon: {
+    type: String,
     required: true
   },
-  isClosed: {
+  isSystem: {
     type: Boolean,
     default: false
+  },
+
+  // References
+  
+  parent: {
+    type: String,
+    ref: "Type"
   }
 
 },
@@ -34,4 +40,4 @@ var statusSchema = modb.Schema({
   timestamps: {}
 });
 
-module.exports = modb.model('Status', statusSchema);
+module.exports = modb.model('RequestType', requestTypeSchema);

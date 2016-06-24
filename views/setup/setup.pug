@@ -96,48 +96,11 @@ html
 								.box-base
 									.box-chrome
 										section
-											.row
-												.col-xs-6
-													label Database Engine
-													select(name='db_engine', v-model='engine', data-initval=appconfig.db.engine)
-														each dbname, dbkey in appdata.dbengines
-															option(value=dbkey)= dbname
-													span.note
-														strong.color-red-600 Required
-														| Database engine to use
-												.col-xs-6(v-bind:class="{'hidden' : engine=='sqlite'}")
-													label Database Host
-													input(name='db_host', type='text', value=appconfig.db.host, placeholder='e.g. localhost, domain.com:3306')
-													.note
-														strong.color-red-600 Required
-														| Host where the database is located. Port can be added at the end if not default.
-												.col-xs-6(v-bind:class="{'hidden' : engine!='sqlite'}")
-													label Database File Path
-													input(name='db_path', type='text', value=appconfig.db.path, placeholder='e.g. C:\\sqlite.db')
-													.note
-														strong.color-red-600 Required
-														| Path to the SQLite database file
-
-										section(v-bind:class="{'hidden' : engine=='sqlite'}")
-											.row
-												.col-xs-4
-													label Database Name
-													input(name='db_name', type='text', value=appconfig.db.name)
-													.note
-														strong.color-red-600 Required
-														| Name of the database to connect to
-												.col-xs-4
-													label Database Username
-													input(name='db_user', type='text', value=appconfig.db.user)
-													.note
-														strong.color-red-600 Required
-														| Username to use for the database connection
-												.col-xs-4
-													label Database Password
-													input(name='db_pass', type='text', value=appconfig.db.pass)
-													.note
-														strong.color-red-600 Required
-														| Password to use for the database connection
+											label MongoDB Connection String
+											input(name='db_connstr', type='text', value=appconfig.db.connstr, placeholder='mongodb://username:password@hostname:port/database')
+											.note
+												strong.color-red-600 Required
+												| Connection string to MongoDB. Read the #[a(target='_blank', href='http://requarks.readme.io/docs/database#connection-string') database guide] for more info.
 
 							// Storage
 

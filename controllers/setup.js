@@ -23,12 +23,7 @@ router.post('/', function(req, res, next) {
 	let rawData = {
 		site_title: _.toString(req.body.site_title),
 		site_host: _.toString(req.body.site_host),
-		db_engine: _.toString(req.body.db_engine),
-		db_path: _.toString(req.body.db_path),
-		db_host: _.toString(req.body.db_host),
-		db_name: _.toString(req.body.db_name),
-		db_user: _.toString(req.body.db_user),
-		db_pass: _.toString(req.body.db_pass),
+		db_connstr: _.toString(req.body.db_connstr),
 		storage_provider: _.toString(req.body.storage_provider),
 		storage_path: _.toString(req.body.storage_path),
 		storage_az_name: _.toString(req.body.storage_az_name),

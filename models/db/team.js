@@ -1,28 +1,44 @@
 "use strict";
 
-module.exports = function(sequelize, DataTypes) {
+var modb = require('mongoose');
 
-  var Team = sequelize.define("Team",
-  {
-    name:         DataTypes.STRING,
-    description:  DataTypes.STRING,
-    slug:         DataTypes.STRING,
-    memberCount:  DataTypes.INTEGER
+var teamSchema = modb.Schema({
+
+  _id: modb.Schema.Types.ObjectId,
+
+  // Fields
+
+  name: {
+    type: String,
+    required: true
   },
-  {
-    timestamps: true,
-    classMethods: {
-      associate(models) {
-        Team.belongsToMany(models.User, {through: models.TeamUsers});
-        Team.belongsToMany(models.Project, {through: 'TeamProjects'});
-      },
-      countFromUserId(usrid) {
-        return this.count({
-          include: [{ model: db.User, where: { id: usrid } }]
-        });
-      }
-    }
-  });
+  slug: {
+    type: String,
+    required: true,
+    index: true
+  },
+  description: {
+    type: String
+  },
+  memberCount: {
+    type: Number,
+    default: 0
+  },
 
-  return Team;
-};
+  // References
+
+  members: [{
+    type: modb.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  projects: [{
+    type: modb.Schema.Types.ObjectId,
+    ref: 'Project'
+  }]
+
+},
+{
+  timestamps: {}
+});
+
+module.exports = modb.model('Team', teamSchema);
