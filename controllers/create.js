@@ -65,8 +65,6 @@ router.get('/:id', (req, res, next) => {
 	})
 	.then((reqdata) => {
 
-		console.log(reqdata);
-
 		res.render('create/create-form', {
 			navbar_active: 'create',
 			page_script: 'create',

@@ -67,7 +67,7 @@ module.exports = class Common {
 		});
 
 		return db.Category.findOne({
-			where: { _id: options.slug }
+			_id: options.slug
 		}, 'slug name description color icon').then((cat) => {
 
 			if(cat) {
