@@ -50,11 +50,7 @@ module.exports = function(appconfig) {
 
 	// Connect
 
-	modb.connect(appconfig.db.connstr).then(() => {
-
-	  dbModels.common.fetchLatestIncrements();
-
-	});
+	dbModels.connectPromise = modb.connect(appconfig.db.connstr);
 
 	return dbModels;
 

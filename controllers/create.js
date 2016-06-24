@@ -272,8 +272,12 @@ router.post('/:id', (req, res, next) => {
 						id: cReq.id
 					});
 
+				}).catch((err) => {
+					return Promise.reject(new Error('Server error. Failed to create new request.'));
 				});
 
+			}).catch((err) => {
+				return Promise.reject(new Error('Server error. Unable to get next request ID.'));
 			});
 
 		}).catch((formErrors) => {

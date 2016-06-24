@@ -1,11 +1,20 @@
 language: node_js
 node_js:
-  - "6"
-  - "5"
-  - "4.4"
+  - '6'
+  - '5'
+  - '4.4'
 services:
   - redis-server
   - mongodb
 cache:
   directories:
-    - node_modules
+  - node_modules
+deploy:
+  provider: releases
+  api_key:
+    secure: JjhxijR+QMrp6XogMD/29hKfvNK/GUdGoVAAA7B9o6PQ0E1H4uq4hR5enzSyX0KSUa1PKXBKA3Ze0ADmn0nR80Q+J6tH/0CzcZcR4NPcEXKuBpPWU37EutHApIjXBZ7IuPvV4TwmvP+jnG2aFCXmwJqeIJDanEri4tof1dihZiyOV63BtWapzFwxWGdIogM0/sdkZTx51MJFu1S65W+3LXbvcJmv+Ua0DtJOT3nWOU+7HXQIIf6g8HTaDLvIingPIi7iY2oCQa9lqShbxGqZKBkPTF6Y8OwCJvIKxxGwjgP6Hup+uD8ZM/wCo/IDADlpv2+eILtL/eRun/00AKgno5URQnYfOjmgb5AjipZhhvM8HuGwPfnMah+4X98+hxxzhcH90YR0P3QRn6xDnhIpfqviW11FwdCdBWzuinjVvwk2gN1puT3lt0UapX7IKHhonUXKo0Lz8XzvATgJnxUqr1XzVz99mt2k4o6gDBS0d1/iW0Z6ta0J/u4Ofs8KiMHky8GXEmfDbLiPXqQ0X+1sD/XcB2mkVkBxXg8KgvfCt5r+svVjs1R8ANDyxoJCkqJjDsHvQ1j1jn5wq4srJ/r/F4oU3U+1VNzByIY1BWxnUZVQEX+E//xBTD4fAVvrbsvkoe8Qop5lqMqSxIxw3EKjX3nta1/mxPFdmes1hvfBM0s=
+  file: requarks.zip
+  skip_cleanup: true
+  on:
+    repo: Requarks/requarks
+    tags: true

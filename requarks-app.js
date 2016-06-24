@@ -45,6 +45,12 @@ RqError = autoload(path.join(__dirname, '/modules/errors'));
 ROOTPATH = __dirname;
 var _isDebug = (app.get('env') === 'development');
 
+db.connectPromise.then(() => {
+
+  db.common.fetchLatestIncrements();
+
+});
+
 // ----------------------------------------
 // Security
 // ----------------------------------------

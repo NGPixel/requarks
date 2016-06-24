@@ -1,6 +1,7 @@
 "use strict";
 
-var _ = require('lodash');
+var _ = require('lodash'),
+	Promise = require('bluebird');
 
 /**
  * Common database queries
@@ -26,12 +27,12 @@ module.exports = class Common {
 	/**
 	 * Fetches a latest increments and stores them in Redis cache
 	 */
-	static fetchLatestIncrements() {
+	static fetchLatestIncrements(bypassSave = false) {
 
 		// Requests
 
-		db.Request.findOne({}).sort({ _id: -1}).exec().then((rq) => {
-			red.set('db:request_next_id', (rq && _.isFinite(rq._id)) ? rq._id + 1 : 1);
+		return db.Request.findOne({}).sort({ _id: -1}).exec().then((rq) => {
+			return (bypassSave) ? Promise.resolve('OK') : red.set('db:request_next_id', (rq && _.isFinite(rq._id)) ? rq._id + 1 : 1);
 		});
 
 	}
@@ -44,11 +45,7 @@ module.exports = class Common {
 	 */
 	static getIdAndIncrement(col) {
 
-		return red.get('db:' + col + '_next_id').then((curIdx) => {
-			return red.set('db:' + col + '_next_id', curIdx + 1).then(() => {
-				return curIdx + 1;
-			});
-		});
+		return red.incr('db:' + col + '_next_id');
 
 	}
 
