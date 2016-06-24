@@ -82,20 +82,16 @@ module.exports = class UserData {
 		// Attempt via username search
 
 		return db.User.findOne({
-			where: {
-				username: authUsr._json.user_id,
-				isActive: true
-			}
+			username: authUsr._json.user_id,
+			isActive: true
 		}).then((usr) => {
 
 			// Attempt via new user search
 
 			return (usr) ? usr : db.User.findOne({
-				where: {
-					username: 'pending:' + authUsr._json.email,
-					isActive: true,
-					isPending: true
-				}
+				username: 'pending:' + authUsr._json.email,
+				isActive: true,
+				isPending: true
 			});
 
 		}).then((usr) => {
@@ -108,7 +104,7 @@ module.exports = class UserData {
 
 		}).then((usr) => {
 
-			return usr.get();
+			return usr.toObject();
 
 		}).catch((err) => {
 			throw err;
@@ -133,7 +129,10 @@ module.exports = class UserData {
 		usr.set('locale', usr.locale || 'en');
 		usr.set('timezone', usr.timezone || 'America/Montreal');
 		usr.set('isPending', false);
-		return usr.save();
+
+		return usr.save((err) => {
+			winston.error(err);
+		});
 
 	}
 

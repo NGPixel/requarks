@@ -1,23 +1,108 @@
 "use strict";
 
-module.exports = function(sequelize, DataTypes) {
+var modb = require('mongoose');
 
-  var Project = sequelize.define("Project",
-  {
-    name:         DataTypes.STRING,
-    slug:         DataTypes.STRING,
-    description:  DataTypes.STRING,
-    isActive:     DataTypes.BOOLEAN
+var projectSchema = modb.Schema({
+
+  _id: String,
+
+  // Fields
+
+  name: {
+    type: String,
+    required: true
   },
-  {
-    timestamps: true,
-    classMethods: {
-      associate(models) {
-        Project.belongsToMany(models.Team, {through: 'TeamProjects'});
-        Project.belongsTo(models.User, { as: 'owner' });
-      }
-    }
-  });
+  slug: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String
+  },
+  isActive: {
+    type: Boolean,
+    default: true
+  },
 
-  return Project;
-};
+  // References
+
+  owner: {
+    type: modb.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  stakeholders: [{
+    kind: String,
+    item: {
+      type: modb.Schema.Types.ObjectId,
+      ref: 'stakeholders.kind'
+    }
+  }],
+
+  // Sprints
+
+  sprints: [{
+    iteration: {
+      type: Number,
+      required: true,
+      min: 1
+    },
+    name: {
+      type: String
+    },
+    startsOn: {
+      type: Date
+    },
+    endsOn: {
+      type: Date
+    },
+    requests: [{
+      type: Number,
+      ref: 'Request'
+    }]
+  }],
+
+  // Documents
+
+  documents: [{
+    name: {
+      type: String,
+      required: true
+    },
+    fileType: {
+      type: String,
+      required: true,
+      default: 'application/octet-stream'
+    },
+    parentFolder: {
+      type: String,
+      default: ''
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
+    },
+    author: {
+      type: modb.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    }
+  }],
+
+  // Notes
+  
+  notes: [{
+    name: {
+      type: String,
+      required: true
+    },
+    content: {
+      type: String
+    }
+  }]
+
+},
+{
+  timestamps: {}
+});
+
+module.exports = modb.model('Project', projectSchema);

@@ -41,7 +41,7 @@ router.post('/', function(req, res, next) {
 
 	req.asyncValidationErrors().then(() => {
 
-		return db.User.findById(res.locals.usr.id).then((usr) => {
+		return db.User.findById(res.locals.usr._id).then((usr) => {
 			
 			if(usr) {
 
@@ -128,7 +128,7 @@ router.post('/preferences', function(req, res, next) {
 
 	req.asyncValidationErrors().then(() => {
 		
-		return db.User.findById(res.locals.usr.id).then((usr) => {
+		return db.User.findById(res.locals.usr._id).then((usr) => {
 			
 			if(usr) {
 

@@ -1,7 +1,7 @@
 "use strict";
 
 var Promise = require('bluebird'),
-	moment = require('moment');
+	moment = require('moment-timezone');
 
 /**
  * Authentication middleware

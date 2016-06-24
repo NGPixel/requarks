@@ -1,9 +1,25 @@
 language: node_js
 node_js:
-  - "5.9"
+- '6'
+- '5'
+- '4.4'
 services:
-  - redis-server
-  - mysql
+- redis-server
+- mongodb
+env:
+  CODACY_PROJECT_TOKEN:
+  - secure: b6JiWB6lsTbbxKoRsmIbGy3MR6JjKxsDtzTpHSF2wW7ZbNO6FveHAj0kcA/kgXO/kZ3jK7mxAvUS1CN2RU+AuVJlMs5LzwXVgn2RgAi3QvESlb7OKEvP10xxvCXk4j3gJiaQE72yM7oBkwPEppoieGsaZJy4PexloC/rf//k0K42CSNS2pNddpTmuRUKOdWjokhfX6Lhzuz7vHb8h+ab2fJO9RtkZWdvzUwY6ubvu2glPZq5jRbUagge2G3vjHIlvB8a/V2tdzuj7QXiA/y+Hkit/ZbB0tK7SoFDWYsd1yy7bnagH6Ni25C6VU4ti4S8XvJQ7gTccxtytGB34t4/ozsgAmv+7K06h0/nQKYFx4l20kaYvaPwYLI5eSfUFp8uVaih6pce7Ol2IqnZDTHYZxXChgXm4pzkm3m3wb4dF+Ypea0YVzUM0EsLeU0qIMF8uN7u2tr6IdfXGZ7dVZWL3+0lx5GO4jxlaNIMSITmfrP6NykHqjWIaN87GxDOrW8eSgIs4y7J/448F5oW/HLa9DDC1LFmYPA6UtDMLiLW72+UseqsJq/zhupa1/c5bxyQqY8qZq0+Aq5RLRcCHlpQVK2DMArvScG6GuOArCu7kwYvacAtXBvjFyKvu5ETWZII7E9NsLGp+efxwplYgqbChRSIg54fAs2hgHu4VQsmrJ4=
+  global:
+    secure: l1tkzcbN1AzcfmbuWZd34v1ZSgFRJH4+PI1svljiYFNKzktOERTroYeSugHBhR7JRc3sImWyeCyUC8Pl5jxFo7q6xZGfh0Pu+8eSq9s+q9/wjjFet7rNhSL4jCx2qaadlUQ8VSRUQPrH8dbqon7QsqbRc+ks0Q2Ce9vRilLi0J/5LrjQT7MOuRPclmu8g/kmUq9+9U94Bvt93keR9suW2tc+w5RyLzP5qLpvJt5/F5yEzemgGNcDlMsA+/WawXuuWVAX8L2bQdF17YZdLv4XkFlBoLDYk3YVvCOBuYt1rclUsgwEzsOp2ZY1oe/1uqdGdX+zaHGYxSp7Rj4MdNSetfY5kpbW6sfvairHvXwKNm0s/PGFEU8r3Pq7gX9d7kbb/gjn9bCBypAkmlUsJxkWw9T7+5quL2lRzbCRedr2+VNi/Dbsk0tbv9TZzX009htZLG5AXY1nvWgsHhehyoEZxs5nVapSmD3yLrNjyn5sjRqSoU9hnQF7oPSXj5EybVvZzlh4VsnS2p8EMip1DCm5WWBbIZFcC4Flqbjx5irEivh9GzNtQ6cBzEc5WM40FTmM6f03vih4T/YMxKCXYrBa46R6VMjYSj9GuBrqFiGauJaq3rvx7cKtJB/FoBolWfF4VC4TmmvG7SHTYaL9vBujDQWQYseipe1B93rdRXXj7xg=
 cache:
   directories:
-    - node_modules
+  - node_modules
+deploy:
+  provider: releases
+  api_key:
+    secure: JjhxijR+QMrp6XogMD/29hKfvNK/GUdGoVAAA7B9o6PQ0E1H4uq4hR5enzSyX0KSUa1PKXBKA3Ze0ADmn0nR80Q+J6tH/0CzcZcR4NPcEXKuBpPWU37EutHApIjXBZ7IuPvV4TwmvP+jnG2aFCXmwJqeIJDanEri4tof1dihZiyOV63BtWapzFwxWGdIogM0/sdkZTx51MJFu1S65W+3LXbvcJmv+Ua0DtJOT3nWOU+7HXQIIf6g8HTaDLvIingPIi7iY2oCQa9lqShbxGqZKBkPTF6Y8OwCJvIKxxGwjgP6Hup+uD8ZM/wCo/IDADlpv2+eILtL/eRun/00AKgno5URQnYfOjmgb5AjipZhhvM8HuGwPfnMah+4X98+hxxzhcH90YR0P3QRn6xDnhIpfqviW11FwdCdBWzuinjVvwk2gN1puT3lt0UapX7IKHhonUXKo0Lz8XzvATgJnxUqr1XzVz99mt2k4o6gDBS0d1/iW0Z6ta0J/u4Ofs8KiMHky8GXEmfDbLiPXqQ0X+1sD/XcB2mkVkBxXg8KgvfCt5r+svVjs1R8ANDyxoJCkqJjDsHvQ1j1jn5wq4srJ/r/F4oU3U+1VNzByIY1BWxnUZVQEX+E//xBTD4fAVvrbsvkoe8Qop5lqMqSxIxw3EKjX3nta1/mxPFdmes1hvfBM0s=
+  file: requarks.zip
+  skip_cleanup: true
+  on:
+    repo: Requarks/requarks
+    tags: true

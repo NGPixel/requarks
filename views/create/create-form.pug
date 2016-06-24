@@ -8,21 +8,21 @@ block content
 					i.material-icons note_add
 					= t('create:title')
 					i.material-icons.create-form-chevron chevron_right
-					span= reqdata.category.name
+					span= reqdata.name
 				.box-base
 
-					+infobox(reqdata.infoboxes, 'top')
+					+infobox(reqdata.infoBoxes, 'top')
 
 					.box-chrome
 						section
 							label(for='fld_subcategory')= t('create:fields.subcategory.label')
 							+fielderror('create_subcategory')
 							+dropdown('create_subcategory', 'subcategory', '')(placeholder=t('create:fields.subcategory.placeholder'))
-								each subcat in reqdata.subcategories
+								each subcat in reqdata.subCategories
 									+dropdownitem(subcat.name, subcat.id, 'circle', subcat.color, subcat.description)
 							+fieldnote('required', t('create:fields.subcategory.info'))
 					
-					+infobox(reqdata.infoboxes, 'before-summary')
+					+infobox(reqdata.infoBoxes, 'before-summary')
 
 					.box-chrome
 						section
@@ -37,18 +37,18 @@ block content
 							#medescription.me-editor(data-placeholder=t('create:fields.description.placeholder'))
 							+fieldnote('required', t('create:fields.description.info'))
 
-					+infobox(reqdata.infoboxes, 'before-customfields')
+					+infobox(reqdata.infoBoxes, 'before-customfields')
 
-					+cfieldlayout(reqdata.customfields)
+					+cfieldlayout(reqdata.fields)
 
-					+infobox(reqdata.infoboxes, 'before-actions')
+					+infobox(reqdata.infoBoxes, 'before-actions')
 
 					.box-actions
 						div
 							button#create-submit(class="btn btn-green")
 								i.fa.fa-plus
 								= t('actions.create')
-					+infobox(reqdata.infoboxes, 'bottom')
+					+infobox(reqdata.infoBoxes, 'bottom')
 
 		.col-xs-4
 			.box
@@ -59,10 +59,10 @@ block content
 					.box-chrome
 						section
 							.icon-block
-								i(class='material-icons color-' + reqdata.category.color)= reqdata.category.icon
+								i(class='material-icons color-' + reqdata.color)= reqdata.icon
 								div
-									strong= reqdata.category.name
-									span= reqdata.category.description
+									strong= reqdata.name
+									span= reqdata.description
 						section
 							label= t('create:fields.type.label')
 							.icon-block

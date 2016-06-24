@@ -8,6 +8,7 @@ var appconfig = require('./config.json');
 
 // Load node modules
 
+var _ = require('lodash');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -35,14 +36,20 @@ var validators = autoload(path.join(__dirname, '/modules/validators'));
 // Load app modules
 
 app = express();
-db = require("./models")(appconfig);
-red = require('./modules/redis')(appconfig);
+global.red = require('./modules/redis')(appconfig);
+global.db = require("./modules/db")(appconfig);
 lang = require('i18next');
 UserData = require('./modules/auth');
 RqError = autoload(path.join(__dirname, '/modules/errors'));
 
 ROOTPATH = __dirname;
 var _isDebug = (app.get('env') === 'development');
+
+db.connectPromise.then(() => {
+
+  db.common.fetchLatestIncrements();
+
+});
 
 // ----------------------------------------
 // Security

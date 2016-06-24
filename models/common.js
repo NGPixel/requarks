@@ -1,11 +1,53 @@
 "use strict";
 
-var _ = require('lodash');
+var _ = require('lodash'),
+	Promise = require('bluebird');
 
 /**
  * Common database queries
  */
 module.exports = class Common {
+
+
+	/**
+	 * Convert ObjectIDs to String in document
+	 *
+	 * @param      {Document}  doc     The original document
+	 * @param      {Document}  ret     The transformed document
+	 * @param      {Object}    opt     Options
+	 * @return     {Document}  Transformed document
+	 */
+	static stringifyIds(doc, ret, opt) {
+		if(doc.id && typeof doc.id !== String) {
+			ret.id = _.toString(doc.id.valueOf());
+		}
+		return ret;
+	}
+
+	/**
+	 * Fetches a latest increments and stores them in Redis cache
+	 */
+	static fetchLatestIncrements(bypassSave = false) {
+
+		// Requests
+
+		return db.Request.findOne({}).sort({ _id: -1}).exec().then((rq) => {
+			return (bypassSave) ? Promise.resolve('OK') : red.set('db:request_next_id', (rq && _.isFinite(rq._id)) ? rq._id + 1 : 1);
+		});
+
+	}
+
+	/**
+	 * Gets the current identifier and increment it.
+	 *
+	 * @param      {string}  col     Collection name
+	 * @return     {Number}  Incremented identifier
+	 */
+	static getIdAndIncrement(col) {
+
+		return red.incr('db:' + col + '_next_id');
+
+	}
 
 	/**
 	 * Gets category and its subcategories (optional).
@@ -22,8 +64,8 @@ module.exports = class Common {
 		});
 
 		return db.Category.findOne({
-			where: { slug: options.slug }
-		}).then((cat) => {
+			_id: options.slug
+		}, 'slug name description color icon').then((cat) => {
 
 			if(cat) {
 				return { category: cat };
