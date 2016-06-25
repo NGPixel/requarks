@@ -27,7 +27,7 @@ module.exports = class Common {
 	/**
 	 * Fetches a latest increments and stores them in Redis cache
 	 */
-	static fetchLatestIncrements(bypassSave = false) {
+	static fetchLatestIncrements(bypassSave) {
 
 		// Requests
 
