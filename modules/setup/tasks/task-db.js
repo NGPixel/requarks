@@ -60,8 +60,8 @@ module.exports = (appconfig) => {
 
 		return Promise.all(defaultDataTasks)
 		.then(() => {
-			return Promise.resolve('Database: Connection established, structure created and default data inserted successfully.');
 			modb.disconnect();
+			return Promise.resolve('Database: Connection established, structure created and default data inserted successfully.');
 		})
 		.catch((err) => {
 	 		return Promise.reject(new Promise.OperationalError('Database: Unable to insert default data.'));

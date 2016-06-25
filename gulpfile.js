@@ -4,6 +4,7 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var nodemon = require('gulp-nodemon');
 var plumber = require('gulp-plumber');
+var zip = require('gulp-zip');
 
 var paths = {
 	compscripts: ['./client/js/components/**/*.js'],
@@ -55,3 +56,17 @@ gulp.task('watch', function() {
 
 gulp.task('default', ['watch', 'scripts', 'server']);
 gulp.task('setup', ['watch', 'scripts','server-setup']);
+
+gulp.task('deploy', function() {
+	return gulp.src([
+			'./**/*',
+			'!node_modules', '!node_modules/**',
+			'!coverage', '!coverage/**',
+			'!client', '!client/**',
+			'!dist', '!dist/**',
+			'!tests', '!tests/**',
+			'!gulpfile.js', '!inch.json', '!config.json'
+		])
+		.pipe(zip('requarks.zip'))
+		.pipe(gulp.dest('dist'));
+});

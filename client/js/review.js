@@ -19,7 +19,7 @@ $(() => {
 			priority: _.sample(priorities),
 			avatar: faker.image.avatar(),
 			parent: 0
-		}
+		};
 	});
 
 	// SORT
@@ -47,7 +47,7 @@ $(() => {
 	let curStatus = '';
 	let data = [];
 	_(rows).forEach((v, k) => {
-		if(curStatus !== v.status && v.parent == 0) {
+		if(curStatus !== v.status && v.parent === 0) {
 			curStatus = v.status;
 			data.push(listStatusTmpl({
 				statusName: v.status

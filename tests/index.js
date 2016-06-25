@@ -49,7 +49,7 @@ try {
 	   "host": "http://localhost",
 	   "setup": true,
 	   "sessionSecret": "1234567890abcdefghijklmnopqrstuvxyz"
-	}
+	};
 	
 	fs.mkdirSync(dataPath);
 
@@ -59,4 +59,4 @@ try {
 // Run Tests
 // ========================================
 
-require('./setup-db.js');
+require('./db.js');

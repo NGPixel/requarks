@@ -23,6 +23,9 @@ node_modules
 # Debug log from npm
 npm-debug.log
 
+# Deployment builds
+dist
+
 # SublimeText Project Files
 *.sublime-project
 *.sublime-workspace
