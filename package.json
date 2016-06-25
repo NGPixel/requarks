@@ -46,6 +46,7 @@
     "lodash": "^4.13.1",
     "moment": "^2.13.0",
     "moment-timezone": "^0.5.3",
+    "mongoose": "^4.5.2",
     "mongoose-double": "0.0.1",
     "morgan": "^1.7.0",
     "node-sass": "^3.8.0",
