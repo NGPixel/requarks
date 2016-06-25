@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/badge/license-AGPLv3-blue.svg)](https://github.com/NGPixel/requarks/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/Requarks/requarks.svg?branch=master)](https://travis-ci.org/Requarks/requarks)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/300c04a735e34b39a1be902693e69d1e)](https://www.codacy.com/app/Requarks/requarks)
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/300c04a735e34b39a1be902693e69d1e)](https://www.codacy.com/app/ngpixel/requarks)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/300c04a735e34b39a1be902693e69d1e)](https://www.codacy.com/app/Requarks/requarks)
 [![Dependency Status](https://gemnasium.com/badges/github.com/Requarks/requarks.svg)](https://gemnasium.com/github.com/Requarks/requarks)
 [![GitHub release](https://img.shields.io/github/release/Requarks/requarks.svg?maxAge=86400)](https://github.com/Requarks/requarks/releases)
 [![Documentation](http://inch-ci.org/github/requarks/requarks.svg?branch=master)](https://requarks.readme.io/)
@@ -14,16 +14,34 @@
 ##### Milestones
 - [x] Base Layout
 - [x] Setup
-- [ ] Dashboard
-- [ ] Search
+- [x] Dashboard
+	- [x] Rotating backgrounds
+	- [ ] Stats
+	- [ ] Todos
+	- [ ] Pinned
+	- [ ] Active Projects
+- [ ] Global Search
 - [x] Create
-- [ ] Review
+	- [x] Category selection screen
+	- [x] Request
+	- [ ] Attachments
+- [x] Review
+	- [x] List view
+	- [ ] Filters
+	- [ ] Search
 - [ ] Item
-- [ ] Projects
+- [x] Projects
 	- [ ] Project
-- [ ] Teams
+	- [ ] Sprints
+	- [ ] Create Project
+	- [ ] Edit Project
+	- [ ] Add Teams / Members
+- [x] Teams
 	- [ ] Team
-- [ ] Settings
+	- [x] Create Team
+	- [x] Edit Team
+	- [ ] Add Team Members
+- [x] Settings
 	- [x] Profile
 	- [ ] Avatar
 	- [x] Preferences

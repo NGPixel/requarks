@@ -5,7 +5,8 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
 	res.render('dashboard/dashboard', {
 		usr: res.locals.usr,
-  		navbar_active: 'dashboard'
+  		navbar_active: 'dashboard',
+  		page_script: 'dashboard'
 	});
 });
 

@@ -1,7 +1,7 @@
 // ===========================================
 // REQUARKS
 // 1.0.0
-// Licensed under GPLv3
+// Licensed under AGPLv3
 // ===========================================
 
 var appconfig = require('./config.json');

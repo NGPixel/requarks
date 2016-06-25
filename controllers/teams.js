@@ -197,7 +197,7 @@ router.post('/:slug/edit', function(req, res, next) {
 			let teamSlug = slug(req.body.team_edit_name, {lower: true});
 			req.checkBody('team_edit_name', lang.t('form.errors.required')).notEmpty();
 			req.checkBody('team_edit_name', lang.t('form.errors.length', {min: 3, max: 50})).isLength({min: 3, max: 50});
-			if(team._id !== teamSlug) {
+			if(team.slug !== teamSlug) {
 				req.checkBody('team_edit_name', lang.t('form.errors.unique')).isUniqueTeam();
 			}
 

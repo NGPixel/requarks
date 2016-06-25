@@ -10,10 +10,10 @@ body.mi-dashboard {
 
 .dashboard {
 	background-color: material-color('blue-grey','800');
-	background-image: url('/images/walls/3.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 	min-height: 80vh;
+	position: relative;
 
 	> h1 {
 		background-color: rgba(0,0,0,0.6);
@@ -23,6 +23,31 @@ body.mi-dashboard {
 		margin:0;
 		padding: 25px 0;
 		text-align: center;
+	}
+
+	.dashboard-caption {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		background-color: rgba(0,0,0,0.5);
+		padding: 5px 8px;
+		color: #FFF;
+		font-size: 11px;
+
+		> a {
+			color: material-color('blue-grey','100');
+			display: block;
+
+			strong {
+				color: material-color('blue-grey','50');
+			}
+
+			&:hover, &:active {
+				color: #FFF;
+			}
+
+		}
+
 	}
 
 }

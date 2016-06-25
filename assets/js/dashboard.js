@@ -1,0 +1,1 @@
+"use strict";$(function(){$.getJSON("/images/walls/info.json").done(function(a){var s=_.sample(a);$(".dashboard").css("background-image","url(/images/walls/"+s.file+")"),$(".dashboard-caption > a").attr("href",s.link),$(".dashboard-caption > a > strong").html(s.title),$(".dashboard-caption > a > span").html(s.author)})});

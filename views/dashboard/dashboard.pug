@@ -1,7 +1,12 @@
 extends ../layout
 
 block content
-	div(class="dashboard")
+	.dashboard
+		.dashboard-caption
+			a(href="", target="_blank", rel="nofollow")
+				strong ---
+				|  by 
+				span ---
 		if usrtime.hour() < 12
 			h1= t('dashboard:welcome.morning', {name: usr.firstName})
 		else if usrtime.hour() >= 18
