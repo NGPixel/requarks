@@ -2,8 +2,18 @@ body.mi-dashboard {
 
 	@include section-common('blue-grey');
 
-	main::before {
-		display:none;
+	main {
+		display: flex;
+		height: 100%;
+		align-items: stretch;
+		padding:0;
+		border-bottom: none;
+		background-color: #FFF;
+
+		&::before {
+			display: none;
+		}
+
 	}
 	
 }
@@ -12,7 +22,7 @@ body.mi-dashboard {
 	background-color: material-color('blue-grey','800');
 	background-repeat: no-repeat;
 	background-size: cover;
-	min-height: 80vh;
+	flex: 1;
 	position: relative;
 
 	> h1 {

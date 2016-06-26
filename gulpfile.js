@@ -8,6 +8,7 @@ var plumber = require('gulp-plumber');
 var zip = require('gulp-zip');
 var tar = require('gulp-tar');
 var gzip = require('gulp-gzip');
+var cleanCSS = require('gulp-clean-css');
 
 /**
  * Paths
@@ -15,8 +16,25 @@ var gzip = require('gulp-gzip');
  * @type       {Object}
  */
 var paths = {
+	libsscripts: [
+		'./client/js/libs/modernizr-custom.min.js',
+      './client/js/libs/lodash.min.js',
+      './client/js/libs/jquery.min.js',
+      './client/js/libs/bluebird.min.js',
+      './client/js/libs/moment.min.js',
+      './client/js/libs/typeahead.bundle.min.js',
+      './client/js/libs/medium-editor.min.js',
+      './client/js/libs/medium-autolist.min.js',
+      './client/js/libs/me-markdown.standalone.min.js',
+      './client/js/libs/vue.min.js',
+      './client/js/libs/dropzone.min.js',
+      './client/js/libs/clusterize.min.js',
+      './client/js/libs/pikaday.min.js',
+      './client/js/libs/faker.js' // REMOVE BEFORE RELEASE
+	],
 	compscripts: ['./client/js/components/**/*.js'],
 	pagescripts: ['./client/js/*.js'],
+	libscss: ['./client/css/libs/*.css'],
 	deploypackage: [
 		'./**/*',
 		'!node_modules', '!node_modules/**',
@@ -37,7 +55,7 @@ gulp.task('server', function() {
 		args: ["80", "app"],
 		ignore: ['assets/', 'client/'],
 		ext: 'js json',
-		env: { 'NODE_ENV': 'development' }
+		env: { 'NODE_ENV': 'production' }
 	});
 });
 
@@ -57,7 +75,19 @@ gulp.task('server-setup', function() {
 /**
  * TASK - Process all scripts processes
  */
-gulp.task("scripts", ['scripts-components', 'scripts-page']);
+gulp.task("scripts", ['scripts-libs', 'scripts-components', 'scripts-page']);
+
+/**
+ * TASK - Combine js libraries
+ */
+gulp.task("scripts-libs", function () {
+	return gulp.src(paths.libsscripts)
+	.pipe(plumber())
+	.pipe(concat('libs.js'))
+	.pipe(uglify({ mangle: false }))
+	.pipe(plumber.stop())
+	.pipe(gulp.dest("./assets/js"));
+});
 
 /**
  * TASK - Combine, make compatible and compress js components
@@ -85,6 +115,23 @@ gulp.task("scripts-page", function () {
 });
 
 /**
+ * TASK - Process all css processes
+ */
+gulp.task("css", ['css-libs']);
+
+/**
+ * TASK - Combine css libraries
+ */
+gulp.task("css-libs", function () {
+	return gulp.src(paths.libscss)
+	.pipe(plumber())
+	.pipe(concat('libs.css'))
+	.pipe(cleanCSS({ keepSpecialComments: 0 }))
+	.pipe(plumber.stop())
+	.pipe(gulp.dest("./assets/css"));
+});
+
+/**
  * TASK - Start watchers
  */
 gulp.task('watch', function() {
@@ -94,12 +141,12 @@ gulp.task('watch', function() {
 /**
  * TASK - Starts development server with watchers
  */
-gulp.task('default', ['watch', 'scripts', 'server']);
+gulp.task('default', ['watch', 'scripts', 'css', 'server']);
 
 /**
  * TASK - Starts setup development server with watchers
  */
-gulp.task('setup', ['watch', 'scripts','server-setup']);
+gulp.task('setup', ['watch', 'scripts', 'css', 'server-setup']);
 
 /**
  * TASK - Creates deployment packages

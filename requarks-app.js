@@ -17,7 +17,6 @@ var redisStore = require('connect-redis')(session);
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sass = require('node-sass-middleware');
-var expressBundles = require('express-bundles');
 var flash = require('connect-flash');
 var compression = require('compression');
 var passport = require('passport');
@@ -43,7 +42,7 @@ UserData = require('./modules/auth');
 RqError = autoload(path.join(__dirname, '/modules/errors'));
 
 ROOTPATH = __dirname;
-var _isDebug = (app.get('env') === 'development');
+var _isDebug = true; //(app.get('env') === 'development');
 
 db.connectPromise.then(() => {
 
@@ -123,38 +122,6 @@ app.use(sass({
   dest: path.join(__dirname, 'assets'),
   outputStyle: 'compressed',
   debug: _isDebug
-}));
-app.use(expressBundles.middleware({
-  env: app.get('env'),
-  src: path.join(__dirname, 'assets'),
-  bundles: {
-    'css/bundle.css': [
-      'css/libs/normalize.css',
-      'css/libs/flexboxgrid.css',
-      'css/libs/fontawesome.css',
-      'css/libs/medium-editor.min.css',
-      'css/libs/medium-beagle.min.css',
-      'css/style.css'
-    ],
-    'js/bundle.js': [
-      'js/libs/modernizr-custom.min.js',
-      'js/libs/lodash.min.js',
-      'js/libs/jquery.min.js',
-      _isDebug ? 'js/libs/bluebird.js' : 'js/libs/bluebird.min.js',
-      'js/libs/moment.min.js',
-      'js/libs/typeahead.bundle.min.js',
-      'js/libs/medium-editor.min.js',
-      'js/libs/medium-autolist.min.js',
-      _isDebug ? 'js/libs/me-markdown.standalone.js' : 'js/libs/me-markdown.standalone.min.js',
-      _isDebug ? 'js/libs/vue.js' : 'js/libs/vue.min.js',
-      _isDebug ? 'js/libs/dropzone.js' : 'js/libs/dropzone.min.js',
-      _isDebug ? 'js/libs/clusterize.js' : 'js/libs/clusterize.min.js',
-      'js/libs/pikaday.min.js',
-      'js/libs/faker.js', // REMOVE BEFORE RELEASE
-      'js/components.js',
-      'js/app.js'
-    ]
-  }
 }));
 app.use(express.static(path.join(__dirname, 'assets')));
 

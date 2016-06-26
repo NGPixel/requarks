@@ -13,12 +13,13 @@ html
 
 		// CSS
 		link(type='text/css', rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700|Inconsolata|Material+Icons')
-		for name in bundles.emit('css/bundle.css')
-			link(type='text/css', rel='stylesheet', href='/' + name)
+		link(type='text/css', rel='stylesheet', href='/css/libs.css')
+		link(type='text/css', rel='stylesheet', href='/css/app.css')
 
 		// JS
-		for name in bundles.emit('js/bundle.js')
-			script(type='text/javascript', src='/' + name)
+		script(type='text/javascript', src='/js/libs.js')
+		script(type='text/javascript', src='/js/components.js')
+		script(type='text/javascript', src='/js/app.js')
 		if(page_script)
 			script(type='text/javascript', src='/js/' + page_script + '.js')
 
