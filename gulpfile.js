@@ -8,6 +8,7 @@ var plumber = require('gulp-plumber');
 var zip = require('gulp-zip');
 var tar = require('gulp-tar');
 var gzip = require('gulp-gzip');
+var sass = require('gulp-sass');
 var cleanCSS = require('gulp-clean-css');
 
 /**
@@ -35,6 +36,8 @@ var paths = {
 	compscripts: ['./client/js/components/**/*.js'],
 	pagescripts: ['./client/js/*.js'],
 	libscss: ['./client/css/libs/*.css'],
+	appscss: ['./client/css/app.scss'],
+	appscsswatch: ['./client/css/**/*.scss'],
 	deploypackage: [
 		'./**/*',
 		'!node_modules', '!node_modules/**',
@@ -49,24 +52,24 @@ var paths = {
 /**
  * TASK - Starts server in development mode
  */
-gulp.task('server', function() {
+gulp.task('server', ['scripts', 'css'], function() {
 	nodemon({
 		script: './bin/www',
 		args: ["80", "app"],
-		ignore: ['assets/', 'client/'],
+		ignore: ['assets/', 'client/', 'tests/'],
 		ext: 'js json',
-		env: { 'NODE_ENV': 'production' }
+		env: { 'NODE_ENV': 'development' }
 	});
 });
 
 /**
  * TASK - Start setup server in development mode
  */
-gulp.task('server-setup', function() {
+gulp.task('server-setup', ['scripts', 'css'], function() {
 	nodemon({
 		script: './bin/www',
 		args: ["80", "setup"],
-		ignore: ['assets/', 'client/'],
+		ignore: ['assets/', 'client/', 'tests/'],
 		ext: 'js',
 		env: { 'NODE_ENV': 'development' }
 	});
@@ -117,7 +120,7 @@ gulp.task("scripts-page", function () {
 /**
  * TASK - Process all css processes
  */
-gulp.task("css", ['css-libs']);
+gulp.task("css", ['css-libs', 'css-app']);
 
 /**
  * TASK - Combine css libraries
@@ -132,21 +135,35 @@ gulp.task("css-libs", function () {
 });
 
 /**
- * TASK - Start watchers
+ * TASK - Combine app css
+ */
+gulp.task("css-app", function () {
+	return gulp.src(paths.appscss)
+	.pipe(plumber())
+	.pipe(sass({ outputStyle: 'compressed' }))
+	.pipe(concat('app.css'))
+	.pipe(cleanCSS({ keepSpecialComments: 0 }))
+	.pipe(plumber.stop())
+	.pipe(gulp.dest("./assets/css"));
+});
+
+/**
+ * TASK - Start dev watchers
  */
 gulp.task('watch', function() {
-	gulp.watch([paths.compscripts, paths.pagescripts], ['scripts']);
+	gulp.watch([paths.compscripts, paths.pagescripts], ['scripts-components', 'scripts-page']);
+	gulp.watch([paths.appscsswatch], ['css-app']);
 });
 
 /**
  * TASK - Starts development server with watchers
  */
-gulp.task('default', ['watch', 'scripts', 'css', 'server']);
+gulp.task('default', ['watch', 'server']);
 
 /**
  * TASK - Starts setup development server with watchers
  */
-gulp.task('setup', ['watch', 'scripts', 'css', 'server-setup']);
+gulp.task('setup', ['watch', 'server-setup']);
 
 /**
  * TASK - Creates deployment packages

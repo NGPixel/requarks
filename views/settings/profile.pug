@@ -36,12 +36,15 @@ block content
 						.box-actions
 							div
 								button#edit-submit(type="submit", class="btn btn-green")
-									i.fa.fa-check
-									= t('actions.save')
+									span
+										i.fa.fa-check
+										= t('actions.save')
 							div
 								button#edit-delete(type="button", class="btn btn-red")
-									i.fa.fa-sign-out
-									= t('actions.logout')
+									span
+										i.fa.fa-sign-out
+										= t('actions.logout')
 								button#edit-archive(type="button", class="btn btn-purple")
-									i.fa.fa-repeat
-									= t('actions.resync')
+									span
+										i.fa.fa-repeat
+										= t('actions.resync')

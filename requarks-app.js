@@ -111,18 +111,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator({
   customValidators: validators
 }));
-//app.locals.pretty = true;
 
 // ----------------------------------------
 // Assets
 // ----------------------------------------
 
-app.use(sass({
-  src: path.join(__dirname, 'client'),
-  dest: path.join(__dirname, 'assets'),
-  outputStyle: 'compressed',
-  debug: _isDebug
-}));
 app.use(express.static(path.join(__dirname, 'assets')));
 
 // ----------------------------------------

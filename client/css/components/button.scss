@@ -11,6 +11,8 @@
 	color: #FFF;
 	cursor: pointer;
 	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 12px;
 	font-weight: 600;
@@ -59,7 +61,15 @@
 		width: 100%;
 	}
 
-	> i {
+	// span container required for firefox not handling flexbox on buttons!
+	> span {
+		display: inline-flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		align-items: center;
+	}
+
+	.fa {
 		display: inline-block;
 		margin-right: 5px;
 		font-size: 12px;
