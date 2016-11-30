@@ -10,14 +10,15 @@ html
 			link(rel='icon', type='image/png', sizes=favsize + 'x' + favsize href='/images/favicon-' + favsize + 'x' + favsize + '.png')
 
 		// CSS
-		link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700|Inconsolata|Material+Icons', rel='stylesheet', type='text/css')
-		for name in bundles.emit('css/bundle.css')
-			link(type='text/css', rel='stylesheet', href='/' + name)
+		link(type='text/css', rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700|Inconsolata|Material+Icons')
+		link(type='text/css', rel='stylesheet', href='/css/libs.css')
+		link(type='text/css', rel='stylesheet', href='/css/app.css')
 
 		// JS
-		for name in bundles.emit('js/bundle.js')
-			script(type='text/javascript', src='/' + name)
-		script(src='/js/setup.js')
+		script(type='text/javascript', src='/js/libs.js')
+		script(type='text/javascript', src='/js/components.js')
+		script(type='text/javascript', src='/js/app.js')
+		script(type='text/javascript', src='/js/setup.js')
 
 	body(class='mi-setup')
 		#root

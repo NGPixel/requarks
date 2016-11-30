@@ -19,7 +19,6 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var sass = require('node-sass-middleware');
-var expressBundles = require('express-bundles');
 var compression = require('compression');
 var _ = require('lodash');
 
@@ -51,24 +50,6 @@ app.use(sass({
   dest: path.join(__dirname, 'assets'),
   outputStyle: 'compressed',
   debug: _isDebug
-}));
-app.use(expressBundles.middleware({
-  env: app.get('env'),
-  src: path.join(__dirname, 'assets'),
-  bundles: {
-    'css/bundle.css': [
-      'css/libs/normalize.css',
-      'css/libs/flexboxgrid.css',
-      'css/style.css'
-    ],
-    'js/bundle.js': [
-      'js/libs/modernizr-custom.min.js',
-      'js/libs/jquery.min.js',
-      'js/libs/typeahead.bundle.min.js',
-      _isDebug ? 'js/libs/vue.js' : 'js/libs/vue.min.js',
-      'js/app.js'
-    ]
-  }
 }));
 app.use(express.static(path.join(__dirname, 'assets')));
 
